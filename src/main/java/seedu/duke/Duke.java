@@ -1,21 +1,31 @@
 package seedu.duke;
 
-import java.util.Scanner;
+import java.io.FileNotFoundException;
 
 public class Duke {
     /**
      * Main entry-point for the java.duke.Duke application.
      */
-    public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        System.out.println("What is your name?");
+    public Duke() throws FileNotFoundException {
+        //todo set root
 
-        Scanner in = new Scanner(System.in);
-        System.out.println("Hello " + in.nextLine());
+        //todo load moduleManager with modulesMap
+    }
+
+    /**
+     * ScreenShot entry-point for the java.duke.Duke application.
+     *
+     * @param args arguments passed to the programme.
+     * @throws FileNotFoundException exception is thrown if the file is not found.
+     */
+    public static void main(String[] args) throws FileNotFoundException {
+        new Duke().run();
+    }
+
+    /**
+     * run method for Duke class.
+     */
+    public void run() {
+
     }
 }
