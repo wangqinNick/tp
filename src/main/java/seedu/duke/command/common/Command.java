@@ -1,4 +1,4 @@
-package seedu.duke.command;
+package seedu.duke.command.common;
 
 public abstract class Command {
     /**
