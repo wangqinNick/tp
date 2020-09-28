@@ -1,6 +1,6 @@
 package seedu.duke.command.add;
 
-import seedu.duke.command.common.CommandResult;
+import seedu.duke.command.CommandResult;
 
 public class AddModuleCommand extends AddCommand {
 
