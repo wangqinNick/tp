@@ -1,6 +1,10 @@
 package seedu.duke.directory;
 
 public class Root extends Directory {
+    public Root() {
+        super();
+    }
+
     @Override
     public Directory getParent() {
         return null;
@@ -8,6 +12,6 @@ public class Root extends Directory {
 
     @Override
     public DirectoryLevel getLevel() {
-        return null;
+        return DirectoryLevel.ROOT;
     }
 }
