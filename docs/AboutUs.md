@@ -2,7 +2,7 @@
 
 Display | Name | Github Profile | Portfolio 
 --------|:----:|:--------------:|:---------:
-![](https://via.placeholder.com/100.png?text=Photo) | John Doe | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
+![](https://via.placeholder.com/100.png?text=Photo) | Tan Jian Hui Tobias | [Github](https://github.com/tobiasceg) | [Portfolio](docs/team/johndoe.md)
 ![]() | Sim Jun You | [Github](https://github.com/f0fz) | [Portfolio](docs/team/johndoe.md)
 ![](https://via.placeholder.com/100.png?text=Photo) | Ron John | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
 ![](https://via.placeholder.com/100.png?text=Photo) | Sean Lim | [Github](https://github.com/Aseanseen) | [Portfolio](docs/team/seanlim.md)
