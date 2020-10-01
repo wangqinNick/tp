@@ -92,7 +92,7 @@ The workflow will go like this:
 
 ### Rolling back
 
-* First off, you can bookmark (this beautiful website)[https://ohshitgit.com/] because you will need it at some point.
+* First off, you can bookmark [this website](https://ohshitgit.com/) because you will need it at some point.
 * Undoing a local commit: Do `git revert HEAD`. `git revert` works by bringing your previous commit in as a new commit to undo what you did so far.
    * `HEAD` refers to your current commit (which is the one you want to undo).
    * If you want to revert back to __BEFORE__ a specific commit, use `git log` and find the commit hash (a long string of characters but you only need the first 6 or so) and do `git revert <hash>`.
