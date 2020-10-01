@@ -6,4 +6,4 @@ Display | Name | Github Profile | Portfolio
 ![](https://via.placeholder.com/100.png?text=Photo) | Don Joe | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
 ![](https://via.placeholder.com/100.png?text=Photo) | Ron John | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
 ![](https://via.placeholder.com/100.png?text=Photo) | John Roe | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
-![](https://via.placeholder.com/100.png?text=Photo) | Don Roe | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
+![](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.thoughtco.com%2Ffun-facts-about-ducks-4043231&psig=AOvVaw3goHQ59ZTgbn9-TVUa8Fx8&ust=1601603208625000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCMCr_oSjkuwCFQAAAAAdAAAAABAD?text=Photo) | Don Roe | [Github](https://github.com/wangqinNick) | [Portfolio](docs/team/johndoe.md)
