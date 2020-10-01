@@ -62,3 +62,40 @@ Steps for publishing documentation to the public:
 1. Scroll down to the `GitHub Pages` section.
 1. Set the `source` as `master branch /docs folder`.
 1. Optionally, use the `choose a theme` button to choose a theme for your documentation.
+
+## Workflow
+
+2 branches will be used alongside the master branch for individual work and testing. The master branch should have functional code only. Each branch will only have one of us working in it.
+
+### Setting up
+
+* Clone this remote repository by using `git clone https://github.com/f0fz/EE2026-X4-Project.git`.
+   * Note that `origin` is now the name of this remote repository.
+* `cd` into the repo, then do `git checkout <name>`. A local branch named <name> should be automatically created that will track the remote <name> branch.
+* That's all. Everything should be up to date. You will be working on the local <name> branch, so take note of that.
+   * You can do `git remote show` to check your remote branches.
+
+### Pulling before each work session
+
+* Do a `git pull origin <name>:<name>` before you start working each time. Since each branch only has one person working, this shouldn't really be an issue if you're only working on one machine.
+   * The command means to pull from the remote <name> branch to the local <name> branch.
+
+### Pushing after each work session
+
+* First, `git add .` if you want to stage all files or `git add <path/to/file>` if you want to add specific files.
+* `git commit -m 'commit message here'` followed by `git push origin <name>:<name>`.
+   * DO NOT PUSH TO REMOTE'S MASTER BRANCH! i.e. `git push origin <name>` without the colon portion.
+   * The colon portion denotes which remote branch to push to. If left blank, it will default to master.
+
+### Rolling back
+
+* Undoing a local commit: Do `git revert HEAD`. `git revert` works by bringing your previous commit in as a new commit to undo what you did so far.
+   * `HEAD` refers to your current commit (which is the one you wanna undo).
+   * If you want to revert back to BEFORE a specific commit, use `git log` and find the commit hash (a long string of characters) and do `git revert <hash>`
+* Undoing a push to remote: Do `git push -f origin <hash>:<branch>`.
+   * This forces a push of the `<hash>` commit, which is the one you want to revert to, to the specified remote
+ branch in `<branch>`. Use `git log` to find the hash.
+   * You can undo the local commit first, then `git push -f origin master:<branch>` instead of finding a specific commit.
+* Hard reset:
+   * First, try doing `git fetch` then `git reset --hard origin/<branch>`.
+   * If that doesn't work, delete everything in your repo except the .git folder, download from the Github repo page (green button on top right of file window), put everything in the same folder, then `git add *`, `git commit`.
