@@ -16,4 +16,11 @@ class ParserTest {
         assertTrue(new Parser().isNothingToEdit("", ""));
         assertTrue(new Parser().isNothingToEdit("", "", ""));
     }
+
+    @Test
+    void isNothingToEdit_nonemptyString_returnsFalse(){
+        assertFalse(new Parser().isNothingToEdit(" "));
+        assertFalse(new Parser().isNothingToEdit(" ", ""));
+        assertFalse(new Parser().isNothingToEdit("", "b", ""));
+    }
 }
