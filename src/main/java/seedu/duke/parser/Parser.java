@@ -32,6 +32,31 @@ public class Parser {
 
     //(?<identifier>(?:\s+\w\S*)*)+ -m+ (?<moduleCode>(?:\\s+" + "(?:\\s+\\w\\S*)+)?)(?<invalid>.*)
 
+    /*
+    public static String parseCommand(String userInput){
+        switch (userInput){
+        case "add":
+            return addCommand(userInput);
+
+        case "delete":
+            return deleteCommand(userInput);
+
+        case "list":
+            return listCommand(userInput);
+
+        case "edit":
+            return editCommand(userInput);
+
+        case "done":
+            return doneCommand(userInput);
+
+        case "bye":
+            return byeCommand(userInput);
+
+        default:
+            return HelpCommand();
+     */
+
     /**
      * Parses the input string read by the <b>UI</b> and converts the string into a specific <b>Command</b>, which is
      * to be executed by the <b>Nuke</b> program.
@@ -132,5 +157,6 @@ public class Parser {
             }
         }
         return true;
+
     }
 }

@@ -8,5 +8,6 @@ public class Message {
     public static final String MESSAGE_CHECK_COMMAND_FORMAT =
             "Please check to make sure to follow the command format as such:\n";
     public static final String MESSAGE_NO_EDIT_MODULE = "Please enter a new module code to edit.\n";
-
+    public static final String MESSAGE_GOODBYE = "Good bye!";
+    public static final String MESSAGE_WELCOME = "Welcome to RAVI";
 }
