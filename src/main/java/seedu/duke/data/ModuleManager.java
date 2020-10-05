@@ -4,12 +4,10 @@ import seedu.duke.exception.DataNotFoundException;
 import seedu.duke.exception.DuplicateDataException;
 import seedu.duke.exception.ModuleNotProvidedException;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ModuleManager {
-    private static ArrayList<Module> moduleList;
-    private static HashMap<String, String> modulesMap;
+    private static HashMap<String, Module> modulesMap = new HashMap<>(); // Main module list. Maps module code to module object.
 
     /**
      *  Finds a module with the specified module code in the Module List.
@@ -22,7 +20,7 @@ public class ModuleManager {
      *  If the module is not found in the Module List
      */
     public static Module getModule(String moduleCode) throws ModuleNotFoundException {
-        for (Module module : moduleList) {
+        for (Module module : modulesMap.values()) {
             if (module.getCode().equalsIgnoreCase(moduleCode)) {
                 return module;
             }
@@ -50,7 +48,7 @@ public class ModuleManager {
         if (!toEdit.isSameModule(newModuleCode) && contains(newModuleCode)) {
             throw new DuplicateModuleException();
         }
-        String newTitle = modulesMap.get(newModuleCode);
+        String newTitle = modulesMap.get(newModuleCode).getTitle();
         toEdit.setCode(newModuleCode);
         toEdit.setTitle(newTitle);
     }
@@ -63,11 +61,36 @@ public class ModuleManager {
      *  <code>TRUE</code> if there exists a duplicate, and <code>FALSE</code> otherwise
      */
     public static boolean contains(String moduleCode) {
-        for (Module module : moduleList) {
-            if (module.getCode().equalsIgnoreCase(moduleCode)) {
+        for (String eachCode : modulesMap.keySet()) {
+            if (eachCode.equalsIgnoreCase(moduleCode)) {
                 return true;
             }
         }
+        return false;
+    }
+
+    /**
+     * Adds a module to the Module List.
+     * @param newModule
+     *  The module object to add to the module list
+     */
+    public static void add(Module newModule) throws DuplicateModuleException {
+        if (contains(newModule.getCode())) {
+            throw new DuplicateModuleException();
+        }
+        modulesMap.put(newModule.getCode(), newModule);
+    }
+
+    /**
+     * Removes a module from the Module List using the module code
+     * @param moduleCode
+     *  The module code of the module to remove from the module list
+     */
+    public static boolean delete(String moduleCode) throws ModuleNotFoundException {
+        if (!contains(moduleCode)) {
+            throw new ModuleNotFoundException();
+        }
+        modulesMap.remove(moduleCode);
         return false;
     }
 
