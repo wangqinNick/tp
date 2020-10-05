@@ -121,7 +121,7 @@ public class Parser {
      * @return
      *  <code>TRUE</code> if there is nothing to edit, or <code>FALSE</code> otherwise
      */
-    private boolean isNothingToEdit(String... attributes) {
+    protected boolean isNothingToEdit(String... attributes) {
         for (String attribute : attributes) {
             if (!attribute.isEmpty()) {
                 return false;
