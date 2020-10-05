@@ -20,13 +20,17 @@ public class Parser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT =
             Pattern.compile("(?<commandWord>\\S+)(?<parameters>.*)");
+
     private static final String COMMAND_WORD_GROUP = "commandWord";
     private static final String PARAMETERS_GROUP = "parameters";
     private static final String IDENTIFIER_GROUP = "identifier";
     private static final String MODULE_GROUP = "moduleCode";
+
     private static final String NONE = "";
     private static final String INVALID_GROUP = "invalid";
     public static final String MODULE_PREFIX = "-m";
+
+    //(?<identifier>(?:\s+\w\S*)*)+ -m+ (?<moduleCode>(?:\\s+" + "(?:\\s+\\w\\S*)+)?)(?<invalid>.*)
 
     /**
      * Parses the input string read by the <b>UI</b> and converts the string into a specific <b>Command</b>, which is
@@ -72,7 +76,7 @@ public class Parser {
      * @return
      *  The command to edit a module
      */
-    private Command prepareEditModuleCommand(String parameters)
+    protected Command prepareEditModuleCommand(String parameters)
             throws InvalidParameterException {
         Matcher matcher = EditModuleCommand.REGEX_FORMAT.matcher(parameters);
         validateParameters(parameters, matcher, MODULE_PREFIX);
