@@ -1,5 +1,7 @@
 package seedu.duke;
 
+import seedu.duke.command.CommandResult;
+
 import java.io.FileNotFoundException;
 
 public class Duke {
@@ -27,5 +29,9 @@ public class Duke {
      */
     public void run() {
 
+    }
+
+    private CommandResult getResponse(String userInput){
+        return Executor.executeCommand(userInput);
     }
 }

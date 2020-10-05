@@ -1,7 +1,11 @@
 package seedu.duke.data;
 
-public class Module {
+import seedu.duke.directory.Directory;
+import seedu.duke.directory.DirectoryLevel;
+
+public class Module extends Directory {
     private String code;
+    private String title;
 
     public Module(String code) {
         this.code = code;
@@ -13,6 +17,28 @@ public class Module {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public boolean isSameModule(String moduleCode) {
+        return this.code.equalsIgnoreCase(moduleCode);
+    }
+
+    @Override
+    public Directory getParent() {
+        return null;
+    }
+
+    @Override
+    public DirectoryLevel getLevel() {
+        return null;
     }
 }
 
