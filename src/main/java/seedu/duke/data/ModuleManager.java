@@ -29,28 +29,28 @@ public class ModuleManager {
     }
 
     /**
-     * Edits a module in the Module List.
+     * Edits a module in the Module List by replacing the old module object with a new one.
      *
-     * @param toEdit
-     *  The module to be edited
-     * @param newModuleCode
-     *  The new module code of the module
+     * @param newModule
+     *  The new module that replaces the old one.
+     * @param oldModuleCode
+     *  The module code of the module to be edited.
      * @throws ModuleNotProvidedException
      *  If there is no module with the new module code offered by NUS
      * @throws DuplicateModuleException
      *  If there are duplicate modules with the same module code as the new module code in the Module List
      */
-    public static void edit(Module toEdit, String newModuleCode)
+    public static void edit(Module newModule, String oldModuleCode)
             throws ModuleNotProvidedException, DuplicateModuleException {
-        if (!modulesMap.containsKey(newModuleCode)) {
+        Module oldModule = modulesMap.get(oldModuleCode);
+        if (!modulesMap.containsKey(oldModuleCode)) {
             throw new ModuleNotProvidedException();
         }
-        if (!toEdit.isSameModule(newModuleCode) && contains(newModuleCode)) {
+        if (oldModule.isSameModule(newModule)) {
             throw new DuplicateModuleException();
         }
-        String newTitle = modulesMap.get(newModuleCode).getTitle();
-        toEdit.setCode(newModuleCode);
-        toEdit.setTitle(newTitle);
+        modulesMap.remove(oldModuleCode);
+        modulesMap.put(newModule.getCode(), newModule);
     }
 
     /**
