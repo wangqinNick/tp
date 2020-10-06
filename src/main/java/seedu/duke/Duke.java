@@ -1,20 +1,19 @@
 package seedu.duke;
 
-import seedu.duke.command.Command;
 import seedu.duke.command.CommandResult;
-import seedu.duke.parser.Parser;
-import seedu.duke.ui.TextUi;
+import seedu.duke.data.storage.IOManager;
 
 import java.io.FileNotFoundException;
+import java.util.HashMap;
 
 public class Duke {
+    private HashMap<String, String> modulesMap;
     /**
      * Main entry-point for the java.duke.Duke application.
      */
     public Duke() throws FileNotFoundException {
         //todo set root
-
-        //todo load moduleManager with modulesMap
+        modulesMap = IOManager.load("moduleList.json");
     }
 
     /**
