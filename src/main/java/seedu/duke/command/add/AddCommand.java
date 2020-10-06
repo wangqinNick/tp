@@ -20,6 +20,8 @@ public class AddCommand extends Command {
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-yyyy HHmm");
     private String desc;
     private LocalDateTime dateTimeOfDeadline;
+    public static final String COMMAND_WORD = "add";
+    public static final String FORMAT = COMMAND_WORD + " <opt> <args>";
 
     /**
      * Constructs AddCommand and tests the format of the deadline
