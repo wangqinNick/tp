@@ -27,8 +27,10 @@ public class Module extends Directory {
         this.title = title;
     }
 
-    public boolean isSameModule(String moduleCode) {
-        return this.code.equalsIgnoreCase(moduleCode);
+    public boolean isSameModule(Module checkModule) {
+        String moduleCode = checkModule.getCode();
+        String moduleTitle = checkModule.getTitle();
+        return this.code.equalsIgnoreCase(moduleCode) && this.title.equalsIgnoreCase(moduleTitle);
     }
 
     @Override
