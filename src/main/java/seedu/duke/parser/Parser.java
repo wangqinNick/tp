@@ -2,6 +2,7 @@ package seedu.duke.parser;
 
 import seedu.duke.command.Command;
 import seedu.duke.command.IncorrectCommand;
+import seedu.duke.command.add.AddCommand;
 import seedu.duke.command.edit.EditModuleCommand;
 import seedu.duke.data.Module;
 
@@ -10,12 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static seedu.duke.util.ExceptionMessage.MESSAGE_INVALID_PARAMETERS;
-import static seedu.duke.util.Message.MESSAGE_CHECK_COMMAND_FORMAT;
-import static seedu.duke.util.Message.MESSAGE_EMPTY_INPUT;
-import static seedu.duke.util.Message.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.duke.util.Message.MESSAGE_NO_EDIT_MODULE;
-import static seedu.duke.util.Message.MESSAGE_NO_ADD_MODULE;
-import static seedu.duke.util.Message.MESSAGE_NO_ADD_TASK;
+import static seedu.duke.util.Message.*;
 
 public class Parser {
     /**
@@ -41,7 +37,7 @@ public class Parser {
     public static final String BY_PREFIX = "-by";
 
     private static final Pattern TASK_DEADLINE_FORMAT =
-            Pattern.compile("(?<taskName>\\S+)" + "((?<by>.*-\\S+)?)"  + "(?<dueDate>.*)");
+            Pattern.compile("(?<taskName>\\S+)((?<by>.*" + BY_PREFIX + ")?)((?<dueDate>.*)?)");
 
     public static final String COMMAND_WORD_EDIT = "edit";
     public static final String COMMAND_WORD_ADD = "add";
@@ -73,7 +69,7 @@ public class Parser {
             return new IncorrectCommand(MESSAGE_INVALID_COMMAND_FORMAT);
         }
         String commandWord = matcher.group(COMMAND_WORD_GROUP).toLowerCase().trim();
-        String commandFlag = matcher.group(Command).toLowerCase();
+        String commandFlag = matcher.group(COMMAND_FLAG_GROUP).toLowerCase();
         String parameters = matcher.group(PARAMETERS_GROUP);
 
         try {
@@ -96,16 +92,16 @@ public class Parser {
                 }
             case COMMAND_WORD_DELETE:
                 if (commandFlag.equals(MODULE_PREFIX)) {
-                    return prepareDeleteCommand(parameters, MODULE);
+                    return prepareDeleteCommand(parameters, MODULE); //parameters is the index
                 } else if (commandFlag.equals(TASK_PREFIX)){
                     return prepareDeleteCommand(parameters, TASK);
                 } else {
                     throw new InvalidParameterException();
                 }
             case COMMAND_WORD_DONE:
-                return prepareDoneCommand(parameters);
+                return prepareDoneCommand(parameters); //parameters is the index
             case COMMAND_WORD_LIST:
-                return prepareListCommand(matcher.group(2));
+                return prepareListCommand(commandFlag); //command flag is the -t or -m
             default:
                 return null;
             }
@@ -145,19 +141,34 @@ public class Parser {
         return new EditModuleCommand(oldModuleCode, newModuleCode);
     }
 
+    protected Command prepareEditTaskModuleCommand(String parameters) throws InvalidParameterException{
+        Matcher matcher = TASK_DEADLINE_FORMAT.matcher(parameters);
 
-    protected Command prepareAddCommand(String parameters, Task.typeOfTask typeOfTask) throws InvalidParameterException { //enum of type , string name ,deadline
+        String taskIndex = matcher.group(TASK_NAME_GROUP).trim();
+        String newTaskDescription = matcher.group(DUE_DATE).trim();
+
+        if (isNothingToEdit(newTaskDescription)) {
+            return new IncorrectCommand(MESSAGE_NO_EDIT_TASK);
+        }
+
+        return new EditTaskCommand(taskIndex,newTaskDescription);
+    }
+
+
+    protected Command prepareAddCommand(String parameters,typeOfEntries typeOfTask) throws InvalidParameterException { //enum of type , string name ,deadline
         Matcher matcher = TASK_DEADLINE_FORMAT.matcher(parameters);
 
         String AddedTask = matcher.group(TASK_NAME_GROUP).trim();
         String TaskDeadline = null;
 
-        if (matcher.group(DATE_IDENTIFIER_GROUP).trim().equals(BY_PREFIX)) { // and its of the correct format
+        if (!matcher.group(DATE_IDENTIFIER_GROUP).isBlank()) {
             TaskDeadline = matcher.group(DUE_DATE).trim();
-        } else {
-            throw new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
-                    MESSAGE_INVALID_COMMAND_FORMAT, TaskDeadline, MESSAGE_CHECK_COMMAND_FORMAT, AddCommand.FORMAT));
+            if ( TaskDeadline.isBlank()) {
+                throw new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
+                      MESSAGE_INVALID_COMMAND_FORMAT, TaskDeadline, MESSAGE_CHECK_COMMAND_FORMAT, AddCommand.FORMAT));
+            }
         }
+
 
         if (isNothingToEdit(AddedTask)){
             return (typeOfTask == MODULE) ? new IncorrectCommand(MESSAGE_NO_ADD_MODULE) : new IncorrectCommand(MESSAGE_NO_ADD_TASK);
@@ -165,6 +176,7 @@ public class Parser {
 
         return new AddCommand(typeOfTask ,AddedTask, TaskDeadline);
     }
+
 
 
     /**
