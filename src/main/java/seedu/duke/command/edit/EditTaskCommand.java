@@ -12,20 +12,20 @@ import static seedu.duke.util.Message.MESSAGE_EDIT_TASK_SUCCESS;
 
 public class EditTaskCommand extends EditCommand {
 
-    private String oldTaskDescription;
+    private int taskID;
     private String newTaskDescription;
 
     /**
      * Constructs the command to edit a task.
      *
-     * @param oldTaskDescription
-     *  The description of the task to be edited
+     * @param taskID
+     *  The ID of the task to be edited
      * @param newTaskDescription
      *  The new description of the task if any
      */
-    public EditTaskCommand(String oldTaskDescription,
+    public EditTaskCommand(int taskID,
                            String newTaskDescription) {
-        this.oldTaskDescription = oldTaskDescription;
+        this.taskID = taskID;
         this.newTaskDescription = newTaskDescription;
     }
 
@@ -37,7 +37,7 @@ public class EditTaskCommand extends EditCommand {
     @Override
     public CommandResult execute() {
         try {
-            Task toEdit = TaskManager.get(oldTaskDescription);
+            Task toEdit = TaskManager.get(taskID);
             edit(toEdit);
             return new CommandResult(MESSAGE_EDIT_TASK_SUCCESS);
         } catch (TaskNotFoundException e) {
