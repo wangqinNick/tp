@@ -14,6 +14,9 @@ import static seedu.duke.util.ExceptionMessage.MESSAGE_INVALID_PARAMETERS;
 import static seedu.duke.util.Message.*;
 
 public class Parser {
+    public enum typeOfEntries{
+        TASK, MODULE
+    }
     /**
      * Used for initial separation of command word and args.
      */
