@@ -1,6 +1,9 @@
 package seedu.duke;
 
+import seedu.duke.command.Command;
 import seedu.duke.command.CommandResult;
+import seedu.duke.parser.Parser;
+import seedu.duke.ui.TextUi;
 
 import java.io.FileNotFoundException;
 
