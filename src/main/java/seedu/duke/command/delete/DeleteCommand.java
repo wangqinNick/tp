@@ -65,5 +65,6 @@ public class DeleteCommand extends Command {
             return new CommandResult(MESSAGE_MODULE_NOT_FOUND);
         } catch (TaskManager.TaskNotFoundException e) {
             return new CommandResult(MESSAGE_TASK_NOT_FOUND);
+        }
     }
 }
