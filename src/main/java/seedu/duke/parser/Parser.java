@@ -15,6 +15,9 @@ import static seedu.duke.util.Message.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.duke.util.Message.MESSAGE_NO_EDIT_MODULE;
 
 public class Parser {
+    public enum typeOfEntries{
+        TASK, MODULE
+    }
     /**
      * Used for initial separation of command word and args.
      */
