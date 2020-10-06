@@ -52,13 +52,19 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Add the Task
+     * Add the Task with Deadline
      *
      * @param desc
      * @param dateTimeOfDeadline
      */
     private void addTask(String desc, LocalDateTime dateTimeOfDeadline) {
-        Task newTask = new Task(desc, dateTimeOfDeadline);
+        Task newTask;
+        // Option for user to input a deadline
+        if (dateTimeOfDeadline == null) {
+            newTask = new Task(desc);
+        } else {
+            newTask = new Task(desc, dateTimeOfDeadline);
+        }
         TaskManager.add(newTask);
     }
 
