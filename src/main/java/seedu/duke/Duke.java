@@ -13,9 +13,7 @@ public class Duke {
      */
     public Duke() throws FileNotFoundException {
         //todo set root
-        //todo load moduleManager with modulesMap
         modulesMap = IOManager.load("moduleList.json");
-        System.out.println(modulesMap);
     }
 
     /**
