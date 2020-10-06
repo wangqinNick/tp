@@ -1,6 +1,9 @@
 package seedu.duke.data;
 
-public class Task {
+import seedu.duke.directory.Directory;
+import seedu.duke.directory.DirectoryLevel;
+
+public class Task extends Directory {
     private String name;
     private String deadline;
 
@@ -29,6 +32,15 @@ public class Task {
         this.deadline = deadline;
     }
 
+    @Override
+    public Directory getParent() {
+        return null;
+    }
+
+    @Override
+    public DirectoryLevel getLevel() {
+        return null;
+    }
 }
 
 
