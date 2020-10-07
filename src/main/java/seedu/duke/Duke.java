@@ -2,6 +2,8 @@ package seedu.duke;
 
 import seedu.duke.command.CommandResult;
 import seedu.duke.data.storage.IOManager;
+import seedu.duke.parser.Parser;
+import seedu.duke.ui.TextUi;
 
 import java.io.FileNotFoundException;
 import java.util.HashMap;
@@ -30,7 +32,6 @@ public class Duke {
      * run method for Duke class.
      */
     public void run() {
-
     }
 
     private CommandResult getResponse(String userInput){
