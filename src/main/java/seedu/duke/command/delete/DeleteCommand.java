@@ -19,11 +19,23 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "del";
     public static final String FORMAT = COMMAND_WORD + " <opt> <args>";
 
+    /**
+     * Constructor to delete task from task list.
+     *
+     * @param typeOfEntry Type of entry that the user wants to delete.
+     * @param taskId ID of the task to be deleted.
+     */
     public DeleteCommand(Parser.typeOfEntries typeOfEntry, int taskId) {
         this.typeOfEntry = typeOfEntry;
         this.taskId = taskId;
     }
 
+    /**
+     * Constructor to delete module from module list.
+     *
+     * @param typeOfEntry Type of entry that the user wants to delete.
+     * @param moduleCode Module code to be deleted.
+     */
     public DeleteCommand(Parser.typeOfEntries typeOfEntry, String moduleCode) {
         this.typeOfEntry = typeOfEntry;
         this.moduleCode = moduleCode;
