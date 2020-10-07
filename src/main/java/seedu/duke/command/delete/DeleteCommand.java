@@ -17,9 +17,13 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "del";
     public static final String FORMAT = COMMAND_WORD + " <opt> <args>";
 
-    public DeleteCommand(Parser.typeOfEntries typeOfEntry, int taskId, String moduleCode) {
+    public DeleteCommand(Parser.typeOfEntries typeOfEntry, int taskId) {
         this.typeOfEntry = typeOfEntry;
         this.taskId = taskId;
+    }
+
+    public DeleteCommand(Parser.typeOfEntries typeOfEntry, String moduleCode) {
+        this.typeOfEntry = typeOfEntry;
         this.moduleCode = moduleCode;
     }
 
