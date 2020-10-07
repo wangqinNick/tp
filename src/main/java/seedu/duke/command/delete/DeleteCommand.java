@@ -5,6 +5,8 @@ import seedu.duke.command.CommandResult;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.data.TaskManager;
 import seedu.duke.parser.Parser;
+
+import static seedu.duke.util.ExceptionMessage.MESSAGE_INVALID_PARAMETERS;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_MODULE_NOT_FOUND;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_TASK_NOT_FOUND;
 import static seedu.duke.util.Message.MESSAGE_DELETE_TASK_SUCCESS;
@@ -30,7 +32,7 @@ public class DeleteCommand extends Command {
     /**
      * Deletes the task from the task list.
      *
-     * @param taskId
+     * @param taskId ID of the task to be deleted.
      * @throws TaskManager.TaskNotFoundException If the task is not found in the task list.
      */
     private void deleteTask(int taskId) throws TaskManager.TaskNotFoundException {
@@ -40,7 +42,7 @@ public class DeleteCommand extends Command {
     /**
      * Deletes the module from the module list.
      *
-     * @param moduleCode
+     * @param moduleCode Module code to be deleted.
      * @throws ModuleManager.ModuleNotFoundException If the module is not found in the module list.
      */
     private void deleteModule(String moduleCode) throws ModuleManager.ModuleNotFoundException {
@@ -48,7 +50,7 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Deletes the task from their respective lists
+     * Deletes the task from their respective lists.
      *
      * @return CommandResult containing acknowledgement of the delete.
      */
@@ -64,6 +66,9 @@ public class DeleteCommand extends Command {
             case MODULE:
                 deleteModule(moduleCode);
                 message = MESSAGE_DELETE_MODULE_SUCCESS;
+                break;
+            default:
+                message = MESSAGE_INVALID_PARAMETERS;
                 break;
             }
             return new CommandResult(message);
