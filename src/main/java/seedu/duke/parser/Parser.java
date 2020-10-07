@@ -11,7 +11,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static seedu.duke.util.ExceptionMessage.MESSAGE_INVALID_PARAMETERS;
-import static seedu.duke.util.Message.*;
+import static seedu.duke.util.Message.MESSAGE_EMPTY_INPUT;
+import static seedu.duke.util.Message.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.duke.util.Message.MESSAGE_CHECK_COMMAND_FORMAT;
+import static seedu.duke.util.Message.MESSAGE_NO_ADD_TASK;
+import static seedu.duke.util.Message.MESSAGE_NO_ADD_MODULE;
+import static seedu.duke.util.Message.MESSAGE_NO_EDIT_MODULE;
+import static seedu.duke.util.Message.MESSAGE_NO_EDIT_TASK;
 
 public class Parser {
     public enum typeOfEntries{
@@ -161,23 +167,22 @@ public class Parser {
     protected Command prepareAddCommand(String parameters,typeOfEntries typeOfTask) throws InvalidParameterException { //enum of type , string name ,deadline
         Matcher matcher = TASK_DEADLINE_FORMAT.matcher(parameters);
 
-        String AddedTask = matcher.group(TASK_NAME_GROUP).trim();
-        String TaskDeadline = null;
+        String addedTask = matcher.group(TASK_NAME_GROUP).trim();
+        String taskDeadline = null;
 
         if (!matcher.group(DATE_IDENTIFIER_GROUP).isBlank()) {
-            TaskDeadline = matcher.group(DUE_DATE).trim();
-            if ( TaskDeadline.isBlank()) {
+            taskDeadline = matcher.group(DUE_DATE).trim();
+            if ( taskDeadline.isBlank() ) {
                 throw new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
-                      MESSAGE_INVALID_COMMAND_FORMAT, TaskDeadline, MESSAGE_CHECK_COMMAND_FORMAT, AddCommand.FORMAT));
+                      MESSAGE_INVALID_COMMAND_FORMAT, taskDeadline, MESSAGE_CHECK_COMMAND_FORMAT, AddCommand.FORMAT));
             }
         }
 
-
-        if (isNothingToEdit(AddedTask)){
+        if (isNothingToEdit(addedTask)){
             return (typeOfTask == MODULE) ? new IncorrectCommand(MESSAGE_NO_ADD_MODULE) : new IncorrectCommand(MESSAGE_NO_ADD_TASK);
         }
 
-        return new AddCommand(typeOfTask ,AddedTask, TaskDeadline);
+        return new AddCommand(typeOfTask ,addedTask, taskDeadline);
     }
 
 
