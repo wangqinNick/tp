@@ -33,7 +33,7 @@ public class Duke {
     public void run() {
     }
 
-    private CommandResult getResponse(String userInput){
+    private CommandResult getResponse(String userInput) {
         return Executor.executeCommand(userInput);
     }
 }
