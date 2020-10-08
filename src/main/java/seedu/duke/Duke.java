@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 public class Duke {
     private HashMap<String, String> modulesMap;
+
     /**
      * Main entry-point for the java.duke.Duke application.
      */
@@ -30,7 +31,6 @@ public class Duke {
      * run method for Duke class.
      */
     public void run() {
-
     }
 
     private CommandResult getResponse(String userInput){
