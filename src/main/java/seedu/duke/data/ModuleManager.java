@@ -128,7 +128,13 @@ public class ModuleManager {
         throw new ModuleNotFoundException();
     }
 
+    public static HashMap<String, Module> getModuleMap(){
+        return modulesMap;
+    }
 
+    public static void list(){
+
+    }
 
     public static class ModuleNotFoundException extends DataNotFoundException {
     }
