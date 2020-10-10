@@ -34,7 +34,7 @@ public class TaskManager {
      * @throws TaskNotFoundException
      *  If
      */
-    public static void edit(Task editedTask, int taskId) throws TaskNotFoundException{
+    public static void edit(Task editedTask, int taskId) throws TaskNotFoundException {
         if (taskId < 0 || taskId > tasksList.size() - 1) {
             throw new TaskNotFoundException();
         }
@@ -51,7 +51,7 @@ public class TaskManager {
     }
 
     /**
-     * Removes a task from the Task List using the task index (id)
+     * Removes a task from the Task List using the task index (id).
      * @param taskId
      *  The index of the task to be deleted
      */

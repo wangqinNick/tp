@@ -7,7 +7,10 @@ import seedu.duke.exception.ModuleNotProvidedException;
 import java.util.HashMap;
 
 public class ModuleManager {
-    private static HashMap<String, Module> modulesMap = new HashMap<>(); // Main module list. Maps module code to module object.
+    private static HashMap<String, Module> modulesMap = new HashMap<>();
+    // modulesMap is the main module list. Maps module code to module object.
+    private static HashMap<String, Module> nusModsMap = new HashMap<>();
+    // nusModsMap is the module list containing the Module objects created from NUSMods' JSON file of modules.
 
     /**
      *  Finds a module with the specified module code in the Module List.
@@ -82,7 +85,7 @@ public class ModuleManager {
     }
 
     /**
-     * Removes a module from the Module List using the module code
+     * Removes a module from the Module List using the module code.
      * @param moduleCode
      *  The module code of the module to remove from the module list
      */
@@ -93,6 +96,39 @@ public class ModuleManager {
         modulesMap.remove(moduleCode);
         return false;
     }
+
+    /**
+     * Adds a module to the NUSMods Module List.
+     * @param newModule
+     *  The module object to add to the module list
+     */
+    public static void addNusMod(Module newModule) throws DuplicateModuleException {
+        if (contains(newModule.getCode())) {
+            throw new DuplicateModuleException();
+        }
+        nusModsMap.put(newModule.getCode(), newModule);
+    }
+
+    /**
+     *  Finds a module with the specified module code in the NUSMods Module List.
+     *
+     * @param moduleCode
+     *  The module code of the module to be found
+     * @return
+     *  The found module with the specified module code
+     * @throws ModuleNotFoundException
+     *  If the module is not found in the Module List
+     */
+    public static Module getNusModule(String moduleCode) throws ModuleNotFoundException {
+        for (Module module : nusModsMap.values()) {
+            if (module.getCode().equalsIgnoreCase(moduleCode)) {
+                return module;
+            }
+        }
+        throw new ModuleNotFoundException();
+    }
+
+
 
     public static class ModuleNotFoundException extends DataNotFoundException {
     }
