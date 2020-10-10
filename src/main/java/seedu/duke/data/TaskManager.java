@@ -62,6 +62,20 @@ public class TaskManager {
         tasksList.remove(taskId);
     }
 
+    /**
+     * Gets task list
+     *
+     */
+    public static ArrayList<Task> getTaskList(){
+        return tasksList;
+    }
+
+    public static ArrayList<Task> list(){
+        if (getTaskList().size() > 0){
+            var listMessage =
+        }
+    }
+
     public static class TaskNotFoundException extends DataNotFoundException {
     }
 }
