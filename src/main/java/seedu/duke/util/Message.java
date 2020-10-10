@@ -13,4 +13,6 @@ public class Message {
             "Please check to make sure to follow the command format as such:\n";
     public static final String MESSAGE_NO_EDIT_MODULE = "Please enter a new module code to edit.\n";
     public static final String MESSAGE_DONE_TASK_SUCCESS = "SUCCESS!! The task has been marked as done.\n";
+    public static final String ICON_DONE = "\u2713";
+    public static final String ICON_NOT_DONE = "\u2718";
 }

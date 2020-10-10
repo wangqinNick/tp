@@ -1,21 +1,23 @@
 package seedu.duke.data;
 
+import seedu.duke.util.Message;
+
 import java.time.LocalDateTime;
 
 public class Task {
     private String name;
     private LocalDateTime deadline;
-    private boolean status;
+    private boolean isDone;
 
     public Task(String name) {
         this.name = name;
-        this.status = false;
+        this.isDone = false;
     }
 
     public Task(String name, LocalDateTime dateTimeOfDeadline) {
         this.name = name;
         this.deadline = dateTimeOfDeadline;
-        this.status = false;
+        this.isDone = false;
     }
 
     public String getName() {
@@ -35,11 +37,20 @@ public class Task {
     }
 
     public boolean getStatus(){
-        return status;
+        return isDone;
     }
 
     public void setStatus(){
-        this.status = true;
+        this.isDone = true;
+    }
+
+    public String getStatusIcon() {
+        if (this.isDone){
+            return Message.ICON_DONE;
+        }
+        else {
+            return Message.ICON_NOT_DONE;
+        }
     }
 }
 
