@@ -5,15 +5,15 @@ import seedu.duke.command.CommandResult;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.data.TaskManager;
 import seedu.duke.parser.Parser;
-import static seedu.duke.util.ExceptionMessage.MESSAGE_MODULE_NOT_FOUND;
-import static seedu.duke.util.ExceptionMessage.MESSAGE_TASK_NOT_FOUND;
+import static seedu.duke.util.ExceptionMessage.MESSAGE_LIST_EMPTY;
+import static seedu.duke.util.Message.MESSAGE_LIST_PRINTED;
 
 public class ListCommand extends Command {
     private Parser.typeOfEntries typeOfEntry;
     public static final String COMMAND_WORD = "list";
     public static final String FORMAT = COMMAND_WORD + " <opt> <args>";
 
-    public ListCommand(Parser.typeOfEntries typeOfEntry {
+    public ListCommand(Parser.typeOfEntries typeOfEntry) {
         this.typeOfEntry = typeOfEntry;
     }
 
@@ -22,7 +22,7 @@ public class ListCommand extends Command {
      *
      * @throws TaskManager.TaskNotFoundException If the task is not found in the task list.
      */
-    private void listTask() throws TaskManager.TaskNotFoundException {
+    private void listTask() throws TaskManager.TaskListEmptyException {
         TaskManager.list();
     }
 
@@ -31,7 +31,7 @@ public class ListCommand extends Command {
      *
      * @throws ModuleManager.ModuleNotFoundException If the module is not found in the module list.
      */
-    private void listModule() throws ModuleManager.ModuleNotFoundException {
+    private void listModule() throws ModuleManager.ModuleListEmptyException {
         ModuleManager.list();
     }
 
@@ -42,23 +42,18 @@ public class ListCommand extends Command {
      */
     @Override
     public CommandResult execute() {
-        String message = "";
         try {
             switch (typeOfEntry) {
                 case TASK:
                     listTask();
-                    message = MESSAGE_LIST_TASK_SUCCESS;
                     break;
                 case MODULE:
                     listModule();
-                    message = MESSAGE_LIST_MODULE_SUCCESS;
                     break;
             }
-            return new CommandResult(message);
-        } catch (ModuleManager.ModuleNotFoundException e) {
-            return new CommandResult(MESSAGE_MODULE_NOT_FOUND);
-        } catch (TaskManager.TaskNotFoundException e) {
-            return new CommandResult(MESSAGE_TASK_NOT_FOUND);
+            return new CommandResult(MESSAGE_LIST_PRINTED);
+        } catch (ModuleManager.ModuleListEmptyException | TaskManager.TaskListEmptyException e) {
+            return new CommandResult(MESSAGE_LIST_EMPTY);
         }
     }
 }
