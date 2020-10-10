@@ -28,7 +28,7 @@ public class DoneCommand extends Command {
     /**
      * Marks the task from the task list as done
      *
-     * @return CommandResult containing acknowledgement of the delete.
+     * @return CommandResult containing acknowledgement of marking task as done.
      */
     @Override
     public CommandResult execute() {
