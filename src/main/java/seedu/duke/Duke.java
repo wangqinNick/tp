@@ -1,21 +1,20 @@
 package seedu.duke;
 
 import seedu.duke.command.CommandResult;
-import seedu.duke.data.storage.IOManager;
-import seedu.duke.parser.Parser;
-import seedu.duke.ui.TextUi;
+import seedu.duke.data.storage.InputOutputManager;
 
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 public class Duke {
     private HashMap<String, String> modulesMap;
+
     /**
      * Main entry-point for the java.duke.Duke application.
      */
     public Duke() throws FileNotFoundException {
         //todo set root
-        modulesMap = IOManager.load("moduleList.json");
+        modulesMap = InputOutputManager.load("moduleList.json");
     }
 
     /**
@@ -34,7 +33,7 @@ public class Duke {
     public void run() {
     }
 
-    private CommandResult getResponse(String userInput){
+    private CommandResult getResponse(String userInput) {
         return Executor.executeCommand(userInput);
     }
 }

@@ -3,6 +3,7 @@ package seedu.duke.data;
 import seedu.duke.exception.DataNotFoundException;
 import seedu.duke.exception.DuplicateDataException;
 import seedu.duke.exception.ModuleNotProvidedException;
+import seedu.duke.ui.TextUi;
 
 import java.util.HashMap;
 
@@ -129,6 +130,21 @@ public class ModuleManager {
     }
 
 
+    /**
+     * List modules in the module list.
+     *
+     * @throws ModuleListEmptyException when the module list is empty.
+     */
+    public static void list() throws ModuleListEmptyException {
+        if (modulesMap.size() > 0) {
+            TextUi.outputIndexModuleList(modulesMap);
+        } else {
+            throw new ModuleManager.ModuleListEmptyException();
+        }
+    }
+
+    public static class ModuleListEmptyException extends DataNotFoundException {
+    }
 
     public static class ModuleNotFoundException extends DataNotFoundException {
     }

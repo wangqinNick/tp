@@ -21,14 +21,19 @@ import static seedu.duke.util.Message.MESSAGE_NO_EDIT_MODULE;
 import static seedu.duke.util.Message.MESSAGE_NO_EDIT_TASK;
 
 public class Parser {
-    public enum typeOfEntries{
+    public enum TypeOfEntries {
         TASK, MODULE
     }
+
     /**
      * Used for initial separation of command word and args.
      */
+<<<<<<< HEAD
     private static final Pattern BASIC_COMMAND_FORMAT =
             Pattern.compile("(?<commandWord>\\S+)" + "(?<commandFlag>.*-\\S+)"  + "(?<parameters>.*)");
+=======
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<parameters>.*)");
+>>>>>>> master
 
     private static final String COMMAND_WORD_GROUP = "commandWord";
     private static final String COMMAND_FLAG_GROUP = "commandFlag";
@@ -83,6 +88,7 @@ public class Parser {
         String parameters = matcher.group(PARAMETERS_GROUP);
 
         try {
+<<<<<<< HEAD
             switch (commandWord){
             case COMMAND_WORD_EDIT:
                 return getEditCommand(commandFlag, parameters);
@@ -94,6 +100,11 @@ public class Parser {
                 return DoneCommand(parameters); //parameters is the index
             case COMMAND_WORD_LIST:
                 return ListCommand(commandFlag); //command flag is the -t or -m
+=======
+            switch (commandWord) {
+            case EditModuleCommand.COMMAND_WORD:
+                return prepareEditModuleCommand(parameters);
+>>>>>>> master
             default:
                 return null;
             }

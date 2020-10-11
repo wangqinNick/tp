@@ -1,8 +1,11 @@
 package seedu.duke.ui;
 
 import seedu.duke.util.Message;
+import seedu.duke.data.Module;
+import seedu.duke.data.Task;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 
@@ -44,20 +47,39 @@ public class TextUi {
         }
     }
 
-    private void outputIndexList(List<String> list) {
-        outputToUser(getIndexList(list));
+    public static void outputIndexTaskList(ArrayList<Task> taskList) {
+        outputToUser(getIndexTaskList(taskList));
+    }
+
+    public static void outputIndexModuleList(HashMap<String, Module> modulesMap) {
+        outputToUser(getIndexModuleList(modulesMap));
     }
 
     /**
-     * Formats a list of type String with their Index
+     * Formats an Arraylist of type Task with their Index.
      *
-     * @param listItems the list to be formatted
+     * @param taskList the list to be formatted
      */
-    public static String getIndexList(List<String> listItems) {
+    public static String getIndexTaskList(ArrayList<Task> taskList) {
         final StringBuilder stringFormat = new StringBuilder();
         int displayIndex = 0 + DISPLAY_INDEX_OFFSET;
-        for (String listItem : listItems) {
-            stringFormat.append(getIndexListFormat(displayIndex, listItem)).append("\n");
+        for (Task t : taskList) {
+            stringFormat.append(getIndexListFormat(displayIndex, t.toString())).append("\n");
+            displayIndex++;
+        }
+        return stringFormat.toString();
+    }
+
+    /**
+     * Formats the HashMap to string with their index
+     *
+     * @param modulesMap the HashMap to be formatted
+     */
+    public static String getIndexModuleList(HashMap<String, Module> modulesMap) {
+        final StringBuilder stringFormat = new StringBuilder();
+        int displayIndex = 0 + DISPLAY_INDEX_OFFSET;
+        for (Module module : modulesMap.values()) {
+            stringFormat.append(getIndexListFormat(displayIndex, module.toString())).append("\n");
             displayIndex++;
         }
         return stringFormat.toString();
@@ -99,5 +121,4 @@ public class TextUi {
 
         return userInput;
     }
-
 }

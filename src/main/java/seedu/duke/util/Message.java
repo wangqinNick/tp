@@ -17,4 +17,8 @@ public class Message {
     public static final String MESSAGE_NO_ADD_TASK = "Please enter a new task index to add.\n";
     public static final String MESSAGE_GOODBYE = "Good bye!";
     public static final String MESSAGE_WELCOME = "Welcome to RAVI";
+    public static final String MESSAGE_DONE_TASK_SUCCESS = "SUCCESS!! The task has been marked as done.\n";
+    public static final String ICON_DONE = "\u2713";
+    public static final String ICON_NOT_DONE = "\u2718";
+    public static final String MESSAGE_LIST_PRINTED = "LIST:\n";
 }
