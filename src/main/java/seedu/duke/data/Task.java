@@ -36,19 +36,18 @@ public class Task {
         this.deadline = deadline;
     }
 
-    public boolean getStatus(){
+    public boolean getStatus() {
         return isDone;
     }
 
-    public void setStatus(){
+    public void setStatus() {
         this.isDone = true;
     }
 
     public String getStatusIcon() {
-        if (this.isDone){
+        if (this.isDone) {
             return Message.ICON_DONE;
-        }
-        else {
+        } else {
             return Message.ICON_NOT_DONE;
         }
     }

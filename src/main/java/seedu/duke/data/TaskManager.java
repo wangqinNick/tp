@@ -73,24 +73,23 @@ public class TaskManager {
     }
 
     /**
-     * Gets Task List
+     * Gets Task List.
      *
      * @return tasksList
      */
-    public static ArrayList<Task> getTaskList(){
+    public static ArrayList<Task> getTaskList() {
         return tasksList;
     }
 
     /**
-     * Prints all tasks in task list
+     * Prints all tasks in task list.
      *
-     * @throws TaskListEmptyException
+     * @throws TaskListEmptyException if the task list is empty
      */
     public static void list() throws TaskListEmptyException {
-        if (getTaskList().size() > 0){
+        if (getTaskList().size() > 0) {
             TextUi.getTaskListMessage(tasksList);
-        }
-        else {
+        } else {
             throw new TaskListEmptyException();
         }
     }

@@ -9,11 +9,11 @@ import static seedu.duke.util.ExceptionMessage.MESSAGE_LIST_EMPTY;
 import static seedu.duke.util.Message.MESSAGE_LIST_PRINTED;
 
 public class ListCommand extends Command {
-    private Parser.typeOfEntries typeOfEntry;
+    private Parser.TypeOfEntries typeOfEntry;
     public static final String COMMAND_WORD = "list";
     public static final String FORMAT = COMMAND_WORD + " <opt> <args>";
 
-    public ListCommand(Parser.typeOfEntries typeOfEntry) {
+    public ListCommand(Parser.TypeOfEntries typeOfEntry) {
         this.typeOfEntry = typeOfEntry;
     }
 
@@ -36,7 +36,7 @@ public class ListCommand extends Command {
     }
 
     /**
-     * Lists the tasks/modules from their respective lists
+     * Lists the tasks/modules from their respective lists.
      *
      * @return CommandResult containing acknowledgement of the delete.
      */
@@ -44,12 +44,14 @@ public class ListCommand extends Command {
     public CommandResult execute() {
         try {
             switch (typeOfEntry) {
-                case TASK:
-                    listTask();
-                    break;
-                case MODULE:
-                    listModule();
-                    break;
+            case TASK:
+                listTask();
+                break;
+            case MODULE:
+                listModule();
+                break;
+            default:
+                break;
             }
             return new CommandResult(MESSAGE_LIST_PRINTED);
         } catch (ModuleManager.ModuleListEmptyException | TaskManager.TaskListEmptyException e) {

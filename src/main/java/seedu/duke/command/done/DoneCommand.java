@@ -16,9 +16,9 @@ public class DoneCommand extends Command {
     }
 
     /**
-     * Marks the task from the task list as done
+     * Marks the task from the task list as done.
      *
-     * @param taskId
+     * @param taskId id of task.
      * @throws TaskManager.TaskNotFoundException If the task is not found in the task list.
      */
     private void doneTask(int taskId) throws TaskManager.TaskNotFoundException {
@@ -26,7 +26,7 @@ public class DoneCommand extends Command {
     }
 
     /**
-     * Marks the task from the task list as done
+     * Marks the task from the task list as done.
      *
      * @return CommandResult containing acknowledgement of marking task as done.
      */
