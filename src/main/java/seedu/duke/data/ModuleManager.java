@@ -137,7 +137,7 @@ public class ModuleManager {
      */
     public static void list() throws ModuleListEmptyException {
         if (modulesMap.size() > 0) {
-            TextUi.getModuleListMessage(modulesMap);
+            TextUi.outputIndexModuleList(modulesMap);
         } else {
             throw new ModuleManager.ModuleListEmptyException();
         }
