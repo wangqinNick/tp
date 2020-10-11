@@ -207,7 +207,8 @@ public class Parser {
         // no task input by user
         if (isNothingToEdit(addedTask)) {
             return (typeOfTask == TypeOfEntries.MODULE)
-                    ? new IncorrectCommand(MESSAGE_NO_ADD_MODULE) : new IncorrectCommand(MESSAGE_NO_ADD_TASK);
+                    ? new IncorrectCommand(MESSAGE_NO_ADD_MODULE)
+                    : new IncorrectCommand(MESSAGE_NO_ADD_TASK);
         }
 
         return new AddCommand(typeOfTask, addedTask, taskDeadline);

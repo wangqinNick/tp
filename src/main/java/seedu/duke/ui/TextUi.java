@@ -80,7 +80,8 @@ public class TextUi {
         final StringBuilder stringFormat = new StringBuilder();
         int displayIndex = 0 + DISPLAY_INDEX_OFFSET;
         for (Module module : modulesMap.values()) {
-            stringFormat.append(getIndexListFormat(displayIndex, module.toString())).append("\n");
+            stringFormat.append(getIndexListFormat(displayIndex, module.toString()));
+            stringFormat.append("\n");
             displayIndex++;
         }
         return stringFormat.toString();
