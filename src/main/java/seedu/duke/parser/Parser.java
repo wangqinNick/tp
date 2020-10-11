@@ -15,14 +15,14 @@ import static seedu.duke.util.Message.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.duke.util.Message.MESSAGE_NO_EDIT_MODULE;
 
 public class Parser {
-    public enum typeOfEntries{
+    public enum TypeOfEntries {
         TASK, MODULE
     }
+
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT =
-            Pattern.compile("(?<commandWord>\\S+)(?<parameters>.*)");
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<parameters>.*)");
 
     private static final String COMMAND_WORD_GROUP = "commandWord";
     private static final String PARAMETERS_GROUP = "parameters";
@@ -59,7 +59,7 @@ public class Parser {
         String parameters = matcher.group(PARAMETERS_GROUP);
 
         try {
-            switch (commandWord){
+            switch (commandWord) {
             case EditModuleCommand.COMMAND_WORD:
                 return prepareEditModuleCommand(parameters);
             default:
