@@ -13,7 +13,7 @@ import static seedu.duke.util.Message.MESSAGE_DELETE_TASK_SUCCESS;
 import static seedu.duke.util.Message.MESSAGE_DELETE_MODULE_SUCCESS;
 
 public class DeleteCommand extends Command {
-    private Parser.typeOfEntries typeOfEntry;
+    private Parser.TypeOfEntries typeOfEntry;
     private int taskId;
     private String moduleCode;
     public static final String COMMAND_WORD = "del";
@@ -25,7 +25,7 @@ public class DeleteCommand extends Command {
      * @param typeOfEntry Type of entry that the user wants to delete.
      * @param taskId ID of the task to be deleted.
      */
-    public DeleteCommand(Parser.typeOfEntries typeOfEntry, int taskId) {
+    public DeleteCommand(Parser.TypeOfEntries typeOfEntry, int taskId) {
         this.typeOfEntry = typeOfEntry;
         this.taskId = taskId;
     }
@@ -36,7 +36,7 @@ public class DeleteCommand extends Command {
      * @param typeOfEntry Type of entry that the user wants to delete.
      * @param moduleCode Module code to be deleted.
      */
-    public DeleteCommand(Parser.typeOfEntries typeOfEntry, String moduleCode) {
+    public DeleteCommand(Parser.TypeOfEntries typeOfEntry, String moduleCode) {
         this.typeOfEntry = typeOfEntry;
         this.moduleCode = moduleCode;
     }

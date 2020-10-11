@@ -1,7 +1,7 @@
 package seedu.duke;
 
 import seedu.duke.command.CommandResult;
-import seedu.duke.data.storage.IOManager;
+import seedu.duke.data.storage.InputOutputManager;
 
 import java.io.FileNotFoundException;
 import java.util.HashMap;
@@ -14,7 +14,7 @@ public class Duke {
      */
     public Duke() throws FileNotFoundException {
         //todo set root
-        modulesMap = IOManager.load("moduleList.json");
+        modulesMap = InputOutputManager.load("moduleList.json");
     }
 
     /**

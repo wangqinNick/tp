@@ -18,7 +18,7 @@ import static seedu.duke.util.Message.MESSAGE_ADD_TASK_SUCCESS;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_DUPLICATE_MODULE;
 
 public class AddCommand extends Command {
-    private Parser.typeOfEntries typeOfEntry;
+    private Parser.TypeOfEntries typeOfEntry;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-yyyy HHmm");
     private String desc;
     private LocalDateTime dateTimeOfDeadline;
@@ -33,10 +33,10 @@ public class AddCommand extends Command {
      * @param deadline Deadline of the task to be added.
      * @throws DateTimeParseException If the deadline does not follow the DateTime format.
      */
-    public AddCommand(Parser.typeOfEntries typeOfEntry, String desc, String deadline) throws DateTimeParseException {
+    public AddCommand(Parser.TypeOfEntries typeOfEntry, String desc, String deadline) throws DateTimeParseException {
         this.typeOfEntry = typeOfEntry;
         this.desc = desc;
-        if (typeOfEntry.equals(Parser.typeOfEntries.TASK) && (deadline != null)) {
+        if (typeOfEntry.equals(Parser.TypeOfEntries.TASK) && (deadline != null)) {
             dateTimeOfDeadline = testDeadline(deadline);
         }
     }
