@@ -67,4 +67,5 @@ public class ExceptionMessage {
             "Deletion completed.\n"
             + "However, note that the following file(s) could not be deleted completely from Nuke as they "
             + "could not be found:\n";
+    public static final String MESSAGE_LIST_EMPTY = "Your list is empty.\n";
 }
