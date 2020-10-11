@@ -1,6 +1,6 @@
 package seedu.duke.util;
 
-public class ExceptionMessage {
+public class    ExceptionMessage {
 
     public static final String MESSAGE_MISSING_DIRECTORY_NAME =
             "Please include the name of the directory you want to move to.\n"

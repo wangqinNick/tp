@@ -21,7 +21,8 @@ public class TextUi {
 
     private static final String DIVIDER_LINE = "~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~*";
 
-    private static final String MESSAGE_INDEX_LIST_FORMAT = "\n%1$d. %2$s"; //%1$ catches the furthest left arg, %2$ catches the 2nd arg
+    //%1$ catches the furthest left arg, %2$ catches the 2nd arg
+    private static final String MESSAGE_INDEX_LIST_FORMAT = "\n%1$d. %2$s";
 
     public TextUi(Scanner in) {
         this.in = in;
@@ -34,7 +35,7 @@ public class TextUi {
                 DIVIDER_LINE);
     }
 
-    public static void showWelcomeMessage(){
+    public static void showWelcomeMessage()     {
         outputToUser(
                 DIVIDER_LINE,
                 Message.MESSAGE_WELCOME,
@@ -71,7 +72,7 @@ public class TextUi {
     }
 
     /**
-     * Formats the HashMap to string with their index
+     * Formats the HashMap to string with their index.
      *
      * @param modulesMap the HashMap to be formatted
      */
@@ -86,7 +87,7 @@ public class TextUi {
     }
 
     /**
-     *  Formats a string with its index in the list
+     *  Formats a string with its index in the list.
      *
      * @param listIndex task/module index
      * @param listItem task/module name or description
@@ -97,25 +98,25 @@ public class TextUi {
 
 
     /**
-     * Trims spacing and checks if input is empty
+     * Trims spacing and checks if input is empty.
      *
      * @param rawInputLine full input from user
      * @return true if inputline is a legit command
      */
-    private static boolean inputChecker(String rawInputLine){
+    private static boolean inputChecker(String rawInputLine) {
         return rawInputLine.trim().isEmpty();
     }
 
     /**
-     * gets the User's input command
+     * gets the User's input command.
      *
      * @return the trimmed command input
      */
-    public static String getUserCommand(){
+    public static String getUserCommand() {
         System.out.println("Enter Command: ");
         String userInput = in.nextLine();
 
-        while (inputChecker(userInput)){
+        while (inputChecker(userInput)) {
             userInput = in.nextLine();
         }
 

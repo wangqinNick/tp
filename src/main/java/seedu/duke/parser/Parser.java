@@ -6,6 +6,8 @@ import seedu.duke.command.add.AddCommand;
 import seedu.duke.command.delete.DeleteCommand;
 import seedu.duke.command.edit.EditModuleCommand;
 import seedu.duke.command.edit.EditTaskCommand;
+import seedu.duke.command.done.DoneCommand;
+import seedu.duke.command.list.ListCommand;
 
 import java.security.InvalidParameterException;
 import java.util.regex.Matcher;
@@ -28,12 +30,8 @@ public class Parser {
     /**
      * Used for initial separation of command word and args.
      */
-<<<<<<< HEAD
     private static final Pattern BASIC_COMMAND_FORMAT =
             Pattern.compile("(?<commandWord>\\S+)" + "(?<commandFlag>.*-\\S+)"  + "(?<parameters>.*)");
-=======
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<parameters>.*)");
->>>>>>> master
 
     private static final String COMMAND_WORD_GROUP = "commandWord";
     private static final String COMMAND_FLAG_GROUP = "commandFlag";
@@ -88,8 +86,7 @@ public class Parser {
         String parameters = matcher.group(PARAMETERS_GROUP);
 
         try {
-<<<<<<< HEAD
-            switch (commandWord){
+            switch (commandWord) {
             case COMMAND_WORD_EDIT:
                 return getEditCommand(commandFlag, parameters);
             case COMMAND_WORD_ADD:
@@ -97,28 +94,32 @@ public class Parser {
             case COMMAND_WORD_DELETE:
                 return getDeleteCommand(commandFlag, parameters);
             case COMMAND_WORD_DONE:
-                return DoneCommand(parameters); //parameters is the index
+                return new DoneCommand(Integer.parseInt(parameters)); //parameters is the index
             case COMMAND_WORD_LIST:
-                return ListCommand(commandFlag); //command flag is the -t or -m
-=======
-            switch (commandWord) {
-            case EditModuleCommand.COMMAND_WORD:
-                return prepareEditModuleCommand(parameters);
->>>>>>> master
+                return getListCommand(commandFlag); //command flag is the -t or -m
             default:
                 return null;
             }
         } catch (InvalidParameterException e) {
             return new IncorrectCommand(MESSAGE_INVALID_PARAMETERS);
         }
-        return null;
+    }
+
+    private Command getListCommand(String commandFlag) {
+        if (commandFlag.equals(MODULE_PREFIX)) {
+            return new ListCommand(TypeOfEntries.MODULE);
+        } else if (commandFlag.equals(TASK_PREFIX)) {
+            return new ListCommand(TypeOfEntries.TASK);
+        } else {
+            throw new InvalidParameterException();
+        }
     }
 
     private DeleteCommand getDeleteCommand(String commandFlag, String parameters) {
         if (commandFlag.equals(MODULE_PREFIX)) {
-            return new DeleteCommand(typeOfEntries.MODULE, null , parameters); //parameter is module code
-        } else if (commandFlag.equals(TASK_PREFIX)){
-            return new DeleteCommand( typeOfEntries.TASK, Integer.parseInt(parameters),null);//parameters is the index
+            return new DeleteCommand(TypeOfEntries.MODULE, parameters); //parameter is module code
+        } else if (commandFlag.equals(TASK_PREFIX)) {
+            return new DeleteCommand(TypeOfEntries.TASK, Integer.parseInt(parameters));//parameters is the index
         } else {
             throw new InvalidParameterException();
         }
@@ -126,9 +127,9 @@ public class Parser {
 
     private Command getAddCommand(String commandFlag, String parameters) {
         if (commandFlag.equals(MODULE_PREFIX)) {
-            return prepareAddCommand(parameters, typeOfEntries.MODULE);
-        } else if (commandFlag.equals(TASK_PREFIX)){
-            return prepareAddCommand(parameters, typeOfEntries.TASK);
+            return prepareAddCommand(parameters, TypeOfEntries.MODULE);
+        } else if (commandFlag.equals(TASK_PREFIX)) {
+            return prepareAddCommand(parameters, TypeOfEntries.TASK);
         } else {
             throw new InvalidParameterException();
         }
@@ -137,7 +138,7 @@ public class Parser {
     private Command getEditCommand(String commandFlag, String parameters) {
         if (commandFlag.equals(MODULE_PREFIX)) {
             return prepareEditModuleCommand(parameters);
-        } else if (commandFlag.equals(TASK_PREFIX)){
+        } else if (commandFlag.equals(TASK_PREFIX)) {
             return prepareEditTaskCommand(parameters);
         } else {
             throw new InvalidParameterException();
@@ -173,7 +174,7 @@ public class Parser {
         return new EditModuleCommand(oldModuleCode, newModuleCode);
     }
 
-    protected Command prepareEditTaskCommand(String parameters) throws InvalidParameterException{
+    protected Command prepareEditTaskCommand(String parameters) throws InvalidParameterException {
         Matcher matcher = TASK_DEADLINE_FORMAT.matcher(parameters);
 
         String stringTaskIndex = matcher.group(TASK_NAME_GROUP).trim();
@@ -188,7 +189,7 @@ public class Parser {
     }
 
 
-    protected Command prepareAddCommand(String parameters,typeOfEntries typeOfTask) throws InvalidParameterException { //enum of type , string name ,deadline
+    protected Command prepareAddCommand(String parameters,TypeOfEntries typeOfTask) throws InvalidParameterException {
         Matcher matcher = TASK_DEADLINE_FORMAT.matcher(parameters);
 
         String addedTask = matcher.group(TASK_NAME_GROUP).trim();
@@ -197,18 +198,19 @@ public class Parser {
         // Checks for presence of -by
         if (!matcher.group(DATE_IDENTIFIER_GROUP).isBlank()) {
             taskDeadline = matcher.group(DUE_DATE).trim();
-            if ( taskDeadline.isEmpty() ) { // -by is present but empty deadline
+            if (taskDeadline.isEmpty()) { // -by is present but empty deadline
                 return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
                       MESSAGE_INVALID_COMMAND_FORMAT, taskDeadline, MESSAGE_CHECK_COMMAND_FORMAT, AddCommand.FORMAT));
             }
         }
 
         // no task input by user
-        if (isNothingToEdit(addedTask)){
-            return (typeOfTask == typeOfEntries.MODULE) ? new IncorrectCommand(MESSAGE_NO_ADD_MODULE) : new IncorrectCommand(MESSAGE_NO_ADD_TASK);
+        if (isNothingToEdit(addedTask)) {
+            return (typeOfTask == TypeOfEntries.MODULE)
+                    ? new IncorrectCommand(MESSAGE_NO_ADD_MODULE) : new IncorrectCommand(MESSAGE_NO_ADD_TASK);
         }
 
-        return new AddCommand(typeOfTask ,addedTask, taskDeadline);
+        return new AddCommand(typeOfTask, addedTask, taskDeadline);
     }
 
 

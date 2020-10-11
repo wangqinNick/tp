@@ -5,7 +5,7 @@ import seedu.duke.directory.Directory;
 import seedu.duke.exception.DuplicateDataException;
 import seedu.duke.exception.ModuleNotProvidedException;
 
-public class EditTaskCommand extends EditCommand{
+public class EditTaskCommand extends EditCommand {
 
     public EditTaskCommand(int taskIndex,String newTaskDescription){
 
