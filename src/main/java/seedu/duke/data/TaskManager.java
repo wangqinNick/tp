@@ -88,7 +88,7 @@ public class TaskManager {
      */
     public static void list() throws TaskListEmptyException {
         if (getTaskList().size() > 0) {
-            TextUi.getTaskListMessage(tasksList);
+            TextUi.outputIndexTaskList(tasksList);
         } else {
             throw new TaskListEmptyException();
         }
