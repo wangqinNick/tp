@@ -1,6 +1,7 @@
 package seedu.duke.data.storage;
 
 import com.alibaba.fastjson.JSON;
+import seedu.duke.data.Task;
 import seedu.duke.util.DummyModule;
 
 import java.io.BufferedReader;
@@ -13,16 +14,26 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class InputOutputManager {
-    public static HashMap<String, String> load(String dataFileName) throws FileNotFoundException {
+    private static HashMap<String, String> modulesMap;
+    private static ArrayList<Task> tasksList;
+    static String root = System.getProperty("user.dir");
+    static java.nio.file.Path dirPath = java.nio.file.Paths.get(root, "data");
+
+    public static HashMap<String, String> loadModules(String dataFileName) throws FileNotFoundException {
         String jsonStr;
         jsonStr = loadJsonStringFromFile(dataFileName);
         List<DummyModule> moduleList = JSON.parseArray(jsonStr, DummyModule.class);// extractModules(jsonStr);
         HashMap<String, String> modulesMap = convertToHashMap(moduleList);
         return modulesMap;
+    }
+
+    private static ArrayList<Task> loadTasks(String s) {
+        return null;
     }
 
     private static HashMap<String, String> convertToHashMap(List<DummyModule> moduleList) {
@@ -91,4 +102,9 @@ public class InputOutputManager {
         return content;
     }
 
+    public static void start() throws FileNotFoundException {
+        modulesMap = InputOutputManager.loadModules("moduleList.json");
+        // todo add code to loadTasks
+        tasksList = InputOutputManager.loadTasks("taskList.json");
+    }
 }
