@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 
+import static seedu.duke.util.Message.MESSAGE_HELP;
+
 public class TextUi {
     private static Scanner in;
 
@@ -120,5 +122,14 @@ public class TextUi {
         }
 
         return userInput;
+    }
+
+    /**
+     * gets Help Message.
+     *
+     * @return the list of available commands
+     */
+    public static String getHelpMessage() {
+        return MESSAGE_HELP;
     }
 }
