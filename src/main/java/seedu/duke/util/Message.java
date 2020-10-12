@@ -22,4 +22,17 @@ public class Message {
     public static final String ICON_NOT_DONE = "\u2718";
     public static final String MESSAGE_LIST_PRINTED = "LIST:\n";
     public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Bye bye!";
+    public static final String MESSAGE_HELP =
+            "Command                   Function\n"
+            + "help -------------------- View command list\n"
+            + "add -t [-by] ------------ Add task\n"
+            + "add -m ------------------ Add module\n"
+            + "edit -t ----------------- Edit a task's description\n"
+            + "edit -m ----------------- Edit a module\n"
+            + "del -t <task index>------ Delete a task\n"
+            + "del -m <module index>---- Delete a module\n"
+            + "list -t ----------------- List all tasks\n"
+            + "list -m ----------------- List all modules\n"
+            + "done <task index> ------- Mark task as done\n"
+            + "exit -------------------- Exit RaVi\n";
 }
