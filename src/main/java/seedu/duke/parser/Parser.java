@@ -9,6 +9,7 @@ import seedu.duke.command.edit.EditModuleCommand;
 import seedu.duke.command.edit.EditTaskCommand;
 import seedu.duke.command.done.DoneCommand;
 import seedu.duke.command.list.ListCommand;
+import seedu.duke.command.help.HelpCommand;
 import seedu.duke.ui.TextUi;
 
 import java.security.InvalidParameterException;
@@ -59,6 +60,7 @@ public class Parser {
     public static final String COMMAND_WORD_DELETE = "delete";
     public static final String COMMAND_WORD_LIST = "list";
     public static final String COMMAND_WORD_DONE = "done";
+    public static final String COMMAND_WORD_HELP = "help";
 
     //(?<identifier>(?:\s+\w\S*)*)+ -m+ (?<moduleCode>(?:\\s+" + "(?:\\s+\\w\\S*)+)?)(?<invalid>.*)
 
@@ -100,7 +102,7 @@ public class Parser {
             case COMMAND_WORD_LIST:
                 return getListCommand(commandFlag); //command flag is the -t or -m
             case COMMAND_WORD_HELP:
-                return HelpCommand();
+                return new HelpCommand();
             default:
                 return null;
             }
@@ -226,7 +228,7 @@ public class Parser {
     public void showResultToUser(CommandResult result) {
         TextUi.outputToUser(
                 TextUi.DIVIDER_LINE,
-                result.feedbackToUser
+                result.feedbackToUser,
                 TextUi.DIVIDER_LINE);
     }
 
