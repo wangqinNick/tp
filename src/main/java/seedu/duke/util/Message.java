@@ -21,7 +21,6 @@ public class Message {
     public static final String ICON_DONE = "\u2713";
     public static final String ICON_NOT_DONE = "\u2718";
     public static final String MESSAGE_LIST_PRINTED = "LIST:\n";
-    public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Bye bye!";
     public static final String MESSAGE_HELP =
             "Command                   Function\n"
             + "help -------------------- View command list\n"

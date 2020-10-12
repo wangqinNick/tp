@@ -1,6 +1,6 @@
 package seedu.duke.command;
 
-import static seedu.duke.util.Message.MESSAGE_EXIT_ACKNOWLEDGEMENT;
+import static seedu.duke.util.Message.MESSAGE_GOODBYE;
 
 public class ExitCommand extends Command {
     public static boolean isExit(Command command) {
@@ -9,6 +9,6 @@ public class ExitCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT);
+        return new CommandResult(MESSAGE_GOODBYE);
     }
 }
