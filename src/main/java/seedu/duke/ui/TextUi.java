@@ -126,7 +126,12 @@ public class TextUi {
         return userInput;
     }
 
-    public static String getHelpMessage(){
+    /**
+     * gets Help Message
+     *
+     * @return the list of available commands
+     */
+    public static String getHelpMessage() {
         return MESSAGE_HELP;
     }
 }
