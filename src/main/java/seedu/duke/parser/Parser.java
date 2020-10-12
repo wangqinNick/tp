@@ -1,6 +1,7 @@
 package seedu.duke.parser;
 
 import seedu.duke.command.Command;
+import seedu.duke.command.CommandResult;
 import seedu.duke.command.IncorrectCommand;
 import seedu.duke.command.add.AddCommand;
 import seedu.duke.command.delete.DeleteCommand;
@@ -8,6 +9,7 @@ import seedu.duke.command.edit.EditModuleCommand;
 import seedu.duke.command.edit.EditTaskCommand;
 import seedu.duke.command.done.DoneCommand;
 import seedu.duke.command.list.ListCommand;
+import seedu.duke.ui.TextUi;
 
 import java.security.InvalidParameterException;
 import java.util.regex.Matcher;
@@ -97,6 +99,8 @@ public class Parser {
                 return new DoneCommand(Integer.parseInt(parameters)); //parameters is the index
             case COMMAND_WORD_LIST:
                 return getListCommand(commandFlag); //command flag is the -t or -m
+            case COMMAND_WORD_HELP:
+                return HelpCommand();
             default:
                 return null;
             }
@@ -212,6 +216,18 @@ public class Parser {
         }
 
         return new AddCommand(typeOfTask, addedTask, taskDeadline);
+    }
+
+    /**
+     * Shows the result of a command execution to the user.
+     *
+     * @param result the relevant message shown to user
+     */
+    public void showResultToUser(CommandResult result) {
+        TextUi.outputToUser(
+                TextUi.DIVIDER_LINE,
+                result.feedbackToUser
+                TextUi.DIVIDER_LINE);
     }
 
 

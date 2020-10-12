@@ -10,11 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class ParserTest {
 
     @Test
-    void parseCommand_editModuleCommand() {
-
-    }
-
-    @Test
     void isNothingToEdit_emptyString_returnsTrue() {
         assertTrue(new Parser().isNothingToEdit(""));
         assertTrue(new Parser().isNothingToEdit("", ""));
