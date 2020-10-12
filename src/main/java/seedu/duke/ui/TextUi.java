@@ -1,5 +1,6 @@
 package seedu.duke.ui;
 
+import seedu.duke.command.CommandResult;
 import seedu.duke.util.Message;
 import seedu.duke.data.Module;
 import seedu.duke.data.Task;
@@ -7,7 +8,6 @@ import seedu.duke.data.Task;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
-
 
 import static seedu.duke.util.Message.MESSAGE_HELP;
 
@@ -23,6 +23,9 @@ public class TextUi {
 
     //%1$ catches the furthest left arg, %2$ catches the 2nd arg
     private static final String MESSAGE_INDEX_LIST_FORMAT = "\n%1$d. %2$s";
+
+    public TextUi() {
+    }
 
     public TextUi(Scanner in) {
         this.in = in;
@@ -122,6 +125,12 @@ public class TextUi {
         }
 
         return userInput;
+    }
+
+    public void showResultToUser(CommandResult result) {
+    }
+
+    public void greetUser() {
     }
 
     /**
