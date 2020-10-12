@@ -9,7 +9,7 @@ public class HelpCommand extends Command {
     public static final String COMMAND_WORD = "help";
 
     /**
-     * Prints help message
+     * Prints help message.
      *
      * @return CommandResult containing list of available commands
      */

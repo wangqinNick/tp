@@ -127,7 +127,7 @@ public class TextUi {
     }
 
     /**
-     * gets Help Message
+     * gets Help Message.
      *
      * @return the list of available commands
      */
