@@ -133,11 +133,11 @@ public class ModuleManager {
     /**
      * List modules in the module list.
      *
-     * @throws ModuleListEmptyException
+     * @throws ModuleListEmptyException when the module list is empty.
      */
     public static void list() throws ModuleListEmptyException {
-        if (modulesMap.size() > 0){
-            TextUi.getModuleListMessage(modulesMap);
+        if (modulesMap.size() > 0) {
+            TextUi.outputIndexModuleList(modulesMap);
         } else {
             throw new ModuleManager.ModuleListEmptyException();
         }

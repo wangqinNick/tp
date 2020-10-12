@@ -13,12 +13,10 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.UnknownHostException;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
-public class IOManager {
+public class InputOutputManager {
     public static HashMap<String, String> load(String dataFileName) throws FileNotFoundException {
         String jsonStr;
         jsonStr = loadJsonStringFromFile(dataFileName);
