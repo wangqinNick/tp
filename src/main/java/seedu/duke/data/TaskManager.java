@@ -88,10 +88,26 @@ public class TaskManager {
      */
     public static void list() throws TaskListEmptyException {
         if (getTaskList().size() > 0) {
-            TextUi.getTaskListMessage(tasksList);
+            TextUi.outputIndexTaskList(tasksList);
         } else {
             throw new TaskListEmptyException();
         }
+    }
+
+    /**
+     * Returns the number of tasks.
+     *
+     * @returns the number of tasks
+     */
+    public static int getTaskCount() {
+        return tasksList.size();
+    }
+
+    /**
+     * Clears the current task list.
+     */
+    public static void clear() {
+        tasksList = new ArrayList<>();
     }
 
     public static class TaskListEmptyException extends DataNotFoundException {

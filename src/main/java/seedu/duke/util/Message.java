@@ -12,8 +12,26 @@ public class Message {
     public static final String MESSAGE_CHECK_COMMAND_FORMAT =
             "Please check to make sure to follow the command format as such:\n";
     public static final String MESSAGE_NO_EDIT_MODULE = "Please enter a new module code to edit.\n";
+    public static final String MESSAGE_NO_EDIT_TASK = "Please enter a new task index to edit.\n";
+    public static final String MESSAGE_NO_ADD_MODULE = "Please enter a new module code to add.";
+    public static final String MESSAGE_NO_ADD_TASK = "Please enter a new task index to add.\n";
+    public static final String MESSAGE_GOODBYE = "Good bye!";
+    public static final String MESSAGE_WELCOME = "Welcome to RAVI";
     public static final String MESSAGE_DONE_TASK_SUCCESS = "SUCCESS!! The task has been marked as done.\n";
     public static final String ICON_DONE = "\u2713";
     public static final String ICON_NOT_DONE = "\u2718";
     public static final String MESSAGE_LIST_PRINTED = "LIST:\n";
+    public static final String MESSAGE_HELP =
+            "Command                   Function\n"
+            + "help -------------------- View command list\n"
+            + "add -t [-by] ------------ Add task\n"
+            + "add -m ------------------ Add module\n"
+            + "edit -t ----------------- Edit a task's description\n"
+            + "edit -m ----------------- Edit a module\n"
+            + "del -t <task index>------ Delete a task\n"
+            + "del -m <module index>---- Delete a module\n"
+            + "list -t ----------------- List all tasks\n"
+            + "list -m ----------------- List all modules\n"
+            + "done <task index> ------- Mark task as done\n"
+            + "exit -------------------- Exit RaVi\n";
 }

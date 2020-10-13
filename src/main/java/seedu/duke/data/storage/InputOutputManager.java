@@ -1,94 +1,98 @@
 package seedu.duke.data.storage;
 
-import com.alibaba.fastjson.JSON;
-import seedu.duke.util.DummyModule;
+import seedu.duke.data.Module;
+import seedu.duke.data.ModuleManager;
+import seedu.duke.data.Task;
+import seedu.duke.common.Constant;
+import seedu.duke.data.TaskManager;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
+/**
+ * Manages all inputs and outputs (to and from files).
+ * Encoder and Decoder are only used by InputOutputManager.
+ * InputOutputManager also handles exceptions thrown by Encoder and Decoder. No exceptions are thrown from here.
+ *
+ * @author Sim Jun You
+ */
 public class InputOutputManager {
-    public static HashMap<String, String> load(String dataFileName) throws FileNotFoundException {
-        String jsonStr;
-        jsonStr = loadJsonStringFromFile(dataFileName);
-        List<DummyModule> moduleList = JSON.parseArray(jsonStr, DummyModule.class);// extractModules(jsonStr);
-        HashMap<String, String> modulesMap = convertToHashMap(moduleList);
-        return modulesMap;
-    }
+    static ArrayList<Task> loadedTasksList;
+    static HashMap<String, Module> loadedModulesMap;
+    static HashMap<String, Module> loadedNusModulesMap;
 
-    private static HashMap<String, String> convertToHashMap(List<DummyModule> moduleList) {
-        HashMap<String, String> modulesMap = new HashMap<>();
-        for (DummyModule module : moduleList) {
-            modulesMap.put(module.getModuleCode(), module.getTitle());
+    static String root = System.getProperty("user.dir");
+    static java.nio.file.Path dirPath = java.nio.file.Paths.get(root, "data");
+
+    static String userModuleFileName = Constant.MOD_SAVE_FILE_NAME + Constant.FILE_EXT;
+    static String userTaskFileName = Constant.TASK_SAVE_FILE_NAME + Constant.FILE_EXT;
+    static String nusModuleFileName = Constant.NUSMOD_SAVE_FILE_NAME + Constant.FILE_EXT;
+
+    /**
+     * Creates the save directory if it has not been created.
+     * Loads the user's module and task saves into memory.
+     */
+    public static void start() {
+        File saveFolder = dirPath.toFile();
+        if (!saveFolder.exists()) {
+            saveFolder.mkdir();
+        } else {
+            loadUserSaves();
         }
-        return modulesMap;
     }
 
-    private static String loadJsonStringFromFile(String dataFileName) throws FileNotFoundException {
-        String encoding = "utf8";
-        File file = new File(dataFileName);
-        Long fileLength = file.length();
-        byte[] fileContent = new byte[fileLength.intValue()];
+    /**
+     * Loads user saves (modules, tasks) from the given files.
+     */
+    public static void loadUserSaves() {
         try {
-            FileInputStream in = new FileInputStream(file);
-            in.read(fileContent);
-            in.close();
+            loadedModulesMap = Decoder.loadModules(userModuleFileName);
+            loadedTasksList = Decoder.loadTasks(userTaskFileName);
         } catch (FileNotFoundException e) {
-            //System.out.println("Retrieving the module list from nusmods...");
-            return openFile("https://api.nusmods.com/v2/2019-2020/moduleList.json");
+            // do something
+        }
+    }
+
+    /**
+     * Loads NUS Modules from the given file.
+     */
+    public static void loadNusModSave() {
+        try {
+            loadedNusModulesMap = Decoder.loadModules(nusModuleFileName);
+        } catch (FileNotFoundException e) {
+            // do something
+        }
+    }
+
+    /**
+     * Updates the user's save files. Does not save NUS Modules.
+     */
+    public static void save() {
+        try {
+            Encoder.saveModules(userModuleFileName);
+            Encoder.saveTasks(userTaskFileName);
+        } catch (ModuleManager.ModuleNotFoundException e) {
+            // print module not found
+        } catch (TaskManager.TaskNotFoundException e) {
+            // print task not found
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try {
-            return new String(fileContent, encoding);
-        } catch (UnsupportedEncodingException e) {
-            System.err.println("The OS does not support " + encoding);
-            e.printStackTrace();
-            return null;
-        }
     }
 
-    private static String openFile(String filePath) {
-        int httpResult; // the status from the server response
-        String content = "";
+    /**
+     * Updates the user's NUS Modules save file.
+     */
+    public static void saveNusMods() {
         try {
-            URL url = new URL(filePath); // create URL
-            URLConnection urlConn = url.openConnection(); // try to connect and get the status code
-            urlConn.connect();
-            HttpURLConnection httpConn = (HttpURLConnection) urlConn;
-            httpResult = httpConn.getResponseCode();
-            if (httpResult != HttpURLConnection.HTTP_OK) {
-                System.out.print("cannot connect!");
-            } else {
-                int fileSize = urlConn.getContentLength(); // get the length of the data
-                InputStreamReader isReader = new InputStreamReader(urlConn.getInputStream(), "UTF-8");
-                BufferedReader reader = new BufferedReader(isReader);
-                StringBuffer buffer = new StringBuffer();
-                String line; // to save the content of every line
-                line = reader.readLine(); // read the first line
-                while (line != null) { // if line is empty, means finish reading
-                    buffer.append(line); // append to the buffer
-                    buffer.append(" "); // add new line
-                    line = reader.readLine(); // read the next line
-                }
-                //System.out.print(buffer.toString());
-                content = buffer.toString();
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            Encoder.saveNusModules(nusModuleFileName);
+        } catch (ModuleManager.ModuleNotFoundException e) {
+            // print module not found
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return content;
     }
-
 }

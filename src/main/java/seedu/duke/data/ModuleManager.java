@@ -129,6 +129,15 @@ public class ModuleManager {
         throw new ModuleNotFoundException();
     }
 
+    public static String[] getModCodeList() {
+        String[] outputArray = modulesMap.keySet().toArray(new String[0]);
+        return outputArray;
+    }
+
+    public static String[] getNusModCodeList() {
+        String[] outputArray = nusModsMap.keySet().toArray(new String[0]);
+        return outputArray;
+    }
 
     /**
      * List modules in the module list.
@@ -137,10 +146,17 @@ public class ModuleManager {
      */
     public static void list() throws ModuleListEmptyException {
         if (modulesMap.size() > 0) {
-            TextUi.getModuleListMessage(modulesMap);
+            TextUi.outputIndexModuleList(modulesMap);
         } else {
             throw new ModuleManager.ModuleListEmptyException();
         }
+    }
+
+    /**
+     * Clears all modules in modulesMap.
+     */
+    public static void clearModules() {
+        modulesMap = new HashMap<String, Module>();
     }
 
     public static class ModuleListEmptyException extends DataNotFoundException {
