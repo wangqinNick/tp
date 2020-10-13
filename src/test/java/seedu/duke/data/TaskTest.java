@@ -9,7 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TaskTest {
-    static Task normalTask, datedTask;
+    static Task normalTask;
+    static Task datedTask;
 
     @BeforeEach
     void setupTaskObjects() {

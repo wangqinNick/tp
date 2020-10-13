@@ -9,11 +9,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ModuleTest {
     static Module normalMod1, normalMod2;
-    final static String MOD_CODE_1 = "CS2113T";
-    final static String MOD_CODE_2 = "CG2271";
+    static final String MOD_CODE_1 = "CS2113T";
+    static final String MOD_CODE_2 = "CG2271";
 
     @BeforeEach
-    void setupModObjects() throws ModuleManager.DuplicateModuleException {
+    void setupModObjects() {
         normalMod1 = new Module(MOD_CODE_1);
         normalMod1.setTitle("Test");
         normalMod2 = new Module(MOD_CODE_2);
@@ -43,7 +43,7 @@ public class ModuleTest {
     @Test
     void check_moduleNotFoundException_isThrown() {
         assertThrows(ModuleManager.ModuleNotFoundException.class,
-                () -> ModuleManager.getModule("WHAT1010"));
+            () -> ModuleManager.getModule("WHAT1010"));
     }
 
     @Test
