@@ -15,6 +15,7 @@ import java.security.InvalidParameterException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static seedu.duke.util.ExceptionMessage.MESSAGE_INVALID_COMMAND_WORD;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_INVALID_PARAMETERS;
 import static seedu.duke.util.Message.MESSAGE_CHECK_COMMAND_FORMAT;
 import static seedu.duke.util.Message.MESSAGE_EMPTY_INPUT;
@@ -91,6 +92,8 @@ public class Parser {
         try {
             if (commandWord.equals(COMMAND_WORD_BYE)) {
                 return new ExitCommand();
+            } else if (commandWord.equals(COMMAND_WORD_HELP)) {
+                return new HelpCommand();
             } else {
                 String commandFlag = matcher.group(COMMAND_FLAG_GROUP).toLowerCase().trim();
                 String parameters = matcher.group(PARAMETERS_GROUP).trim();
@@ -105,13 +108,14 @@ public class Parser {
                     return new DoneCommand(Integer.parseInt(parameters)); //parameters is the index
                 case COMMAND_WORD_LIST:
                     return getListCommand(commandFlag); //command flag is the -t or -m
-                case COMMAND_WORD_HELP:
                 default:
                     return new HelpCommand();
                 }
             }
         } catch (InvalidParameterException | NumberFormatException e) {
             return new IncorrectCommand(MESSAGE_INVALID_PARAMETERS);
+        } catch (NullPointerException e) {
+            return new IncorrectCommand(MESSAGE_INVALID_COMMAND_WORD);
         }
     }
 
