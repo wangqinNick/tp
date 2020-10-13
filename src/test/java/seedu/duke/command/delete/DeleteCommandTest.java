@@ -29,12 +29,12 @@ public class DeleteCommandTest {
     void setupTaskObjects() {
         TaskManager.clear();
         Parser.TypeOfEntries typeOfEntry = Parser.TypeOfEntries.TASK;
-        AddCommand addModule = new AddCommand(typeOfEntry,TASK , null);
+        AddCommand addModule = new AddCommand(typeOfEntry, TASK, null);
         addModule.execute();
     }
 
     @Test
-    void deleteMissingModule_MESSAGE_MODULE_NOT_FOUND_isShown() {
+    void deleteMissingModuleMessage_isShown() {
         Parser.TypeOfEntries typeOfEntry = Parser.TypeOfEntries.MODULE;
         DeleteCommand deleteMissingModuleTest = new DeleteCommand(typeOfEntry, MOD_CODE_MISSING);
         CommandResult commandResult = deleteMissingModuleTest.execute();
@@ -42,7 +42,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    void deleteMissingTask_MESSAGE_TASK_NOT_FOUND_isShown() {
+    void deleteMissingTaskMessage_isShown() {
         Parser.TypeOfEntries typeOfEntry = Parser.TypeOfEntries.TASK;
         DeleteCommand deleteMissingTaskTest = new DeleteCommand(typeOfEntry, TASK_ID_MISSING);
         CommandResult commandResult = deleteMissingTaskTest.execute();

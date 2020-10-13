@@ -18,33 +18,33 @@ public class AddCommandTest {
     static final String SPACES_DEADLINE = "        ";
 
     @Test
-    void addModule_duplicateModule_MESSAGE_DUPLICATE_MODULE_isShown() {
+    void addModule_duplicateModuleMessage_isShown() {
         Parser.TypeOfEntries typeOfEntry = Parser.TypeOfEntries.MODULE;
-        AddCommand addDupModTest_1 = new AddCommand(typeOfEntry, MOD_CODE_1, null);
-        AddCommand addDupModTest_2 = new AddCommand(typeOfEntry, MOD_CODE_1, null);
-        addDupModTest_1.execute();
-        CommandResult commandResult_2 = addDupModTest_2.execute();
-        assertEquals(ExceptionMessage.MESSAGE_DUPLICATE_MODULE, commandResult_2.feedbackToUser);
+        AddCommand addMod = new AddCommand(typeOfEntry, MOD_CODE_1, null);
+        AddCommand addDupMod = new AddCommand(typeOfEntry, MOD_CODE_1, null);
+        addMod.execute();
+        CommandResult commandResult = addDupMod.execute();
+        assertEquals(ExceptionMessage.MESSAGE_DUPLICATE_MODULE, commandResult.feedbackToUser);
     }
 
     @Test
     void addTask_badDeadline_DateTimeParseException_isThrown() throws DateTimeParseException {
         Parser.TypeOfEntries typeOfEntry = Parser.TypeOfEntries.TASK;
         assertThrows(DateTimeParseException.class,
-                () -> new AddCommand(typeOfEntry, TASK, BAD_DEADLINE));
+            () -> new AddCommand(typeOfEntry, TASK, BAD_DEADLINE));
     }
 
     @Test
     void addTask_emptyDeadline_DateTimeParseException_isThrown() throws DateTimeParseException {
         Parser.TypeOfEntries typeOfEntry = Parser.TypeOfEntries.TASK;
         assertThrows(DateTimeParseException.class,
-                () -> new AddCommand(typeOfEntry, TASK, EMPTY_DEADLINE));
+            () -> new AddCommand(typeOfEntry, TASK, EMPTY_DEADLINE));
     }
 
     @Test
     void addTask_blankDeadline_DateTimeParseException_isThrown() throws DateTimeParseException {
         Parser.TypeOfEntries typeOfEntry = Parser.TypeOfEntries.TASK;
         assertThrows(DateTimeParseException.class,
-                () -> new AddCommand(typeOfEntry, TASK, SPACES_DEADLINE));
+            () -> new AddCommand(typeOfEntry, TASK, SPACES_DEADLINE));
     }
 }
