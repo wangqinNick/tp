@@ -8,7 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ModuleTest {
-    static Module normalMod1, normalMod2;
+    static Module normalMod1;
+    static Module normalMod2;
     static final String MOD_CODE_1 = "CS2113T";
     static final String MOD_CODE_2 = "CG2271";
 
