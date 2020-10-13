@@ -1,6 +1,7 @@
 package seedu.duke.parser;
 
 import seedu.duke.command.Command;
+import seedu.duke.command.ExitCommand;
 import seedu.duke.command.IncorrectCommand;
 import seedu.duke.command.add.AddCommand;
 import seedu.duke.command.delete.DeleteCommand;
@@ -32,7 +33,7 @@ public class Parser {
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT =
-            Pattern.compile("(?<commandWord>\\S+)" + "(?<commandFlag>.*-\\S+)"  + "(?<parameters>.*)");
+            Pattern.compile("(?<commandWord>\\S+)" + "((?<commandFlag>.*-\\S+)?)"  + "((?<parameters>.*)?)");
 
     private static final String COMMAND_WORD_GROUP = "commandWord";
     private static final String COMMAND_FLAG_GROUP = "commandFlag";
@@ -59,6 +60,7 @@ public class Parser {
     public static final String COMMAND_WORD_LIST = "list";
     public static final String COMMAND_WORD_DONE = "done";
     public static final String COMMAND_WORD_HELP = "help";
+    public static final String COMMAND_WORD_BYE = "bye";
 
     //(?<identifier>(?:\s+\w\S*)*)+ -m+ (?<moduleCode>(?:\\s+" + "(?:\\s+\\w\\S*)+)?)(?<invalid>.*)
 
@@ -75,6 +77,7 @@ public class Parser {
      * @see Command
      */
     public Command parseCommand(String input) {
+        Command command;
         if (input.isBlank()) {
             return new IncorrectCommand(MESSAGE_EMPTY_INPUT);
         }
@@ -84,24 +87,28 @@ public class Parser {
             return new IncorrectCommand(MESSAGE_INVALID_COMMAND_FORMAT);
         }
         String commandWord = matcher.group(COMMAND_WORD_GROUP).toLowerCase().trim();
-        String commandFlag = matcher.group(COMMAND_FLAG_GROUP).toLowerCase().trim();
-        String parameters = matcher.group(PARAMETERS_GROUP).trim();
 
         try {
-            switch (commandWord) {
-            case COMMAND_WORD_EDIT:
-                return getEditCommand(commandFlag, parameters);
-            case COMMAND_WORD_ADD:
-                return getAddCommand(commandFlag, parameters);
-            case COMMAND_WORD_DELETE:
-                return getDeleteCommand(commandFlag, parameters);
-            case COMMAND_WORD_DONE:
-                return new DoneCommand(Integer.parseInt(parameters)); //parameters is the index
-            case COMMAND_WORD_LIST:
-                return getListCommand(commandFlag); //command flag is the -t or -m
-            case COMMAND_WORD_HELP:
-            default:
-                return new HelpCommand();
+            if (commandWord.equals(COMMAND_WORD_BYE)) {
+                return new ExitCommand();
+            } else {
+                String commandFlag = matcher.group(COMMAND_FLAG_GROUP).toLowerCase().trim();
+                String parameters = matcher.group(PARAMETERS_GROUP).trim();
+                switch (commandWord) {
+                case COMMAND_WORD_EDIT:
+                    return getEditCommand(commandFlag, parameters);
+                case COMMAND_WORD_ADD:
+                    return getAddCommand(commandFlag, parameters);
+                case COMMAND_WORD_DELETE:
+                    return getDeleteCommand(commandFlag, parameters);
+                case COMMAND_WORD_DONE:
+                    return new DoneCommand(Integer.parseInt(parameters)); //parameters is the index
+                case COMMAND_WORD_LIST:
+                    return getListCommand(commandFlag); //command flag is the -t or -m
+                case COMMAND_WORD_HELP:
+                default:
+                    return new HelpCommand();
+                }
             }
         } catch (InvalidParameterException e) {
             return new IncorrectCommand(MESSAGE_INVALID_PARAMETERS);
