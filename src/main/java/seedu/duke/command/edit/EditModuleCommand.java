@@ -49,9 +49,8 @@ public class EditModuleCommand extends EditCommand {
      *  If the new module code is not a recognised NUS module
      */
 
-    @Override
-    protected void edit(Directory toEdit) throws ModuleManager.DuplicateModuleException, ModuleNotProvidedException {
-        ModuleManager.edit((Module) toEdit, newModuleCode);
+    protected void edit(Module toEdit) throws ModuleManager.DuplicateModuleException, ModuleNotProvidedException {
+        ModuleManager.edit(toEdit, newModuleCode);
     }
 
     /**
