@@ -94,7 +94,7 @@ public class TaskManager {
         }
     }
 
-    public static Task get(int taskID){
+    public static Task get(int taskID) {
         return tasksList.get(taskID);
     }
 
