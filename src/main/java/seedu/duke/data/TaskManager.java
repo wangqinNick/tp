@@ -94,6 +94,22 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Returns the number of tasks.
+     *
+     * @returns the number of tasks
+     */
+    public static int getTaskCount() {
+        return tasksList.size();
+    }
+
+    /**
+     * Clears the current task list.
+     */
+    public static void clear() {
+        tasksList = new ArrayList<>();
+    }
+
     public static class TaskListEmptyException extends DataNotFoundException {
     }
 
