@@ -28,18 +28,18 @@ public class TaskManager {
     /**
      * Edits a task in the Task List.
      *
-     * @param editedTask
-     *  The edited task
      * @param taskId
      *  The index of the task in the Task List.
+     * @param newTaskDescription
+     *  The new description of the task
      * @throws TaskNotFoundException
      *  If
      */
-    public static void edit(Task editedTask, int taskId) throws TaskNotFoundException {
+    public static void edit(int taskId, String newTaskDescription) throws TaskNotFoundException {
         if (taskId < 0 || taskId > tasksList.size() - 1) {
             throw new TaskNotFoundException();
         }
-        tasksList.set(taskId, editedTask);
+        tasksList.get(taskId).setName(newTaskDescription);
     }
 
     /**
@@ -92,6 +92,10 @@ public class TaskManager {
         } else {
             throw new TaskListEmptyException();
         }
+    }
+
+    public static Task get(int taskID){
+        return tasksList.get(taskID);
     }
 
     public static class TaskListEmptyException extends DataNotFoundException {
