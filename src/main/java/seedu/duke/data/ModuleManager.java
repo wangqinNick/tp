@@ -153,7 +153,7 @@ public class ModuleManager {
     }
 
     /**
-     * Clears all modules in modulesMap
+     * Clears all modules in modulesMap.
      */
     public static void clearModules() {
         modulesMap = new HashMap<String, Module>();
