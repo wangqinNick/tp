@@ -108,7 +108,8 @@ public class TextUi {
      * @return true if inputline is a legit command
      */
     private static boolean inputChecker(String rawInputLine) {
-        return rawInputLine.trim().isEmpty();
+        boolean isEmpty = rawInputLine.trim().isEmpty();
+        return isEmpty;
     }
 
     /**
@@ -128,9 +129,6 @@ public class TextUi {
     }
 
     public void showResultToUser(CommandResult result) {
-    }
-
-    public void greetUser() {
     }
 
     /**
