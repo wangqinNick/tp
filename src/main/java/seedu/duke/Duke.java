@@ -26,7 +26,7 @@ public class Duke {
     /** Sets up the storage, loads up the data from the storage file and prints the welcome message.  */
     private void start(String[] args) throws FileNotFoundException {
         Scanner in = new Scanner(System.in);
-        this.ui = new TextUi();
+        this.ui = new TextUi(in);
         // todo add code to the following functions in InputOutputManager, TextUi
         InputOutputManager.start();
         ui.showWelcomeMessage();
@@ -36,7 +36,6 @@ public class Duke {
     public void run(String[] args) throws FileNotFoundException {
         start(args);
         runCommandLoopUntilExitCommand();
-        ui.showGoodByeMessage();
     }
 
     /** Reads the user command and executes it, until the user issues the exit command.  */
