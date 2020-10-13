@@ -33,6 +33,10 @@ public class Module extends Directory {
         return this.code.equalsIgnoreCase(moduleCode) && this.title.equalsIgnoreCase(moduleTitle);
     }
 
+    public String toString() {
+        return getCode() + ": " + getTitle();
+    }
+
     @Override
     public Directory getParent() {
         return null;
