@@ -107,9 +107,8 @@ public class TextUi {
      * @param rawInputLine full input from user
      * @return true if inputline is a legit command
      */
-    private static boolean inputChecker(String rawInputLine) {
-        boolean isEmpty = rawInputLine.trim().isEmpty();
-        return isEmpty;
+    private static boolean isEmptyCheck(String rawInputLine) {
+        return rawInputLine.trim().isEmpty();
     }
 
     /**
@@ -121,14 +120,23 @@ public class TextUi {
         System.out.println("Enter Command: ");
         String userInput = in.nextLine();
 
-        while (inputChecker(userInput)) {
+        while (isEmptyCheck(userInput)) {
             userInput = in.nextLine();
         }
 
         return userInput;
     }
 
+    /**
+     * Shows the result of a command execution to the user.
+     *
+     * @param result the relevant message shown to user
+     */
     public void showResultToUser(CommandResult result) {
+        outputToUser(
+                DIVIDER_LINE,
+                result.feedbackToUser,
+                DIVIDER_LINE);
     }
 
     /**
@@ -140,3 +148,4 @@ public class TextUi {
         return MESSAGE_HELP;
     }
 }
+
