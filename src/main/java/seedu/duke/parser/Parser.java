@@ -1,27 +1,25 @@
 package seedu.duke.parser;
 
 import seedu.duke.command.Command;
-import seedu.duke.command.CommandResult;
 import seedu.duke.command.IncorrectCommand;
 import seedu.duke.command.add.AddCommand;
 import seedu.duke.command.delete.DeleteCommand;
+import seedu.duke.command.done.DoneCommand;
 import seedu.duke.command.edit.EditModuleCommand;
 import seedu.duke.command.edit.EditTaskCommand;
-import seedu.duke.command.done.DoneCommand;
-import seedu.duke.command.list.ListCommand;
 import seedu.duke.command.help.HelpCommand;
-import seedu.duke.ui.TextUi;
+import seedu.duke.command.list.ListCommand;
 
 import java.security.InvalidParameterException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static seedu.duke.util.ExceptionMessage.MESSAGE_INVALID_PARAMETERS;
+import static seedu.duke.util.Message.MESSAGE_CHECK_COMMAND_FORMAT;
 import static seedu.duke.util.Message.MESSAGE_EMPTY_INPUT;
 import static seedu.duke.util.Message.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.duke.util.Message.MESSAGE_CHECK_COMMAND_FORMAT;
-import static seedu.duke.util.Message.MESSAGE_NO_ADD_TASK;
 import static seedu.duke.util.Message.MESSAGE_NO_ADD_MODULE;
+import static seedu.duke.util.Message.MESSAGE_NO_ADD_TASK;
 import static seedu.duke.util.Message.MESSAGE_NO_EDIT_MODULE;
 import static seedu.duke.util.Message.MESSAGE_NO_EDIT_TASK;
 
@@ -86,8 +84,8 @@ public class Parser {
             return new IncorrectCommand(MESSAGE_INVALID_COMMAND_FORMAT);
         }
         String commandWord = matcher.group(COMMAND_WORD_GROUP).toLowerCase().trim();
-        String commandFlag = matcher.group(COMMAND_FLAG_GROUP).toLowerCase();
-        String parameters = matcher.group(PARAMETERS_GROUP);
+        String commandFlag = matcher.group(COMMAND_FLAG_GROUP).toLowerCase().trim();
+        String parameters = matcher.group(PARAMETERS_GROUP).trim();
 
         try {
             switch (commandWord) {
@@ -102,9 +100,8 @@ public class Parser {
             case COMMAND_WORD_LIST:
                 return getListCommand(commandFlag); //command flag is the -t or -m
             case COMMAND_WORD_HELP:
-                return new HelpCommand();
             default:
-                return null;
+                return new HelpCommand();
             }
         } catch (InvalidParameterException e) {
             return new IncorrectCommand(MESSAGE_INVALID_PARAMETERS);
@@ -182,6 +179,10 @@ public class Parser {
 
     protected Command prepareEditTaskCommand(String parameters) throws InvalidParameterException {
         Matcher matcher = TASK_DEADLINE_FORMAT.matcher(parameters);
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
+                    MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT, AddCommand.FORMAT));
+        }
 
         String stringTaskIndex = matcher.group(TASK_NAME_GROUP).trim();
         int taskIndex = Integer.parseInt(stringTaskIndex);
@@ -197,16 +198,21 @@ public class Parser {
 
     protected Command prepareAddCommand(String parameters,TypeOfEntries typeOfTask) throws InvalidParameterException {
         Matcher matcher = TASK_DEADLINE_FORMAT.matcher(parameters);
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
+                    MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT, AddCommand.FORMAT));
+        }
 
         String addedTask = matcher.group(TASK_NAME_GROUP).trim();
         String taskDeadline = null;
 
         // Checks for presence of -by
-        if (!matcher.group(DATE_IDENTIFIER_GROUP).isBlank()) {
+        String dashBy = matcher.group(DATE_IDENTIFIER_GROUP);
+        if (dashBy != null) {
             taskDeadline = matcher.group(DUE_DATE).trim();
             if (taskDeadline.isEmpty()) { // -by is present but empty deadline
                 return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
-                      MESSAGE_INVALID_COMMAND_FORMAT, taskDeadline, MESSAGE_CHECK_COMMAND_FORMAT, AddCommand.FORMAT));
+                        MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT, AddCommand.FORMAT));
             }
         }
 
@@ -219,20 +225,6 @@ public class Parser {
 
         return new AddCommand(typeOfTask, addedTask, taskDeadline);
     }
-
-    /**
-     * Shows the result of a command execution to the user.
-     *
-     * @param result the relevant message shown to user
-     */
-    public void showResultToUser(CommandResult result) {
-        TextUi.outputToUser(
-                TextUi.DIVIDER_LINE,
-                result.feedbackToUser,
-                TextUi.DIVIDER_LINE);
-    }
-
-
 
     /**
      * Validate the parameters given by the user for the respective command.
