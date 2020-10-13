@@ -103,7 +103,7 @@ public class Parser {
             default:
                 return new HelpCommand();
             }
-        } catch (InvalidParameterException e) {
+        } catch (InvalidParameterException | NumberFormatException e) {
             return new IncorrectCommand(MESSAGE_INVALID_PARAMETERS);
         }
     }
@@ -118,7 +118,7 @@ public class Parser {
         }
     }
 
-    private DeleteCommand getDeleteCommand(String commandFlag, String parameters) {
+    private DeleteCommand getDeleteCommand(String commandFlag, String parameters) throws NumberFormatException {
         if (commandFlag.equals(MODULE_PREFIX)) {
             return new DeleteCommand(TypeOfEntries.MODULE, parameters); //parameter is module code
         } else if (commandFlag.equals(TASK_PREFIX)) {
@@ -177,7 +177,7 @@ public class Parser {
         return new EditModuleCommand(oldModuleCode, newModuleCode);
     }
 
-    protected Command prepareEditTaskCommand(String parameters) throws InvalidParameterException {
+    protected Command prepareEditTaskCommand(String parameters) throws InvalidParameterException,NumberFormatException {
         Matcher matcher = TASK_DEADLINE_FORMAT.matcher(parameters);
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
