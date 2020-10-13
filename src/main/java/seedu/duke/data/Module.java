@@ -7,6 +7,9 @@ public class Module extends Directory {
     private String code;
     private String title;
 
+    public Module() {
+    }
+
     public Module(String code) {
         this.code = code;
     }

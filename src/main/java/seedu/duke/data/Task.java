@@ -9,6 +9,9 @@ public class Task {
     private LocalDateTime deadline = null;
     private boolean isDone;
 
+    public Task() {
+    }
+
     public Task(String name) {
         this.name = name;
         this.isDone = false;
