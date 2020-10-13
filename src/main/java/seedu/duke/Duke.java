@@ -36,6 +36,7 @@ public class Duke {
     public void run(String[] args) throws FileNotFoundException {
         start(args);
         runCommandLoopUntilExitCommand();
+        InputOutputManager.save();
     }
 
     /** Reads the user command and executes it, until the user issues the exit command.  */
