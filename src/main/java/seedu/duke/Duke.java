@@ -27,7 +27,7 @@ public class Duke {
         this.ui = new TextUi();
         // todo add code to the following functions in InputOutputManager, TextUi
         InputOutputManager.start();
-        ui.greetUser();
+        ui.showWelcomeMessage();
     }
 
     /** Runs the program until termination.  */
