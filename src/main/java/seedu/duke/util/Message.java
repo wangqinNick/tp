@@ -34,4 +34,5 @@ public class Message {
             + "list -m ----------------- List all modules\n"
             + "done <task index> ------- Mark task as done\n"
             + "exit -------------------- Exit RaVi\n";
+    public static final String MESSAGE_EDIT_TASK_SUCCESS = "SUCCESS!! The task has been updated.\n";
 }
