@@ -196,7 +196,7 @@ public class Parser {
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
                     MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT,
-                    EditTaskCommand.FORMAT));
+                    EditModuleCommand.FORMAT));
         }
 
         String stringTaskIndex = matcher.group(TASK_NAME_GROUP).trim();
@@ -219,7 +219,7 @@ public class Parser {
         }
 
         String addedTask = matcher.group(TASK_NAME_GROUP).trim();
-        String taskDeadline = "";
+        String taskDeadline = null;
 
         // Checks for presence of -by
         String dashBy = matcher.group(DATE_IDENTIFIER_GROUP);
