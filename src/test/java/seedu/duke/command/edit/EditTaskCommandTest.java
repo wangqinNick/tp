@@ -17,6 +17,7 @@ public class EditTaskCommandTest {
 
     @Test
     void execute() {
+        TaskManager.clear();
         Task newTask = new Task("read a book");
         TaskManager.add(newTask);
 
