@@ -34,7 +34,8 @@ public class Parser {
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT =
-            Pattern.compile("(?<commandWord>\\S+)" + "((?<digit>\\s+\\d+)?)" + "((?<commandFlag>.*-\\S+)?)"  + "((?<parameters>.*)?)");
+            Pattern.compile("(?<commandWord>\\S+)" + "((?<digit>\\s+\\d+)?)"
+                    + "((?<commandFlag>.*-\\S+)?)"  + "((?<parameters>.*)?)");
 
     private static final String COMMAND_WORD_GROUP = "commandWord";
     private static final String COMMAND_FLAG_GROUP = "commandFlag";
@@ -126,7 +127,7 @@ public class Parser {
         }
     }
 
-    private boolean isMatcherNull(String matcherTest){
+    private boolean isMatcherNull(String matcherTest) {
         return (matcherTest == null);
     }
 
