@@ -7,6 +7,9 @@ public class Module extends Directory {
     private String code;
     private String title;
 
+    public Module() {
+    }
+
     public Module(String code) {
         this.code = code;
     }
@@ -31,6 +34,10 @@ public class Module extends Directory {
         String moduleCode = checkModule.getCode();
         String moduleTitle = checkModule.getTitle();
         return this.code.equalsIgnoreCase(moduleCode) && this.title.equalsIgnoreCase(moduleTitle);
+    }
+
+    public String toString() {
+        return getCode() + ": " + getTitle();
     }
 
     @Override

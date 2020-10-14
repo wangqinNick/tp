@@ -1,8 +1,7 @@
 package seedu.duke.data.storage;
 
-import com.alibaba.fastjson.JSON;
 import seedu.duke.data.Task;
-import seedu.duke.util.DummyModule;
+import seedu.duke.data.Module;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,49 +10,72 @@ import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.io.IOException;
+
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.alibaba.fastjson.JSON;
+
+/**
+ * Manages all outputs from files, and the conversion from String in file to Object in memory.
+ * Throws exceptions to InputOutputManager and handles none.
+ *
+ * @author Sim Jun You
+ * @author Wang Qin
+ */
 public class Decoder {
-    public static HashMap<String, String> loadModules(String dataFileName) {
+
+    public static HashMap<String, Module> loadModules(String dataFileName) {
         String jsonStr;
         jsonStr = loadJsonStringFromFile(dataFileName);
-        List<DummyModule> moduleList = JSON.parseArray(jsonStr, DummyModule.class);// extractModules(jsonStr);
-        HashMap<String, String> modulesMap = convertModulesToHashMap(moduleList);
-        return modulesMap;
-    }
-
-    public static ArrayList<Task> loadTasks(String s) {
-        return null;
-    }
-
-    private static HashMap<String, String> convertModulesToHashMap(List<DummyModule> moduleList) {
-        HashMap<String, String> modulesMap = new HashMap<>();
-        for (DummyModule module : moduleList) {
-            modulesMap.put(module.getModuleCode(), module.getTitle());
+        List<Module> moduleList = JSON.parseArray(jsonStr, Module.class);// extractModules(jsonStr);
+        HashMap<String, Module> modulesMap = new HashMap<>();
+        for (Module eachModule : moduleList) {
+            modulesMap.put(eachModule.getCode(), eachModule);
         }
         return modulesMap;
     }
 
+    /**
+     * Parses the specified save file to return an ArrayList of Task objects.
+     *
+     * @param dataFileName
+     *  The name of the file to read from
+     * @return
+     *  The ArrayList tasksList
+     * @throws FileNotFoundException
+     *  When the file does not exist
+     */
+    public static ArrayList<Task> loadTasks(String dataFileName) throws FileNotFoundException {
+        String jsonStr;
+        jsonStr = loadJsonStringFromFile(dataFileName);
+        List<Task> tasksList = JSON.parseArray(jsonStr, Task.class);// extractModules(jsonStr);
+        return new ArrayList<>(tasksList);
+    }
+
+
     private static String loadJsonStringFromFile(String dataFileName) {
-        String encoding = "utf8";
         File file = new File(dataFileName);
-        Long fileLength = file.length();
-        byte[] fileContent = new byte[fileLength.intValue()];
+        long fileLength = file.length();
+        byte[] fileContent = new byte[(int) fileLength];
+
         try {
             FileInputStream in = new FileInputStream(file);
             in.read(fileContent);
             in.close();
         } catch (FileNotFoundException e) {
             //System.out.println("Retrieving the module list from nusmods...");
-            return openModulesFile("https://api.nusmods.com/v2/2019-2020/moduleList.json");
+            return requestNusModsJsonString("https://api.nusmods.com/v2/2019-2020/moduleList.json");
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        String encoding = "utf8";
         try {
             return new String(fileContent, encoding);
         } catch (UnsupportedEncodingException e) {
@@ -63,7 +85,15 @@ public class Decoder {
         }
     }
 
-    private static String openModulesFile(String filePath) {
+    /**
+     * Uses the NUSMods API to get a JSON string with the information of all available mods.
+     *
+     * @param filePath
+     *  The endpoint for the NUSMods API.
+     * @return
+     *  The JSON string with information of all currently available mods in NUS.
+     */
+    private static String requestNusModsJsonString(String filePath) {
         int httpResult; // the status from the server response
         String content = "";
         try {

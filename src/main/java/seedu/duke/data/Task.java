@@ -6,8 +6,11 @@ import java.time.LocalDateTime;
 
 public class Task {
     private String name;
-    private LocalDateTime deadline;
+    private LocalDateTime deadline = null;
     private boolean isDone;
+
+    public Task() {
+    }
 
     public Task(String name) {
         this.name = name;
@@ -49,6 +52,14 @@ public class Task {
             return Message.ICON_DONE;
         } else {
             return Message.ICON_NOT_DONE;
+        }
+    }
+
+    public String toString() {
+        if (getDeadline() == null) {
+            return getName() + " [" + getStatusIcon() + "]";
+        } else {
+            return getName() + " by " + getDeadline().toString() + " [" + getStatusIcon() + "]";
         }
     }
 }
