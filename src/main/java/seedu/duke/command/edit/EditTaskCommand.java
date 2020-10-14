@@ -24,7 +24,7 @@ public class EditTaskCommand extends EditCommand {
     private int taskID;
     private String newTaskDescription;
     public static final String COMMAND_WORD = Parser.COMMAND_WORD_EDIT + "-t";
-    public static final String FORMAT = Parser.COMMAND_WORD_EDIT + "-t"+ " <task ID> <new task description>";
+    public static final String FORMAT = Parser.COMMAND_WORD_EDIT + "-t" + " <task ID> <new task description>";
 
 
     /**
@@ -40,7 +40,7 @@ public class EditTaskCommand extends EditCommand {
         this.newTaskDescription = newTaskDescription;
     }
 
-    protected void edit() throws IndexOutOfBoundsException{
+    protected void edit() throws IndexOutOfBoundsException {
         TaskManager.getTaskList().get(taskID).setName(newTaskDescription);
     }
 
