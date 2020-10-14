@@ -167,22 +167,25 @@ public class Parser {
      * @return
      *  The command to edit a module
      */
-    protected Command prepareEditModuleCommand(String parameters)
-            throws InvalidParameterException {
-        Matcher matcher = EditModuleCommand.REGEX_FORMAT.matcher(parameters);
-        validateParameters(parameters, matcher, MODULE_PREFIX);
-
-        String oldModuleCode = matcher.group(IDENTIFIER_GROUP).trim();
-        String newModuleCode = matcher.group(MODULE_GROUP).replace(MODULE_PREFIX, NONE).trim();
-
-        String invalid = matcher.group(INVALID_GROUP).trim();
-        if (!invalid.isEmpty()) {
+    protected Command prepareEditModuleCommand(String parameters) throws InvalidParameterException {
+        Matcher matcher = TASK_DEADLINE_FORMAT.matcher(parameters);
+        if (!matcher.matches()) {
             return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
-                    MESSAGE_INVALID_COMMAND_FORMAT, invalid, MESSAGE_CHECK_COMMAND_FORMAT, EditModuleCommand.FORMAT));
+                    MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT,
+                    EditModuleCommand.FORMAT));
         }
 
-        if (isNothingToEdit(newModuleCode)) {
-            return new IncorrectCommand(MESSAGE_NO_EDIT_MODULE);
+        String oldModuleCode = matcher.group(TASK_NAME_GROUP).trim();
+        String newModuleCode = "";
+        String dashBy = matcher.group(DATE_IDENTIFIER_GROUP);
+
+        if (dashBy != null) {
+            newModuleCode = matcher.group(DUE_DATE).trim();
+            if (newModuleCode.isEmpty()) { // -by is present but empty
+                return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
+                        MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT,
+                        EditModuleCommand.FORMAT));
+            }
         }
 
         return new EditModuleCommand(oldModuleCode, newModuleCode);
@@ -192,7 +195,8 @@ public class Parser {
         Matcher matcher = TASK_DEADLINE_FORMAT.matcher(parameters);
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
-                    MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT, AddCommand.FORMAT));
+                    MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT,
+                    EditTaskCommand.FORMAT));
         }
 
         String stringTaskIndex = matcher.group(TASK_NAME_GROUP).trim();
@@ -215,7 +219,7 @@ public class Parser {
         }
 
         String addedTask = matcher.group(TASK_NAME_GROUP).trim();
-        String taskDeadline = null;
+        String taskDeadline = "";
 
         // Checks for presence of -by
         String dashBy = matcher.group(DATE_IDENTIFIER_GROUP);
@@ -235,26 +239,6 @@ public class Parser {
         }
 
         return new AddCommand(typeOfTask, addedTask, taskDeadline);
-    }
-
-    /**
-     * Validate the parameters given by the user for the respective command.
-     *
-     * @param parameters
-     *  The parameters given by the user
-     * @param matcher
-     *  The matcher to match for attributes and check for validity
-     * @param parameterPrefixes
-     *  The prefixes used for the respective command
-     * @throws InvalidParameterException
-     *  If an invalid parameter is found in the parameters or the parameters do not match the expected format
-     */
-    private void validateParameters(String parameters, Matcher matcher, String... parameterPrefixes)
-            throws InvalidParameterException {
-
-        if (!matcher.matches()) {
-            throw new InvalidParameterException();
-        }
     }
 
     /**

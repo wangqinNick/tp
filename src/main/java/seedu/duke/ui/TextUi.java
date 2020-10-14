@@ -17,8 +17,6 @@ public class TextUi {
     //Offset required to convert between 1-indexing and 0-indexing
     public static final int DISPLAY_INDEX_OFFSET = 1;
 
-//    public static final String DIVIDER_PREFIX = "||";
-
     public static final String DIVIDER_LINE = "~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~*";
 
     //%1$ catches the furthest left arg, %2$ catches the 2nd arg
@@ -69,7 +67,6 @@ public class TextUi {
         int displayIndex = 0 + DISPLAY_INDEX_OFFSET;
         for (Task t : taskList) {
             stringFormat.append(getIndexListFormat(displayIndex, t.toString()));
-//            stringFormat.append("\n");
             displayIndex++;
         }
         return stringFormat.toString();
@@ -85,7 +82,6 @@ public class TextUi {
         int displayIndex = 0 + DISPLAY_INDEX_OFFSET;
         for (Module module : modulesMap.values()) {
             stringFormat.append(getIndexListFormat(displayIndex, module.toString()));
-//            stringFormat.append("\n");
             displayIndex++;
         }
         return stringFormat.toString();
