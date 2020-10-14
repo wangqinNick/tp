@@ -94,6 +94,9 @@ public class Parser {
                 return new ExitCommand();
             } else if (commandWord.equals(COMMAND_WORD_HELP)) {
                 return new HelpCommand();
+            } else if (commandWord.equals(COMMAND_WORD_DONE)) {
+                String parameters = matcher.group(PARAMETERS_GROUP).trim();
+                return new DoneCommand(Integer.parseInt(parameters));
             } else {
                 String commandFlag = matcher.group(COMMAND_FLAG_GROUP).toLowerCase().trim();
                 String parameters = matcher.group(PARAMETERS_GROUP).trim();
@@ -104,8 +107,6 @@ public class Parser {
                     return getAddCommand(commandFlag, parameters);
                 case COMMAND_WORD_DELETE:
                     return getDeleteCommand(commandFlag, parameters);
-                case COMMAND_WORD_DONE:
-                    return new DoneCommand(Integer.parseInt(parameters)); //parameters is the index
                 case COMMAND_WORD_LIST:
                     return getListCommand(commandFlag); //command flag is the -t or -m
                 default:
