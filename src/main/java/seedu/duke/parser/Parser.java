@@ -104,7 +104,7 @@ public class Parser {
                 case COMMAND_WORD_DELETE:
                     return getDeleteCommand(commandFlag, parameters);
                 case COMMAND_WORD_DONE:
-                    return new DoneCommand(Integer.parseInt(parameters)-1); //parameters is the index
+                    return new DoneCommand(Integer.parseInt(parameters) - 1); //parameters is the index
                 case COMMAND_WORD_LIST:
                     return getListCommand(commandFlag); //command flag is the -t or -m
                 default:
