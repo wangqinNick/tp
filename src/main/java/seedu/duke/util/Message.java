@@ -28,10 +28,10 @@ public class Message {
             + "add -m ------------------ Add module\n"
             + "edit -t ----------------- Edit a task's description\n"
             + "edit -m ----------------- Edit a module\n"
-            + "del -t <task index>------ Delete a task\n"
-            + "del -m <module index>---- Delete a module\n"
+            + "del -t <task index> ----- Delete a task\n"
+            + "del -m <module index> --- Delete a module\n"
             + "list -t ----------------- List all tasks\n"
             + "list -m ----------------- List all modules\n"
             + "done <task index> ------- Mark task as done\n"
-            + "exit -------------------- Exit RaVi\n";
+            + "bye --------------------- Exit RaVi\n";
 }
