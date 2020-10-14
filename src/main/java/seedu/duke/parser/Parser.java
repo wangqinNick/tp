@@ -22,7 +22,6 @@ import static seedu.duke.util.Message.MESSAGE_EMPTY_INPUT;
 import static seedu.duke.util.Message.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.duke.util.Message.MESSAGE_NO_ADD_MODULE;
 import static seedu.duke.util.Message.MESSAGE_NO_ADD_TASK;
-import static seedu.duke.util.Message.MESSAGE_NO_EDIT_MODULE;
 import static seedu.duke.util.Message.MESSAGE_NO_EDIT_TASK;
 
 public class Parser {
@@ -105,7 +104,7 @@ public class Parser {
                 case COMMAND_WORD_DELETE:
                     return getDeleteCommand(commandFlag, parameters);
                 case COMMAND_WORD_DONE:
-                    return new DoneCommand(Integer.parseInt(parameters)); //parameters is the index
+                    return new DoneCommand(Integer.parseInt(parameters)-1); //parameters is the index
                 case COMMAND_WORD_LIST:
                     return getListCommand(commandFlag); //command flag is the -t or -m
                 default:
