@@ -34,12 +34,12 @@ public class Parser {
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT =
-            Pattern.compile("(?<commandWord>\\S+)" + "((?<commandFlag>.*-\\S+)?)"  + "((?<parameters>.*)?)");
+            Pattern.compile("(?<commandWord>\\S+)" + "((?<digit>\\s+\\d+)?)" + "((?<commandFlag>.*-\\S+)?)"  + "((?<parameters>.*)?)");
 
     private static final String COMMAND_WORD_GROUP = "commandWord";
     private static final String COMMAND_FLAG_GROUP = "commandFlag";
     private static final String PARAMETERS_GROUP = "parameters";
-    private static final String IDENTIFIER_GROUP = "identifier";
+    private static final String NUMBER_GROUP = "digit";
     private static final String TASK_NAME_GROUP = "taskName";
     private static final String MODULE_GROUP = "moduleCode";
     private static final String DATE_IDENTIFIER_GROUP = "by";
@@ -87,19 +87,23 @@ public class Parser {
         if (!matcher.matches()) {
             return new IncorrectCommand(MESSAGE_INVALID_COMMAND_FORMAT);
         }
-        String commandWord = matcher.group(COMMAND_WORD_GROUP).toLowerCase().trim();
 
         try {
+            // Checks if the matched groups are null
+            String commandWord = isMatcherNull(matcher.group(COMMAND_WORD_GROUP))
+                    ? null : matcher.group(COMMAND_WORD_GROUP).toLowerCase().trim();
+            String digit = isMatcherNull(matcher.group(NUMBER_GROUP))
+                    ? null : matcher.group(NUMBER_GROUP).trim();
+            String commandFlag = isMatcherNull(matcher.group(COMMAND_FLAG_GROUP))
+                    ? null : matcher.group(COMMAND_FLAG_GROUP).toLowerCase().trim();
+            String parameters = isMatcherNull(matcher.group(PARAMETERS_GROUP))
+                    ? null : matcher.group(PARAMETERS_GROUP).trim();
+
             if (commandWord.equals(COMMAND_WORD_BYE)) {
                 return new ExitCommand();
             } else if (commandWord.equals(COMMAND_WORD_HELP)) {
                 return new HelpCommand();
-            } else if (commandWord.equals(COMMAND_WORD_DONE)) {
-                String parameters = matcher.group(PARAMETERS_GROUP).trim();
-                return new DoneCommand(Integer.parseInt(parameters));
             } else {
-                String commandFlag = matcher.group(COMMAND_FLAG_GROUP).toLowerCase().trim();
-                String parameters = matcher.group(PARAMETERS_GROUP).trim();
                 switch (commandWord) {
                 case COMMAND_WORD_EDIT:
                     return getEditCommand(commandFlag, parameters);
@@ -107,6 +111,8 @@ public class Parser {
                     return getAddCommand(commandFlag, parameters);
                 case COMMAND_WORD_DELETE:
                     return getDeleteCommand(commandFlag, parameters);
+                case COMMAND_WORD_DONE:
+                    return new DoneCommand(Integer.parseInt(digit));
                 case COMMAND_WORD_LIST:
                     return getListCommand(commandFlag); //command flag is the -t or -m
                 default:
@@ -118,6 +124,10 @@ public class Parser {
         } catch (NullPointerException e) {
             return new IncorrectCommand(MESSAGE_INVALID_COMMAND_WORD);
         }
+    }
+
+    private boolean isMatcherNull(String matcherTest){
+        return (matcherTest == null);
     }
 
     private Command getListCommand(String commandFlag) {
@@ -177,17 +187,7 @@ public class Parser {
         }
 
         String oldModuleCode = matcher.group(TASK_NAME_GROUP).trim();
-        String newModuleCode = "";
-        String dashBy = matcher.group(DATE_IDENTIFIER_GROUP);
-
-        if (dashBy != null) {
-            newModuleCode = matcher.group(DUE_DATE).trim();
-            if (newModuleCode.isEmpty()) { // -by is present but empty
-                return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
-                        MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT,
-                        EditModuleCommand.FORMAT));
-            }
-        }
+        String newModuleCode = matcher.group(DUE_DATE).trim();
 
         return new EditModuleCommand(oldModuleCode, newModuleCode);
     }
@@ -232,7 +232,7 @@ public class Parser {
         }
         // without -by means its fully a task
         if (dashBy == null) {
-            addedTask = parameters.trim();
+            addedTask = matcher.group(0).trim();
         }
 
         // no task input by user
