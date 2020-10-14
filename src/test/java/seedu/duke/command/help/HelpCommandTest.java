@@ -21,7 +21,7 @@ public class HelpCommandTest {
             + "bye ----------------------------------------- Exit RaVi\n";
 
     @Test
-    void testHelpCommand(){
+    void testHelpCommand() {
         HelpCommand helpCommand = new HelpCommand();
         CommandResult commandResult = helpCommand.execute();
         assertEquals(HELP_MESSAGE, commandResult.feedbackToUser);
