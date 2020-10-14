@@ -4,6 +4,7 @@ import seedu.duke.exception.DataNotFoundException;
 import seedu.duke.ui.TextUi;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class TaskManager {
     private static ArrayList<Task> tasksList = new ArrayList<>(); // Main task list.
@@ -84,14 +85,24 @@ public class TaskManager {
     /**
      * Prints all tasks in task list.
      *
-     * @throws TaskListEmptyException if the task list is empty
+     * @return
+     *  The formatted task list from TextUi or null if list is empty
      */
-    public static void list() throws TaskListEmptyException {
+    public static String list() {
         if (getTaskList().size() > 0) {
-            TextUi.outputIndexTaskList(tasksList);
+            return TextUi.getIndexTaskList(tasksList);
         } else {
-            throw new TaskListEmptyException();
+            return null;
         }
+    }
+
+    /**
+     * Loads the file loaded task list into TaskManager's own task list.
+     *
+     * @param loadedTasksList the loaded task list from file
+     */
+    public static void load(ArrayList<Task> loadedTasksList) {
+        tasksList = loadedTasksList;
     }
 
     /**
