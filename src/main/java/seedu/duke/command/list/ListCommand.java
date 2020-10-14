@@ -35,7 +35,7 @@ public class ListCommand extends Command {
         default:
             break;
         }
-        if (output==null) {
+        if (output == null) {
             return new CommandResult(MESSAGE_LIST_EMPTY);
         }
         return new CommandResult(MESSAGE_LIST_PRINTED + output);
