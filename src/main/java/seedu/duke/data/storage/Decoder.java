@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Decoder {
-    public static HashMap<String, String> loadModules(String dataFileName) throws FileNotFoundException {
+    public static HashMap<String, String> loadModules(String dataFileName) {
         String jsonStr;
         jsonStr = loadJsonStringFromFile(dataFileName);
         List<DummyModule> moduleList = JSON.parseArray(jsonStr, DummyModule.class);// extractModules(jsonStr);
@@ -39,7 +39,7 @@ public class Decoder {
         return modulesMap;
     }
 
-    private static String loadJsonStringFromFile(String dataFileName) throws FileNotFoundException {
+    private static String loadJsonStringFromFile(String dataFileName) {
         String encoding = "utf8";
         File file = new File(dataFileName);
         Long fileLength = file.length();

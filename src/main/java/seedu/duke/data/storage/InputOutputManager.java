@@ -14,6 +14,7 @@ public class InputOutputManager {
 
     /** Creates the output directory if it has not been created.  */
     public static void start() {
+        load();
     }
 
     /** Updates the output files.  */
@@ -24,7 +25,7 @@ public class InputOutputManager {
     }
 
     /** Loads the files.  */
-    public static void load() throws FileNotFoundException {
+    public static void load() {
         modulesMap = Decoder.loadModules("moduleList.json");
         // todo add code to loadTasks
         tasksList = Decoder.loadTasks("taskList.json");
