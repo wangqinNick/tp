@@ -33,6 +33,11 @@ application {
     mainClassName = "seedu.duke.Duke"
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
 shadowJar {
     archiveBaseName = "duke"
     archiveClassifier = null

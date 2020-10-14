@@ -200,7 +200,7 @@ public class Parser {
         }
 
         String stringTaskIndex = matcher.group(TASK_NAME_GROUP).trim();
-        int taskIndex = Integer.parseInt(stringTaskIndex);
+        int taskIndex = Integer.parseInt(stringTaskIndex) - 1;
         String newTaskDescription = matcher.group(DUE_DATE).trim();
 
         if (isNothingToEdit(newTaskDescription)) {

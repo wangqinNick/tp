@@ -30,17 +30,8 @@ import seedu.duke.ui.TextUi;
  * @author Wang Qin
  */
 public class Decoder {
-    /**
-     * Parses the specified save file to return a HashMap of Module objects.
-     *
-     * @param dataFileName
-     *  The name of the file to read from
-     * @return
-     *  The HashMap modulesMap
-     * @throws FileNotFoundException
-     *  When the file does not exist
-     */
-    public static HashMap<String, Module> loadModules(String dataFileName) throws FileNotFoundException {
+
+    public static HashMap<String, Module> loadModules(String dataFileName) {
         String jsonStr;
         jsonStr = loadJsonStringFromFile(dataFileName);
         TextUi.outputToUser(dataFileName);
@@ -81,18 +72,8 @@ public class Decoder {
         return new ArrayList<>(tasksList);
     }
 
-    /**
-     * Loads the JSON string (without parsing!) from a specified file.
-     * Doesn't strictly need to be JSON... but we're only saving JSON anyways.
-     *
-     * @param dataFileName
-     *  The name of the file to load the JSON string from.
-     * @return
-     *  The JSON string or null if there is an encoding error
-     * @throws FileNotFoundException
-     *  When the file does not exist
-     */
-    private static String loadJsonStringFromFile(String dataFileName) throws FileNotFoundException {
+
+    private static String loadJsonStringFromFile(String dataFileName) {
         File file = new File(dataFileName);
         long fileLength = file.length();
         byte[] fileContent = new byte[(int) fileLength];

@@ -6,6 +6,7 @@ public class Message {
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "SUCCESS!! The task has been deleted.\n";
     public static final String MESSAGE_DELETE_MODULE_SUCCESS = "SUCCESS!! The module has been deleted.\n";
     public static final String MESSAGE_EDIT_MODULE_SUCCESS = "SUCCESS!! The module has been updated.\n";
+    public static final String MESSAGE_EDIT_TASK_SUCCESS = "SUCCESS!! The task has been updated.\n";
     public static final String MESSAGE_EMPTY_INPUT = "Please enter a command.\n";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT =
             "Sorry, the command entered contains some unrecognised parameters starting from here:\n";

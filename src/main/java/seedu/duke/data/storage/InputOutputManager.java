@@ -64,11 +64,7 @@ public class InputOutputManager {
      * Loads NUS Modules from the given file.
      */
     public static void loadNusModSave() {
-        try {
-            loadedNusModulesMap = Decoder.loadModules(nusModuleFile.toString());
-        } catch (FileNotFoundException e) {
-            // do something
-        }
+        loadedNusModulesMap = Decoder.loadModules(nusModuleFileName);
     }
 
     /**
