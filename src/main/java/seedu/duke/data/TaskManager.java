@@ -84,17 +84,30 @@ public class TaskManager {
     /**
      * Prints all tasks in task list.
      *
-     * @return The list of tasks and index.
+     * @return
+     *  The formatted task list from TextUi or null if list is empty
      */
     public static String list() {
-        String output = TextUi.getIndexTaskList(tasksList);
-        return output;
+        if (getTaskList().size() > 0) {
+            return TextUi.getIndexTaskList(tasksList);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Loads the file loaded task list into TaskManager's own task list.
+     *
+     * @param loadedTasksList the loaded task list from file
+     */
+    public static void load(ArrayList<Task> loadedTasksList) {
+        tasksList = loadedTasksList;
     }
 
     /**
      * Returns the number of tasks.
      *
-     * @returns the number of tasks
+     * @return the number of tasks
      */
     public static int getTaskCount() {
         return tasksList.size();

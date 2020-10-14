@@ -20,7 +20,7 @@ public class ListCommand extends Command {
     /**
      * Lists the tasks/modules from their respective lists.
      *
-     * @return CommandResult containing acknowledgement of the delete.
+     * @return CommandResult containing list of tasks/modules
      */
     @Override
     public CommandResult execute() {
@@ -35,7 +35,7 @@ public class ListCommand extends Command {
         default:
             break;
         }
-        if (output.equals("")) {
+        if (output==null) {
             return new CommandResult(MESSAGE_LIST_EMPTY);
         }
         return new CommandResult(MESSAGE_LIST_PRINTED + output);
