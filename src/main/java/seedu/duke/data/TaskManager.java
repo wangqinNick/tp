@@ -84,14 +84,11 @@ public class TaskManager {
     /**
      * Prints all tasks in task list.
      *
-     * @throws TaskListEmptyException if the task list is empty
+     * @return The list of tasks and index.
      */
-    public static void list() throws TaskListEmptyException {
-        if (getTaskList().size() > 0) {
-            TextUi.outputIndexTaskList(tasksList);
-        } else {
-            throw new TaskListEmptyException();
-        }
+    public static String list() {
+        String output = TextUi.getIndexTaskList(tasksList);
+        return output;
     }
 
     /**
@@ -108,9 +105,6 @@ public class TaskManager {
      */
     public static void clear() {
         tasksList = new ArrayList<>();
-    }
-
-    public static class TaskListEmptyException extends DataNotFoundException {
     }
 
     public static class TaskNotFoundException extends DataNotFoundException {

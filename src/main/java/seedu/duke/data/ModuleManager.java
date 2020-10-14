@@ -142,14 +142,11 @@ public class ModuleManager {
     /**
      * List modules in the module list.
      *
-     * @throws ModuleListEmptyException when the module list is empty.
+     * @return The list of modules and index.
      */
-    public static void list() throws ModuleListEmptyException {
-        if (modulesMap.size() > 0) {
-            TextUi.outputIndexModuleList(modulesMap);
-        } else {
-            throw new ModuleManager.ModuleListEmptyException();
-        }
+    public static String list() {
+        String output = TextUi.getIndexModuleList(modulesMap);
+        return output;
     }
 
     /**
@@ -157,9 +154,6 @@ public class ModuleManager {
      */
     public static void clearModules() {
         modulesMap = new HashMap<String, Module>();
-    }
-
-    public static class ModuleListEmptyException extends DataNotFoundException {
     }
 
     public static class ModuleNotFoundException extends DataNotFoundException {
