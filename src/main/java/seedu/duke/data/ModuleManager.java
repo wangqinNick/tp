@@ -46,6 +46,7 @@ public class ModuleManager {
      */
     public static void edit(Module newModule, String oldModuleCode)
             throws ModuleNotProvidedException, DuplicateModuleException {
+        //modulesMap.get(module.getCode()).setTitle(moduleDescription);
         Module oldModule = modulesMap.get(oldModuleCode);
         if (!modulesMap.containsKey(oldModuleCode)) {
             throw new ModuleNotProvidedException();
