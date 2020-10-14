@@ -27,15 +27,15 @@ public class ListCommand extends Command {
         String output = "";
         switch (typeOfEntry) {
         case TASK:
-            TaskManager.list();
+            output = TaskManager.list();
             break;
         case MODULE:
-            ModuleManager.list();
+            output = ModuleManager.list();
             break;
         default:
             break;
         }
-        if (output == null) {
+        if (output.equals("")) {
             return new CommandResult(MESSAGE_LIST_EMPTY);
         }
         return new CommandResult(MESSAGE_LIST_PRINTED + output);
