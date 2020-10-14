@@ -5,6 +5,7 @@ import seedu.duke.data.ModuleManager;
 import seedu.duke.data.Task;
 import seedu.duke.common.Constant;
 import seedu.duke.data.TaskManager;
+import seedu.duke.ui.TextUi;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -30,6 +31,9 @@ public class InputOutputManager {
     static String userModuleFileName = Constant.MOD_SAVE_FILE_NAME + Constant.FILE_EXT;
     static String userTaskFileName = Constant.TASK_SAVE_FILE_NAME + Constant.FILE_EXT;
     static String nusModuleFileName = Constant.NUSMOD_SAVE_FILE_NAME + Constant.FILE_EXT;
+    static java.nio.file.Path userModuleFile = java.nio.file.Paths.get(String.valueOf(dirPath), userModuleFileName);
+    static java.nio.file.Path userTaskFile = java.nio.file.Paths.get(String.valueOf(dirPath), userTaskFileName);
+    static java.nio.file.Path nusModuleFile = java.nio.file.Paths.get(String.valueOf(dirPath), nusModuleFileName);
 
     /**
      * Creates the save directory if it has not been created.
@@ -49,10 +53,10 @@ public class InputOutputManager {
      */
     public static void loadUserSaves() {
         try {
-            loadedModulesMap = Decoder.loadModules(userModuleFileName);
-            loadedTasksList = Decoder.loadTasks(userTaskFileName);
+            ModuleManager.load(Decoder.loadModules(userModuleFile.toString()));
+            TaskManager.load(Decoder.loadTasks(userTaskFile.toString()));
         } catch (FileNotFoundException e) {
-            // do something
+            // do nothing
         }
     }
 
@@ -61,7 +65,7 @@ public class InputOutputManager {
      */
     public static void loadNusModSave() {
         try {
-            loadedNusModulesMap = Decoder.loadModules(nusModuleFileName);
+            loadedNusModulesMap = Decoder.loadModules(nusModuleFile.toString());
         } catch (FileNotFoundException e) {
             // do something
         }
@@ -72,8 +76,8 @@ public class InputOutputManager {
      */
     public static void save() {
         try {
-            Encoder.saveModules(userModuleFileName);
-            Encoder.saveTasks(userTaskFileName);
+            Encoder.saveModules(userModuleFile.toString());
+            Encoder.saveTasks(userTaskFile.toString());
         } catch (ModuleManager.ModuleNotFoundException e) {
             // print module not found
         } catch (TaskManager.TaskNotFoundException e) {
@@ -88,7 +92,7 @@ public class InputOutputManager {
      */
     public static void saveNusMods() {
         try {
-            Encoder.saveNusModules(nusModuleFileName);
+            Encoder.saveNusModules(nusModuleFile.toString());
         } catch (ModuleManager.ModuleNotFoundException e) {
             // print module not found
         } catch (IOException e) {
