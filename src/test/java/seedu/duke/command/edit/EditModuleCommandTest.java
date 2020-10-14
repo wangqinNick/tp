@@ -10,8 +10,6 @@ import seedu.duke.data.storage.InputOutputManager;
 
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class EditModuleCommandTest {
     @Test
     void execute() throws ModuleManager.DuplicateModuleException {
