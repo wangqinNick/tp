@@ -19,20 +19,20 @@ public class EditModuleCommand extends EditCommand {
     public static final Pattern REGEX_FORMAT = Pattern.compile(
             "(?<identifier>(edit)) -m(?<moduleCode>(?:\\s+\\w\\S*))(?<moduleCode1>(?:\\s+\\w\\S*))"
     );
-    private String oldModuleCode;
-    private String newModuleCode;
+    private String moduleCode;
+    private String moduleDescription;
 
     /**
      * Constructs the command to edit a module.
      *
-     * @param oldModuleCode
+     * @param moduleCode
      *  The module code of the module to be edited
-     * @param newModuleCode
-     *  The new module code for the module if any
+     * @param moduleDescription
+     *  The new module description
      */
-    public EditModuleCommand(String oldModuleCode, String newModuleCode) {
-        this.oldModuleCode = oldModuleCode;
-        this.newModuleCode = newModuleCode.toUpperCase();
+    public EditModuleCommand(String moduleCode, String moduleDescription) {
+        this.moduleCode = moduleCode;
+        this.moduleDescription = moduleDescription;
     }
 
     /**
@@ -47,7 +47,7 @@ public class EditModuleCommand extends EditCommand {
      */
 
     protected void edit(Module toEdit) throws ModuleManager.DuplicateModuleException, ModuleNotProvidedException {
-        ModuleManager.edit(toEdit, newModuleCode);
+        ModuleManager.edit(toEdit, moduleDescription);
     }
 
     /**
@@ -62,7 +62,7 @@ public class EditModuleCommand extends EditCommand {
     @Override
     public CommandResult execute() {
         try {
-            Module toEdit = ModuleManager.getModule(oldModuleCode);
+            Module toEdit = ModuleManager.getModule(moduleCode);
             edit(toEdit);
             return new CommandResult(MESSAGE_EDIT_MODULE_SUCCESS);
         }  catch (ModuleNotProvidedException e) {
