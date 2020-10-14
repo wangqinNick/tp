@@ -29,18 +29,5 @@ public class EditTaskCommandTest {
         assertEquals(MESSAGE_NO_EDIT_TASK, result2.feedbackToUser);
         CommandResult result3 = Executor.executeCommand("edit -t 2 return a book");
         assertEquals(MESSAGE_NO_EDIT_TASK, result3.feedbackToUser);
-
-        //missing parameters
-        Assertions.assertThrows(InvalidParameterException.class, () -> {
-            Executor.executeCommand("edit -t");
-        });
-
-        Assertions.assertThrows(InvalidParameterException.class, () -> {
-            Executor.executeCommand("edit -t return a book");
-        });
-
-        Assertions.assertThrows(InvalidParameterException.class, () -> {
-            Executor.executeCommand("edit -t 1");
-        });
     }
 }

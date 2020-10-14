@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class ModuleManager {
     private static HashMap<String, Module> modulesMap = new HashMap<>();
     // modulesMap is the main module list. Maps module code to module object.
-    private static HashMap<String, Module> nusModsMap = new HashMap<>();
+    private static final HashMap<String, Module> nusModsMap = new HashMap<>();
     // nusModsMap is the module list containing the Module objects created from NUSMods' JSON file of modules.
 
     /**
@@ -140,16 +140,26 @@ public class ModuleManager {
     }
 
     /**
-     * List modules in the module list.
+     * List modules in the module map.
      *
-     * @throws ModuleListEmptyException when the module list is empty.
+     * @return
+     *  The formatted module list from TextUi or null if list is empty
      */
-    public static void list() throws ModuleListEmptyException {
+    public static String list() {
         if (modulesMap.size() > 0) {
-            TextUi.outputIndexModuleList(modulesMap);
+            return TextUi.getIndexModuleList(modulesMap);
         } else {
-            throw new ModuleManager.ModuleListEmptyException();
+            return null;
         }
+    }
+
+    /**
+     * Loads the file loaded module map into ModuleManager's own module map.
+     *
+     * @param loadedModulesMap the loaded module map from file
+     */
+    public static void load(HashMap<String, Module> loadedModulesMap) {
+        modulesMap = loadedModulesMap;
     }
 
     /**
@@ -157,9 +167,6 @@ public class ModuleManager {
      */
     public static void clearModules() {
         modulesMap = new HashMap<String, Module>();
-    }
-
-    public static class ModuleListEmptyException extends DataNotFoundException {
     }
 
     public static class ModuleNotFoundException extends DataNotFoundException {

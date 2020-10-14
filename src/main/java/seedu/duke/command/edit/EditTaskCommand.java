@@ -3,19 +3,9 @@ package seedu.duke.command.edit;
 import seedu.duke.command.CommandResult;
 import seedu.duke.data.Task;
 import seedu.duke.data.TaskManager;
-import seedu.duke.directory.Directory;
-import seedu.duke.exception.DuplicateDataException;
-import seedu.duke.exception.ModuleNotProvidedException;
-import seedu.duke.data.Task;
-import seedu.duke.data.TaskManager;
-import seedu.duke.directory.Directory;
-import seedu.duke.exception.DuplicateDataException;
-import seedu.duke.exception.TaskNotFoundException;
 import seedu.duke.parser.Parser;
 import seedu.duke.util.Message;
 
-import static seedu.duke.util.ExceptionMessage.MESSAGE_DUPLICATE_TASK;
-import static seedu.duke.util.ExceptionMessage.MESSAGE_TASK_NOT_FOUND;
 import static seedu.duke.util.Message.MESSAGE_EDIT_TASK_SUCCESS;
 
 

@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.alibaba.fastjson.JSON;
+import seedu.duke.ui.TextUi;
 
 /**
  * Manages all outputs from files, and the conversion from String in file to Object in memory.
@@ -33,10 +34,18 @@ public class Decoder {
     public static HashMap<String, Module> loadModules(String dataFileName) {
         String jsonStr;
         jsonStr = loadJsonStringFromFile(dataFileName);
-        List<Module> moduleList = JSON.parseArray(jsonStr, Module.class);// extractModules(jsonStr);
+        TextUi.outputToUser(dataFileName);
+        // FastJSON doesn't write the square brackets for some reason, so we add it in here
+        // so that parseArray works as it should
+        if (jsonStr != null) {
+            jsonStr = "[" + jsonStr + "]";
+        }
+        List<Module> moduleList = JSON.parseArray(jsonStr, Module.class);
         HashMap<String, Module> modulesMap = new HashMap<>();
-        for (Module eachModule : moduleList) {
-            modulesMap.put(eachModule.getCode(), eachModule);
+        if (moduleList != null) {
+            for (Module eachModule : moduleList) {
+                modulesMap.put(eachModule.getCode(), eachModule);
+            }
         }
         return modulesMap;
     }
@@ -54,6 +63,11 @@ public class Decoder {
     public static ArrayList<Task> loadTasks(String dataFileName) throws FileNotFoundException {
         String jsonStr;
         jsonStr = loadJsonStringFromFile(dataFileName);
+        // FastJSON doesn't write the square brackets for some reason, so we add it in here
+        // so that parseArray works as it should
+        if (jsonStr != null) {
+            jsonStr = "[" + jsonStr + "]";
+        }
         List<Task> tasksList = JSON.parseArray(jsonStr, Task.class);// extractModules(jsonStr);
         return new ArrayList<>(tasksList);
     }
@@ -69,8 +83,8 @@ public class Decoder {
             in.read(fileContent);
             in.close();
         } catch (FileNotFoundException e) {
-            //System.out.println("Retrieving the module list from nusmods...");
-            return requestNusModsJsonString("https://api.nusmods.com/v2/2019-2020/moduleList.json");
+            // System.out.println("Retrieving the module list from nusmods...");
+            // return requestNusModsJsonString("https://api.nusmods.com/v2/2019-2020/moduleList.json");
         } catch (IOException e) {
             e.printStackTrace();
         }

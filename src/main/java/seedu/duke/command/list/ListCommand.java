@@ -18,44 +18,26 @@ public class ListCommand extends Command {
     }
 
     /**
-     * Lists all the tasks from the task list.
-     *
-     * @throws TaskManager.TaskNotFoundException If the task is not found in the task list.
-     */
-    private void listTask() throws TaskManager.TaskListEmptyException {
-        TaskManager.list();
-    }
-
-    /**
-     * Lists all the modules from the module list.
-     *
-     * @throws ModuleManager.ModuleNotFoundException If the module is not found in the module list.
-     */
-    private void listModule() throws ModuleManager.ModuleListEmptyException {
-        ModuleManager.list();
-    }
-
-    /**
      * Lists the tasks/modules from their respective lists.
      *
-     * @return CommandResult containing acknowledgement of the delete.
+     * @return CommandResult containing list of tasks/modules
      */
     @Override
     public CommandResult execute() {
-        try {
-            switch (typeOfEntry) {
-            case TASK:
-                listTask();
-                break;
-            case MODULE:
-                listModule();
-                break;
-            default:
-                break;
-            }
-            return new CommandResult(MESSAGE_LIST_PRINTED);
-        } catch (ModuleManager.ModuleListEmptyException | TaskManager.TaskListEmptyException e) {
+        String output = "";
+        switch (typeOfEntry) {
+        case TASK:
+            output = TaskManager.list();
+            break;
+        case MODULE:
+            output = ModuleManager.list();
+            break;
+        default:
+            break;
+        }
+        if (output == null) {
             return new CommandResult(MESSAGE_LIST_EMPTY);
         }
+        return new CommandResult(MESSAGE_LIST_PRINTED + output);
     }
 }
