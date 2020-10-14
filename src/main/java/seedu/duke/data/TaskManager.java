@@ -4,7 +4,6 @@ import seedu.duke.exception.DataNotFoundException;
 import seedu.duke.ui.TextUi;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class TaskManager {
     private static ArrayList<Task> tasksList = new ArrayList<>(); // Main task list.
@@ -108,7 +107,7 @@ public class TaskManager {
     /**
      * Returns the number of tasks.
      *
-     * @returns the number of tasks
+     * @return the number of tasks
      */
     public static int getTaskCount() {
         return tasksList.size();
@@ -119,9 +118,6 @@ public class TaskManager {
      */
     public static void clear() {
         tasksList = new ArrayList<>();
-    }
-
-    public static class TaskListEmptyException extends DataNotFoundException {
     }
 
     public static class TaskNotFoundException extends DataNotFoundException {
