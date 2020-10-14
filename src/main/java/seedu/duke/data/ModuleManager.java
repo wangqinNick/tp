@@ -1,6 +1,5 @@
 package seedu.duke.data;
 
-import seedu.duke.data.storage.InputOutputManager;
 import seedu.duke.exception.DataNotFoundException;
 import seedu.duke.exception.DuplicateDataException;
 import seedu.duke.exception.ModuleNotProvidedException;
@@ -11,7 +10,7 @@ import java.util.HashMap;
 public class ModuleManager {
     private static HashMap<String, Module> modulesMap = new HashMap<>();
     // modulesMap is the main module list. Maps module code to module object.
-    private static HashMap<String, Module> nusModsMap = new HashMap<>();
+    private static final HashMap<String, Module> nusModsMap = new HashMap<>();
     // nusModsMap is the module list containing the Module objects created from NUSMods' JSON file of modules.
 
     /**
@@ -168,9 +167,6 @@ public class ModuleManager {
      */
     public static void clearModules() {
         modulesMap = new HashMap<String, Module>();
-    }
-
-    public static class ModuleListEmptyException extends DataNotFoundException {
     }
 
     public static class ModuleNotFoundException extends DataNotFoundException {

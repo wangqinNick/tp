@@ -51,14 +51,6 @@ public class TextUi {
         }
     }
 
-    public static void outputIndexTaskList(ArrayList<Task> taskList) {
-        outputToUser(getIndexTaskList(taskList));
-    }
-
-    public static void outputIndexModuleList(HashMap<String, Module> modulesMap) {
-        outputToUser(getIndexModuleList(modulesMap));
-    }
-
     /**
      * Formats an Arraylist of type Task with their Index.
      *
