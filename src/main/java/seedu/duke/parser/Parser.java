@@ -220,7 +220,6 @@ public class Parser {
 
         String addedTask = matcher.group(TASK_NAME_GROUP).trim();
         String taskDeadline = null;
-
         // Checks for presence of -by
         String dashBy = matcher.group(DATE_IDENTIFIER_GROUP);
         if (dashBy != null) {
@@ -229,6 +228,10 @@ public class Parser {
                 return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
                         MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT, AddCommand.FORMAT));
             }
+        }
+        // without -by means its fully a task
+        if (dashBy == null) {
+            addedTask = parameters.trim();
         }
 
         // no task input by user
