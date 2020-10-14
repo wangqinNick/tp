@@ -25,7 +25,7 @@ class ParserTest {
 
     @Test
     void prepareEditModuleCommandTest() {
-        assertTrue(new Parser().prepareEditModuleCommand(" cs2113 -m cs3224")
+        assertTrue(new Parser().prepareEditModuleCommand(" cs2113 cs3224")
                 instanceof EditModuleCommand);
         assertTrue(new Parser().prepareEditModuleCommand(" cs2113 cs3224")
                 instanceof IncorrectCommand);
