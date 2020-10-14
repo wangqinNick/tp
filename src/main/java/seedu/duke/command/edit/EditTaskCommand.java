@@ -11,6 +11,7 @@ import seedu.duke.data.TaskManager;
 import seedu.duke.directory.Directory;
 import seedu.duke.exception.DuplicateDataException;
 import seedu.duke.exception.TaskNotFoundException;
+import seedu.duke.parser.Parser;
 import seedu.duke.util.Message;
 
 import static seedu.duke.util.ExceptionMessage.MESSAGE_DUPLICATE_TASK;
@@ -22,7 +23,9 @@ public class EditTaskCommand extends EditCommand {
 
     private int taskID;
     private String newTaskDescription;
-    public static final String COMMAND_WORD = "edt";
+    public static final String COMMAND_WORD = Parser.COMMAND_WORD_EDIT + "-t";
+    public static final String FORMAT = Parser.COMMAND_WORD_EDIT + "-t"+ " <task ID> <new task description>";
+
 
     /**
      * Constructs the command to edit a task.
@@ -37,8 +40,8 @@ public class EditTaskCommand extends EditCommand {
         this.newTaskDescription = newTaskDescription;
     }
 
-    protected void edit() throws TaskManager.TaskNotFoundException {
-        TaskManager.edit(taskID, newTaskDescription);
+    protected void edit() throws IndexOutOfBoundsException{
+        TaskManager.getTaskList().get(taskID).setName(newTaskDescription);
     }
 
     @Override
@@ -46,7 +49,7 @@ public class EditTaskCommand extends EditCommand {
         try {
             edit();
             return new CommandResult(MESSAGE_EDIT_TASK_SUCCESS);
-        } catch (TaskManager.TaskNotFoundException e) {
+        } catch (IndexOutOfBoundsException e) {
             return new CommandResult(Message.MESSAGE_NO_EDIT_TASK);
         }
     }
