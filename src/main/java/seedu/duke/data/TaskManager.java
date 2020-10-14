@@ -30,16 +30,16 @@ public class TaskManager {
      *
      * @param taskId
      *  The index of the task in the Task List.
-     * @param newTaskDescription
-     *  The new description of the task
+     * @param editedTask
+     *  The edited task
      * @throws TaskNotFoundException
      *  If
      */
-    public static void edit(int taskId, String newTaskDescription) throws TaskNotFoundException {
+    public static void edit(int taskId, Task editedTask) throws TaskNotFoundException {
         if (taskId < 0 || taskId > tasksList.size() - 1) {
             throw new TaskNotFoundException();
         }
-        tasksList.get(taskId).setName(newTaskDescription);
+        tasksList.set(taskId, editedTask);
     }
 
     /**
