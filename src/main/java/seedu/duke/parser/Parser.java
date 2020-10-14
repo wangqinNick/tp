@@ -230,7 +230,7 @@ public class Parser {
             }
         }
         // without -by means its fully a task
-        if ( dashBy == null ) {
+        if (dashBy == null) {
             addedTask = parameters.trim();
         }
 
