@@ -42,7 +42,6 @@ public class Decoder {
     public static HashMap<String, Module> loadModules(String dataFileName) {
         String jsonStr;
         jsonStr = loadJsonStringFromFile(dataFileName);
-        TextUi.outputToUser(dataFileName);
         // FastJSON doesn't write the square brackets for some reason when we save, so we add it in here
         // so that parseArray works as it should
         if (jsonStr != null) {
