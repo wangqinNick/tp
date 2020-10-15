@@ -11,10 +11,10 @@ public class DukeLogger {
     private static Logger dukeLogger;
     private static FileHandler logFile;
     private static SimpleFormatter formatterTxt = new SimpleFormatter();
-    private static final String logPath = "./logs/";
-    private static final String logName = "session_";
-    private static final String logExt = ".log";
-    private static final Level loggingLevel = Level.INFO; // CHANGE LOGGING LEVEL HERE!
+    private static final String LOG_PATH = "./logs/";
+    private static final String LOG_NAME = "session_";
+    private static final String LOG_EXT = ".log";
+    private static final Level LOGGING_LEVEL = Level.INFO; // CHANGE LOGGING LEVEL HERE!
 
     public static void setup(String className) {
         try {
@@ -25,7 +25,7 @@ public class DukeLogger {
             dukeLogger.setUseParentHandlers(false); // Stop it from logging from console...
             logFile.setFormatter(formatterTxt);
             dukeLogger.addHandler(logFile); // Make it log to file instead
-            dukeLogger.setLevel(loggingLevel);
+            dukeLogger.setLevel(LOGGING_LEVEL);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -68,7 +68,7 @@ public class DukeLogger {
     }
 
     public static void preparePath() {
-        File logFolder = new File(logPath);
+        File logFolder = new File(LOG_PATH);
         if (!logFolder.exists()) {
             logFolder.mkdir();
         }
@@ -76,11 +76,11 @@ public class DukeLogger {
 
     public static String prepareFile() throws IOException {
         int sessionNum = 1;
-        String currentLogFileName = logPath + logName + sessionNum + logExt;
+        String currentLogFileName = LOG_PATH + LOG_NAME + sessionNum + LOG_EXT;
         File logFile = new File(currentLogFileName);
         while (logFile.exists()) {
             sessionNum++;
-            currentLogFileName = logPath + logName + sessionNum + logExt;
+            currentLogFileName = LOG_PATH + LOG_NAME + sessionNum + LOG_EXT;
             logFile = new File(currentLogFileName);
         }
         logFile.createNewFile();
