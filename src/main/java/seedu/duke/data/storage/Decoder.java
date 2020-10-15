@@ -76,9 +76,6 @@ public class Decoder {
         HashMap<String, Module> retrievedNusModsList = new HashMap<>();
         String retrievedJson;
         retrievedJson = requestNusModsJsonString("https://api.nusmods.com/v2/2019-2020/moduleList.json");
-        if (retrievedJson != null) {
-            retrievedJson = retrievedJson ;
-        }
         List<Module> modulesList = JSON.parseArray(retrievedJson, Module.class);// extractModules(jsonStr);
 
         for (Module eachModule : modulesList) {
