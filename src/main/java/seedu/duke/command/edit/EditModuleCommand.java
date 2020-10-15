@@ -3,7 +3,6 @@ package seedu.duke.command.edit;
 import seedu.duke.command.CommandResult;
 import seedu.duke.data.Module;
 import seedu.duke.data.ModuleManager;
-import seedu.duke.directory.Directory;
 import seedu.duke.exception.ModuleNotProvidedException;
 import seedu.duke.parser.Parser;
 
@@ -47,7 +46,7 @@ public class EditModuleCommand extends EditCommand {
      */
 
     protected void edit(Module toEdit) throws ModuleManager.DuplicateModuleException, ModuleNotProvidedException {
-        toEdit.setCode(newModuleCode);
+        toEdit.setModuleCode(newModuleCode);
         ModuleManager.edit(toEdit, oldModuleCode);
     }
 

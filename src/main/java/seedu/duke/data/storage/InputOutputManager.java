@@ -2,15 +2,13 @@ package seedu.duke.data.storage;
 
 import seedu.duke.data.Module;
 import seedu.duke.data.ModuleManager;
-import seedu.duke.data.Task;
 import seedu.duke.common.Constant;
 import seedu.duke.data.TaskManager;
-import seedu.duke.ui.TextUi;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.nio.file.Files;
 import java.util.HashMap;
 
 /**
@@ -21,10 +19,6 @@ import java.util.HashMap;
  * @author Sim Jun You
  */
 public class InputOutputManager {
-    static ArrayList<Task> loadedTasksList;
-    static HashMap<String, Module> loadedModulesMap;
-    static HashMap<String, Module> loadedNusModulesMap;
-
     static String root = System.getProperty("user.dir");
     static java.nio.file.Path dirPath = java.nio.file.Paths.get(root, "data");
 
@@ -44,27 +38,31 @@ public class InputOutputManager {
         if (!saveFolder.exists()) {
             saveFolder.mkdir();
         } else {
-            loadUserSaves();
+            if (Files.exists(userModuleFile) && Files.exists(userTaskFile)) {
+                loadUserSaves();
+            }
+            loadNusModSave(); // loads from NUSMods API if file not found
         }
+
     }
 
     /**
      * Loads user saves (modules, tasks) from the given files.
      */
     public static void loadUserSaves() {
-        try {
-            ModuleManager.load(Decoder.loadModules(userModuleFile.toString()));
-            TaskManager.load(Decoder.loadTasks(userTaskFile.toString()));
-        } catch (FileNotFoundException e) {
-            // do nothing
-        }
+        ModuleManager.loadMods(Decoder.loadModules(userModuleFile.toString()));
+        TaskManager.loadTasks(Decoder.loadTasks(userTaskFile.toString()));
     }
 
     /**
      * Loads NUS Modules from the given file.
      */
     public static void loadNusModSave() {
-        loadedNusModulesMap = Decoder.loadModules(nusModuleFileName);
+        if (!Files.exists(nusModuleFile)) {
+            ModuleManager.loadNusMods(Decoder.generateNusModsList());
+        } else {
+            ModuleManager.loadNusMods(Decoder.loadModules(nusModuleFile.toString()));
+        }
     }
 
     /**
@@ -72,8 +70,12 @@ public class InputOutputManager {
      */
     public static void save() {
         try {
-            Encoder.saveModules(userModuleFile.toString());
-            Encoder.saveTasks(userTaskFile.toString());
+            if (ModuleManager.getModCodeList().length != 0) {
+                Encoder.saveModules(userModuleFile.toString());
+            }
+            if (TaskManager.getTaskCount() != 0) {
+                Encoder.saveTasks(userTaskFile.toString());
+            }
         } catch (ModuleManager.ModuleNotFoundException e) {
             // print module not found
         } catch (TaskManager.TaskNotFoundException e) {

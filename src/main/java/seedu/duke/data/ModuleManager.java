@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class ModuleManager {
     private static HashMap<String, Module> modulesMap = new HashMap<>();
     // modulesMap is the main module list. Maps module code to module object.
-    private static final HashMap<String, Module> nusModsMap = new HashMap<>();
+    private static HashMap<String, Module> nusModsMap = new HashMap<>();
     // nusModsMap is the module list containing the Module objects created from NUSMods' JSON file of modules.
 
     /**
@@ -25,7 +25,7 @@ public class ModuleManager {
      */
     public static Module getModule(String moduleCode) throws ModuleNotFoundException {
         for (Module module : modulesMap.values()) {
-            if (module.getCode().equalsIgnoreCase(moduleCode)) {
+            if (module.getModuleCode().equalsIgnoreCase(moduleCode)) {
                 return module;
             }
         }
@@ -55,7 +55,7 @@ public class ModuleManager {
             throw new DuplicateModuleException();
         }
         modulesMap.remove(oldModuleCode);
-        modulesMap.put(newModule.getCode(), newModule);
+        modulesMap.put(newModule.getModuleCode(), newModule);
     }
 
     /**
@@ -80,10 +80,10 @@ public class ModuleManager {
      *  The module object to add to the module list
      */
     public static void add(Module newModule) throws DuplicateModuleException {
-        if (contains(newModule.getCode())) {
+        if (contains(newModule.getModuleCode())) {
             throw new DuplicateModuleException();
         }
-        modulesMap.put(newModule.getCode(), newModule);
+        modulesMap.put(newModule.getModuleCode(), newModule);
     }
 
     /**
@@ -105,10 +105,10 @@ public class ModuleManager {
      *  The module object to add to the module list
      */
     public static void addNusMod(Module newModule) throws DuplicateModuleException {
-        if (contains(newModule.getCode())) {
+        if (contains(newModule.getModuleCode())) {
             throw new DuplicateModuleException();
         }
-        nusModsMap.put(newModule.getCode(), newModule);
+        nusModsMap.put(newModule.getModuleCode(), newModule);
     }
 
     /**
@@ -123,7 +123,7 @@ public class ModuleManager {
      */
     public static Module getNusModule(String moduleCode) throws ModuleNotFoundException {
         for (Module module : nusModsMap.values()) {
-            if (module.getCode().equalsIgnoreCase(moduleCode)) {
+            if (module.getModuleCode().equalsIgnoreCase(moduleCode)) {
                 return module;
             }
         }
@@ -159,8 +159,17 @@ public class ModuleManager {
      *
      * @param loadedModulesMap the loaded module map from file
      */
-    public static void load(HashMap<String, Module> loadedModulesMap) {
+    public static void loadMods(HashMap<String, Module> loadedModulesMap) {
         modulesMap = loadedModulesMap;
+    }
+
+    /**
+     * Loads the file loaded module map into ModuleManager's own module map.
+     *
+     * @param loadedModulesMap the loaded module map from file
+     */
+    public static void loadNusMods(HashMap<String, Module> loadedModulesMap) {
+        nusModsMap = loadedModulesMap;
     }
 
     /**

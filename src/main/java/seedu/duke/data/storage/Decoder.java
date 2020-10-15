@@ -29,13 +29,21 @@ import seedu.duke.ui.TextUi;
  * @author Sim Jun You
  * @author Wang Qin
  */
-public class Decoder {
 
+public class Decoder {
+    /**
+     * Loads a HashMap of Module objects from the specified file. Used for both user and NUS modules.
+     *
+     * @param dataFileName
+     *  The file to load from
+     * @return
+     *  The HashMap of Module objects
+     */
     public static HashMap<String, Module> loadModules(String dataFileName) {
         String jsonStr;
         jsonStr = loadJsonStringFromFile(dataFileName);
         TextUi.outputToUser(dataFileName);
-        // FastJSON doesn't write the square brackets for some reason, so we add it in here
+        // FastJSON doesn't write the square brackets for some reason when we save, so we add it in here
         // so that parseArray works as it should
         if (jsonStr != null) {
             jsonStr = "[" + jsonStr + "]";
@@ -44,7 +52,7 @@ public class Decoder {
         HashMap<String, Module> modulesMap = new HashMap<>();
         if (moduleList != null) {
             for (Module eachModule : moduleList) {
-                modulesMap.put(eachModule.getCode(), eachModule);
+                modulesMap.put(eachModule.getModuleCode(), eachModule);
             }
         }
         return modulesMap;
@@ -60,10 +68,10 @@ public class Decoder {
      * @throws FileNotFoundException
      *  When the file does not exist
      */
-    public static ArrayList<Task> loadTasks(String dataFileName) throws FileNotFoundException {
+    public static ArrayList<Task> loadTasks(String dataFileName) {
         String jsonStr;
         jsonStr = loadJsonStringFromFile(dataFileName);
-        // FastJSON doesn't write the square brackets for some reason, so we add it in here
+        // FastJSON doesn't write the square brackets for some reason when we save, so we add it in here
         // so that parseArray works as it should
         if (jsonStr != null) {
             jsonStr = "[" + jsonStr + "]";
@@ -72,7 +80,34 @@ public class Decoder {
         return new ArrayList<>(tasksList);
     }
 
+    /**
+     * Pulls JSON from the NUSMods API, parses it, and returns the HashMap of Module objects.
+     *
+     * @return
+     *  The HashMap of Module objects (from NUSMods)
+     */
+    public static HashMap<String, Module> generateNusModsList() {
+        HashMap<String, Module> retrievedNusModsList = new HashMap<>();
+        String retrievedJson;
+        retrievedJson = requestNusModsJsonString("https://api.nusmods.com/v2/2019-2020/moduleList.json");
+        // This JSON string comes with the square brackets, so no need to add
+        List<Module> modulesList = JSON.parseArray(retrievedJson, Module.class);// extractModules(jsonStr);
 
+        for (Module eachModule : modulesList) {
+            retrievedNusModsList.put(eachModule.getModuleCode(), eachModule);
+        }
+
+        return retrievedNusModsList;
+    }
+
+    /**
+     * Reads a string from a file (doesn't necessarily have to be JSON).
+     *
+     * @param dataFileName
+     *  The specified file
+     * @return
+     *  The string read from file
+     */
     private static String loadJsonStringFromFile(String dataFileName) {
         File file = new File(dataFileName);
         long fileLength = file.length();
@@ -82,9 +117,6 @@ public class Decoder {
             FileInputStream in = new FileInputStream(file);
             in.read(fileContent);
             in.close();
-        } catch (FileNotFoundException e) {
-            // System.out.println("Retrieving the module list from nusmods...");
-            // return requestNusModsJsonString("https://api.nusmods.com/v2/2019-2020/moduleList.json");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -108,6 +140,7 @@ public class Decoder {
      *  The JSON string with information of all currently available mods in NUS.
      */
     private static String requestNusModsJsonString(String filePath) {
+        System.out.println("Getting stuff from NUSMods");
         int httpResult; // the status from the server response
         String content = "";
         try {

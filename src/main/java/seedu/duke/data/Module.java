@@ -4,22 +4,22 @@ import seedu.duke.directory.Directory;
 import seedu.duke.directory.DirectoryLevel;
 
 public class Module extends Directory {
-    private String code;
+    private String moduleCode;
     private String title;
 
     public Module() {
     }
 
-    public Module(String code) {
-        this.code = code;
+    public Module(String moduleCode) {
+        this.moduleCode = moduleCode;
     }
 
-    public String getCode() {
-        return code;
+    public String getModuleCode() {
+        return moduleCode;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setModuleCode(String moduleCode) {
+        this.moduleCode = moduleCode;
     }
 
     public String getTitle() {
@@ -31,13 +31,13 @@ public class Module extends Directory {
     }
 
     public boolean isSameModule(Module checkModule) {
-        String moduleCode = checkModule.getCode();
+        String moduleCode = checkModule.getModuleCode();
         String moduleTitle = checkModule.getTitle();
-        return this.code.equalsIgnoreCase(moduleCode) && this.title.equalsIgnoreCase(moduleTitle);
+        return this.moduleCode.equalsIgnoreCase(moduleCode) && this.title.equalsIgnoreCase(moduleTitle);
     }
 
     public String toString() {
-        return getCode() + ": " + getTitle();
+        return getModuleCode() + ": " + getTitle();
     }
 
     @Override
