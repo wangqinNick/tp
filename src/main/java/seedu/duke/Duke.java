@@ -26,10 +26,11 @@ public class Duke {
     /** Sets up the storage, loads up the data from the storage file and prints the welcome message.  */
     private void start(String[] args) throws FileNotFoundException {
         Scanner in = new Scanner(System.in);
+        DukeLogger.setup(Duke.class.getName());
         this.ui = new TextUi(in);
-        // todo add code to the following functions in InputOutputManager, TextUi
         InputOutputManager.start();
         ui.showWelcomeMessage();
+        DukeLogger.info("Initialised scanner, logger, UI, and IO");
     }
 
     /** Runs the program until termination.  */
@@ -43,6 +44,7 @@ public class Duke {
     /** Reads the user command and executes it, until the user issues the exit command.  */
     private void runCommandLoopUntilExitCommand() {
         Command command;
+        DukeLogger.info("Entering command loop...");
         do {
             String userInput = ui.getUserCommand();
             command = new Parser().parseCommand(userInput);

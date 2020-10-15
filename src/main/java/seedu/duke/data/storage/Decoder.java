@@ -140,7 +140,6 @@ public class Decoder {
      *  The JSON string with information of all currently available mods in NUS.
      */
     private static String requestNusModsJsonString(String filePath) {
-        System.out.println("Getting stuff from NUSMods");
         int httpResult; // the status from the server response
         String content = "";
         try {

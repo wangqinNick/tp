@@ -4,6 +4,7 @@ import seedu.duke.data.Module;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.common.Constant;
 import seedu.duke.data.TaskManager;
+import seedu.duke.DukeLogger;
 
 import java.io.File;
 import java.io.FileNotFoundException;
