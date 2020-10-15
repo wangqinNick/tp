@@ -4,8 +4,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Comparator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TaskTest {
@@ -52,5 +55,36 @@ class TaskTest {
 
         assertEquals(0, TaskManager.getTaskCount());
         assertThrows(TaskManager.TaskNotFoundException.class, () -> TaskManager.getTask(0));
+    }
+
+    @Test
+    void summary_checkTaskOrder_isCorrect() {
+        LocalDateTime myDate = LocalDateTime.of(2020, 10, 1, 1, 0);
+        Task laterDatedTask = new Task("LATER", myDate);
+        TaskManager.add(laterDatedTask);
+
+        ArrayList<Task> sortedTaskWithDeadlines = TaskManager.summary().get(0);
+        Task earlierTask = sortedTaskWithDeadlines.get(0);
+        Task laterTask = sortedTaskWithDeadlines.get(1);
+        // Assert that laterTask actually has a later deadline than earlierTask
+        assertTrue(laterTask.getDeadline().compareTo(earlierTask.getDeadline()) > 0);
+        assertEquals(2, sortedTaskWithDeadlines.size());
+    }
+
+    @Test
+    void summary_checkNoDeadlineList_isCorrect() {
+        ArrayList<Task> sortedTasksWithoutDeadlines = TaskManager.summary().get(1);
+        Task taskWithoutDeadline = sortedTasksWithoutDeadlines.get(0);
+        assertTrue(taskWithoutDeadline.getDeadline() == null);
+        assertEquals(1, sortedTasksWithoutDeadlines.size());
+    }
+
+    @Test
+    void summary_checkCompletedList_isCorrect() throws TaskManager.TaskNotFoundException {
+        TaskManager.done(0);
+        TaskManager.done(1);
+        ArrayList<Task> completedTasks = TaskManager.summary().get(2);
+        assertTrue(completedTasks.get(0).getStatus());
+        assertEquals(2, completedTasks.size());
     }
 }
