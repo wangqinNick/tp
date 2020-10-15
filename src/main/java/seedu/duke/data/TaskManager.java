@@ -100,7 +100,7 @@ public class TaskManager {
      *
      * @param loadedTasksList the loaded task list from file
      */
-    public static void load(ArrayList<Task> loadedTasksList) {
+    public static void loadTasks(ArrayList<Task> loadedTasksList) {
         tasksList = loadedTasksList;
     }
 

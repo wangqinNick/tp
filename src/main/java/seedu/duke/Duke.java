@@ -37,6 +37,7 @@ public class Duke {
         start(args);
         runCommandLoopUntilExitCommand();
         InputOutputManager.save();
+        InputOutputManager.saveNusMods();
     }
 
     /** Reads the user command and executes it, until the user issues the exit command.  */

@@ -45,6 +45,7 @@ public class Encoder {
         File mySaveFile = new File(dataFileName);
         prepareSaveFile(mySaveFile);
         Module currentModule;
+        String[] modsToBeSaved = ModuleManager.getModCodeList();
         for (String eachModCode : ModuleManager.getModCodeList()) {
             currentModule = ModuleManager.getModule(eachModCode);
             writeToFile(mySaveFile, JSON.toJSONString(currentModule));
