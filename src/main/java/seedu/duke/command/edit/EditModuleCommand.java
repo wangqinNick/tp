@@ -47,7 +47,8 @@ public class EditModuleCommand extends EditCommand {
      */
 
     protected void edit(Module toEdit) throws ModuleManager.DuplicateModuleException, ModuleNotProvidedException {
-        ModuleManager.edit(toEdit, newModuleCode);
+        toEdit.setCode(newModuleCode);
+        ModuleManager.edit(toEdit, oldModuleCode);
     }
 
     /**
