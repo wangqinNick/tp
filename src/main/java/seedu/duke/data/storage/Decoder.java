@@ -29,12 +29,13 @@ import seedu.duke.ui.TextUi;
  * @author Sim Jun You
  * @author Wang Qin
  */
+
 public class Decoder {
     /**
      * Loads a HashMap of Module objects from the specified file. Used for both user and NUS modules.
      *
-     * @param
-     *  dataFileName The file to load from
+     * @param dataFileName
+     *  The file to load from
      * @return
      *  The HashMap of Module objects
      */
