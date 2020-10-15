@@ -19,8 +19,6 @@ import java.util.HashMap;
  * @author Sim Jun You
  */
 public class InputOutputManager {
-    static HashMap<String, Module> loadedNusModulesMap;
-
     static String root = System.getProperty("user.dir");
     static java.nio.file.Path dirPath = java.nio.file.Paths.get(root, "data");
 

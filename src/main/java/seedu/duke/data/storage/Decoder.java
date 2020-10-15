@@ -30,12 +30,19 @@ import seedu.duke.ui.TextUi;
  * @author Wang Qin
  */
 public class Decoder {
-
+    /**
+     * Loads a HashMap of Module objects from the specified file. Used for both user and NUS modules.
+     *
+     * @param
+     *  dataFileName The file to load from
+     * @return
+     *  The HashMap of Module objects
+     */
     public static HashMap<String, Module> loadModules(String dataFileName) {
         String jsonStr;
         jsonStr = loadJsonStringFromFile(dataFileName);
         TextUi.outputToUser(dataFileName);
-        // FastJSON doesn't write the square brackets for some reason, so we add it in here
+        // FastJSON doesn't write the square brackets for some reason when we save, so we add it in here
         // so that parseArray works as it should
         if (jsonStr != null) {
             jsonStr = "[" + jsonStr + "]";
@@ -63,7 +70,7 @@ public class Decoder {
     public static ArrayList<Task> loadTasks(String dataFileName) {
         String jsonStr;
         jsonStr = loadJsonStringFromFile(dataFileName);
-        // FastJSON doesn't write the square brackets for some reason, so we add it in here
+        // FastJSON doesn't write the square brackets for some reason when we save, so we add it in here
         // so that parseArray works as it should
         if (jsonStr != null) {
             jsonStr = "[" + jsonStr + "]";
@@ -72,10 +79,17 @@ public class Decoder {
         return new ArrayList<>(tasksList);
     }
 
+    /**
+     * Pulls JSON from the NUSMods API, parses it, and returns the HashMap of Module objects.
+     *
+     * @return
+     *  The HashMap of Module objects (from NUSMods)
+     */
     public static HashMap<String, Module> generateNusModsList() {
         HashMap<String, Module> retrievedNusModsList = new HashMap<>();
         String retrievedJson;
         retrievedJson = requestNusModsJsonString("https://api.nusmods.com/v2/2019-2020/moduleList.json");
+        // This JSON string comes with the square brackets, so no need to add
         List<Module> modulesList = JSON.parseArray(retrievedJson, Module.class);// extractModules(jsonStr);
 
         for (Module eachModule : modulesList) {
@@ -85,7 +99,14 @@ public class Decoder {
         return retrievedNusModsList;
     }
 
-
+    /**
+     * Reads a string from a file (doesn't necessarily have to be JSON).
+     *
+     * @param dataFileName
+     *  The specified file
+     * @return
+     *  The string read from file
+     */
     private static String loadJsonStringFromFile(String dataFileName) {
         File file = new File(dataFileName);
         long fileLength = file.length();
