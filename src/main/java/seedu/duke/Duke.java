@@ -9,9 +9,12 @@ import seedu.duke.ui.TextUi;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Duke {
     private TextUi ui;
+    private static final DukeLogger logger = new DukeLogger(Duke.class.getName());
 
     /**
      * Entry-point for the java.duke.Duke application.
@@ -27,22 +30,25 @@ public class Duke {
     private void start(String[] args) throws FileNotFoundException {
         Scanner in = new Scanner(System.in);
         this.ui = new TextUi(in);
-        // todo add code to the following functions in InputOutputManager, TextUi
         InputOutputManager.start();
         ui.showWelcomeMessage();
+        logger.getLogger().info("Initialised scanner, UI, and IO");
     }
 
     /** Runs the program until termination.  */
     public void run(String[] args) throws FileNotFoundException {
+        logger.getLogger().info("STARTING PROGRAM...");
         start(args);
         runCommandLoopUntilExitCommand();
         InputOutputManager.save();
         InputOutputManager.saveNusMods();
+        logger.getLogger().info("PROGRAM TERMINATED SUCCESSFULLY");
     }
 
     /** Reads the user command and executes it, until the user issues the exit command.  */
     private void runCommandLoopUntilExitCommand() {
         Command command;
+        logger.getLogger().info("ENTERING COMMAND LOOP");
         do {
             String userInput = ui.getUserCommand();
             command = new Parser().parseCommand(userInput);
