@@ -14,7 +14,7 @@ import static seedu.duke.util.ExceptionMessage.MESSAGE_MODULE_NOT_PROVIDED;
 import static seedu.duke.util.Message.MESSAGE_EDIT_MODULE_SUCCESS;
 
 public class EditModuleCommand extends EditCommand {
-    public static final String FORMAT = EditTaskCommand.COMMAND_WORD + "-m" + " <module code> <new module code>";
+    public static final String FORMAT = EditCommand.COMMAND_WORD + "-m" + " <module code> <new module code>";
     public static final Pattern REGEX_FORMAT = Pattern.compile(
             "(?<identifier>(edit)) -m(?<moduleCode>(?:\\s+\\w\\S*))(?<moduleCode1>(?:\\s+\\w\\S*))"
     );
