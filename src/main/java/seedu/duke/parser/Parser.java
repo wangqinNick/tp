@@ -10,6 +10,7 @@ import seedu.duke.command.edit.EditModuleCommand;
 import seedu.duke.command.edit.EditTaskCommand;
 import seedu.duke.command.help.HelpCommand;
 import seedu.duke.command.list.ListCommand;
+import seedu.duke.command.misc.UndoCommand;
 
 import java.security.InvalidParameterException;
 import java.util.regex.Matcher;
@@ -106,6 +107,8 @@ public class Parser {
                 return new HelpCommand();
             } else {
                 switch (commandWord) {
+                case UndoCommand.COMMAND_WORD:
+                    return new UndoCommand();
                 case COMMAND_WORD_EDIT:
                     return getEditCommand(commandFlag, parameters);
                 case COMMAND_WORD_ADD:
