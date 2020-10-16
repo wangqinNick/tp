@@ -1,70 +1,76 @@
 package seedu.duke;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.logging.FileHandler;
+import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 import java.util.logging.Level;
-import java.util.logging.SimpleFormatter;
 import java.io.File;
+import java.util.logging.SimpleFormatter;
 
 public class DukeLogger {
-    private static Logger dukeLogger;
+    private Logger dukeLogger; // One logger for each instance
+
+    // The following are shared across all DukeLogger instances
     private static FileHandler logFile;
-    private static SimpleFormatter formatterTxt = new SimpleFormatter();
+    private static String logFileName = null;
     private static final String LOG_PATH = "./logs/";
     private static final String LOG_NAME = "session_";
     private static final String LOG_EXT = ".log";
     private static final Level LOGGING_LEVEL = Level.INFO; // CHANGE LOGGING LEVEL HERE!
 
-    public static void setup(String className) {
+    private static final SimpleFormatter FORMATTER = new SimpleFormatter() {
+        private static final String formatE = "%1$s - %2$s:%n[%3$-7s] %4$s%n%5$s%n%n";
+        private static final String format = "%1$s - %2$s:%n[%3$-7s] %4$s%n%n";
+        @Override
+        public synchronized String format(LogRecord lr) {
+            if (lr.getThrown() != null) {
+                return String.format(formatE,
+                        lr.getSourceClassName(),
+                        lr.getSourceMethodName(),
+                        lr.getLevel().getLocalizedName(),
+                        lr.getMessage(),
+                        lr.getThrown()
+                );
+            } else {
+                return String.format(format,
+                        lr.getSourceClassName(),
+                        lr.getSourceMethodName(),
+                        lr.getLevel().getLocalizedName(),
+                        lr.getMessage()
+                );
+            }
+        }
+    };
+
+    public DukeLogger(String className) {
         try {
-            preparePath();
-            String currentLogFile = prepareFile();
             dukeLogger = Logger.getLogger(className);
-            logFile = new FileHandler(currentLogFile); // todo: remove magic file path
+            if (logFileName == null) {
+                globalSetup();
+                logFile = new FileHandler(logFileName);
+            }
             dukeLogger.setUseParentHandlers(false); // Stop it from logging from console...
-            logFile.setFormatter(formatterTxt);
             dukeLogger.addHandler(logFile); // Make it log to file instead
             dukeLogger.setLevel(LOGGING_LEVEL);
+            logFile.setFormatter(FORMATTER);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static void info(String log) {
-        dukeLogger.info(log);
+    public Logger getLogger() {
+        return dukeLogger;
     }
 
-    public static void info(String log, Exception e) {
-        dukeLogger.log(Level.INFO, log, e);
-    }
-
-    public static void info(String log, Object ob) {
-        dukeLogger.log(Level.INFO, log, ob);
-    }
-
-    public static void warning(String log) {
-        dukeLogger.warning(log);
-    }
-
-    public static void warning(String log, Exception e) {
-        dukeLogger.log(Level.WARNING, log, e);
-    }
-
-    public static void warning(String log, Object ob) {
-        dukeLogger.log(Level.WARNING, log, ob);
-    }
-
-    public static void severe(String log) {
-        dukeLogger.severe(log);
-    }
-
-    public static void severe(String log, Exception e) {
-        dukeLogger.log(Level.SEVERE, log, e);
-    }
-
-    public static void severe(String log, Object ob) {
-        dukeLogger.log(Level.SEVERE, log, ob);
+    private static void globalSetup() {
+        try {
+            preparePath();
+            logFileName = prepareFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void preparePath() {

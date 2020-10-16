@@ -1,16 +1,16 @@
 package seedu.duke.data.storage;
 
-import seedu.duke.data.Module;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.common.Constant;
 import seedu.duke.data.TaskManager;
 import seedu.duke.DukeLogger;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.HashMap;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Manages all inputs and outputs (to and from files).
@@ -30,13 +30,17 @@ public class InputOutputManager {
     static java.nio.file.Path userTaskFile = java.nio.file.Paths.get(String.valueOf(dirPath), userTaskFileName);
     static java.nio.file.Path nusModuleFile = java.nio.file.Paths.get(String.valueOf(dirPath), nusModuleFileName);
 
+    private static final DukeLogger logger = new DukeLogger(InputOutputManager.class.getName());
+
     /**
      * Creates the save directory if it has not been created.
      * Loads the user's module and task saves into memory.
      */
     public static void start() {
+        logger.getLogger().info("Starting InputOutputManager");
         File saveFolder = dirPath.toFile();
         if (!saveFolder.exists()) {
+            logger.getLogger().info("Save folder does not exist, creating now");
             saveFolder.mkdir();
         } else {
             if (Files.exists(userModuleFile) && Files.exists(userTaskFile)) {
@@ -44,13 +48,13 @@ public class InputOutputManager {
             }
             loadNusModSave(); // loads from NUSMods API if file not found
         }
-
     }
 
     /**
      * Loads user saves (modules, tasks) from the given files.
      */
     public static void loadUserSaves() {
+        logger.getLogger().info("Loading user saves from " + userModuleFileName + " and " + userTaskFileName);
         ModuleManager.loadMods(Decoder.loadModules(userModuleFile.toString()));
         TaskManager.loadTasks(Decoder.loadTasks(userTaskFile.toString()));
     }
@@ -59,6 +63,7 @@ public class InputOutputManager {
      * Loads NUS Modules from the given file.
      */
     public static void loadNusModSave() {
+        logger.getLogger().info("Loading NUS Modules from " + nusModuleFileName);
         if (!Files.exists(nusModuleFile)) {
             ModuleManager.loadNusMods(Decoder.generateNusModsList());
         } else {
@@ -70,6 +75,7 @@ public class InputOutputManager {
      * Updates the user's save files. Does not save NUS Modules.
      */
     public static void save() {
+        logger.getLogger().info("Saving user modules and tasks into " + userModuleFileName + " and " + userTaskFileName);
         try {
             if (ModuleManager.getModCodeList().length != 0) {
                 Encoder.saveModules(userModuleFile.toString());
@@ -78,11 +84,13 @@ public class InputOutputManager {
                 Encoder.saveTasks(userTaskFile.toString());
             }
         } catch (ModuleManager.ModuleNotFoundException e) {
+            logger.getLogger().log(Level.WARNING, e.getLocalizedMessage(), e);
             // print module not found
         } catch (TaskManager.TaskNotFoundException e) {
+            logger.getLogger().log(Level.WARNING, e.getLocalizedMessage(), e);
             // print task not found
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.getLogger().log(Level.WARNING, e.getLocalizedMessage(), e);
         }
     }
 
@@ -90,11 +98,14 @@ public class InputOutputManager {
      * Updates the user's NUS Modules save file.
      */
     public static void saveNusMods() {
+        logger.getLogger().info("Saving NUS modules into " + nusModuleFileName);
         try {
             Encoder.saveNusModules(nusModuleFile.toString());
         } catch (ModuleManager.ModuleNotFoundException e) {
+            logger.getLogger().log(Level.WARNING, e.getLocalizedMessage(), e);
             // print module not found
         } catch (IOException e) {
+            logger.getLogger().log(Level.WARNING, e.getLocalizedMessage(), e);
             e.printStackTrace();
         }
     }
