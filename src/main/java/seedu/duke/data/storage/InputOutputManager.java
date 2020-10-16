@@ -75,7 +75,8 @@ public class InputOutputManager {
      * Updates the user's save files. Does not save NUS Modules.
      */
     public static void save() {
-        logger.getLogger().info("Saving user modules and tasks into " + userModuleFileName + " and " + userTaskFileName);
+        logger.getLogger().info("Saving user modules and tasks into " + userModuleFileName
+                + " and " + userTaskFileName);
         try {
             if (ModuleManager.getModCodeList().length != 0) {
                 Encoder.saveModules(userModuleFile.toString());
