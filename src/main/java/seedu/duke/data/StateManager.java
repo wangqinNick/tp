@@ -1,14 +1,13 @@
-package seedu.duck.data;
+package seedu.duke.data;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import seedu.duck.storage.IOManager;
-import seedu.duck.task.Task;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
@@ -65,7 +64,7 @@ public class StateManager {
         var stream = new ByteArrayInputStream(encodedSavedList.getBytes());
         var bufferedReader = new BufferedReader(new InputStreamReader(stream));
         Task[] readList = new Gson().fromJson(bufferedReader, Task[].class);
-        TaskManager.setTaskList(IOManager.getDecodedTaskList(readList));
+        TaskManager.loadTasks(getDecodedTaskList(readList));
         bufferedReader.close();
     }
 
@@ -97,5 +96,19 @@ public class StateManager {
      */
     private static int getUndoStackSize() {
         return undoStack.size();
+    }
+
+    /**
+     * Return the task list read from Json file
+     *
+     * @param readList the task array read from Json file
+     * @return the task list parsed from readList array
+     */
+    public static ArrayList<Task> getDecodedTaskList(Task[] readList) {
+        ArrayList<Task> tempTaskList = new ArrayList<>();
+        for (Task task : readList) {
+            tempTaskList.add(new Task(task.getName(), task.getDeadline(), task.getStatus()));
+        }
+        return tempTaskList;
     }
 }

@@ -1,4 +1,4 @@
-package seedu.duck.data;
+package seedu.duke.data;
 
 public class State {
     private String encodedSavedList;
