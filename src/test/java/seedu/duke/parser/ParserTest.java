@@ -1,8 +1,6 @@
 package seedu.duke.parser;
 
 import org.junit.jupiter.api.Test;
-import seedu.duke.command.Command;
-import seedu.duke.command.CommandResult;
 import seedu.duke.command.IncorrectCommand;
 import seedu.duke.command.add.AddCommand;
 import seedu.duke.command.edit.EditModuleCommand;
@@ -11,8 +9,6 @@ import seedu.duke.command.edit.EditTaskCommand;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static seedu.duke.util.Message.MESSAGE_CHECK_COMMAND_FORMAT;
-import static seedu.duke.util.Message.MESSAGE_INVALID_COMMAND_FORMAT;
 
 class ParserTest {
     static final String TASK_TO_EDIT = "3 read a book";
@@ -23,16 +19,16 @@ class ParserTest {
 
     @Test
     void isNothingToEdit_emptyString_returnsTrue() {
-        assertTrue(new Parser().isNothingToEdit(""));
-        assertTrue(new Parser().isNothingToEdit("", ""));
-        assertTrue(new Parser().isNothingToEdit("", "", ""));
+        assertTrue(new Parser().isEmptyParse(""));
+        assertTrue(new Parser().isEmptyParse("", ""));
+        assertTrue(new Parser().isEmptyParse("", "", ""));
     }
 
     @Test
     void isNothingToEdit_nonemptyString_returnsFalse() {
-        assertFalse(new Parser().isNothingToEdit(" "));
-        assertFalse(new Parser().isNothingToEdit(" ", ""));
-        assertFalse(new Parser().isNothingToEdit("", "b", ""));
+        assertFalse(new Parser().isEmptyParse(" "));
+        assertFalse(new Parser().isEmptyParse(" ", ""));
+        assertFalse(new Parser().isEmptyParse("", "b", ""));
     }
 
     @Test
