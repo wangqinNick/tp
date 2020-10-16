@@ -42,7 +42,6 @@ public class Decoder {
     public static HashMap<String, Module> loadModules(String dataFileName) {
         String jsonStr;
         jsonStr = loadJsonStringFromFile(dataFileName);
-        TextUi.outputToUser(dataFileName);
         // FastJSON doesn't write the square brackets for some reason when we save, so we add it in here
         // so that parseArray works as it should
         if (jsonStr != null) {
@@ -140,7 +139,6 @@ public class Decoder {
      *  The JSON string with information of all currently available mods in NUS.
      */
     private static String requestNusModsJsonString(String filePath) {
-        System.out.println("Getting stuff from NUSMods");
         int httpResult; // the status from the server response
         String content = "";
         try {
