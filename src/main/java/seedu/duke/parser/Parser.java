@@ -3,8 +3,10 @@ package seedu.duke.parser;
 import seedu.duke.command.Command;
 import seedu.duke.command.ExitCommand;
 import seedu.duke.command.IncorrectCommand;
+import seedu.duke.command.add.AddCommand;
 import seedu.duke.command.delete.DeleteCommand;
 import seedu.duke.command.done.DoneCommand;
+import seedu.duke.command.edit.EditCommand;
 import seedu.duke.command.edit.EditModuleCommand;
 import seedu.duke.command.edit.EditTaskCommand;
 import seedu.duke.command.help.HelpCommand;
@@ -19,7 +21,6 @@ import static seedu.duke.util.ExceptionMessage.MESSAGE_INVALID_PARAMETERS;
 import static seedu.duke.util.Message.MESSAGE_CHECK_COMMAND_FORMAT;
 import static seedu.duke.util.Message.MESSAGE_EMPTY_INPUT;
 import static seedu.duke.util.Message.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.duke.util.Message.MESSAGE_NO_EDIT_TASK;
 
 public class Parser {
     public enum TypeOfEntries {
@@ -52,14 +53,6 @@ public class Parser {
     protected static final Pattern PARAMETERS_FORMAT =
             Pattern.compile("((?<digit>\\s+\\d+)?)" + "((?<commandFlag>.*-\\S+)?)"
                     +"(?<taskName>\\S+)((?<by>.*" + BY_PREFIX + ")?)((?<dueDate>.*)?)");
-
-    public static final String COMMAND_WORD_EDIT = "edit";
-    public static final String COMMAND_WORD_ADD = "add";
-    public static final String COMMAND_WORD_DELETE = "delete";
-    public static final String COMMAND_WORD_LIST = "list";
-    public static final String COMMAND_WORD_DONE = "done";
-    public static final String COMMAND_WORD_HELP = "help";
-    public static final String COMMAND_WORD_BYE = "bye";
 
     //(?<identifier>(?:\s+\w\S*)*)+ -m+ (?<moduleCode>(?:\\s+" + "(?:\\s+\\w\\S*)+)?)(?<invalid>.*)
 
@@ -96,21 +89,21 @@ public class Parser {
             String parameters = isMatcherNull(matcher.group(PARAMETERS_GROUP))
                     ? null : matcher.group(PARAMETERS_GROUP).trim();
 
-            if (commandWord.equals(COMMAND_WORD_BYE)) {
+            if (commandWord.equals(ExitCommand.COMMAND_WORD)) {
                 return new ExitCommand();
-            } else if (commandWord.equals(COMMAND_WORD_HELP)) {
+            } else if (commandWord.equals(HelpCommand.COMMAND_WORD)) {
                 return new HelpCommand();
             } else {
                 switch (commandWord) {
-                case COMMAND_WORD_EDIT:
+                case EditCommand.COMMAND_WORD:
                     return EditCommandParser.getEditCommand(parameters);
-                case COMMAND_WORD_ADD:
+                case AddCommand.COMMAND_WORD:
                     return AddCommandParser.getAddCommand(parameters);
-                case COMMAND_WORD_DELETE:
+                case DeleteCommand.COMMAND_WORD:
                     return DeleteCommandParser.getDeleteCommand(parameters);
-                case COMMAND_WORD_DONE:
+                case DoneCommand.COMMAND_WORD:
                     return new DoneCommandParser.DoneCommand(parameters);
-                case COMMAND_WORD_LIST:
+                case ListCommand.COMMAND_WORD:
                     return ListCommandParser.getListCommand(parameters); //command flag is the -t or -m
                 default:
                     return new HelpCommand();
