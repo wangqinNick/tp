@@ -2,6 +2,8 @@ package seedu.duke;
 
 import seedu.duke.command.Command;
 import seedu.duke.command.CommandResult;
+import seedu.duke.command.PromptType;
+import seedu.duke.data.StateManager;
 import seedu.duke.parser.Parser;
 
 public class Executor {
@@ -13,6 +15,10 @@ public class Executor {
      */
     public static CommandResult executeCommand(String userInput) {
         Command command = new Parser().parseCommand(userInput);
-        return command.execute();
+        CommandResult result = command.execute();
+        if (command.getPromptType() == PromptType.EDIT) {
+            StateManager.saveState();
+        }
+        return result;
     }
 }

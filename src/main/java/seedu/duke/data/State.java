@@ -6,18 +6,18 @@ import java.util.Objects;
 
 public class State {
     private String encodedSavedList;
-    private String encodedSavedMapList;
+    private String encodedSavedMap;
 
-    public State(String encodedSavedList, String encodedSavedMapList) {
+    public State(String encodedSavedList, String encodedSavedMap) {
         this.encodedSavedList = encodedSavedList;
-        this.encodedSavedMapList = encodedSavedMapList;
+        this.encodedSavedMap = encodedSavedMap;
     }
 
     public String getEncodedSavedList() {
         return encodedSavedList;
     }
 
-    public String getEncodedSavedMapList() {
-        return encodedSavedMapList;
+    public String getEncodedSavedMap() {
+        return encodedSavedMap;
     }
 }

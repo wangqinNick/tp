@@ -2,11 +2,13 @@ package seedu.duke.data;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.HashMap;
@@ -21,13 +23,14 @@ public class StateManager {
      * Initialises the screen shot manager with its first screen shot of the starting list.
      */
     public static void initialise() {
+        //for Junit Test only
+        undoStack = new Stack<>();
+        redoStack = new Stack<>();
+
         var gson = new GsonBuilder().create();
-
         var encodedSavedList = gson.toJson(TaskManager.getTaskList());
-        var savedMapList = parseModuleList();
-        var encodedSavedMapList = gson.toJson(savedMapList);
-
-        var screenShot = new State(encodedSavedList, encodedSavedMapList);
+        var encodedSavedMap = gson.toJson(ModuleManager.getModulesMap());
+        var screenShot = new State(encodedSavedList, encodedSavedMap);
         assert undoStack.isEmpty() : "Undo stack should be empty!";
         assert redoStack.isEmpty() : "Redo stack should be empty!";
         undoStack.push(screenShot);
@@ -68,7 +71,7 @@ public class StateManager {
         var previousState = popPreviousScreenShot();
 
         var encodedSavedList = previousState.getEncodedSavedList();
-        var encodedSavedMap = previousState.getEncodedSavedMapList();
+        var encodedSavedMap = previousState.getEncodedSavedMap();
 
         var stream1 = new ByteArrayInputStream(encodedSavedList.getBytes());
         var bufferedReader1 = new BufferedReader(new InputStreamReader(stream1));
@@ -78,10 +81,12 @@ public class StateManager {
 
         Task[] readList1 = new Gson().fromJson(bufferedReader1, Task[].class);
         TaskManager.loadTasks(getDecodedTaskList(readList1));
-        bufferedReader1.close();
 
-        Module[] readList2 = new Gson().fromJson(bufferedReader2, Module[].class);
-        ModuleManager.loadMods(parseModuleMap(getDecodedModuleList(readList2)));
+        Type type = new TypeToken<HashMap<String, Module>>(){}.getType();
+        HashMap<String, Module> map = new Gson().fromJson(bufferedReader2, type);
+        ModuleManager.loadMods(map);
+
+        bufferedReader1.close();
         bufferedReader2.close();
     }
 
@@ -112,15 +117,6 @@ public class StateManager {
     }
 
     /**
-     * Return the number of states store in th stack.
-     *
-     * @return the stack size
-     */
-    private static int getUndoStackSize() {
-        return undoStack.size();
-    }
-
-    /**
      * Return the task list read from Json file.
      *
      * @param readList the task array read from Json file
@@ -132,6 +128,18 @@ public class StateManager {
             tempTaskList.add(new Task(task.getName(), task.getDeadline(), task.getStatus()));
         }
         return tempTaskList;
+    }
+
+    /*
+
+
+    /**
+     * Return the number of states store in th stack.
+     *
+     * @return the stack size
+     */
+    private static int getUndoStackSize() {
+        return undoStack.size();
     }
 
     /**

@@ -29,7 +29,7 @@ public class DeleteCommand extends Command {
     public DeleteCommand(Parser.TypeOfEntries typeOfEntry, int taskId) {
         this.typeOfEntry = typeOfEntry;
         this.taskId = taskId;
-        this.promptType = PromptType.EDIT;
+        setPromptType(PromptType.EDIT);
     }
 
     /**
@@ -41,6 +41,7 @@ public class DeleteCommand extends Command {
     public DeleteCommand(Parser.TypeOfEntries typeOfEntry, String moduleCode) {
         this.typeOfEntry = typeOfEntry;
         this.moduleCode = moduleCode;
+        setPromptType(PromptType.EDIT);
     }
 
     /**
