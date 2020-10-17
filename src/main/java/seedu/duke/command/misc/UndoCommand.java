@@ -24,7 +24,7 @@ public class UndoCommand extends Command {
         try {
             StateManager.undo();
             return new CommandResult(MESSAGE_UNDO_SUCCESS);
-        } catch (EmptyStackException e) {
+        } catch (EmptyStackException | IOException e) {
             return new CommandResult(MESSAGE_UNDO_AT_BEGINNING);
         }
     }
