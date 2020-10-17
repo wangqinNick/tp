@@ -14,8 +14,7 @@ public class EditTaskCommand extends EditCommand {
 
     private int taskID;
     private String newTaskDescription;
-    public static final String COMMAND_WORD = Parser.COMMAND_WORD_EDIT + "-t";
-    public static final String FORMAT = Parser.COMMAND_WORD_EDIT + "-t" + " <task ID> <new task description>";
+    public static final String FORMAT = EditCommand.COMMAND_WORD + "-t" + " <task ID> <new task description>";
 
 
     /**

@@ -23,7 +23,6 @@ import static seedu.duke.util.Message.MESSAGE_EMPTY_INPUT;
 import static seedu.duke.util.Message.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.duke.util.Message.MESSAGE_NO_ADD_MODULE;
 import static seedu.duke.util.Message.MESSAGE_NO_ADD_TASK;
-import static seedu.duke.util.Message.MESSAGE_NO_EDIT_MODULE;
 import static seedu.duke.util.Message.MESSAGE_NO_EDIT_TASK;
 
 public class Parser {
@@ -56,14 +55,6 @@ public class Parser {
 
     private static final Pattern TASK_DEADLINE_FORMAT =
             Pattern.compile("(?<taskName>\\S+)((?<by>.*" + BY_PREFIX + ")?)((?<dueDate>.*)?)");
-
-    public static final String COMMAND_WORD_EDIT = "edit";
-    public static final String COMMAND_WORD_ADD = "add";
-    public static final String COMMAND_WORD_DELETE = "delete";
-    public static final String COMMAND_WORD_LIST = "list";
-    public static final String COMMAND_WORD_DONE = "done";
-    public static final String COMMAND_WORD_HELP = "help";
-    public static final String COMMAND_WORD_BYE = "bye";
 
     //(?<identifier>(?:\s+\w\S*)*)+ -m+ (?<moduleCode>(?:\\s+" + "(?:\\s+\\w\\S*)+)?)(?<invalid>.*)
 
@@ -101,23 +92,23 @@ public class Parser {
             String parameters = isMatcherNull(matcher.group(PARAMETERS_GROUP))
                     ? null : matcher.group(PARAMETERS_GROUP).trim();
 
-            if (commandWord.equals(COMMAND_WORD_BYE)) {
+            if (commandWord.equals(ExitCommand.COMMAND_WORD)) {
                 return new ExitCommand();
-            } else if (commandWord.equals(COMMAND_WORD_HELP)) {
+            } else if (commandWord.equals(HelpCommand.COMMAND_WORD)) {
                 return new HelpCommand();
             } else {
                 switch (commandWord) {
                 case UndoCommand.COMMAND_WORD:
                     return new UndoCommand();
-                case COMMAND_WORD_EDIT:
+                case EditTaskCommand.COMMAND_WORD:
                     return getEditCommand(commandFlag, parameters);
-                case COMMAND_WORD_ADD:
+                case AddCommand.COMMAND_WORD:
                     return getAddCommand(commandFlag, parameters);
-                case COMMAND_WORD_DELETE:
+                case DeleteCommand.COMMAND_WORD:
                     return getDeleteCommand(commandFlag, parameters);
-                case COMMAND_WORD_DONE:
+                case DoneCommand.COMMAND_WORD:
                     return new DoneCommand(Integer.parseInt(digit));
-                case COMMAND_WORD_LIST:
+                case ListCommand.COMMAND_WORD:
                     return getListCommand(commandFlag); //command flag is the -t or -m
                 default:
                     return new HelpCommand();
@@ -201,7 +192,7 @@ public class Parser {
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
                     MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT,
-                    EditModuleCommand.FORMAT));
+                    EditTaskCommand.FORMAT));
         }
 
         String stringTaskIndex = matcher.group(TASK_NAME_GROUP).trim();
