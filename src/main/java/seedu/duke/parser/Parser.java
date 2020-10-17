@@ -33,16 +33,14 @@ public class Parser {
 //            Pattern.compile("(?<commandWord>\\S+)" + "((?<digit>\\s+\\d+)?)"
 //                    + "((?<commandFlag>.*-\\S+)?)"  + "((?<parameters>.*)?)");
 
-
-
     private static final String COMMAND_WORD_GROUP = "commandWord";
-    private static final String COMMAND_FLAG_GROUP = "commandFlag";
+    protected static final String COMMAND_FLAG_GROUP = "commandFlag";
     private static final String PARAMETERS_GROUP = "parameters";
     private static final String NUMBER_GROUP = "digit";
-    private static final String TASK_NAME_GROUP = "taskName";
+    protected static final String TASK_NAME_GROUP = "taskName";
     private static final String MODULE_GROUP = "moduleCode";
-    private static final String DATE_IDENTIFIER_GROUP = "by";
-    private static final String DUE_DATE_GROUP = "dueDate";
+    protected static final String DATE_IDENTIFIER_GROUP = "by";
+    protected static final String DUE_DATE_GROUP = "dueDate";
 
     public static final String MODULE_PREFIX = "-m";
     public static final String TASK_PREFIX = "-t";
@@ -51,8 +49,9 @@ public class Parser {
     private static final Pattern BASIC_COMMAND_FORMAT =
             Pattern.compile("(?<commandWord>\\S+)" + "((?<parameters>.*)?)");
 
-    private static final Pattern PARAMETERS_FORMAT =
-            Pattern.compile("(?<taskName>\\S+)((?<by>.*" + BY_PREFIX + ")?)((?<dueDate>.*)?)");
+    protected static final Pattern PARAMETERS_FORMAT =
+            Pattern.compile("((?<digit>\\s+\\d+)?)" + "((?<commandFlag>.*-\\S+)?)"
+                    +"(?<taskName>\\S+)((?<by>.*" + BY_PREFIX + ")?)((?<dueDate>.*)?)");
 
     public static final String COMMAND_WORD_EDIT = "edit";
     public static final String COMMAND_WORD_ADD = "add";
@@ -104,15 +103,15 @@ public class Parser {
             } else {
                 switch (commandWord) {
                 case COMMAND_WORD_EDIT:
-                    return EditCommandParser.getEditCommand(commandFlag, parameters);
+                    return EditCommandParser.getEditCommand(parameters);
                 case COMMAND_WORD_ADD:
-                    return AddCommandParser.getAddCommand(commandFlag, parameters);
+                    return AddCommandParser.getAddCommand(parameters);
                 case COMMAND_WORD_DELETE:
-                    return DeleteCommandParser.getDeleteCommand(commandFlag, parameters);
+                    return DeleteCommandParser.getDeleteCommand(parameters);
                 case COMMAND_WORD_DONE:
-                    return new DoneCommand(Integer.parseInt(digit));
+                    return new DoneCommandParser.DoneCommand(parameters);
                 case COMMAND_WORD_LIST:
-                    return ListCommandParser.getListCommand(commandFlag); //command flag is the -t or -m
+                    return ListCommandParser.getListCommand(parameters); //command flag is the -t or -m
                 default:
                     return new HelpCommand();
                 }
@@ -124,19 +123,19 @@ public class Parser {
         }
     }
 
-    private boolean isMatcherNull(String matcherTest) {
+    protected static boolean isMatcherNull(String matcherTest) {
         return (matcherTest == null);
     }
 
     /**
-     * Checks if there is anything to edit from the input given by the user.
+     * Checks the input given by the user is empty.
      *
      * @param attributes
-     *  The attributes to be edited
+     *  The input from the user
      * @return
-     *  <code>TRUE</code> if there is nothing to edit, or <code>FALSE</code> otherwise
+     *  <code>TRUE</code> if the input is empty, or <code>FALSE</code> otherwise
      */
-    protected boolean isEmptyParse(String... attributes) {
+    protected static boolean isEmptyParse(String... attributes) {
         for (String attribute : attributes) {
             if (!attribute.isEmpty()) {
                 return false;
