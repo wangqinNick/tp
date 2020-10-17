@@ -16,7 +16,7 @@ import seedu.duke.util.Message;
 
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class UndoCommandTest {
     @BeforeEach
@@ -28,7 +28,7 @@ class UndoCommandTest {
     }
 
     @Test
-    void UndoCommand_AddModule_Successful(){
+    void undo_addModule_Success() {
         CommandResult result1 = Executor.executeCommand("add -m cs3235");
         assertEquals(1, ModuleManager.getModCodeList().length);
         CommandResult result2 = Executor.executeCommand("add -m cs3230");
@@ -40,7 +40,7 @@ class UndoCommandTest {
     }
 
     @Test
-    void UndoCommand_DeleteModule_Successful() {
+    void undo_deleteModule_Success() {
         CommandResult result1 = Executor.executeCommand("add -m cs3235");
         assertEquals(1, ModuleManager.getModCodeList().length);
         CommandResult result2 = Executor.executeCommand("add -m cs3230");
