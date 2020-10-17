@@ -5,9 +5,11 @@ import seedu.duke.command.CommandResult;
 import seedu.duke.data.Module;
 import seedu.duke.data.ModuleManager;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
+
+import static seedu.duke.ui.TextUi.DIVIDER_LINE;
 
 public class TimeTableCommand extends Command {
     public static final String COMMAND_WORD = "timetable";
@@ -19,7 +21,8 @@ public class TimeTableCommand extends Command {
     }
     private final TypeOfTimetables flag;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-yyyy HHmm");
-    private Calendar now = Calendar.getInstance();
+    private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
+    private LocalDateTime now = LocalDateTime.now();
 
     /**
      * Option for timetable for the day or for the week
@@ -57,35 +60,39 @@ public class TimeTableCommand extends Command {
     }
 
     private boolean isSameDayAsToday(Module modCode) {
-        // todo Module getter function with a Calender
-        return now.get(Calendar.YEAR) == modCode.get(Calendar.YEAR)
-                && now.get(Calendar.MONTH) == modCode.get(Calendar.MONTH)
-                && now.get(Calendar.DATE) == modCode.get(Calendar.DATE);
+        // todo Module toLocalDate function with a LocalDateTime
+        return now.toLocalDate().isEqual(modCode.toLocalDate());
     }
 
     private boolean isSameWeek(Module modCode) {
-        // todo Module getter function with a Calender
-        return now.get(Calendar.YEAR) == modCode.get(Calendar.YEAR)
-                && now.get(Calendar.WEEK_OF_YEAR) == modCode.get(Calendar.WEEK_OF_YEAR);
+        // todo Module toLocalDate function with a LocalDateTime
+        return (now.isBefore(modCode.toLocalDateTime()) && now.plusDays(6).isAfter(modCode.toLocalDateTime()));
     }
 
     public String dayTimeTable() {
         ArrayList<Module> dayModList = getDayModCodeList();
-        String out = "Current Date and Time: " + now.getTime() + System.lineSeparator();
+        String out = now.getDayOfWeek() + System.lineSeparator();
         for (Module module : dayModList) {
             // todo a function in module/modulemanager that gets the duration of the class
-            out += module.getModuleCode() + ": " + module.getDuration() + System.lineSeparator();
+            ArrayList<LocalDateTime> periods = module.getPeriods();
+            for (LocalDateTime period : periods) {
+                out += module.getModuleCode() + ": " + period.format(timeFormatter) + System.lineSeparator();
+            }
         }
         return out;
     }
 
     public String weekTimeTable() {
         ArrayList<Module> weekModList = getWeekModCodeList();
-        String out = "Current Date and Time: " + now.getTime() + System.lineSeparator();
+        String out = "";
         for (Module module : weekModList) {
-            out += now.get(Calendar.DATE) + System.lineSeparator();
             // todo a function in module/modulemanager that gets the duration of the class
-            out += module.getModuleCode() + ": " + module.getDuration() + System.lineSeparator();
+            ArrayList<LocalDateTime> periods = module.getPeriods();
+            out += now.getDayOfWeek() + System.lineSeparator();
+            out += DIVIDER_LINE + System.lineSeparator();
+            for (LocalDateTime period : periods) {
+                out += module.getModuleCode() + ": " + period.format(timeFormatter) + System.lineSeparator();
+            }
         }
         return out;
     }
