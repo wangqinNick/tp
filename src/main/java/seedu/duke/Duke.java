@@ -56,7 +56,7 @@ public class Duke {
             String userInput = TextUi.getUserCommand();
             command = new Parser().parseCommand(userInput);
             CommandResult result = command.execute();
-            if (command.getPromptType() == PromptType.EDIT){
+            if (command.getPromptType() == PromptType.EDIT) {
                 StateManager.saveState();
             }
             // todo add code to the following function in TextUi

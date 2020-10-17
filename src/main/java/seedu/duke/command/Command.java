@@ -9,6 +9,10 @@ public abstract class Command {
         return promptType;
     }
 
+    public void setPromptType(PromptType promptType) {
+        this.promptType = promptType;
+    }
+
     /**
      * Executes the command.
      *

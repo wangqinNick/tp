@@ -14,6 +14,7 @@ import static seedu.duke.util.Message.MESSAGE_UNDO_UNSUCCESSFUL;
 
 public class UndoCommand extends Command {
     public static final String COMMAND_WORD = "undo";
+
     public UndoCommand() {
         this.promptType = PromptType.INFORMATIVE;
     }
@@ -23,8 +24,6 @@ public class UndoCommand extends Command {
         try {
             StateManager.undo();
             return new CommandResult(MESSAGE_UNDO_SUCCESS);
-        } catch (IOException ioe) {
-            return new CommandResult(MESSAGE_UNDO_UNSUCCESSFUL);
         } catch (EmptyStackException e) {
             return new CommandResult(MESSAGE_UNDO_AT_BEGINNING);
         }

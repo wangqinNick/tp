@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
+import java.util.HashMap;
 import java.util.Stack;
 
 public class StateManager {
@@ -19,19 +20,19 @@ public class StateManager {
      * Initialises the screen shot manager with its first screen shot of the starting list.
      */
     public static void initialise() {
-        var gson = new GsonBuilder().create();
-        var encodedSavedList = gson.toJson(TaskManager.getTaskList());
-        var screenShot = new State(encodedSavedList);
+        var savedTaskList = TaskManager.getTaskList();
+        var savedModuleMap = ModuleManager.getModulesMap();
+        var screenShot = new State(savedTaskList, savedModuleMap);
         assert undoStack.isEmpty() : "Undo stack should be empty!";
         assert redoStack.isEmpty() : "Redo stack should be empty!";
         undoStack.push(screenShot);
     }
 
     /**
-     * Returns and pops the top state
+     * Returns and pops the top state.
      *
-     * @return the last state
-     * @throws EmptyStackException stack is empty
+     * @return the last state.
+     * @throws EmptyStackException stack is empty.
      */
     private static State popPreviousScreenShot() throws EmptyStackException {
         // There should be at least 2 screen shots to allow undo
@@ -44,7 +45,7 @@ public class StateManager {
     }
 
     /**
-     * Returns the last state without pop it
+     * Returns the last state without pop it.
      *
      * @return the last state
      */
@@ -55,54 +56,51 @@ public class StateManager {
     /**
      * Reverts to the previous changed state of the list.
      *
-     * @throws IOException exception is thrown when error occurred during IO operation.
      * @throws EmptyStackException exception is thrown when user trying to undo at the initial state.
      */
-    public static void undo() throws IOException, EmptyStackException {
-        var previousState = popPreviousScreenShot();
-        var encodedSavedList = previousState.getEncodedSavedList();
-        var stream = new ByteArrayInputStream(encodedSavedList.getBytes());
-        var bufferedReader = new BufferedReader(new InputStreamReader(stream));
-        Task[] readList = new Gson().fromJson(bufferedReader, Task[].class);
-        TaskManager.loadTasks(getDecodedTaskList(readList));
-        bufferedReader.close();
+    public static void undo() throws EmptyStackException {
+        var previousScreenShot = popPreviousScreenShot();
+        var savedTaskList = previousScreenShot.getTasks();
+        var savedModuleMap = previousScreenShot.getModulesMap();
+        TaskManager.loadTasks(savedTaskList);
+        ModuleManager.loadMods(savedModuleMap);
     }
 
     /**
      * Saves the moduleList as a string if it was changed.
      */
     public static void saveState() {
-        var gson = new GsonBuilder().create();
-        var encodedSavedList = gson.toJson(TaskManager.getTaskList());
-        var screenShot = new State(encodedSavedList);
-        if (getUndoStackSize() == 0) {
-            undoStack.push(screenShot);
-            return;
-        }
-        var previousScreenShot = peekPreviousScreenShot();
-        var previousEncodedSavedList = previousScreenShot.getEncodedSavedList();
-        if (!previousEncodedSavedList.equals(encodedSavedList)) {
-            undoStack.push(screenShot);
-            if (!redoStack.isEmpty()) {
-                redoStack.clear();
-            }
-        }
+        var savedTaskList = TaskManager.getTaskList();
+        var savedModuleMap = ModuleManager.getModulesMap();
+        var screenShot = new State(savedTaskList, savedModuleMap);
+        undoStack.push(screenShot);
+//        if (getUndoStackSize() == 0) {
+//            undoStack.push(screenShot);
+//            return;
+//        }
+//        var previousScreenShot = peekPreviousScreenShot();
+//        if (!previousScreenShot.equals(screenShot)) {
+//            undoStack.push(screenShot);
+//            if (!redoStack.isEmpty()) {
+//                redoStack.clear();
+//            }
+//        }
     }
 
     /**
-     * Return the number of states store in th stack
+     * Return the number of states store in th stack.
      *
-     * @return the stack size
+     * @return the stack size.
      */
     private static int getUndoStackSize() {
         return undoStack.size();
     }
 
     /**
-     * Return the task list read from Json file
+     * Return the task list read from Json file.
      *
-     * @param readList the task array read from Json file
-     * @return the task list parsed from readList array
+     * @param readList the task array read from Json file.
+     * @return the task list parsed from readList array.
      */
     public static ArrayList<Task> getDecodedTaskList(Task[] readList) {
         ArrayList<Task> tempTaskList = new ArrayList<>();
@@ -110,5 +108,23 @@ public class StateManager {
             tempTaskList.add(new Task(task.getName(), task.getDeadline(), task.getStatus()));
         }
         return tempTaskList;
+    }
+
+    /**
+     * Return the module map read from Json file.
+     *
+     * @param readList the task array read from Json file.
+     * @return the task list parsed from readList array.
+     */
+    public static HashMap<String, Module> getDecodedModuleMap(Module[] readList) {
+        ArrayList<Module> tempModuleList = new ArrayList<>();
+        for (Module module : readList) {
+            tempModuleList.add(new Module(module.getModuleCode()));
+        }
+        HashMap<String, Module> modulesMap = new HashMap<>();
+        for (Module eachModule : tempModuleList) {
+            modulesMap.put(eachModule.getModuleCode(), eachModule);
+        }
+        return modulesMap;
     }
 }
