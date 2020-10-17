@@ -54,13 +54,4 @@ class UndoCommandTest {
         new UndoCommand().execute();
         assertEquals(2, ModuleManager.getModCodeList().length);
     }
-
-    @Test
-    void UndoCommand_AddTask_Successful() {
-        CommandResult result1 = Executor.executeCommand("add -t read a book");
-        assertEquals(1, TaskManager.getTaskCount());
-
-        new UndoCommand().execute();
-        assertEquals(2, TaskManager.getTaskCount());
-    }
 }
