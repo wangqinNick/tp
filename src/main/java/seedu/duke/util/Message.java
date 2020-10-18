@@ -27,16 +27,16 @@ public class Message {
     public static final String MESSAGE_UNDO_AT_BEGINNING = "You are already at the initial state!";
 
     public static final String MESSAGE_HELP =
-              "Command                                     Function\n"
-            + "help -------------------------------------- View command list\n"
-            + "add -t <task desc.> [-by] ----------------- Add task\n"
-            + "add -m <module> --------------------------- Add module\n"
-            + "edit -t <task index> <new task desc.> ----- Edit a task's description\n"
-            + "edit -m <module code> <new module code> --- Edit a module\n"
-            + "del -t <task index> ----------------------- Delete a task\n"
-            + "del -m <module index> --------------------- Delete a module\n"
-            + "list -t ----------------------------------- List all tasks\n"
-            + "list -m ----------------------------------- List all modules\n"
-            + "done -t <task index> ---------------------- Mark task as done\n"
-            + "bye --------------------------------------- Exit RaVi\n";
+              "Command                                       Function\n"
+            + "help ---------------------------------------- View command list\n"
+            + "add -t <task desc.> [-by] ------------------- Add task\n"
+            + "add -m <module> ----------------------------- Add module\n"
+            + "edit -t <task index> <new task desc.> ------- Edit a task's description\n"
+            + "edit -m <module code> <new module code> ----- Edit a module\n"
+            + "del -t <task index> ------------------------- Delete a task\n"
+            + "del -m <module index> ----------------------- Delete a module\n"
+            + "list -t ------------------------------------- List all tasks\n"
+            + "list -m ------------------------------------- List all modules\n"
+            + "done <task index> --------------------------- Mark task as done\n"
+            + "bye ----------------------------------------- Exit RaVi\n";
 }
