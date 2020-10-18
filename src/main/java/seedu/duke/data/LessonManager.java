@@ -1,5 +1,6 @@
 package seedu.duke.data;
 
+import seedu.duke.exception.LessonInvalidTimeException;
 import seedu.duke.exception.LessonNotFoundException;
 
 import java.time.DayOfWeek;
@@ -7,7 +8,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class LessonManager {
-    private static HashMap<DayOfWeek, ArrayList<Lesson>> lessonMap = new HashMap<>();
+    private static final HashMap<DayOfWeek, ArrayList<Lesson>> lessonMap = new HashMap<>();
+
+    /**
+     * Initialise the lessonMap when it is empty.
+     */
+    public static void initialise() {
+        for (DayOfWeek eachDay : DayOfWeek.values()) {
+            lessonMap.put(eachDay, new ArrayList<>());
+        }
+    }
 
     /**
      * Inserts a Lesson object in the correct position in the correct ArrayList in lessonMap, based on its day and time.
@@ -15,30 +25,35 @@ public class LessonManager {
      * @param newLesson
      *  The new Lesson object
      */
-    public void addLesson(Lesson newLesson) {
+    public static void addLesson(Lesson newLesson) throws LessonInvalidTimeException{
         DayOfWeek lessonDay = newLesson.getDay();
 
-        // if there are no lessons on that day yet...
-        if (!lessonMap.containsKey(lessonDay)) {
-            ArrayList<Lesson> newDayLessons = new ArrayList<>();
-            newDayLessons.add(newLesson);
-            lessonMap.put(lessonDay, new ArrayList<>());
+        // if lessonMap is not initialised yet...
+        if (lessonMap.keySet().size() == 0) {
+            initialise();
+            lessonMap.get(lessonDay).add(newLesson);
             return;
         }
 
-        int indexToInsertNewLesson = 0;
+        int indexToInsertNewLesson = -1;
         for (int i = 0; i < lessonMap.get(lessonDay).size(); i++) {
             Lesson eachLesson = lessonMap.get(lessonDay).get(i);
             if (newLesson.checkOverlap(eachLesson)) {
-                return;
+                throw new LessonInvalidTimeException();
             }
             // insert before the lesson which starts right after newLesson
             // each day ArrayList in lessonMap is hence always sorted due to addLesson's logic
-            if (eachLesson.getStartTime().isAfter(newLesson.getEndTime())) {
+            if (eachLesson.isAfter(newLesson)) {
                 indexToInsertNewLesson = i;
+                break;
             }
         }
-        lessonMap.get(lessonDay).add(indexToInsertNewLesson, newLesson);
+
+        if (indexToInsertNewLesson == -1) { // lesson is the latest lesson in the day
+            lessonMap.get(lessonDay).add(newLesson);
+        } else {
+            lessonMap.get(lessonDay).add(indexToInsertNewLesson, newLesson);
+        }
     }
 
     /**
@@ -49,7 +64,7 @@ public class LessonManager {
      * @param lessonIndex
      *  The index of the lesson to be removed
      */
-    public void removeLesson(DayOfWeek day, int lessonIndex) throws LessonNotFoundException{
+    public static void removeLesson(DayOfWeek day, int lessonIndex) throws LessonNotFoundException {
         if (!lessonMap.containsKey(day)) {
             throw new LessonNotFoundException();
         }
@@ -69,11 +84,21 @@ public class LessonManager {
      * @throws LessonNotFoundException
      *  If there are no lessons on that day
      */
-    public ArrayList<Lesson> getDayLessonList(DayOfWeek day) throws LessonNotFoundException{
-        if (!lessonMap.containsKey(day)) {
-            throw new LessonNotFoundException();
-        }
+    public static ArrayList<Lesson> getDayLessonList(DayOfWeek day) {
         return lessonMap.get(day);
     }
 
+    public static int getLessonCountOnDay(DayOfWeek day) {
+        return lessonMap.get(day).size();
+    }
+
+    /**
+     * Clears the lesson ArrayList for a given day.
+     *
+     * @param day
+     *  The specified day
+     */
+    public static void clearDayLesson(DayOfWeek day) {
+        lessonMap.put(day, new ArrayList<>());
+    }
 }

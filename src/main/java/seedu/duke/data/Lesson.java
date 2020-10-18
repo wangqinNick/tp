@@ -1,20 +1,26 @@
 package seedu.duke.data;
 
+import seedu.duke.exception.LessonInvalidTimeException;
+
 import java.time.DayOfWeek;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class Lesson {
-    private Module module;
+    private String moduleCode;
     private String description;
     private LessonType lessonType;
     private DayOfWeek day;
     private LocalTime startTime;
     private LocalTime endTime;
 
-    public Lesson(Module module, LessonType lessonType, DayOfWeek day, LocalTime startTime, LocalTime endTime) {
-        this.module = module;
+    public Lesson(String moduleCode, LessonType lessonType, DayOfWeek day, LocalTime startTime, LocalTime endTime)
+            throws LessonInvalidTimeException {
+        if (startTime.isAfter(endTime) || startTime.equals(endTime)) {
+            throw new LessonInvalidTimeException();
+        }
+
+        this.moduleCode = moduleCode;
         this.lessonType = lessonType;
         this.day = day;
         this.startTime = startTime;
@@ -29,6 +35,10 @@ public class Lesson {
         return description;
     }
 
+    public String getModuleCode() {
+        return moduleCode;
+    }
+
     public LocalTime getStartTime() {
         return startTime;
     }
@@ -39,6 +49,14 @@ public class Lesson {
 
     public DayOfWeek getDay() {
         return day;
+    }
+
+    public boolean isAfter(Lesson otherLesson) {
+        return otherLesson.getEndTime().isBefore(startTime) || otherLesson.getEndTime().equals(startTime);
+    }
+
+    public boolean isBefore(Lesson otherLesson) {
+        return otherLesson.getStartTime().isAfter(endTime) || otherLesson.getStartTime().equals(endTime);
     }
 
     /**
@@ -53,15 +71,9 @@ public class Lesson {
         if (otherLesson.getDay() != day) {
             return false;
         }
-        LocalTime otherStart = otherLesson.getStartTime();
-        LocalTime otherEnd = otherLesson.getEndTime();
-
-        if (otherStart.isAfter(startTime) && otherStart.isBefore(endTime)) {
-            return true;
-        } else if (otherEnd.isAfter(startTime) && otherEnd.isBefore(endTime)) {
-            return true;
-        }
-        return false;
+        // lessons are constructed with valid start-end times
+        // to check NO OVERLAP, ensure otherEnd <= currentStart xor otherStart >= currentEnd
+        return !(isAfter(otherLesson) ^ isBefore(otherLesson));
     }
 
     /**
@@ -71,7 +83,7 @@ public class Lesson {
      *  String of lesson type
      */
     private String getLessonTypeString() {
-        switch(lessonType) {
+        switch (lessonType) {
         case LECTURE:
             return "Lecture";
         case TUTORIAL:
@@ -95,8 +107,8 @@ public class Lesson {
      *  String representation of lesson
      */
     public String toString() {
-        DateTimeFormatter time = DateTimeFormatter.ofPattern("Hm");
-        return String.format("%s %s: %s %s-%s", module.getModuleCode(), getLessonTypeString(),
+        DateTimeFormatter time = DateTimeFormatter.ofPattern("Hmm");
+        return String.format("%s %s: %s %s-%s", moduleCode, getLessonTypeString(),
                 day.toString(), startTime.format(time), endTime.format(time));
     }
 }
