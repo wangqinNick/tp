@@ -2,6 +2,7 @@ package seedu.duke.command.list;
 
 import seedu.duke.command.Command;
 import seedu.duke.command.CommandResult;
+import seedu.duke.command.PromptType;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.data.TaskManager;
 import seedu.duke.parser.Parser;
@@ -15,6 +16,7 @@ public class ListCommand extends Command {
 
     public ListCommand(Parser.TypeOfEntries typeOfEntry) {
         this.typeOfEntry = typeOfEntry;
+        setPromptType(PromptType.INFORMATIVE);
     }
 
     /**

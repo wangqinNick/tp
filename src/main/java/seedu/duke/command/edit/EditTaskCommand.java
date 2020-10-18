@@ -1,6 +1,7 @@
 package seedu.duke.command.edit;
 
 import seedu.duke.command.CommandResult;
+import seedu.duke.command.PromptType;
 import seedu.duke.data.Task;
 import seedu.duke.data.TaskManager;
 import seedu.duke.parser.Parser;
@@ -13,8 +14,7 @@ public class EditTaskCommand extends EditCommand {
 
     private int taskID;
     private String newTaskDescription;
-    public static final String COMMAND_WORD = Parser.COMMAND_WORD_EDIT + "-t";
-    public static final String FORMAT = Parser.COMMAND_WORD_EDIT + "-t" + " <task ID> <new task description>";
+    public static final String FORMAT = EditCommand.COMMAND_WORD + "-t" + " <task ID> <new task description>";
 
 
     /**
@@ -28,6 +28,7 @@ public class EditTaskCommand extends EditCommand {
     public EditTaskCommand(int taskID, String newTaskDescription) {
         this.taskID = taskID;
         this.newTaskDescription = newTaskDescription;
+        this.promptType = PromptType.EDIT;
     }
 
     protected void edit() throws IndexOutOfBoundsException {

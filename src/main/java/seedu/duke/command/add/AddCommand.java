@@ -2,6 +2,7 @@ package seedu.duke.command.add;
 
 import seedu.duke.command.Command;
 import seedu.duke.command.CommandResult;
+import seedu.duke.command.PromptType;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.data.ModuleManager.DuplicateModuleException;
 import seedu.duke.data.Task;
@@ -39,6 +40,7 @@ public class AddCommand extends Command {
         if (typeOfEntry.equals(Parser.TypeOfEntries.TASK) && (deadline != null)) {
             dateTimeOfDeadline = testDeadline(deadline);
         }
+        this.promptType = PromptType.EDIT;
     }
 
     /**
