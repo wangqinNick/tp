@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HelpCommandTest {
     static final String HELP_MESSAGE =
-            "Command                                       Function\n"
+              "Command                                       Function\n"
             + "help ---------------------------------------- View command list\n"
             + "add -t <task desc.> [-by] ------------------- Add task\n"
             + "add -m <module> ----------------------------- Add module\n"
