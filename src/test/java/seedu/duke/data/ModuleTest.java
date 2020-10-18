@@ -36,9 +36,9 @@ public class ModuleTest {
     @Test
     void getModule_isCorrect() throws ModuleManager.ModuleNotFoundException {
         assertEquals(normalMod1.getTitle(), ModuleManager.getModule(MOD_CODE_1).getTitle());
-        assertEquals(normalMod1.getCode(), ModuleManager.getModule(MOD_CODE_1).getCode());
+        assertEquals(normalMod1.getModuleCode(), ModuleManager.getModule(MOD_CODE_1).getModuleCode());
         assertEquals(normalMod2.getTitle(), ModuleManager.getModule(MOD_CODE_2).getTitle());
-        assertEquals(normalMod2.getCode(), ModuleManager.getModule(MOD_CODE_2).getCode());
+        assertEquals(normalMod2.getModuleCode(), ModuleManager.getModule(MOD_CODE_2).getModuleCode());
     }
 
     @Test

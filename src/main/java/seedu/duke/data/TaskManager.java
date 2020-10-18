@@ -4,6 +4,7 @@ import seedu.duke.exception.DataNotFoundException;
 import seedu.duke.ui.TextUi;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class TaskManager {
     private static ArrayList<Task> tasksList = new ArrayList<>(); // Main task list.
@@ -73,6 +74,41 @@ public class TaskManager {
     }
 
     /**
+     * Generate an ordered ArrayList of ArrayLists.
+     * First ArrayList contains a list of uncompleted tasks with deadlines, sorted by deadlines.
+     * Second ArrayList contains a list of uncompleted tasks without deadlines.
+     * Last ArrayList contains a list of completed tasks.
+     *
+     * @return
+     *  The ArrayList of ArrayLists mentioned above.
+     */
+    public static ArrayList<ArrayList<Task>> summary() {
+        ArrayList<ArrayList<Task>> summaryLists = new ArrayList<>();
+        ArrayList<Task> incompleteTasksDated = new ArrayList<>();
+        ArrayList<Task> incompleteTasksUndated = new ArrayList<>();
+        ArrayList<Task> completedTasks = new ArrayList<>();
+
+        for (Task eachTask : tasksList) {
+            if (eachTask.getStatus()) {
+                completedTasks.add(eachTask);
+            } else if (eachTask.getDeadline() == null) {
+                incompleteTasksUndated.add(eachTask);
+            } else {
+                incompleteTasksDated.add(eachTask);
+            }
+        }
+
+        Comparator<Task> compareByDeadline = Comparator.comparing(Task::getDeadline);
+        incompleteTasksDated.sort(compareByDeadline);
+
+        // Do not change the adding order!
+        summaryLists.add(incompleteTasksDated);
+        summaryLists.add(incompleteTasksUndated);
+        summaryLists.add(completedTasks);
+        return summaryLists;
+    }
+
+    /**
      * Gets Task List.
      *
      * @return tasksList
@@ -100,7 +136,7 @@ public class TaskManager {
      *
      * @param loadedTasksList the loaded task list from file
      */
-    public static void load(ArrayList<Task> loadedTasksList) {
+    public static void loadTasks(ArrayList<Task> loadedTasksList) {
         tasksList = loadedTasksList;
     }
 
