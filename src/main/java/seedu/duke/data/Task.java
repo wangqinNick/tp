@@ -23,6 +23,12 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(String name, LocalDateTime dateTimeOfDeadline, boolean isDone) {
+        this.name = name;
+        this.deadline = dateTimeOfDeadline;
+        this.isDone = isDone;
+    }
+
     public String getName() {
         return name;
     }

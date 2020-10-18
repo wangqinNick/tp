@@ -22,6 +22,10 @@ public class Message {
     public static final String ICON_DONE = "\u2713";
     public static final String ICON_NOT_DONE = "\u2718";
     public static final String MESSAGE_LIST_PRINTED = "List:\n";
+    public static final String MESSAGE_UNDO_SUCCESS = "Undo successfully!";
+    public static final String MESSAGE_UNDO_UNSUCCESSFUL = "Sorry, there was an IO error when undoing the state.";
+    public static final String MESSAGE_UNDO_AT_BEGINNING = "You are already at the initial state!";
+
     public static final String MESSAGE_HELP =
               "Command                                     Function\n"
             + "help -------------------------------------- View command list\n"
