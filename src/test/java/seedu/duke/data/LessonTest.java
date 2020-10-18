@@ -23,7 +23,7 @@ public class LessonTest {
     static final LocalTime time_15 = LocalTime.of(15,0);
 
     @BeforeEach
-    void setupModObjects() throws LessonInvalidTimeException{
+    void setupModObjects() throws LessonInvalidTimeException {
         lesson1 = new Lesson(MOD_CODE_1, LessonType.LECTURE, DayOfWeek.MONDAY, time_12, time_13);
         lesson2 = new Lesson(MOD_CODE_2, LessonType.LECTURE, DayOfWeek.MONDAY, time_14, time_15);
         LessonManager.initialise();
@@ -70,5 +70,29 @@ public class LessonTest {
         assertEquals(1, LessonManager.getLessonCountOnDay(DayOfWeek.MONDAY));
         LessonManager.removeLesson(DayOfWeek.MONDAY, 0);
         assertEquals(0, LessonManager.getLessonCountOnDay(DayOfWeek.MONDAY));
+    }
+
+    @Test
+    void verifyException_lessonConstruction_withInvalidTime() {
+        assertThrows(LessonInvalidTimeException.class,
+            () -> new Lesson(MOD_CODE_1, LessonType.LAB, DayOfWeek.TUESDAY, time_13, time_12));
+        assertThrows(LessonInvalidTimeException.class,
+            () -> new Lesson(MOD_CODE_1, LessonType.LAB, DayOfWeek.TUESDAY, time_12, time_12));
+    }
+
+    @Test
+    void verifyLessonFilter_isWorking() {
+        LessonFilter filterTuesday = (l) -> l.getDay().equals(DayOfWeek.TUESDAY);
+        assertEquals(0, LessonManager.filterLessons(filterTuesday).size());
+
+        LessonFilter filterMonday = (l) -> l.getDay().equals(DayOfWeek.MONDAY);
+        assertEquals(2, LessonManager.filterLessons(filterMonday).size());
+
+        LessonFilter filterMonBefore2 = (l) -> l.getDay().equals(DayOfWeek.MONDAY) && l.getEndTime().isBefore(time_14);
+        assertEquals(1, LessonManager.filterLessons(filterMonBefore2).size());
+
+        String testCode = MOD_CODE_1;
+        LessonFilter filterVariableModCode = (l) -> l.getModuleCode().equalsIgnoreCase(testCode);
+        assertEquals(1, LessonManager.filterLessons(filterVariableModCode).size());
     }
 }

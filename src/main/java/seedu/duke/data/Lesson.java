@@ -51,6 +51,10 @@ public class Lesson {
         return day;
     }
 
+    public LessonType getLessonType() {
+        return lessonType;
+    }
+
     public boolean isAfter(Lesson otherLesson) {
         return otherLesson.getEndTime().isBefore(startTime) || otherLesson.getEndTime().equals(startTime);
     }
@@ -101,7 +105,7 @@ public class Lesson {
 
     /**
      * Creates string representation of lesson.
-     * e.g. CS1010 Lecture: Monday 1400-1500
+     * e.g. CS1010 Lecture: MONDAY 1400-1500
      *
      * @return
      *  String representation of lesson
