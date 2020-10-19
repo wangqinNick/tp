@@ -18,7 +18,7 @@ public class ModuleTest {
         normalMod1 = new Module(MOD_CODE_1);
         normalMod1.setTitle("Test");
         normalMod2 = new Module(MOD_CODE_2);
-        normalMod1.setTitle("Test 2");
+        normalMod2.setTitle("Test 2");
         try {
             ModuleManager.clearModules();
             ModuleManager.add(normalMod1);
