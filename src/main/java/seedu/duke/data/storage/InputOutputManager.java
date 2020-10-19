@@ -42,7 +42,7 @@ public class InputOutputManager {
             logger.getLogger().info("Save folder does not exist, creating now");
             saveFolder.mkdir();
         } else {
-            if (Files.exists(userModuleFile)){
+            if (Files.exists(userModuleFile)) {
                 logger.getLogger().info("Loading user module saves from " + userModuleFileName);
                 ModuleManager.loadMods(Decoder.loadModules(userModuleFile.toString()));
             } else {
