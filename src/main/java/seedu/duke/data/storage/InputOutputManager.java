@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Manages all inputs and outputs (to and from files).
@@ -43,27 +42,27 @@ public class InputOutputManager {
             logger.getLogger().info("Save folder does not exist, creating now");
             saveFolder.mkdir();
         } else {
-            if (Files.exists(userModuleFile) && Files.exists(userTaskFile)) {
-                loadUserSaves();
+            if (Files.exists(userModuleFile)){
+                logger.getLogger().info("Loading user module saves from " + userModuleFileName);
+                ModuleManager.loadMods(Decoder.loadModules(userModuleFile.toString()));
+            } else {
+                logger.getLogger().info("Skipping user module save; file does not exist: " + userModuleFileName);
             }
-            loadNusModSave(); // loads from NUSMods API if file not found
+            if (Files.exists(userTaskFile)) {
+                logger.getLogger().info("Loading user task saves from " + userTaskFileName);
+                TaskManager.loadTasks(Decoder.loadTasks(userTaskFile.toString()));
+            } else {
+                logger.getLogger().info("Skipping user task save; file does not exist: " + userTaskFileName);
+            }
+            loadNusModSave(); // will load from NUSMods API if file not found
         }
-    }
-
-    /**
-     * Loads user saves (modules, tasks) from the given files.
-     */
-    public static void loadUserSaves() {
-        logger.getLogger().info("Loading user saves from " + userModuleFileName + " and " + userTaskFileName);
-        ModuleManager.loadMods(Decoder.loadModules(userModuleFile.toString()));
-        TaskManager.loadTasks(Decoder.loadTasks(userTaskFile.toString()));
     }
 
     /**
      * Loads NUS Modules from the given file.
      */
     public static void loadNusModSave() {
-        logger.getLogger().info("Loading NUS Modules from " + nusModuleFileName);
+        logger.getLogger().info("Loading NUS modules from " + nusModuleFileName);
         if (!Files.exists(nusModuleFile)) {
             ModuleManager.loadNusMods(Decoder.generateNusModsList());
         } else {
