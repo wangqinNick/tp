@@ -2,8 +2,9 @@ package seedu.duke.parser;
 
 import seedu.duke.command.Command;
 import seedu.duke.command.IncorrectCommand;
-import seedu.duke.command.add.AddCommand;
 import seedu.duke.command.delete.DeleteCommand;
+import seedu.duke.command.delete.DeleteModuleCommand;
+import seedu.duke.command.delete.DeleteTaskCommand;
 
 import java.security.InvalidParameterException;
 import java.util.regex.Matcher;
@@ -43,9 +44,9 @@ public class DeleteCommandParser {
         }
 
         if (commandFlag.equals(MODULE_PREFIX)) {
-            return new DeleteCommand(Parser.TypeOfEntries.MODULE, stringTaskIndex); //parameter is module code
+            return new DeleteModuleCommand(stringTaskIndex); //parameter is module code
         } else if (commandFlag.equals(TASK_PREFIX)) {
-            return new DeleteCommand(Parser.TypeOfEntries.TASK, taskIndex);//parameters is the index
+            return new DeleteTaskCommand(taskIndex);//parameters is the index
         } else {
             throw new InvalidParameterException();
         }

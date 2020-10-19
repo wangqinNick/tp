@@ -11,8 +11,6 @@ import seedu.duke.ui.TextUi;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Duke {
     private TextUi ui;
@@ -59,9 +57,7 @@ public class Duke {
             if (command.getPromptType() == PromptType.EDIT) {
                 StateManager.saveState();
             }
-            // todo add code to the following function in TextUi
             ui.showResultToUser(result);
-        // todo add Exit to the Parser
         } while (!ExitCommand.isExit(command));
     }
 
