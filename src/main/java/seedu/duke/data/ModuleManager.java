@@ -179,6 +179,15 @@ public class ModuleManager {
         modulesMap = new HashMap<String, Module>();
     }
 
+    /**
+     * Returns the modules in the system.
+     *
+     * @return modulesMap
+     */
+    public static HashMap<String, Module> getModulesMap() {
+        return modulesMap;
+    }
+
     public static class ModuleNotFoundException extends DataNotFoundException {
     }
 

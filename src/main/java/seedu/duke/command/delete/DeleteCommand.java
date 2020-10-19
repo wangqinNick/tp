@@ -2,6 +2,7 @@ package seedu.duke.command.delete;
 
 import seedu.duke.command.Command;
 import seedu.duke.command.CommandResult;
+import seedu.duke.command.PromptType;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.data.TaskManager;
 import seedu.duke.parser.Parser;
@@ -28,6 +29,7 @@ public class DeleteCommand extends Command {
     public DeleteCommand(Parser.TypeOfEntries typeOfEntry, int taskId) {
         this.typeOfEntry = typeOfEntry;
         this.taskId = taskId;
+        setPromptType(PromptType.EDIT);
     }
 
     /**
@@ -39,6 +41,7 @@ public class DeleteCommand extends Command {
     public DeleteCommand(Parser.TypeOfEntries typeOfEntry, String moduleCode) {
         this.typeOfEntry = typeOfEntry;
         this.moduleCode = moduleCode;
+        setPromptType(PromptType.EDIT);
     }
 
     /**
