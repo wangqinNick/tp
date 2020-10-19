@@ -5,6 +5,8 @@ import seedu.duke.directory.DirectoryLevel;
 
 public class Module extends Directory {
     private String moduleCode;
+    private String grade;
+    private int moduleCredit;
     private String title;
 
     public Module() {
@@ -22,6 +24,22 @@ public class Module extends Directory {
         this.moduleCode = moduleCode;
     }
 
+    public String getModuleGrade() {
+        return grade;
+    }
+
+    public void setModuleGrade(String grade) {
+        this.grade = grade;
+    }
+
+    public double getModuleCredit(){
+        return moduleCredit;
+    }
+
+    public void setModuleCredit(int moduleCredit){
+        this.moduleCredit = moduleCredit;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -37,7 +55,7 @@ public class Module extends Directory {
     }
 
     public String toString() {
-        return getModuleCode() + ": " + getTitle();
+        return getModuleCode() + ": " + getTitle() + ": " + getModuleGrade();
     }
 
     @Override

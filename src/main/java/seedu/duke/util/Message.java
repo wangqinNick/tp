@@ -25,6 +25,8 @@ public class Message {
     public static final String MESSAGE_UNDO_SUCCESS = "Undo successfully!";
     public static final String MESSAGE_UNDO_UNSUCCESSFUL = "Sorry, there was an IO error when undoing the state.";
     public static final String MESSAGE_UNDO_AT_BEGINNING = "You are already at the initial state!";
+    public static final String MESSAGE_GRADE_MODULE_SUCCESS = "Module graded successfully! \n";
+    public static final String MESSAGE_CAP_DISPLAY = "Your current CAP is \n";
 
     public static final String MESSAGE_HELP =
               "Command                                       Function\n"

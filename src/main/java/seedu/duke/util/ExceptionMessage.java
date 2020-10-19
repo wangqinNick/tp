@@ -71,4 +71,6 @@ public class ExceptionMessage {
     public static final String MESSAGE_INVALID_COMMAND_WORD =
             "It seems you have input an incorrect command word. \n"
             + "Please key in help to see our list of commands. \n";
+    public static final String MESSAGE_INVALID_GRADE =
+            "The grade input is not recognised by the NUS grading schematic. \n";
 }
