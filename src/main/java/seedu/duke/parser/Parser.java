@@ -1,5 +1,6 @@
 package seedu.duke.parser;
 
+import seedu.duke.command.Cap.CapCommand;
 import seedu.duke.command.Command;
 import seedu.duke.command.ExitCommand;
 import seedu.duke.command.IncorrectCommand;
@@ -7,6 +8,7 @@ import seedu.duke.command.add.AddCommand;
 import seedu.duke.command.delete.DeleteCommand;
 import seedu.duke.command.done.DoneCommand;
 import seedu.duke.command.edit.EditCommand;
+import seedu.duke.command.grade.GradeCommand;
 import seedu.duke.command.help.HelpCommand;
 import seedu.duke.command.list.ListCommand;
 import seedu.duke.command.misc.UndoCommand;
@@ -71,8 +73,12 @@ public class Parser {
                 return new ExitCommand();
             } else if (commandWord.equals(HelpCommand.COMMAND_WORD)) {
                 return new HelpCommand();
+            } else if (commandWord.equals(CapCommand.COMMAND_WORD)) {
+                return new CapCommand();
             } else {
                 switch (commandWord) {
+                case GradeCommand.COMMAND_WORD:
+                    return GradeCommandParser.prepareGradeCommand(parameters);
                 case UndoCommand.COMMAND_WORD:
                     return new UndoCommand();
                 case EditCommand.COMMAND_WORD:
