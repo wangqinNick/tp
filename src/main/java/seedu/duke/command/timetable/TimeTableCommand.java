@@ -2,9 +2,12 @@ package seedu.duke.command.timetable;
 
 import seedu.duke.command.Command;
 import seedu.duke.command.CommandResult;
+import seedu.duke.data.Lesson;
+import seedu.duke.data.LessonManager;
 import seedu.duke.data.TimeTableType;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import static seedu.duke.ui.TextUi.DIVIDER_LINE;
 
