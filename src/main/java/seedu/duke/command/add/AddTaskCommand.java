@@ -22,7 +22,6 @@ public class AddTaskCommand extends AddCommand {
      * Constructs AddTaskCommand without the deadline.
      *
      * @param desc Description of the entry.
-     * @param deadline Deadline of the task to be added.
      * @throws DateTimeParseException If the deadline does not follow the DateTime format.
      */
     public AddTaskCommand(String desc) {

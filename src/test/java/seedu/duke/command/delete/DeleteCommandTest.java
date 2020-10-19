@@ -8,7 +8,6 @@ import seedu.duke.command.add.AddModuleCommand;
 import seedu.duke.command.add.AddTaskCommand;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.data.TaskManager;
-import seedu.duke.parser.Parser;
 import seedu.duke.util.ExceptionMessage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -35,16 +34,14 @@ public class DeleteCommandTest {
 
     @Test
     void deleteMissingModuleMessage_isShown() {
-        Parser.TypeOfEntries typeOfEntry = Parser.TypeOfEntries.MODULE;
-        DeleteCommand deleteMissingModuleTest = new DeleteCommand(typeOfEntry, MOD_CODE_MISSING);
+        DeleteCommand deleteMissingModuleTest = new DeleteModuleCommand(MOD_CODE_MISSING);
         CommandResult commandResult = deleteMissingModuleTest.execute();
         assertEquals(ExceptionMessage.MESSAGE_MODULE_NOT_FOUND, commandResult.feedbackToUser);
     }
 
     @Test
     void deleteMissingTaskMessage_isShown() {
-        Parser.TypeOfEntries typeOfEntry = Parser.TypeOfEntries.TASK;
-        DeleteCommand deleteMissingTaskTest = new DeleteCommand(typeOfEntry, TASK_ID_MISSING);
+        DeleteCommand deleteMissingTaskTest = new DeleteTaskCommand(TASK_ID_MISSING);
         CommandResult commandResult = deleteMissingTaskTest.execute();
         assertEquals(ExceptionMessage.MESSAGE_TASK_NOT_FOUND, commandResult.feedbackToUser);
     }
