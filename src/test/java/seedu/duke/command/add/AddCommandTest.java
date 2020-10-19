@@ -2,7 +2,6 @@ package seedu.duke.command.add;
 
 import org.junit.jupiter.api.Test;
 import seedu.duke.command.CommandResult;
-import seedu.duke.parser.Parser;
 import seedu.duke.util.ExceptionMessage;
 
 import java.time.format.DateTimeParseException;
@@ -19,9 +18,8 @@ public class AddCommandTest {
 
     @Test
     void addModule_duplicateModuleMessage_isShown() {
-        Parser.TypeOfEntries typeOfEntry = Parser.TypeOfEntries.MODULE;
-        AddCommand addMod = new AddCommand(typeOfEntry, MOD_CODE_1, null);
-        AddCommand addDupMod = new AddCommand(typeOfEntry, MOD_CODE_1, null);
+        AddCommand addMod = new AddModuleCommand(MOD_CODE_1);
+        AddCommand addDupMod = new AddModuleCommand(MOD_CODE_1);
         addMod.execute();
         CommandResult commandResult = addDupMod.execute();
         assertEquals(ExceptionMessage.MESSAGE_DUPLICATE_MODULE, commandResult.feedbackToUser);
@@ -29,22 +27,19 @@ public class AddCommandTest {
 
     @Test
     void addTask_badDeadline_DateTimeParseException_isThrown() throws DateTimeParseException {
-        Parser.TypeOfEntries typeOfEntry = Parser.TypeOfEntries.TASK;
         assertThrows(DateTimeParseException.class,
-            () -> new AddCommand(typeOfEntry, TASK, BAD_DEADLINE));
+            () -> new AddTaskCommand(TASK, BAD_DEADLINE));
     }
 
     @Test
     void addTask_emptyDeadline_DateTimeParseException_isThrown() throws DateTimeParseException {
-        Parser.TypeOfEntries typeOfEntry = Parser.TypeOfEntries.TASK;
         assertThrows(DateTimeParseException.class,
-            () -> new AddCommand(typeOfEntry, TASK, EMPTY_DEADLINE));
+            () -> new AddTaskCommand(TASK, EMPTY_DEADLINE));
     }
 
     @Test
     void addTask_blankDeadline_DateTimeParseException_isThrown() throws DateTimeParseException {
-        Parser.TypeOfEntries typeOfEntry = Parser.TypeOfEntries.TASK;
         assertThrows(DateTimeParseException.class,
-            () -> new AddCommand(typeOfEntry, TASK, SPACES_DEADLINE));
+            () -> new AddTaskCommand(TASK, SPACES_DEADLINE));
     }
 }
