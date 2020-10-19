@@ -71,4 +71,6 @@ public class ExceptionMessage {
     public static final String MESSAGE_INVALID_COMMAND_WORD =
             "It seems you have input an incorrect command word. \n"
             + "Please key in help to see our list of commands. \n";
+    public static final String MESSAGE_LESSON_OVERLAP = "Sorry, the lesson you have attempted to add overlaps with other lessons.\n";
+    public static final String MESSAGE_LESSON_NOT_FOUND = "Sorry, the lesson you have attempted to delete does not exist.\n";
 }
