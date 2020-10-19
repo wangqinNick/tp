@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.duke.command.CommandResult;
 import seedu.duke.command.add.AddCommand;
+import seedu.duke.command.add.AddModuleCommand;
+import seedu.duke.command.add.AddTaskCommand;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.data.TaskManager;
 import seedu.duke.parser.Parser;
@@ -20,16 +22,14 @@ public class DeleteCommandTest {
     @BeforeEach
     void setupModObjects() {
         ModuleManager.clearModules();
-        Parser.TypeOfEntries typeOfEntry = Parser.TypeOfEntries.MODULE;
-        AddCommand addModule = new AddCommand(typeOfEntry, MOD_CODE, null);
+        AddCommand addModule = new AddModuleCommand(MOD_CODE);
         addModule.execute();
     }
 
     @BeforeEach
     void setupTaskObjects() {
         TaskManager.clear();
-        Parser.TypeOfEntries typeOfEntry = Parser.TypeOfEntries.TASK;
-        AddCommand addModule = new AddCommand(typeOfEntry, TASK, null);
+        AddCommand addModule = new AddTaskCommand(TASK);
         addModule.execute();
     }
 

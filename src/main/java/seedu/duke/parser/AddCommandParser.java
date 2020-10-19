@@ -3,25 +3,27 @@ package seedu.duke.parser;
 import seedu.duke.command.Command;
 import seedu.duke.command.IncorrectCommand;
 import seedu.duke.command.add.AddCommand;
+import seedu.duke.command.add.AddModuleCommand;
+import seedu.duke.command.add.AddTaskCommand;
 
 import java.security.InvalidParameterException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static seedu.duke.util.Message.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.duke.util.Message.MESSAGE_CHECK_COMMAND_FORMAT;
-import static seedu.duke.util.Message.MESSAGE_NO_ADD_TASK;
+import static seedu.duke.util.Message.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.duke.util.Message.MESSAGE_NO_ADD_MODULE;
+import static seedu.duke.util.Message.MESSAGE_NO_ADD_TASK;
 
 public class AddCommandParser {
     public static final String MODULE_PREFIX = "-m";
     public static final String TASK_PREFIX = "-t";
     protected static final String COMMAND_FLAG_GROUP = "commandFlag";
-    protected static final String TASK_GROUP = "task";
+    protected static final String DESC_GROUP = "desc";
     protected static final String DEADLINE_GROUP = "deadline";
     protected static final String BY_GROUP = "by";
     protected static final Pattern ADD_FORMAT =
-            Pattern.compile("(?<commandFlag>-\\S+)" + "(?<task>[^-]*)" + "((?<by>-by)?)" + "((?<deadline>.*)?)");
+            Pattern.compile("(?<commandFlag>-\\S+)" + "(?<desc>[^-]*)" + "((?<by>-by)?)" + "((?<deadline>.*)?)");
 
     protected static Command prepareAddCommand(String parameters)
             throws InvalidParameterException, IllegalStateException {
@@ -34,7 +36,7 @@ public class AddCommandParser {
         String commandFlag = Parser.isMatcherNull(matcher.group(COMMAND_FLAG_GROUP))
                 ? null : matcher.group(COMMAND_FLAG_GROUP).toLowerCase().trim();
 
-        String addedTask = matcher.group(TASK_GROUP).trim();
+        String addedTask = matcher.group(DESC_GROUP).trim();
         String taskDeadline = null;
         // Checks for presence of -by
         String dashBy = matcher.group(BY_GROUP);
@@ -42,7 +44,7 @@ public class AddCommandParser {
             taskDeadline = matcher.group(DEADLINE_GROUP).trim();
             if (taskDeadline.isEmpty()) { // -by is present but empty deadline
                 return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
-                        MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT, AddCommand.FORMAT));
+                        MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT, AddTaskCommand.FORMAT));
             }
         }
         // no task input by user
@@ -51,15 +53,14 @@ public class AddCommandParser {
                     ? new IncorrectCommand(MESSAGE_NO_ADD_MODULE)
                     : new IncorrectCommand(MESSAGE_NO_ADD_TASK);
         }
-
         return getAddCommand(commandFlag, addedTask, taskDeadline);
     }
 
     private static AddCommand getAddCommand(String commandFlag, String addedTask, String taskDeadline) {
         if (commandFlag.equals(MODULE_PREFIX)) {
-            return new AddCommand(Parser.TypeOfEntries.MODULE, addedTask, taskDeadline);
+            return new AddModuleCommand(addedTask);
         } else if (commandFlag.equals(TASK_PREFIX)) {
-            return new AddCommand(Parser.TypeOfEntries.TASK, addedTask, taskDeadline);
+            return new AddTaskCommand(addedTask, taskDeadline);
         } else {
             throw new InvalidParameterException();
         }
