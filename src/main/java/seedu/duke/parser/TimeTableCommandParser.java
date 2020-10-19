@@ -11,6 +11,7 @@ import seedu.duke.exception.LessonInvalidTimeException;
 import seedu.duke.ui.TextUi;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,12 +23,18 @@ import static seedu.duke.util.Message.MESSAGE_INVALID_COMMAND_FORMAT;
 
 public abstract class TimeTableCommandParser {
     private static final String REPEAT_GROUP = "repeat";
-    protected static final Pattern TIMETABLE_VIEW_FORMAT = Pattern.compile("(?<commandFlag>-\\S+)");
-    protected static final Pattern TIMETABLE_ADD_FORMAT = Pattern.compile("(?<commandFlag>-add\\s*)");
-    protected static final Pattern TIMETABLE_LESSON_PARAMETER_FORMAT =
+    private static final Pattern TIMETABLE_VIEW_FORMAT = Pattern.compile("(?<commandFlag>-\\S+)");
+    private static final Pattern TIMETABLE_ADD_FORMAT = Pattern.compile("(?<commandFlag>-add\\s*)");
+    private static final Pattern TIMETABLE_LESSON_PARAMETER_FORMAT =
             Pattern.compile("(?<module>\\S+\\s*)(?<day>\\S+\\s*)(?<start>\\d+\\s*)(?<end>\\d+\\s*)(?<type>\\S+\\s*)(?<repeat>\\d+\\s*)");
 
-    protected static Command parseTimeTableViewCommand(String parameters) {
+    /**
+     * Parses the timetable view command.
+     *
+     * @param parameters User input after finding that it is a view command.
+     * @return TimeTableViewCommand or IncorrectCommand
+     */
+    public static Command parseTimeTableViewCommand(String parameters) {
         Matcher matcher = TIMETABLE_VIEW_FORMAT.matcher(parameters);
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
@@ -50,7 +57,17 @@ public abstract class TimeTableCommandParser {
         return new TimeTableViewCommand(typeOfTimeTable);
     }
 
-    protected static Command parseTimeTableAddCommand(String parameters) throws ModuleManager.ModuleNotFoundException, LessonInvalidTimeException {
+    /**
+     * Parses the timetable add command. For the adding of Lessons into the timetable.
+     *
+     * @param parameters User input after finding that it is an add command.
+     * @return TimeTableAddCommand or IncorrectCommand
+     * @throws ModuleManager.ModuleNotFoundException When the module is not found in the module list.
+     * @throws LessonInvalidTimeException When the start is greater than or equal to end time of the Lesson.
+     * @throws DateTimeParseException When the time of either the start or end is in the wrong format.
+     */
+    public static Command parseTimeTableAddCommand(String parameters)
+            throws ModuleManager.ModuleNotFoundException, LessonInvalidTimeException, DateTimeParseException {
         Matcher addMatcher = TIMETABLE_ADD_FORMAT.matcher(parameters);
         if (!addMatcher.matches()) {
             return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",

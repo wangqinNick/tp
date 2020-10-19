@@ -1,22 +1,16 @@
 package seedu.duke.parser;
 
-import seedu.duke.command.Command;
-import seedu.duke.command.IncorrectCommand;
 import seedu.duke.data.Lesson;
 import seedu.duke.data.LessonType;
 import seedu.duke.data.Module;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.exception.LessonInvalidTimeException;
-import seedu.duke.ui.TextUi;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
-
-import static seedu.duke.parser.TimeTableCommandParser.TIMETABLE_LESSON_PARAMETER_FORMAT;
-import static seedu.duke.util.Message.MESSAGE_CHECK_COMMAND_FORMAT;
-import static seedu.duke.util.Message.MESSAGE_INVALID_COMMAND_FORMAT;
 
 public class LessonParser {
     private static final String MODULE_GROUP = "module";
@@ -25,7 +19,16 @@ public class LessonParser {
     private static final String END_TIME_GROUP = "end";
     private static final String LESSON_TYPE_GROUP = "type";
 
-    public static Lesson parseLesson(Matcher lessonMatcher) throws ModuleManager.ModuleNotFoundException, LessonInvalidTimeException {
+    /**
+     * Parses the user input for the Lesson parameters, to create a Lesson.
+     *
+     * @param lessonMatcher Matcher for the parameters.
+     * @return Lesson created from the Lesson parameters.
+     * @throws ModuleManager.ModuleNotFoundException When the module is not found in the module list.
+     * @throws LessonInvalidTimeException When the start is greater than or equal to end time of the Lesson.
+     * @throws DateTimeParseException When the time of either the start or end is in the wrong format.
+     */
+    public static Lesson parseLesson(Matcher lessonMatcher) throws ModuleManager.ModuleNotFoundException, LessonInvalidTimeException, DateTimeParseException {
         String modString = lessonMatcher.group(MODULE_GROUP).toLowerCase().trim();
         String dayString = lessonMatcher.group(DAY_GROUP).toLowerCase().trim();
         String startTimeString = lessonMatcher.group(START_TIME_GROUP).toLowerCase().trim();

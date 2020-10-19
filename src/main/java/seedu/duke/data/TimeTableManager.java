@@ -8,10 +8,7 @@ public abstract class TimeTableManager {
     private static final HashMap<Integer, LessonManager> semesterMap = new HashMap<>();
     public static int semStartWeekNum ;
     public static int semEndWeekNum;
-    public TimeTableManager() {
-        initialise();
-    }
-
+    
     /**
      * Initialise the semesterMap when it is empty.
      */
