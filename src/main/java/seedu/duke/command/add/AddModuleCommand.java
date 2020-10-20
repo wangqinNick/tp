@@ -1,5 +1,6 @@
 package seedu.duke.command.add;
 
+import seedu.duke.command.Command;
 import seedu.duke.command.CommandResult;
 import seedu.duke.command.PromptType;
 import seedu.duke.data.Module;
@@ -29,7 +30,7 @@ public class AddModuleCommand extends AddCommand {
      * @throws ModuleManager.DuplicateModuleException if the module is already in the list
      */
     private void addModule(String module) throws ModuleManager.DuplicateModuleException,
-            ModuleManager.ModuleNotFoundException{
+            ModuleManager.ModuleNotFoundException {
         Module newModule = new Module(module);
         ModuleManager.add(newModule);
     }
