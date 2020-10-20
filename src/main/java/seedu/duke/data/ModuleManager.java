@@ -8,13 +8,14 @@ import seedu.duke.DukeLogger;
 
 import java.util.HashMap;
 
+
 public class ModuleManager {
+    private static final DukeLogger logger = new DukeLogger(ModuleManager.class.getName());
+
     private static HashMap<String, Module> modulesMap = new HashMap<>();
     // modulesMap is the main module list. Maps module code to module object.
     private static HashMap<String, Module> nusModsMap = new HashMap<>();
     // nusModsMap is the module list containing the Module objects created from NUSMods' JSON file of modules.
-
-    private static final DukeLogger logger = new DukeLogger(ModuleManager.class.getName());
 
     /**
      *  Finds a module with the specified module code in the Module List.
@@ -153,19 +154,17 @@ public class ModuleManager {
     }
 
     public static String[] getModCodeList() {
-        String[] outputArray = modulesMap.keySet().toArray(new String[0]);
-        return outputArray;
+        return modulesMap.keySet().toArray(new String[0]);
     }
 
     public static String[] getNusModCodeList() {
-        String[] outputArray = nusModsMap.keySet().toArray(new String[0]);
-        return outputArray;
+        return nusModsMap.keySet().toArray(new String[0]);
     }
 
     /**
      * List modules in the module map.
      *
-     * @returns
+     * @return
      *  The formatted module list from TextUi or null if list is empty
      */
     public static String list() {
