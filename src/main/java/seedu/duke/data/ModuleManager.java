@@ -1,6 +1,5 @@
 package seedu.duke.data;
 
-import seedu.duke.data.storage.InputOutputManager;
 import seedu.duke.exception.DataNotFoundException;
 import seedu.duke.exception.DuplicateDataException;
 import seedu.duke.exception.ModuleNotProvidedException;
@@ -108,12 +107,14 @@ public class ModuleManager {
      * @param newModule
      *  The module object to add to the module list
      */
-    public static void add(Module newModule) throws DuplicateModuleException {
+    public static void add(Module newModule) throws DuplicateModuleException, ModuleNotFoundException {
         logger.getLogger().info("Adding module with code: " + newModule.getModuleCode());
         if (contains(newModule.getModuleCode())) {
             logger.getLogger().warning("Can't add module because it already exists!");
             throw new DuplicateModuleException();
         }
+        Module verifiedNusMod = getNusModule(newModule.getModuleCode());
+        newModule.setTitle(verifiedNusMod.getTitle());
         modulesMap.put(newModule.getModuleCode(), newModule);
     }
 
