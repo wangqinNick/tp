@@ -1,4 +1,4 @@
-package seedu.duke.command.Cap;
+package seedu.duke.command.cap;
 
 import seedu.duke.command.Command;
 import seedu.duke.command.CommandResult;
@@ -7,13 +7,13 @@ import seedu.duke.data.ModuleManager;
 
 import static seedu.duke.util.Message.MESSAGE_CAP_DISPLAY;
 
-public class CapCommand extends Command{
+public class CapCommand extends Command {
     public static final String COMMAND_WORD = "cap";
     public static final String FORMAT = COMMAND_WORD;
 
     public static double Cap = 0.0;
 
-    private double gradeConvert(String grade){
+    private double gradeConvert(String grade) {
         switch (grade) {
         case "A+":
         case "A":
@@ -41,16 +41,16 @@ public class CapCommand extends Command{
     }
 
     private double calculateCap() {
-        double McGrade;
+        double mcGrade;
         double sumMcGrade = 0;
         double sumMc = 0;
         for (String i : ModuleManager.getModulesMap().keySet()) {
             sumMc += ModuleManager.getModulesMap().get(i).getModuleCredit();
-            McGrade = ModuleManager.getModulesMap().get(i).getModuleCredit()
+            mcGrade = ModuleManager.getModulesMap().get(i).getModuleCredit()
                     * gradeConvert(ModuleManager.getModulesMap().get(i).getModuleGrade());
-            sumMcGrade += McGrade;
+            sumMcGrade += mcGrade;
         }
-        Cap = sumMcGrade/sumMc;
+        Cap = sumMcGrade / sumMc;
         return Cap;
     }
 

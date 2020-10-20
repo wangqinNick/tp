@@ -1,6 +1,6 @@
 package seedu.duke.parser;
 
-import seedu.duke.command.Cap.CapCommand;
+import seedu.duke.command.cap.CapCommand;
 import seedu.duke.command.Command;
 import seedu.duke.command.ExitCommand;
 import seedu.duke.command.IncorrectCommand;

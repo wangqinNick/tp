@@ -32,11 +32,11 @@ public class Module extends Directory {
         this.grade = grade;
     }
 
-    public double getModuleCredit(){
+    public double getModuleCredit() {
         return moduleCredit;
     }
 
-    public void setModuleCredit(int moduleCredit){
+    public void setModuleCredit(int moduleCredit) {
         this.moduleCredit = moduleCredit;
     }
 

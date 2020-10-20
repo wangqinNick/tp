@@ -40,8 +40,8 @@ public class GradeCommand extends Command {
      */
     private boolean testGrade(String grade) {
         String[] validGrades = {"A+","A","A-","B+","B-","B","C+","C","D+","D","F","SU"};
-        for (String i: validGrades){
-            if (grade.equals(i)){
+        for (String i: validGrades) {
+            if (grade.equals(i)) {
                 return true;
             }
         }
@@ -67,7 +67,7 @@ public class GradeCommand extends Command {
 
     /**
      * Executes the Grade Module Command to grade a Module with the module code
-     * from the Module List
+     * from the Module List.
      *
      * @return The Command Result of the execution
      */
