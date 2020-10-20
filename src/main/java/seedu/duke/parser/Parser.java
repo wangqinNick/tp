@@ -87,7 +87,7 @@ public class Parser {
                 case ListCommand.COMMAND_WORD:
                     return ListCommandParser.getListCommand(parameters); //command flag is the -t or -m
                 case TimeTableCommand.COMMAND_WORD:
-                    return TimeTableCommandParser.parseTimeTableViewCommand(parameters);
+                    return TimeTableCommandParser.parseTimeTableCommand(parameters);
                 default:
                     return new HelpCommand();
                 }
