@@ -34,7 +34,6 @@ public class DeleteCommandParser {
                 ? null : matcher.group(Parser.COMMAND_FLAG_GROUP).toLowerCase().trim();
 
         String stringTaskIndex = matcher.group(TASK_MODULE_GROUP).trim();
-        int taskIndex = Integer.parseInt(stringTaskIndex) - 1;
 
         // Checks for any string after the module or index given
         String invalid = matcher.group(INVALID_GROUP).trim();
@@ -46,7 +45,7 @@ public class DeleteCommandParser {
         if (commandFlag.equals(MODULE_PREFIX)) {
             return new DeleteModuleCommand(stringTaskIndex); //parameter is module code
         } else if (commandFlag.equals(TASK_PREFIX)) {
-            return new DeleteTaskCommand(taskIndex);//parameters is the index
+            return new DeleteTaskCommand(Integer.parseInt(stringTaskIndex) - 1);//parameters is the index
         } else {
             throw new InvalidParameterException();
         }
