@@ -20,7 +20,7 @@ public class DeleteCommandParser {
     protected static final String INVALID_GROUP = "invalid";
     protected static final Pattern DELETE_FORMAT =
             Pattern.compile("((?<commandFlag>.*-\\S+)?)"
-                    + "(?<taskModule>\\S+)" + "((?<invalid>.*)?)");
+                    + "(?<taskModule>\\s\\S+)" + "((?<invalid>.*)?)");
 
     protected static Command getDeleteCommand(String parameters) throws NumberFormatException {
         Matcher matcher = DELETE_FORMAT.matcher(parameters);
