@@ -21,7 +21,7 @@ public class TimeTableDeleteCommand extends TimeTableCommand {
 
     public void removeLessonFromTimeTable() throws LessonNotFoundException {
         LessonManager lessonManager = TimeTableManager.getLessonManager(currWeekNum);
-        lessonManager.removeLesson(lessonToDelete.getDay() , lessonIndexToDelete);
+        lessonManager.removeLesson(lessonToDelete.getDay(), lessonIndexToDelete);
     }
 
     @Override

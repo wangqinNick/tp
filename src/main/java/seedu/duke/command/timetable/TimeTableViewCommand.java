@@ -14,9 +14,9 @@ public class TimeTableViewCommand extends TimeTableCommand {
     private int numOfDays;
 
     /**
-     * Option for timetable for the day or for the week
+     * Option for timetable for the day or for the week.
      *
-     * @param typeOfTimeTable Determines if the day or week timetable is shown
+     * @param typeOfTimeTable Determines if the day or week timetable is shown.
      */
     public TimeTableViewCommand(TimeTableType typeOfTimeTable) {
         if (typeOfTimeTable.equals(TimeTableType.DAY)) {
@@ -27,9 +27,9 @@ public class TimeTableViewCommand extends TimeTableCommand {
     }
 
     /**
-     * Option for timetable for a custom number of days
+     * Option for timetable for a custom number of days.
      *
-     * @param numOfDays Determines the custom number of days timetable to be shown
+     * @param numOfDays Determines the custom number of days timetable to be shown.
      */
     public TimeTableViewCommand(int numOfDays) {
         this.numOfDays = numOfDays;

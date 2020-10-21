@@ -33,7 +33,8 @@ public abstract class TimeTableCommandParser {
     private static final String VIEW_WEEK_FORMAT = "-week";
     private static final Pattern TIMETABLE_FORMAT = Pattern.compile("(?<commandFlag>-[a-zA-Z0-9]+\\s*)");
     private static final Pattern TIMETABLE_LESSON_PARAMETER_FORMAT =
-            Pattern.compile("(?<module>\\S+\\s*)(?<day>\\S+\\s*)(?<start>\\d+\\s*)(?<end>\\d+\\s*)(?<type>\\S+\\s*)(?<repeat>\\d+\\s*)");
+            Pattern.compile("(?<module>\\S+\\s*)(?<day>\\S+\\s*)(?<start>\\d+\\s*)(?<end>\\d+\\s*)"
+            + "(?<type>\\S+\\s*)(?<repeat>\\d+\\s*)");
 
     /**
      * Parses all timetable related commands into their respective parsers.
@@ -109,7 +110,8 @@ public abstract class TimeTableCommandParser {
         Matcher lessonMatcher = TIMETABLE_LESSON_PARAMETER_FORMAT.matcher(lessonParams);
         if (!lessonMatcher.matches()) {
             return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
-                    MESSAGE_INVALID_COMMAND_FORMAT, lessonParams, MESSAGE_CHECK_COMMAND_FORMAT, TIMETABLE_LESSON_PARAMETER_FORMAT));
+                MESSAGE_INVALID_COMMAND_FORMAT, lessonParams, MESSAGE_CHECK_COMMAND_FORMAT,
+                    TIMETABLE_LESSON_PARAMETER_FORMAT));
         }
         Lesson newLesson = LessonParser.parseLesson(lessonMatcher);
         // Convert repeatString to int

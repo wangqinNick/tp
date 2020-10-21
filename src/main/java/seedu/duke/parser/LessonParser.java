@@ -28,7 +28,8 @@ public class LessonParser {
      * @throws LessonInvalidTimeException When the start is greater than or equal to end time of the Lesson.
      * @throws DateTimeParseException When the time of either the start or end is in the wrong format.
      */
-    public static Lesson parseLesson(Matcher lessonMatcher) throws ModuleManager.ModuleNotFoundException, LessonInvalidTimeException, DateTimeParseException {
+    public static Lesson parseLesson(Matcher lessonMatcher) throws
+            ModuleManager.ModuleNotFoundException, LessonInvalidTimeException, DateTimeParseException {
         String modString = lessonMatcher.group(MODULE_GROUP).toLowerCase().trim();
         String dayString = lessonMatcher.group(DAY_GROUP).toLowerCase().trim();
         String startTimeString = lessonMatcher.group(START_TIME_GROUP).toLowerCase().trim();

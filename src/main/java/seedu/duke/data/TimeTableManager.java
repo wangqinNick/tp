@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 public abstract class TimeTableManager {
     private static final HashMap<Integer, LessonManager> semesterMap = new HashMap<>();
-    public static int semStartWeekNum ;
+    public static int semStartWeekNum;
     public static int semEndWeekNum;
     
     /**
@@ -16,7 +16,7 @@ public abstract class TimeTableManager {
         LocalDateTime now = LocalDateTime.now();
         semStartWeekNum = now.get(ChronoField.ALIGNED_WEEK_OF_YEAR);
         semEndWeekNum = semStartWeekNum + 18; // One sem is 18 weeks
-        for (int weekNum = semStartWeekNum; weekNum < semEndWeekNum ; weekNum++) {
+        for (int weekNum = semStartWeekNum; weekNum < semEndWeekNum; weekNum++) {
             semesterMap.put(weekNum, new LessonManager());
         }
     }
