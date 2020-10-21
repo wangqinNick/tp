@@ -38,8 +38,6 @@ public class LessonParser {
         Module moduleCode;
         if (!ModuleManager.contains(modString)) {
             throw new ModuleManager.ModuleNotFoundException();
-        } else {
-            moduleCode = ModuleManager.getModule(modString);
         }
         // Convert dayString to DayOfWeek
         DayOfWeek dayOfWeek = DayOfWeek.valueOf(dayString);
@@ -50,7 +48,7 @@ public class LessonParser {
         // Convert lessonTypeString to lessonType
         LessonType lessonType = LessonType.valueOf(lessonTypeString);
         // Create the Lesson object
-        Lesson newLesson = new Lesson(moduleCode, lessonType, dayOfWeek, startTime, endTime);
+        Lesson newLesson = new Lesson(modString, lessonType, dayOfWeek, startTime, endTime);
         return newLesson;
     }
 }
