@@ -4,9 +4,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.duke.command.CommandResult;
 import seedu.duke.command.add.AddCommand;
+import seedu.duke.command.add.AddModuleCommand;
+import seedu.duke.command.add.AddTaskCommand;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.data.TaskManager;
-import seedu.duke.parser.Parser;
 import seedu.duke.util.ExceptionMessage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -20,31 +21,27 @@ public class DeleteCommandTest {
     @BeforeEach
     void setupModObjects() {
         ModuleManager.clearModules();
-        Parser.TypeOfEntries typeOfEntry = Parser.TypeOfEntries.MODULE;
-        AddCommand addModule = new AddCommand(typeOfEntry, MOD_CODE, null);
+        AddCommand addModule = new AddModuleCommand(MOD_CODE);
         addModule.execute();
     }
 
     @BeforeEach
     void setupTaskObjects() {
         TaskManager.clear();
-        Parser.TypeOfEntries typeOfEntry = Parser.TypeOfEntries.TASK;
-        AddCommand addModule = new AddCommand(typeOfEntry, TASK, null);
+        AddCommand addModule = new AddTaskCommand(TASK);
         addModule.execute();
     }
 
     @Test
     void deleteMissingModuleMessage_isShown() {
-        Parser.TypeOfEntries typeOfEntry = Parser.TypeOfEntries.MODULE;
-        DeleteCommand deleteMissingModuleTest = new DeleteCommand(typeOfEntry, MOD_CODE_MISSING);
+        DeleteCommand deleteMissingModuleTest = new DeleteModuleCommand(MOD_CODE_MISSING);
         CommandResult commandResult = deleteMissingModuleTest.execute();
         assertEquals(ExceptionMessage.MESSAGE_MODULE_NOT_FOUND, commandResult.feedbackToUser);
     }
 
     @Test
     void deleteMissingTaskMessage_isShown() {
-        Parser.TypeOfEntries typeOfEntry = Parser.TypeOfEntries.TASK;
-        DeleteCommand deleteMissingTaskTest = new DeleteCommand(typeOfEntry, TASK_ID_MISSING);
+        DeleteCommand deleteMissingTaskTest = new DeleteTaskCommand(TASK_ID_MISSING);
         CommandResult commandResult = deleteMissingTaskTest.execute();
         assertEquals(ExceptionMessage.MESSAGE_TASK_NOT_FOUND, commandResult.feedbackToUser);
     }
