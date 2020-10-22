@@ -11,7 +11,7 @@ public class SummaryCommand extends Command {
     public static final String COMMAND_WORD = "summary";
 
     /**
-     * Lists the tasks from respective lists in summaryLists
+     * Lists the tasks from respective lists in summaryLists.
      *
      * @return CommandResult containing task summary message
      */
@@ -19,7 +19,7 @@ public class SummaryCommand extends Command {
     public CommandResult execute() {
         String output = "";
         output = TaskManager.getSummary();
-        if (output.equals("")){
+        if (output.equals("")) {
             return new CommandResult(MESSAGE_LIST_EMPTY);
         } else {
             return new CommandResult(MESSAGE_SUMMARY_PRINTED + output);

@@ -89,12 +89,10 @@ public class TextUi {
      *
      * @param summaryLists the list of ArrayLists to be formatted
      */
-    public static String getSummaryList(ArrayList<ArrayList<Task>> summaryLists){
+    public static String getSummaryList(ArrayList<ArrayList<Task>> summaryLists) {
         final StringBuilder message = new StringBuilder();
+        
         ArrayList<Task> incompleteDatedList = summaryLists.get(0);
-        ArrayList<Task> incompleteUndatedList = summaryLists.get(1);
-        ArrayList<Task> completeList = summaryLists.get(2);
-
         message.append(MESSAGE_INCOMPLETE_DATED_TASKLIST);
         if (incompleteDatedList.size() > 0) {
             message.append(TextUi.getIndexTaskList(incompleteDatedList));
@@ -102,6 +100,7 @@ public class TextUi {
             message.append(MESSAGE_LIST_EMPTY);
         }
 
+        ArrayList<Task> incompleteUndatedList = summaryLists.get(1);
         message.append(MESSAGE_INCOMPLETE_UNDATED_TASKLIST);
         if (incompleteUndatedList.size() > 0) {
             message.append(TextUi.getIndexTaskList(incompleteUndatedList));
@@ -109,6 +108,7 @@ public class TextUi {
             message.append(MESSAGE_LIST_EMPTY);
         }
 
+        ArrayList<Task> completeList = summaryLists.get(2);
         message.append(MESSAGE_COMPLETED_TASKLIST);
         if (completeList.size() > 0) {
             message.append(TextUi.getIndexTaskList(completeList));
