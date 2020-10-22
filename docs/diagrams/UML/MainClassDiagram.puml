@@ -34,6 +34,10 @@ Duke <.. Executor
 Duke <.. InputOutputManager
 Duke <.. StateManager
 
+Parser <.. Command
+Executor <.. Command
+Executor <.. CommandResult
+
 TextUi "1" *-- Scanner
 
 @enduml

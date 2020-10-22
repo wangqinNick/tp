@@ -1,6 +1,7 @@
 @startuml
 
 class Duke
+abstract class Command
 package parser {
     class Parser
     class AddCommandParser
@@ -10,6 +11,7 @@ package parser {
     class ListCommandParser
 }
 Duke <.. Parser
+Parser <.. Command
 Parser <.. AddCommandParser
 Parser <.. DeleteCommandParser
 Parser <.. DoneCommandParser

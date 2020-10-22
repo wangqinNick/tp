@@ -39,11 +39,14 @@ This section describes some noteworthy details on how certain features are imple
 
 This is a class diagram of the top level of RaVi.
 The classes depicted here are those which are direct dependencies of the main class Duke.
-The various dependencies of the classes depicted here are not shown
-to avoid cluttering, and are described in later sections.
+The various dependencies of the classes depicted here are not shown to avoid cluttering, and are described in later sections.
 
-The main class is called Duke (carried over from legacy codebase).
+The main class is called Duke (carried over from legacy codebase). The main loop is held within the main class.
 Most classes used by the main class are static in nature and do not need to be instantiated.
+
+The Command and CommandResult objects are dependencies of Executor in addition to Duke. Executor can be
+viewed as a simple layer of abstraction on top of Command and CommandResult to facilitate the execution of user
+commands. Command is a dependency of Parser as Parser creates Command objects to return to the main loop.
 
 ![UML class diagram for Main Class](/diagrams/MainClassDiagram.png)
 
@@ -83,6 +86,18 @@ however, are dependencies of Command as there are commands for using/manipulatin
 and Command are then dependencies of the main class Duke.
 
 ![UML class diagram for Data Family Classes](/diagrams/DataClassDiagram.png)
+
+### Parser Family
+
+The Parser family of classes consists of the main Parser class and the xCommandParser subclasses. The main Parser class
+first determines the main command in the user command string. If it is one of the 5 commands with a xCommandParser
+subclass, then Parser delegates the remaining work to the subclass due to the complicated logic involved. Otherwise, it
+handles the logic itself.
+
+It will create a Command object, no matter whether the user command is valid or not (if it is not, then an
+IncorrectCommand object is created). This Command object is then passed back to the main class Duke for execution.
+
+![UML class diagram for Parser Family Classes](/diagrams/ParserClassDiagram.png)
 
 ## Product scope
 ### Target user profile
