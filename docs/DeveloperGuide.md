@@ -1,4 +1,4 @@
-# Developer Guide
+# Developer Guide for raVI
 
 ## Setting up
 
@@ -14,7 +14,7 @@
 3. Ensure it is set to the correct JDK version.
     a. `Configure` > `Project Structure for New Projects` > Select Java 11 under Project SDK.
 4. Click `Open or Import` to open the cloned repo.
-5. If necessary, locate the `build.gradle` file and select it. Click `OK`.
+5. If necessary, locate the `build.gradle` file and select it. Click OK.
 
 ### Verifying the setup
 
@@ -24,7 +24,7 @@
 
 ### Configure coding style
 
-RaVi's code is strictly styled using the Gradle Checkstyle plugin.
+raVI's code is strictly styled using the Gradle Checkstyle plugin.
 It is advised to change [IntelliJ's built-in code style
 options](https://se-education.org/guides/tutorials/intellijCodeStyle.html) to match the requirements.
 
@@ -35,9 +35,9 @@ Checkstyle plugin with IntelliJ IDEA](https://se-education.org/guides/tutorials/
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### Top level - Main class
+### Top level classes
 
-This is a class diagram of the top level of RaVi.
+This is a class diagram of the top level of raVi.
 The classes depicted here are those which are direct dependencies of the main class Duke.
 The various dependencies of the classes depicted here are not shown to avoid cluttering, and are described in later sections.
 
@@ -66,20 +66,16 @@ StateManager that there has been a change in state.
 ### Data Family
 
 The Data family of classes consists of all the abstracted data types required for our features, such as
-Tasks, Modules, and their respective Managers.
-
-All Data classes exist in the data package, and the classes in charge of saving and loading like InputOutputManager are
-in the storage subpackage.
+Tasks, Modules, and their respective Managers. All Data classes exist in the data package, and the classes
+in charge of saving and loading like InputOutputManager are in the storage subpackage.
 
 Lesson, Task, and Module are the base level abstractions, with their respective Managers containing the logic to store
 and manipulate instances of these objects in a meaningful way. InputOutputManager reads and writes information from the
-various Managers in order to save and load.
+various Managers in order to save and load. State and StateManager are specifically for the undo and redo functionality.
+They do not interact directly with the rest of the Data family.
 
 LessonFilter is the only interface in the data package. It allows for flexible creation of filters for powerful user
 filtering of lessons via lambda functions. For example, the user can choose to filter only lectures on Mondays before 2PM.
-
-State and StateManager are specifically for the undo and redo functionality. They do not interact directly with the rest
-of the Data family.
 
 Since there is no command to save or load, InputOutputManager is not a dependency of Command. All the other Managers,
 however, are dependencies of Command as there are commands for using/manipulating each one of them. InputOutputManager
@@ -102,7 +98,7 @@ IncorrectCommand object is created). This Command object is then passed back to 
 ## Product scope
 ### Target user profile
 
-The target user profile for RaVi is described by the following:
+The target user profile for raVI is described by the following:
 * A student of NUS (a freshman in particular)
 * Has a need to manage their school related tasks, classes and notes
 * Prefers desktop apps over other types
@@ -117,13 +113,13 @@ NUS places a focus on taking responsibility for your own learning, so it might b
 A lot of students miss lessons, assignments, and even exams, just because they're struggling to adapt to the new
 environment.
 
-RaVi helps students to manage their school-related information in a compact, stripped-down interface that does not bombard them with too much information.
-When you receive your modules and lessons, simply enter them into RaVi as they arrive. RaVi will keep track of all of it
+raVI helps students to manage their school-related information in a compact, stripped-down interface that does not bombard them with too much information.
+When you receive your modules and lessons, simply enter them into raVI as they arrive. raVI will keep track of all of it
 for you.
 You can create tasks, give them deadlines, and tag them to certain modules. You can see all of your tasks and deadlines at a glance.
-You can even write and save your notes in RaVi, uncluttering your work environment even further.
+You can even write and save your notes in raVI, uncluttering your work environment even further.
 
-RaVi is even integrated with NUSMods, bringing its comprehensive library of information to your fingertips.
+raVI is even integrated with NUSMods, bringing its comprehensive library of information to your fingertips.
 All of the above features are wrapped in a compact, no-frills command-line interface. No confusing menus and dropdowns
 to distract you; only simple commands to give you what you want.
 
