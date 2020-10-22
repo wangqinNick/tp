@@ -77,6 +77,9 @@ Extending from the Command classes are the AddModule, AddTask and proposed AddNo
 
 To add on, each Command class has a execute() which will run in the main loop. This returns a CommandResult object which will print a message to the user.
 
+#### Sequence Diagram for the AddModule Class
+![alt text](diagrams/Sequence_AddModule.png)
+
 ## User Stories
 
 |Version| As a ... | I want to ... | So that I can ...|
