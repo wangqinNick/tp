@@ -36,6 +36,19 @@ RaVi is even integrated with NUSMods, bringing its comprehensive library of info
 All of the above features are wrapped in a compact, no-frills command-line interface. No confusing menus and dropdowns
 to distract you; only simple commands to give you what you want.
 
+## Implementation
+This section describes some noteworthy details on how certain features are implemented.
+
+### Add/Delete Feature
+This feature is facilitated by the TaskManager, ModuleManager and proposed NoteManager classes.
+Extending from the Command classes are the AddModule, AddTask and proposed AddNotes Command classes. It implements the following operations:
+* AddTask#addTask() - Add a task to the task list through TaskManager.add()
+* AddModule#addModule() - Add a module to the module list through ModuleManager.add()
+* DeleteTask#deleteTask() - Deletes a task from the task list through TaskManager.delete()
+* DeleteModule#deleteModule() - Deletes a module from the module list through ModuleManager.delete()\
+
+To add on, each Command class has a execute() which will run in the main loop. This returns a CommandResult object which will print a message to the user.
+
 ## User Stories
 
 |Version| As a ... | I want to ... | So that I can ...|
