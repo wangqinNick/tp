@@ -1,5 +1,6 @@
 @startuml
 
+
 abstract class Command {
     PromptType promptType
     PromptType getPromptType()
@@ -21,12 +22,12 @@ abstract class DeleteCommand
 class DeleteModuleCommand
 class DeleteTaskCommand
 
-class DoneCommand
-
 abstract class EditCommand
 class EditModuleCommand
 class EditTaskCommand
 
+class DoneCommand
+class UndoCommand
 class HelpCommand
 class ListCommand
 class ExitCommand
@@ -52,10 +53,12 @@ Command <|-- FilterCommand
 Command <|-- DoneCommand
 Command <|-- HelpCommand
 Command <|-- ListCommand
+Command <|-- UndoCommand
 Command <|-- ExitCommand
 Command <|-- IncorrectCommand
 
 Command *-- PromptType
 Command <.. CommandResult
+
 
 @enduml

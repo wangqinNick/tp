@@ -33,8 +33,56 @@ Checkstyle plugin with IntelliJ IDEA](https://se-education.org/guides/tutorials/
 
 ## Design & implementation
 
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}\
 This section describes some noteworthy details on how certain features are implemented.
+
+### Top level - Main class
+
+This is a class diagram of the top level of RaVi.
+The classes depicted here are those which are direct dependencies of the main class Duke.
+The various dependencies of the classes depicted here are not shown
+to avoid cluttering, and are described in later sections.
+
+The main class is called Duke (carried over from legacy codebase).
+Most classes used by the main class are static in nature and do not need to be instantiated.
+
+![UML class diagram for Main Class](/diagrams/MainClassDiagram.png)
+
+### Command Family
+
+The Command family of classes are nearly all derived from the abstract Command class, except for
+CommandResult and PromptType. All Command classes belong to the command package.
+
+The Command classes carry information about the user's command. There is one class for each exact user command.
+The `execute()` function of the Command class generates a CommandResult, which holds the reply to the user.
+
+PromptType indicates the functionality of the Command object. The most useful type is EDIT, which indicates to
+StateManager that there has been a change in state.
+
+![UML class diagram for Command Family Classes](/diagrams/CommandClassDiagram.png)
+
+### Data Family
+
+The Data family of classes consists of all the abstracted data types required for our features, such as
+Tasks, Modules, and their respective Managers.
+
+All Data classes exist in the data package, and the classes in charge of saving and loading like InputOutputManager are
+in the storage subpackage.
+
+Lesson, Task, and Module are the base level abstractions, with their respective Managers containing the logic to store
+and manipulate instances of these objects in a meaningful way. InputOutputManager reads and writes information from the
+various Managers in order to save and load.
+
+LessonFilter is the only interface in the data package. It allows for flexible creation of filters for powerful user
+filtering of lessons via lambda functions. For example, the user can choose to filter only lectures on Mondays before 2PM.
+
+State and StateManager are specifically for the undo and redo functionality. They do not interact directly with the rest
+of the Data family.
+
+Since there is no command to save or load, InputOutputManager is not a dependency of Command. All the other Managers,
+however, are dependencies of Command as there are commands for using/manipulating each one of them. InputOutputManager
+and Command are then dependencies of the main class Duke.
+
+![UML class diagram for Data Family Classes](/diagrams/DataClassDiagram.png)
 
 ## Product scope
 ### Target user profile

@@ -1,0 +1,19 @@
+@startuml
+
+class Duke
+package parser {
+    class Parser
+    class AddCommandParser
+    class DeleteCommandParser
+    class DoneCommandParser
+    class EditCommandParser
+    class ListCommandParser
+}
+Duke <.. Parser
+Parser <.. AddCommandParser
+Parser <.. DeleteCommandParser
+Parser <.. DoneCommandParser
+Parser <.. EditCommandParser
+Parser <.. ListCommandParser
+
+@enduml
