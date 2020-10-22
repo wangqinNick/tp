@@ -108,6 +108,21 @@ public class TaskManager {
         return summaryLists;
     }
 
+    public static String getSummary() {
+        final StringBuilder message = new StringBuilder();
+        ArrayList<Task> incompleteDatedList = TaskManager.summary().get(0);
+        ArrayList<Task> incompleteUndatedList = TaskManager.summary().get(1);
+        ArrayList<Task> completeList = TaskManager.summary().get(2);
+
+        if (incompleteDatedList.size() > 0) {
+
+            message.append(TextUi.getIndexTaskList(incompleteDatedList));
+        }
+        message.append(TextUi.getIndexTaskList(incompleteUndatedList));
+        message.append(TextUi.getIndexTaskList(completeList));
+        return message.toString();
+    }
+
     /**
      * Gets Task List.
      *

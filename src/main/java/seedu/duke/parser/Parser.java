@@ -10,6 +10,7 @@ import seedu.duke.command.edit.EditCommand;
 import seedu.duke.command.help.HelpCommand;
 import seedu.duke.command.list.ListCommand;
 import seedu.duke.command.misc.UndoCommand;
+import seedu.duke.command.summary.SummaryCommand;
 
 import java.security.InvalidParameterException;
 import java.util.regex.Matcher;
@@ -85,6 +86,8 @@ public class Parser {
                     return DoneCommandParser.prepareDoneCommand(parameters);
                 case ListCommand.COMMAND_WORD:
                     return ListCommandParser.getListCommand(parameters); //command flag is the -t or -m
+                case SummaryCommand.COMMAND_WORD:
+                    return new SummaryCommand();
                 default:
                     return new HelpCommand();
                 }

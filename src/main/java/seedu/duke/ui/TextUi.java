@@ -88,8 +88,7 @@ public class TextUi {
     public static String getIndexListFormat(int listIndex, String listItem) {
         return String.format(MESSAGE_INDEX_LIST_FORMAT, listIndex, listItem);
     }
-
-
+    
     /**
      * Trims spacing and checks if input is empty.
      *
