@@ -111,9 +111,28 @@ Given below are instructions to test the app manually.
 ### Launch and shutdown
 
 ### Adding a task w/ deadline
+1. Adding a task without deadline
+    1. Test case: `add -t read a book`
+    Expected: Task `read a book` will be added to the task list. Details of the added task is shown in the status message.
+    2. Test case: `add -t `
+    Expected: As there is no task to add, details of the associated error message will be shown.
+2. Adding a task with deadline
+    1. Test case: `add -t read a book -by 20-10-2020 1800`
+    Expected: Task `read a book` will be added to the task list. Additionally, the deadline 
+    will be added to the task.
+    Details of the added task is shown in the status message.
+    2. Test case: `add -t read a book -by 20/20/2020`
+    Expected: Invalid deadline `20/20/2020` will not allow the task to be added to the task list. Details of the associated error message will be shown.
 
 ### Adding a module
-
+1. Adding a module
+    1. Test case: `add -m CS2113T`
+    Expected: Module `CS2113T` will be checked against the NUS module list. 
+    Since `CS2113T` is a valid module, it will be added to the module list. Details of the added module is shown in the status message.
+    2. Test case: `add -m Fake Mod`
+    Expected: As there is no such module `Fake Mod` in the NUS module list.
+    It will not be added to the module list. Details of the associated error message will be shown.
+    
 ### Adding a lesson to the timetable
 
 ### Marking a task as done / undone
