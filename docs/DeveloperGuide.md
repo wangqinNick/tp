@@ -148,3 +148,10 @@ Given below are instructions to test the app manually.
 ### Redo the previous command
 
 ### Saving data
+1. Add tasks and modules, then exit
+    1. Test case: `add -t task 1`, `add -m CS1010`, `bye`
+    Expected: `user_task_data.json` and `user_mod_data.json` should be created in `<ROOT>/data/` with a JSON
+    representation of the task and module.
+2. Loading tasks and modules
+    1. Test case: Run raVI again after the first test case, then run `list -t` and `list -m`
+    Expected: `task 1` should be shown in the task list, and `CS1010` should be shown in the module list.
