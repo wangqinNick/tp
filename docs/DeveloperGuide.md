@@ -48,7 +48,7 @@ The Command and CommandResult objects are dependencies of Executor in addition t
 viewed as a simple layer of abstraction on top of Command and CommandResult to facilitate the execution of user
 commands. Command is a dependency of Parser as Parser creates Command objects to return to the main loop.
 
-![UML class diagram for Main Class](/diagrams/MainClassDiagram.png?raw=true)
+![UML class diagram for Main Class](/docs/diagrams/MainClassDiagram.png?raw=true)
 
 ### Command Family
 
@@ -61,7 +61,7 @@ The `execute()` function of the Command class generates a CommandResult, which h
 PromptType indicates the functionality of the Command object. The most useful type is EDIT, which indicates to
 StateManager that there has been a change in state.
 
-![UML class diagram for Command Family Classes](/diagrams/CommandClassDiagram.png?raw=true)
+![UML class diagram for Command Family Classes](/docs/diagrams/CommandClassDiagram.png?raw=true)
 
 ### Data Family
 
@@ -85,7 +85,7 @@ Since there is no command to save or load, InputOutputManager is not a dependenc
 however, are dependencies of Command as there are commands for using/manipulating each one of them. InputOutputManager
 and Command are then dependencies of the main class Duke.
 
-![UML class diagram for Data Family Classes](/diagrams/DataClassDiagram.png?raw=true)
+![UML class diagram for Data Family Classes](/docs/diagrams/DataClassDiagram.png?raw=true)
 
 ### Parser Family
 
@@ -97,7 +97,7 @@ handles the logic itself.
 It will create a Command object, no matter whether the user command is valid or not (if it is not, then an
 IncorrectCommand object is created). This Command object is then passed back to the main class Duke for execution.
 
-![UML class diagram for Parser Family Classes](/diagrams/ParserClassDiagram.png?raw=true)
+![UML class diagram for Parser Family Classes](/docs/diagrams/ParserClassDiagram.png?raw=true)
 
 ## Product scope
 ### Target user profile
