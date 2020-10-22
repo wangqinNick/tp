@@ -9,18 +9,32 @@ This section describes some noteworthy details on how certain features are imple
 ## Product scope
 ### Target user profile
 
-{Describe the target user profile}
-* NUS students (especially catering to Freshman)
-* has a need to manage their school related tasks, classes and notes
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+The target user profile for RaVi is described by the following:
+* A student of NUS (a freshman in particular)
+* Has a need to manage their school related tasks, classes and notes
+* Prefers desktop apps over other types
+* Types fast
+* Prefers typing to mouse interactions
+* Reasonably comfortable using CLI apps
 
 ### Value proposition
 
-{Describe the value proposition: what problem does it solve?}
-* This app simplifies the plethora of information that freshman are bombarded with, streamlining it for easy viewing and management.
+A common problem amongst freshmen is the inability to organise all the incoming information.
+NUS places a focus on taking responsibility for your own learning, so it might be a tough transition from tertiary education.
+A lot of students miss lessons, assignments, and even exams, just because they're struggling to adapt to the new
+environment.
+
+
+RaVi helps students to manage their school-related information in a compact, stripped-down interface that does not bombard them with too much information.
+When you receive your modules and lessons, simply enter them into RaVi as they arrive. RaVi will keep track of all of it
+for you.
+You can create tasks, give them deadlines, and tag them to certain modules. You can see all of your tasks and deadlines at a glance.
+You can even write and save your notes in RaVi, uncluttering your work environment even further.
+
+
+RaVi is even integrated with NUSMods, bringing its comprehensive library of information to your fingertips.
+All of the above features are wrapped in a compact, no-frills command-line interface. No confusing menus and dropdowns
+to distract you; only simple commands to give you what you want.
 
 ## User Stories
 
@@ -34,6 +48,8 @@ This section describes some noteworthy details on how certain features are imple
 |v1.0|user|delete tasks from the application|keep track of new tasks|
 |v1.0|user|delete modules from the application|keep track of new modules|
 |v2.0|user|view my timetable quickly|be aware of my classes and prepare for them quickly|
+|v2.0|user|view a summary of my tasks|be aware of my tasks and work on them as needed|
+|v2.0|user|write notes for my modules|manage my notes together with my tasks and modules|
 
 ## Non-Functional Requirements
 
