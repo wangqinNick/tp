@@ -20,7 +20,7 @@ This section describes some noteworthy details on how certain features are imple
 ### Value proposition
 
 {Describe the value proposition: what problem does it solve?}
-* This app simplifies the plethora of information that freshman are bombarded with for easy viewing.
+* This app simplifies the plethora of information that freshman are bombarded with, streamlining it for easy viewing and management.
 
 ## User Stories
 
