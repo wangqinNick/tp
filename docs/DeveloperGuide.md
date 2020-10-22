@@ -1,10 +1,40 @@
 # Developer Guide
 
+## Setting up
+
+### Software Prerequisites
+
+1. **JDK** 11
+2. **IntelliJ** IDEA
+
+### Setting up the work environment
+
+1. **Fork** this repo onto your GitHub account. **Clone** it onto your computer.
+2. Open IntelliJ. Close any existing projects if you are not at the welcome page.
+3. Ensure it is set to the correct JDK version.
+    a. `Configure` > `Project Structure for New Projects` > Select Java 11 under Project SDK.
+4. Click `Open or Import` to open the cloned repo.
+5. If necessary, locate the `build.gradle` file and select it. Click `OK`.
+
+### Verifying the setup
+
+1. Run the program by selecting the `run` Gradle task at the top right and running it.
+2. Test the program by trying to run commands.
+3. Additionally, select the `test` Gradle task and run it. Check that all the tests pass.
+
+### Configure coding style
+
+RaVi's code is strictly styled using the Gradle Checkstyle plugin.
+It is advised to change [IntelliJ's built-in code style
+options](https://se-education.org/guides/tutorials/intellijCodeStyle.html) to match the requirements.
+
+The checkstyle configurations is in `<ROOT>/config/checkstyle/` by default. Here is some information on [how to use the
+Checkstyle plugin with IntelliJ IDEA](https://se-education.org/guides/tutorials/checkstyle.html).
+
 ## Design & implementation
 
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}\
 This section describes some noteworthy details on how certain features are implemented.
-
 
 ## Product scope
 ### Target user profile
@@ -24,13 +54,11 @@ NUS places a focus on taking responsibility for your own learning, so it might b
 A lot of students miss lessons, assignments, and even exams, just because they're struggling to adapt to the new
 environment.
 
-
 RaVi helps students to manage their school-related information in a compact, stripped-down interface that does not bombard them with too much information.
 When you receive your modules and lessons, simply enter them into RaVi as they arrive. RaVi will keep track of all of it
 for you.
 You can create tasks, give them deadlines, and tag them to certain modules. You can see all of your tasks and deadlines at a glance.
 You can even write and save your notes in RaVi, uncluttering your work environment even further.
-
 
 RaVi is even integrated with NUSMods, bringing its comprehensive library of information to your fingertips.
 All of the above features are wrapped in a compact, no-frills command-line interface. No confusing menus and dropdowns
