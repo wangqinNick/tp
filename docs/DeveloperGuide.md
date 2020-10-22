@@ -9,18 +9,18 @@ This section describes some noteworthy details on how certain features are imple
 ## Product scope
 ### Target user profile
 
-{Describe the target user profile}
-* NUS students (especially catering to Freshman)
-* has a need to manage their school related tasks, classes and notes
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+The target user profile for RaVi is described by the following:
+* A student of NUS (a freshman in particular)
+* Has a need to manage their school related tasks, classes and notes
+* Prefers desktop apps over other types
+* Types fast
+* Prefers typing to mouse interactions
+* Reasonably comfortable using CLI apps
 
 ### Value proposition
 
-{Describe the value proposition: what problem does it solve?}
-* This app simplifies the plethora of information that freshman are bombarded with, streamlining it for easy viewing and management.
+* This app helps students to manage their school-related information in a compact, stripped-down interface that does not bombard them with too much information.
+* 
 
 ## User Stories
 
@@ -34,6 +34,8 @@ This section describes some noteworthy details on how certain features are imple
 |v1.0|user|delete tasks from the application|keep track of new tasks|
 |v1.0|user|delete modules from the application|keep track of new modules|
 |v2.0|user|view my timetable quickly|be aware of my classes and prepare for them quickly|
+|v2.0|user|view a summary of my tasks|be aware of my tasks and work on them as needed|
+|v2.0|user|write notes for my modules|manage my notes together with my tasks and modules|
 
 ## Non-Functional Requirements
 
