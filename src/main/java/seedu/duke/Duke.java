@@ -40,7 +40,7 @@ public class Duke {
             try {
                 ui.showTimeTableInitialisationMessage();
                 TimeTableManager.initialise();
-            } catch (TimeTableInitialiseException e) {
+            } catch (TimeTableInitialiseException | NumberFormatException e) {
                 ui.outputToUser(TIMETABLE_NOT_INITIALISED);
             }
         }
