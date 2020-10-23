@@ -1,0 +1,81 @@
+@startuml
+
+    package data {
+    package storage {
+        class InputOutputManager
+        class Decoder
+        class Encoder
+
+        InputOutputManager <.. Decoder
+        InputOutputManager <.. Encoder
+    }
+
+    class Module {
+        String moduleCode
+        String title
+    }
+    class ModuleManager {
+        HashMap<String, Module> modulesMap
+        HashMap<String, Module> nusModsMap
+    }
+    ModuleManager "*" *-- Module
+    InputOutputManager <.. ModuleManager
+
+    class Task {
+        String name
+        LocalDateTime deadline = null
+        boolean isDone
+    }
+    class TaskManager {
+        ArrayList<Task> tasksList
+    }
+    TaskManager "*" *-- Task
+    InputOutputManager <.. TaskManager
+
+    class State {
+        String encodedSavedList
+        String encodedSavedMap
+    }
+    class StateManager {
+        Stack<State> undoStack
+        Stack<State> redoStack
+    }
+    StateManager "*" *-- State
+
+    class Lesson {
+        String moduleCode
+        String description
+        LessonType lessonType
+        DayOfWeek day
+        LocalTime startTime
+        LocalTime endTime
+    }
+    class LessonManager {
+        HashMap<DayOfWeek, ArrayList<Lesson>> lessonMap
+    }
+    interface LessonFilter
+    enum LessonType {
+        TUTORIAL,
+        LECTURE,
+        SEMINAR,
+        LAB,
+        RECITATION,
+        SESSION
+    }
+    LessonManager "*" *-- Lesson
+    LessonManager <.. LessonType
+    LessonManager <.. LessonFilter
+    InputOutputManager <.. LessonManager
+}
+package command {
+    abstract class Command
+}
+class Duke
+Duke <.. Command
+Duke <.. InputOutputManager
+Command <.. LessonManager
+Command <.. TaskManager
+Command <.. ModuleManager
+Command <.. StateManager
+
+@enduml
