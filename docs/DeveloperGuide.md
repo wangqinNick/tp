@@ -1,4 +1,4 @@
-# Developer Guide
+# Developer Guide for raVI
 
 ## Setting up
 
@@ -14,7 +14,7 @@
 3. Ensure it is set to the correct JDK version.
     a. `Configure` > `Project Structure for New Projects` > Select Java 11 under Project SDK.
 4. Click `Open or Import` to open the cloned repo.
-5. If necessary, locate the `build.gradle` file and select it. Click `OK`.
+5. If necessary, locate the `build.gradle` file and select it. Click OK.
 
 ### Verifying the setup
 
@@ -24,7 +24,7 @@
 
 ### Configure coding style
 
-RaVi's code is strictly styled using the Gradle Checkstyle plugin.
+raVI's code is strictly styled using the Gradle Checkstyle plugin.
 It is advised to change [IntelliJ's built-in code style
 options](https://se-education.org/guides/tutorials/intellijCodeStyle.html) to match the requirements.
 
@@ -33,13 +33,72 @@ Checkstyle plugin with IntelliJ IDEA](https://se-education.org/guides/tutorials/
 
 ## Design & implementation
 
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}\
 This section describes some noteworthy details on how certain features are implemented.
+
+### Top level classes
+
+This is a class diagram of the top level of raVi.
+The classes depicted here are those which are direct dependencies of the main class Duke.
+The various dependencies of the classes depicted here are not shown to avoid cluttering, and are described in later sections.
+
+The main class is called Duke (carried over from legacy codebase). The main loop is held within the main class.
+Most classes used by the main class are static in nature and do not need to be instantiated.
+
+The Command and CommandResult objects are dependencies of Executor in addition to Duke. Executor can be
+viewed as a simple layer of abstraction on top of Command and CommandResult to facilitate the execution of user
+commands. Command is a dependency of Parser as Parser creates Command objects to return to the main loop.
+
+![UML class diagram for Main Class](/docs/diagrams/MainClassDiagram.png?raw=true)
+
+### Command Family
+
+The Command family of classes are nearly all derived from the abstract Command class, except for
+CommandResult and PromptType. All Command classes belong to the command package.
+
+The Command classes carry information about the user's command. There is one class for each exact user command.
+The `execute()` function of the Command class generates a CommandResult, which holds the reply to the user.
+
+PromptType indicates the functionality of the Command object. The most useful type is EDIT, which indicates to
+StateManager that there has been a change in state.
+
+![UML class diagram for Command Family Classes](/docs/diagrams/CommandClassDiagram.png?raw=true)
+
+### Data Family
+
+The Data family of classes consists of all the abstracted data types required for our features, such as
+Tasks, Modules, and their respective Managers. All Data classes exist in the data package, and the classes
+in charge of saving and loading like InputOutputManager are in the storage subpackage.
+
+Lesson, Task, and Module are the base level abstractions, with their respective Managers containing the logic to store
+and manipulate instances of these objects in a meaningful way. InputOutputManager reads and writes information from the
+various Managers in order to save and load. State and StateManager are specifically for the undo and redo functionality.
+They do not interact directly with the rest of the Data family.
+
+LessonFilter is the only interface in the data package. It allows for flexible creation of filters for powerful user
+filtering of lessons via lambda functions. For example, the user can choose to filter only lectures on Mondays before 2PM.
+
+Since there is no command to save or load, InputOutputManager is not a dependency of Command. All the other Managers,
+however, are dependencies of Command as there are commands for using/manipulating each one of them. InputOutputManager
+and Command are then dependencies of the main class Duke.
+
+![UML class diagram for Data Family Classes](/docs/diagrams/DataClassDiagram.png?raw=true)
+
+### Parser Family
+
+The Parser family of classes consists of the main Parser class and the xCommandParser subclasses. The main Parser class
+first determines the main command in the user command string. If it is one of the 5 commands with a xCommandParser
+subclass, then Parser delegates the remaining work to the subclass due to the complicated logic involved. Otherwise, it
+handles the logic itself.
+
+It will create a Command object, no matter whether the user command is valid or not (if it is not, then an
+IncorrectCommand object is created). This Command object is then passed back to the main class Duke for execution.
+
+![UML class diagram for Parser Family Classes](/docs/diagrams/ParserClassDiagram.png?raw=true)
 
 ## Product scope
 ### Target user profile
 
-The target user profile for RaVi is described by the following:
+The target user profile for raVI is described by the following:
 * A student of NUS (a freshman in particular)
 * Has a need to manage their school related tasks, classes and notes
 * Prefers desktop apps over other types
@@ -54,13 +113,13 @@ NUS places a focus on taking responsibility for your own learning, so it might b
 A lot of students miss lessons, assignments, and even exams, just because they're struggling to adapt to the new
 environment.
 
-RaVi helps students to manage their school-related information in a compact, stripped-down interface that does not bombard them with too much information.
-When you receive your modules and lessons, simply enter them into RaVi as they arrive. RaVi will keep track of all of it
+raVI helps students to manage their school-related information in a compact, stripped-down interface that does not bombard them with too much information.
+When you receive your modules and lessons, simply enter them into raVI as they arrive. raVI will keep track of all of it
 for you.
 You can create tasks, give them deadlines, and tag them to certain modules. You can see all of your tasks and deadlines at a glance.
-You can even write and save your notes in RaVi, uncluttering your work environment even further.
+You can even write and save your notes in raVI, uncluttering your work environment even further.
 
-RaVi is even integrated with NUSMods, bringing its comprehensive library of information to your fingertips.
+raVI is even integrated with NUSMods, bringing its comprehensive library of information to your fingertips.
 All of the above features are wrapped in a compact, no-frills command-line interface. No confusing menus and dropdowns
 to distract you; only simple commands to give you what you want.
 
