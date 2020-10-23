@@ -39,12 +39,13 @@ public class Duke {
         while (!TimeTableManager.isInitialised()) {
             try {
                 ui.showTimeTableInitialisationMessage();
-                TimeTableManager.initialise();
-            } catch (TimeTableInitialiseException | NumberFormatException e) {
+                int currWeekNum = TextUi.getCurrentWeekNum();
+                TimeTableManager.initialise(currWeekNum);
+            } catch (Exception e) {
                 ui.outputToUser(TIMETABLE_NOT_INITIALISED);
             }
         }
-        TextUi.showWelcomeMessage();
+        ui.showWelcomeMessage();
         logger.getLogger().info("Initialised scanner, UI, and IO");
     }
 

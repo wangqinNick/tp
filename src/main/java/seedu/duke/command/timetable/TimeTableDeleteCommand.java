@@ -1,28 +1,25 @@
 package seedu.duke.command.timetable;
 
 import seedu.duke.command.CommandResult;
-import seedu.duke.data.LessonManager;
 import seedu.duke.data.TimeTableManager;
 import seedu.duke.exception.LessonNotFoundException;
 
 import java.time.DayOfWeek;
 
 import static seedu.duke.util.ExceptionMessage.MESSAGE_LESSON_NOT_FOUND;
+import static seedu.duke.util.Message.MESSAGE_DELETE_LESSON_SUCCESS;
 
 public class TimeTableDeleteCommand extends TimeTableCommand {
     private DayOfWeek dayOfWeek;
-    private int currWeekNum;
     private int lessonIndexToDelete;
 
-    public TimeTableDeleteCommand(DayOfWeek dayOfWeek, int currWeekNum, int lessonIndexToDelete) {
+    public TimeTableDeleteCommand(DayOfWeek dayOfWeek, int lessonIndexToDelete) {
         this.dayOfWeek = dayOfWeek;
-        this.currWeekNum = currWeekNum;
         this.lessonIndexToDelete = lessonIndexToDelete;
     }
 
     public void removeLessonFromTimeTable() throws LessonNotFoundException {
-        LessonManager lessonManager = TimeTableManager.getLessonManager(currWeekNum);
-        lessonManager.removeLesson(dayOfWeek, lessonIndexToDelete);
+        TimeTableManager.removeLesson(dayOfWeek, lessonIndexToDelete);
     }
 
     @Override
@@ -30,6 +27,7 @@ public class TimeTableDeleteCommand extends TimeTableCommand {
         String message = "";
         try {
             removeLessonFromTimeTable();
+            message = MESSAGE_DELETE_LESSON_SUCCESS;
         } catch (LessonNotFoundException e) {
             message = MESSAGE_LESSON_NOT_FOUND;
         }

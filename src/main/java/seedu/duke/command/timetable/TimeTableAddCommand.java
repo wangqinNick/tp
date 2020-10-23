@@ -2,58 +2,28 @@ package seedu.duke.command.timetable;
 
 import seedu.duke.command.CommandResult;
 import seedu.duke.data.Lesson;
-import seedu.duke.data.LessonManager;
 import seedu.duke.data.TimeTableManager;
 import seedu.duke.exception.LessonInvalidTimeException;
 import seedu.duke.exception.RepeatFrequencyInvalidException;
 
-import static seedu.duke.data.TimeTableManager.isSemReadingWeek;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_LESSON_OVERLAP;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_REPEAT_FREQUENCY_UNKNOWN;
+import static seedu.duke.util.Message.MESSAGE_ADD_LESSON_SUCCESS;
 
 public class TimeTableAddCommand extends TimeTableCommand {
     private Lesson newLesson;
-    private int currWeekNum;
     private int repeatFreq;
 
-    public TimeTableAddCommand(Lesson newLesson, int currWeekNum, int repeatFreq) {
+    public TimeTableAddCommand(Lesson newLesson, int repeatFreq) {
         this.newLesson = newLesson;
-        this.currWeekNum = currWeekNum;
         this.repeatFreq = repeatFreq;
     }
 
     public void addLessonToTimeTable() throws LessonInvalidTimeException, RepeatFrequencyInvalidException {
-        int semEndWeekNum = TimeTableManager.getSemEndWeekNum();
-        int changingWeekNum = currWeekNum;
-        switch (repeatFreq) {
-        case 0: // Only once
-            addLesson(changingWeekNum);
-            break;
-        case 1: // Repeats every week
-            for (; changingWeekNum <= semEndWeekNum; changingWeekNum++) {
-                if (isSemReadingWeek(changingWeekNum)) {
-                    continue;
-                }
-                addLesson(changingWeekNum);
-            }
-            break;
-        case 2: // Repeats once every 2 weeks
-            for (; changingWeekNum <= semEndWeekNum; changingWeekNum += 2) {
-                if (isSemReadingWeek(changingWeekNum)) {
-                    changingWeekNum++;
-                }
-                addLesson(changingWeekNum);
-            }
-            break;
-        default:
+        if (repeatFreq < 0 || repeatFreq > 3) {
             throw new RepeatFrequencyInvalidException();
         }
-
-    }
-
-    private void addLesson(int changingWeekNum) throws LessonInvalidTimeException {
-        LessonManager lessonManager = TimeTableManager.getLessonManager(changingWeekNum);
-        lessonManager.addLesson(newLesson);
+        TimeTableManager.addLesson(newLesson, repeatFreq);
     }
 
     @Override
@@ -61,6 +31,7 @@ public class TimeTableAddCommand extends TimeTableCommand {
         String message = "";
         try {
             addLessonToTimeTable();
+            message = MESSAGE_ADD_LESSON_SUCCESS;
         } catch (LessonInvalidTimeException e) {
             message = MESSAGE_LESSON_OVERLAP;
         } catch (RepeatFrequencyInvalidException e) {

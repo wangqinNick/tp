@@ -9,7 +9,6 @@ import seedu.duke.command.timetable.TimeTableViewCommand;
 import seedu.duke.data.Lesson;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.data.TimeTableManager;
-import seedu.duke.data.TimeTableType;
 import seedu.duke.exception.LessonInvalidTimeException;
 import seedu.duke.ui.TextUi;
 
@@ -22,8 +21,6 @@ import java.util.regex.Pattern;
 
 import static seedu.duke.command.timetable.TimeTableCommand.TIMETABLE_LESSON_DELETE_USER_FORMAT;
 import static seedu.duke.command.timetable.TimeTableCommand.TIMETABLE_LESSON_PARAMETER_USER_FORMAT;
-import static seedu.duke.data.TimeTableType.DAY;
-import static seedu.duke.data.TimeTableType.WEEK;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_LESSON_OVERLAP;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_MODULE_NOT_FOUND;
 import static seedu.duke.util.Message.MESSAGE_CHECK_COMMAND_FORMAT;
@@ -88,19 +85,20 @@ public abstract class TimeTableCommandParser {
      * @return TimeTableViewCommand or IncorrectCommand
      */
     public static Command parseTimeTableViewCommand(String commandFlag) throws NumberFormatException {
-        TimeTableType typeOfTimeTable;
+        int daysToView;
         switch (commandFlag) {
         case VIEW_DAY_FORMAT:
-            typeOfTimeTable = DAY;
+            daysToView = 1;
             break;
         case VIEW_WEEK_FORMAT:
-            typeOfTimeTable = WEEK;
+            daysToView = 7;
             break;
         default:
-            int days = Integer.parseInt(commandFlag.substring(1));
-            return new TimeTableViewCommand(days);
+            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
+                    MESSAGE_INVALID_COMMAND_FORMAT, commandFlag,
+                    MESSAGE_CHECK_COMMAND_FORMAT, TimeTableCommand.FORMAT));
         }
-        return new TimeTableViewCommand(typeOfTimeTable);
+        return new TimeTableViewCommand(daysToView);
     }
 
     /**
@@ -113,6 +111,7 @@ public abstract class TimeTableCommandParser {
      */
     public static Command parseTimeTableAddCommand()
             throws ModuleManager.ModuleNotFoundException, LessonInvalidTimeException, DateTimeParseException {
+        // TODO: Get all params from original command instead of using TextUi
         String lessonParams = TextUi.getLessonParams();
         Matcher lessonMatcher = TIMETABLE_LESSON_PARAMETER_FORMAT.matcher(lessonParams);
         if (!lessonMatcher.matches()) {
@@ -124,10 +123,7 @@ public abstract class TimeTableCommandParser {
         // Convert repeatString to int
         String repeatString = lessonMatcher.group(REPEAT_GROUP).toLowerCase().trim();
         int repeatFreq = Integer.parseInt(repeatString);
-        // Get current week num
-        LocalDateTime now = LocalDateTime.now();
-        int currWeekNum = now.get(ChronoField.ALIGNED_WEEK_OF_YEAR);
-        return new TimeTableAddCommand(newLesson, currWeekNum, repeatFreq);
+        return new TimeTableAddCommand(newLesson, repeatFreq);
     }
 
     /**
@@ -137,6 +133,7 @@ public abstract class TimeTableCommandParser {
      * @return TimeTableDeleteCommand or IncorrectCommand
      */
     public static Command parseTimeTableDeleteCommand() {
+        // TODO: Get all params from original command instead of using TextUi
         String deleteParams = TextUi.getTimeTableDeleteParams();
         Matcher lessonMatcher = TIMETABLE_DELETE_PARAMETER_FORMAT.matcher(deleteParams);
         if (!lessonMatcher.matches()) {
@@ -145,11 +142,10 @@ public abstract class TimeTableCommandParser {
                     TIMETABLE_LESSON_DELETE_USER_FORMAT));
         }
         // Must account for the user input vs the actual week number
-        int weekNum = Integer.parseInt(lessonMatcher.group("week")) + TimeTableManager.getSemStartWeekNum();
         String dayString = lessonMatcher.group("day").toUpperCase().trim();
         DayOfWeek dayOfWeek = DayOfWeek.valueOf(dayString);
         int indexToBeDeleted = Integer.parseInt(lessonMatcher.group("index"));
-        return new TimeTableDeleteCommand(dayOfWeek,weekNum,indexToBeDeleted);
+        return new TimeTableDeleteCommand(dayOfWeek, indexToBeDeleted);
     }
 
     public static Command parseTimeTableFilterCommand(String parameters) {

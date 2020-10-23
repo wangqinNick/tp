@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 import static seedu.duke.util.Message.MESSAGE_HELP;
-import static seedu.duke.util.Message.TimeTableInitialisationMessage;
+import static seedu.duke.util.Message.MESSAGE_TIMETABLE_INIT;
 
 public class TextUi {
     private static Scanner in;
@@ -178,7 +178,7 @@ public class TextUi {
     public void showTimeTableInitialisationMessage() {
         outputToUser(
                 DIVIDER_LINE,
-                TimeTableInitialisationMessage,
+                MESSAGE_TIMETABLE_INIT,
                 DIVIDER_LINE);
     }
 }

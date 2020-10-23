@@ -3,8 +3,10 @@ package seedu.duke.util;
 public class Message {
     public static final String MESSAGE_ADD_TASK_SUCCESS = "SUCCESS!! The task has been added.\n";
     public static final String MESSAGE_ADD_MODULE_SUCCESS = "SUCCESS!! The module has been added.\n";
+    public static final String MESSAGE_ADD_LESSON_SUCCESS = "SUCCESS!! The lesson has been added.\n";
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "SUCCESS!! The task has been deleted.\n";
     public static final String MESSAGE_DELETE_MODULE_SUCCESS = "SUCCESS!! The module has been deleted.\n";
+    public static final String MESSAGE_DELETE_LESSON_SUCCESS = "SUCCESS!! The lesson has been deleted.\n";
     public static final String MESSAGE_EDIT_MODULE_SUCCESS = "SUCCESS!! The module has been updated.\n";
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "SUCCESS!! The task has been updated.\n";
     public static final String MESSAGE_EMPTY_INPUT = "Please enter a command.\n";
@@ -39,5 +41,5 @@ public class Message {
             + "list -m ------------------------------------- List all modules\n"
             + "done <task index> --------------------------- Mark task as done\n"
             + "bye ----------------------------------------- Exit RaVi\n";
-    public static final String TimeTableInitialisationMessage = "Please enter the current week num e.g. 1 - 13";
+    public static final String MESSAGE_TIMETABLE_INIT = "Please enter the current week num e.g. 1 - 13";
 }
