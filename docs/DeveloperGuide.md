@@ -136,6 +136,21 @@ Extending from the Command classes are the AddModule, AddTask and proposed AddNo
 
 To add on, each Command class has a execute() which will run in the main loop. This returns a CommandResult object which will print a message to the user.
 
+### [proposed] Grade Feature 
+This proposed feature is facilitated by ModuleManager and Module classes. 
+It extends `Command` and is stored internally inside `Module` as an `grade` and `moduleCredit`.
+* `GradeCommand#testgrade(stringGrade)` - checks if the input grade is valid according to NUS grading schematic 
+* `GradeCommand#grade(moduleModule)` - assigns the specific module present in the module list, the grade and moduleCredit attributes.
+
+Given below is an example usage scenario and how the grade feature behaves at each step.
+
+Step 1. The user launches the application for the first time. The user inputs `add -m CS2101` into Ravi, as the user wants to note down a module named ‘CS2101’ and add it to their module list. This input is received by the Ui ,which processes it into a string. The string is parsed by the parser and allocates it to the AddCommand where it is added to the list of modules. 
+
+Step 2. The user inputs `grade CS2101 4 A+`. Where the user input is parsed and allocated to by the parser to GradeCommand. `GradeCommand#execute()` is called and moduleManager checks if such a module exists in the user’s module list, then checks if the input grade is valid according to the NUS grading schematic and finally assigns the specific module , the grade and module credits.
+
+Step 3. The `CommandResult` returns the success message to show the user that their module has successfully been graded. Otherwise, an exception message will be shown with regards to the exception caught. 
+
+
 ## User Stories
 
 |Version| As a ... | I want to ... | So that I can ...|
@@ -150,6 +165,7 @@ To add on, each Command class has a execute() which will run in the main loop. T
 |v2.0|user|view my timetable quickly|be aware of my classes and prepare for them quickly|
 |v2.0|user|view a summary of my tasks|be aware of my tasks and work on them as needed|
 |v2.0|user|write notes for my modules|manage my notes together with my tasks and modules|
+|v2.0|user|grade my modules|keep track of my grades for respective modules|
 
 ## Non-Functional Requirements
 
@@ -201,6 +217,18 @@ Given below are instructions to test the app manually.
 ### Editing a module
 
 ### Viewing the timetable
+
+### Grading an existing module in module list
+1. Add a module:
+    1. Test case: `add -m CS2101`
+    Expected:  Module `CS2101` will be checked against the NUS module list. 
+    Since `CS2113T` is a valid module, it will be added to the module list.
+    Details of the added module is shown in the status message.
+2. Grade the module:
+    1. Test case: `grade CS2101 4 A+`
+    Expected: Module `CS2101` will be checked if its inside ModuleManager.
+    Since `CS2101` exists then the attributes of `4` and `A+` which are module credit and grade,
+    will be added to the Module.  
 
 ### Undo the previous command
 
