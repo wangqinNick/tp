@@ -4,19 +4,24 @@ import seedu.duke.command.Command;
 import seedu.duke.command.IncorrectCommand;
 import seedu.duke.command.timetable.TimeTableAddCommand;
 import seedu.duke.command.timetable.TimeTableCommand;
+import seedu.duke.command.timetable.TimeTableDeleteCommand;
 import seedu.duke.command.timetable.TimeTableViewCommand;
 import seedu.duke.data.Lesson;
 import seedu.duke.data.ModuleManager;
+import seedu.duke.data.TimeTableManager;
 import seedu.duke.data.TimeTableType;
 import seedu.duke.exception.LessonInvalidTimeException;
 import seedu.duke.ui.TextUi;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static seedu.duke.command.timetable.TimeTableCommand.TIMETABLE_LESSON_DELETE_USER_FORMAT;
+import static seedu.duke.command.timetable.TimeTableCommand.TIMETABLE_LESSON_PARAMETER_USER_FORMAT;
 import static seedu.duke.data.TimeTableType.DAY;
 import static seedu.duke.data.TimeTableType.WEEK;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_LESSON_OVERLAP;
@@ -35,6 +40,8 @@ public abstract class TimeTableCommandParser {
     private static final Pattern TIMETABLE_LESSON_PARAMETER_FORMAT =
             Pattern.compile("(?<module>\\S+\\s*)(?<day>\\S+\\s*)(?<start>\\d+\\s*)(?<end>\\d+\\s*)"
             + "(?<type>\\S+\\s*)(?<repeat>\\d+\\s*)");
+    private static final Pattern TIMETABLE_DELETE_PARAMETER_FORMAT =
+            Pattern.compile("(?<day>\\S+\\s*)(?<week>\\d+\\s*)(?<index>\\d+\\s*)");
 
     /**
      * Parses all timetable related commands into their respective parsers.
@@ -50,14 +57,14 @@ public abstract class TimeTableCommandParser {
             return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
                     MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT, TimeTableCommand.FORMAT));
         }
-        String commandFlag = matcher.group(Parser.COMMAND_FLAG_GROUP).toLowerCase().trim();
         try {
+            String commandFlag = matcher.group(Parser.COMMAND_FLAG_GROUP).toLowerCase().trim();
             switch (commandFlag) {
             case ADD_FORMAT:
                 command = parseTimeTableAddCommand();
                 break;
             case DELETE_FORMAT:
-                command = parseTimeTableDeleteCommand(parameters);
+                command = parseTimeTableDeleteCommand();
                 break;
             case FILTER_FORMAT:
                 command = parseTimeTableFilterCommand(parameters);
@@ -111,7 +118,7 @@ public abstract class TimeTableCommandParser {
         if (!lessonMatcher.matches()) {
             return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
                 MESSAGE_INVALID_COMMAND_FORMAT, lessonParams, MESSAGE_CHECK_COMMAND_FORMAT,
-                    TIMETABLE_LESSON_PARAMETER_FORMAT));
+                    TIMETABLE_LESSON_PARAMETER_USER_FORMAT));
         }
         Lesson newLesson = LessonParser.parseLesson(lessonMatcher);
         // Convert repeatString to int
@@ -123,8 +130,26 @@ public abstract class TimeTableCommandParser {
         return new TimeTableAddCommand(newLesson, currWeekNum, repeatFreq);
     }
 
-    public static Command parseTimeTableDeleteCommand(String parameters) {
-        return null;
+    /**
+     * Parses the timetable delete command. For the deleting of Lessons from the timetable.
+     * Requires the DAY, WEEK_NUM, INDEX.
+     *
+     * @return TimeTableDeleteCommand or IncorrectCommand
+     */
+    public static Command parseTimeTableDeleteCommand() {
+        String deleteParams = TextUi.getTimeTableDeleteParams();
+        Matcher lessonMatcher = TIMETABLE_DELETE_PARAMETER_FORMAT.matcher(deleteParams);
+        if (!lessonMatcher.matches()) {
+            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
+                    MESSAGE_INVALID_COMMAND_FORMAT, deleteParams, MESSAGE_CHECK_COMMAND_FORMAT,
+                    TIMETABLE_LESSON_DELETE_USER_FORMAT));
+        }
+        // Must account for the user input vs the actual week number
+        int weekNum = Integer.parseInt(lessonMatcher.group("week")) + TimeTableManager.getSemStartWeekNum();
+        String dayString = lessonMatcher.group("day").toUpperCase().trim();
+        DayOfWeek dayOfWeek = DayOfWeek.valueOf(dayString);
+        int indexToBeDeleted = Integer.parseInt(lessonMatcher.group("index"));
+        return new TimeTableDeleteCommand(dayOfWeek,weekNum,indexToBeDeleted);
     }
 
     public static Command parseTimeTableFilterCommand(String parameters) {

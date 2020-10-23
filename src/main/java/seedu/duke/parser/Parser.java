@@ -12,7 +12,6 @@ import seedu.duke.command.list.ListCommand;
 import seedu.duke.command.misc.UndoCommand;
 import seedu.duke.command.timetable.TimeTableCommand;
 
-import java.security.InvalidParameterException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -92,7 +91,7 @@ public class Parser {
                     return new HelpCommand();
                 }
             }
-        } catch (InvalidParameterException | NumberFormatException | IllegalStateException e) {
+        } catch (IllegalStateException | IllegalArgumentException e) {
             return new IncorrectCommand(MESSAGE_INVALID_PARAMETERS);
         } catch (NullPointerException e) {
             return new IncorrectCommand(MESSAGE_INVALID_COMMAND_WORD);

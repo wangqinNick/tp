@@ -1,10 +1,10 @@
 package seedu.duke.ui;
 
 import seedu.duke.command.CommandResult;
-import seedu.duke.data.ModuleManager;
-import seedu.duke.util.Message;
 import seedu.duke.data.Module;
+import seedu.duke.data.ModuleManager;
 import seedu.duke.data.Task;
+import seedu.duke.util.Message;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -138,6 +138,20 @@ public class TextUi {
         System.out.println("If this lesson repeats twice a week, please enter 2 ");
         userInput += in.nextLine().trim();
         return userInput;
+    }
+
+    public static String getTimeTableDeleteParams() {
+        String userInput = "";
+        System.out.println("Please enter the DAY, WEEK NUM and INDEX of this lesson. e.g. MONDAY 6 3");
+        userInput += in.nextLine().trim();
+        return userInput;
+    }
+
+    public static int getCurrentWeekNum() {
+        String userInput = "";
+        System.out.println("Please enter the current week number. e.g. 4");
+        userInput += in.nextLine().trim();
+        return Integer.parseInt(userInput);
     }
 
     /**

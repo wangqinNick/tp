@@ -5,12 +5,16 @@ import seedu.duke.command.CommandResult;
 import seedu.duke.command.ExitCommand;
 import seedu.duke.command.PromptType;
 import seedu.duke.data.StateManager;
+import seedu.duke.data.TimeTableManager;
 import seedu.duke.data.storage.InputOutputManager;
+import seedu.duke.exception.TimeTableInitialiseException;
 import seedu.duke.parser.Parser;
 import seedu.duke.ui.TextUi;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+
+import static seedu.duke.util.ExceptionMessage.TIMETABLE_NOT_INITIALISED;
 
 public class Duke {
     private TextUi ui;
@@ -33,6 +37,13 @@ public class Duke {
         InputOutputManager.start();
         StateManager.initialise();
         TextUi.showWelcomeMessage();
+        while (TimeTableManager.isInitialised()) {
+            try {
+                TimeTableManager.initialise();
+            } catch (TimeTableInitialiseException e) {
+                ui.outputToUser(TIMETABLE_NOT_INITIALISED);
+            }
+        }
         logger.getLogger().info("Initialised scanner, UI, and IO");
     }
 

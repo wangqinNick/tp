@@ -7,6 +7,7 @@ import seedu.duke.data.TimeTableManager;
 import seedu.duke.exception.LessonInvalidTimeException;
 import seedu.duke.exception.RepeatFrequencyInvalidException;
 
+import static seedu.duke.data.TimeTableManager.isSemReadingWeek;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_LESSON_OVERLAP;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_REPEAT_FREQUENCY_UNKNOWN;
 
@@ -24,18 +25,23 @@ public class TimeTableAddCommand extends TimeTableCommand {
     public void addLessonToTimeTable() throws LessonInvalidTimeException, RepeatFrequencyInvalidException {
         int semEndWeekNum = TimeTableManager.getSemEndWeekNum();
         int changingWeekNum = currWeekNum;
-        LessonManager lessonManager;
         switch (repeatFreq) {
         case 0: // Only once
             addLesson(changingWeekNum);
             break;
         case 1: // Repeats every week
             for (; changingWeekNum <= semEndWeekNum; changingWeekNum++) {
+                if (isSemReadingWeek(changingWeekNum)) {
+                    continue;
+                }
                 addLesson(changingWeekNum);
             }
             break;
         case 2: // Repeats once every 2 weeks
             for (; changingWeekNum <= semEndWeekNum; changingWeekNum += 2) {
+                if (isSemReadingWeek(changingWeekNum)) {
+                    changingWeekNum++;
+                }
                 addLesson(changingWeekNum);
             }
             break;

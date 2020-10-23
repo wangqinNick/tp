@@ -77,4 +77,5 @@ public class ExceptionMessage {
             + "does not exist.\n";
     public static final String MESSAGE_REPEAT_FREQUENCY_UNKNOWN = "Sorry, the lesson you have attempted to add does "
             + "not have the correct repeatability.\n";
+    public static final String TIMETABLE_NOT_INITIALISED = "Please enter a proper week number.";
 }
