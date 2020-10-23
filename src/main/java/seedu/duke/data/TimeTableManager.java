@@ -19,12 +19,12 @@ public abstract class TimeTableManager {
      */
     public static void initialise() throws TimeTableInitialiseException {
         int currWeekNum = TextUi.getCurrentWeekNum();
-        if (semesterMap.size() == 0) {
+        while (semesterMap.size() == 0) {
             LocalDateTime now = LocalDateTime.now();
             // One sem has 13 weeks of lessons
-            if (currWeekNum <= 6) {
+            if (currWeekNum <= 6 && currWeekNum > 0) {
                 semStartWeekNum = now.get(ChronoField.ALIGNED_WEEK_OF_YEAR) - currWeekNum + 1; //+1 to start at week 1
-            } else if (currWeekNum > 6 || currWeekNum <= 13) {
+            } else if (currWeekNum > 6 && currWeekNum <= 13) {
                 semStartWeekNum = now.get(ChronoField.ALIGNED_WEEK_OF_YEAR) - currWeekNum; //Accounted for reading week
             } else {
                 throw new TimeTableInitialiseException();

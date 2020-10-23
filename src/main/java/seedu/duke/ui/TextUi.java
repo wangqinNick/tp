@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 import static seedu.duke.util.Message.MESSAGE_HELP;
+import static seedu.duke.util.Message.TimeTableInitialisationMessage;
 
 public class TextUi {
     private static Scanner in;
@@ -149,7 +150,6 @@ public class TextUi {
 
     public static int getCurrentWeekNum() {
         String userInput = "";
-        System.out.println("Please enter the current week number. e.g. 4");
         userInput += in.nextLine().trim();
         return Integer.parseInt(userInput);
     }
@@ -173,6 +173,13 @@ public class TextUi {
      */
     public static String getHelpMessage() {
         return MESSAGE_HELP;
+    }
+
+    public void showTimeTableInitialisationMessage() {
+        outputToUser(
+                DIVIDER_LINE,
+                TimeTableInitialisationMessage,
+                DIVIDER_LINE);
     }
 }
 

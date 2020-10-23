@@ -36,14 +36,15 @@ public class Duke {
         this.ui = new TextUi(in);
         InputOutputManager.start();
         StateManager.initialise();
-        TextUi.showWelcomeMessage();
-        while (TimeTableManager.isInitialised()) {
+        while (!TimeTableManager.isInitialised()) {
             try {
+                ui.showTimeTableInitialisationMessage();
                 TimeTableManager.initialise();
             } catch (TimeTableInitialiseException e) {
                 ui.outputToUser(TIMETABLE_NOT_INITIALISED);
             }
         }
+        TextUi.showWelcomeMessage();
         logger.getLogger().info("Initialised scanner, UI, and IO");
     }
 

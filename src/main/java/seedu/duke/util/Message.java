@@ -39,4 +39,5 @@ public class Message {
             + "list -m ------------------------------------- List all modules\n"
             + "done <task index> --------------------------- Mark task as done\n"
             + "bye ----------------------------------------- Exit RaVi\n";
+    public static final String TimeTableInitialisationMessage = "Please enter the current week num e.g. 1 - 13";
 }
