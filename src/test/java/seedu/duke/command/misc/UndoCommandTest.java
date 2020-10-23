@@ -54,9 +54,9 @@ class UndoCommandTest {
         assertEquals(1, ModuleManager.getModCodeList().length);
         CommandResult result3 = Executor.executeCommand("add -m cs1010");
         assertEquals(2, ModuleManager.getModCodeList().length);
-        //CommandResult result4 = Executor.executeCommand("del -m cs1010");
-        //assertEquals(1, ModuleManager.getModCodeList().length);
-        //new UndoCommand().execute();
-        //assertEquals(2, ModuleManager.getModCodeList().length);
+        CommandResult result4 = Executor.executeCommand("del -m cs1010");
+        assertEquals(1, ModuleManager.getModCodeList().length);
+        new UndoCommand().execute();
+        assertEquals(2, ModuleManager.getModCodeList().length);
     }
 }
