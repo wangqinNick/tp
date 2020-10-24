@@ -95,6 +95,24 @@ public class LessonManager {
     }
 
     /**
+     * Checks if a lesson is in the timetable.
+     *
+     * @param lesson Lesson object to find.
+     * @return boolean value of true if the lesson is found, false otherwise.
+     */
+    public boolean isLessonInTimeTable(Lesson lesson) {
+        boolean condition = false;
+        for (DayOfWeek eachDay: DayOfWeek.values()) {
+            if (!lessonMap.containsKey(eachDay)) {
+                break;
+            } else if (lessonMap.get(eachDay).contains(lesson)) {
+                condition = true;
+            }
+        }
+        return condition;
+    }
+
+    /**
      * Returns the ArrayList of lessons on the given day.
      *
      * @param day

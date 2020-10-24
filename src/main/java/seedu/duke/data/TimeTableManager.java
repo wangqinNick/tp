@@ -113,6 +113,23 @@ public class TimeTableManager {
     }
 
     /**
+     * Obtains the count of a specific Lesson object.
+     * For JUnit testing only.
+     *
+     * @param lessonToFind Lesson object to find.
+     * @return count of the total number of times the Lesson object appears in the timetable.
+     */
+    public static int getCountOfLesson(Lesson lessonToFind) {
+        int count = 0;
+        for (LessonManager eachWeek : semesterMap.values()) {
+            if (eachWeek.isLessonInTimeTable(lessonToFind)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    /**
      * Get an ArrayList of lessons happening on a certain day.
      *
      * @param dayOfWeek
