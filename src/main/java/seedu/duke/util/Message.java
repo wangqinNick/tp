@@ -40,7 +40,7 @@ public class Message {
             + "list -t ------------------------------------- List all tasks\n"
             + "list -m ------------------------------------- List all modules\n"
             + "done <task index> --------------------------- Mark task as done\n"
-            + "timetable -day ------------------------------ View the timetable for the today\n"
+            + "timetable -day ------------------------------ View the timetable for today\n"
             + "timetable -week ----------------------------- View the timetable for the week\n"
             + "timetable -add <module> <day> <start time> \n"
             + "<end time> <lesson type> <repeat> ----------- Add a lesson to the timetable\n"
