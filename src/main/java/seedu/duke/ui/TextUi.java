@@ -2,12 +2,10 @@ package seedu.duke.ui;
 
 import seedu.duke.command.CommandResult;
 import seedu.duke.data.Module;
-import seedu.duke.data.ModuleManager;
 import seedu.duke.data.Task;
 import seedu.duke.util.Message;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -119,38 +117,8 @@ public class TextUi {
         return userInput;
     }
 
-    /**
-     * Gets the User's Lesson parameters.
-     * MODULE, DAY, START TIME, END TIME, TYPE, REPEAT.
-     *
-     * @return The array list of Lesson parameters.
-     */
-    public static String getLessonParams() {
-        String userInput = "";
-        System.out.println("Please enter the MODULE that the new lesson is under:");
-        System.out.println("Current modules are: " + Arrays.toString(ModuleManager.getModCodeList()));
-        userInput += in.nextLine().trim();
-        System.out.println("Please enter the DAY, START TIME and END TIME of this new lesson. e.g. MONDAY 1400 1600");
-        userInput += in.nextLine().trim();
-        System.out.println("Please enter the TYPE of this lesson. ");
-        userInput += in.nextLine().trim();
-        System.out.println("If this lesson does not repeat, please enter 0 ");
-        System.out.println("If this lesson repeats every week, please enter 1 ");
-        System.out.println("If this lesson repeats twice a week, please enter 2 ");
-        userInput += in.nextLine().trim();
-        return userInput;
-    }
-
-    public static String getTimeTableDeleteParams() {
-        String userInput = "";
-        System.out.println("Please enter the DAY, WEEK NUM and INDEX of this lesson. e.g. MONDAY 6 3");
-        userInput += in.nextLine().trim();
-        return userInput;
-    }
-
     public static int getCurrentWeekNum() {
-        String userInput = "";
-        userInput += in.nextLine().trim();
+        String userInput = in.nextLine().trim();
         return Integer.parseInt(userInput);
     }
 

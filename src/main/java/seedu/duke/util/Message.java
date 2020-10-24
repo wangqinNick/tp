@@ -41,5 +41,6 @@ public class Message {
             + "list -m ------------------------------------- List all modules\n"
             + "done <task index> --------------------------- Mark task as done\n"
             + "bye ----------------------------------------- Exit RaVi\n";
-    public static final String MESSAGE_TIMETABLE_INIT = "Please enter the current week num e.g. 1 - 13";
+    public static final String MESSAGE_TIMETABLE_INIT = "Please enter the current week num e.g. 1 - 14"
+            + " where 7 is recess week." + System.lineSeparator() + "In here, NUS week 7 onwards is week 8 onwards.";
 }

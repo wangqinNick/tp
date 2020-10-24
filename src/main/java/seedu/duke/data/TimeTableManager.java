@@ -3,7 +3,6 @@ package seedu.duke.data;
 import seedu.duke.exception.LessonInvalidTimeException;
 import seedu.duke.exception.TimeTableInitialiseException;
 
-import java.lang.reflect.Array;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoField;
@@ -18,21 +17,26 @@ public class TimeTableManager {
     
     /**
      * Initialise the semesterMap when it is empty.
+     * Takes in the current week number in order to initialise.
      */
-    public static void initialise(int currWeekNum) throws TimeTableInitialiseException {
+    public static void initialise(int userCurrWeekNum) throws TimeTableInitialiseException {
         LocalDateTime now = LocalDateTime.now();
         // One sem has 13 weeks of lessons
-        if (currWeekNum < 1 || currWeekNum > 15) {
+        if (userCurrWeekNum > 0 && userCurrWeekNum < 15) {
             // e.g. Current week is 45, NUS week 2
             // semStartWeekNum is NUS week 1
             // therefore, semStartWeekNum = 45 - (2 - 1) = 44
-            semStartWeekNum = now.get(ChronoField.ALIGNED_WEEK_OF_YEAR) - (currWeekNum - 1);
+            semStartWeekNum = now.get(ChronoField.ALIGNED_WEEK_OF_YEAR) - (userCurrWeekNum - 1);
         } else {
             throw new TimeTableInitialiseException();
         }
         semEndWeekNum = semStartWeekNum + 14;
         semRecessWeekNum = semStartWeekNum + 6;
-        for (int weekNum = currWeekNum; weekNum < semEndWeekNum; weekNum++) {
+        // e.g. semStartWeekNum is 44, NUS week 1
+        // Current week is NUS week 2
+        // therefore, userCurrWeekNum = 44 + 2 - 1 = 45
+        userCurrWeekNum = semStartWeekNum + userCurrWeekNum - 1;
+        for (int weekNum = userCurrWeekNum; weekNum < semEndWeekNum; weekNum++) {
             semesterMap.put(weekNum, new LessonManager());
         }
     }
@@ -50,39 +54,38 @@ public class TimeTableManager {
     /**
      * Adds the lesson to semesterMap based on the repeat parameter. E.g. add to every week, every other week, etc.
      * Does not add to recess week (week 7) or reading week (week 15).
+     * The repeat parameter where
+     * 0: Current week only.
+     * 1: Every week.
+     * 2: Every even week.
+     * 3: Every odd week.
      *
-     * @param lesson
-     *  The lesson object
-     * @param repeat
-     *  The repeat parameter
-     *  0 - Current week only
-     *  1 - Every week
-     *  2 - Every even week
-     *  3 - Every odd week
-     * @throws LessonInvalidTimeException
+     * @param lesson The lesson object.
+     * @param repeat The repeat parameter.
+     * @throws LessonInvalidTimeException when the lesson to be added overlaps with an existing lesson.
      */
     public static void addLesson(Lesson lesson, int repeat) throws LessonInvalidTimeException {
         int currWeek = getCurrNusWeekNum();
+        LessonManager lessonManager = getLessonManager(currWeek);
         // add for current week
         if (repeat == 0) {
-            getLessonManager(currWeek).addLesson(lesson);
+            lessonManager.addLesson(lesson);
             return;
         }
 
         lesson.generateHiddenId(); // tag lesson with unique ID for identifying when removing
 
         // add for every week, or alternate weeks
-        while (currWeek != semEndWeekNum) { // don't add for reading week
+        for (;currWeek < semEndWeekNum;currWeek++) { // don't add for reading week
+            lessonManager = getLessonManager(currWeek);
             if (currWeek == semRecessWeekNum) { // don't add for recess week
-                continue;
             } else if (repeat == 1) { // if repeat every week
-                getLessonManager(currWeek).addLesson(lesson);
+                lessonManager.addLesson(lesson);
             } else if (currWeek % 2 == 0 && repeat == 2) { // if repeat every even week
-                getLessonManager(currWeek).addLesson(lesson);
+                lessonManager.addLesson(lesson);
             } else if (currWeek % 2 == 1 && repeat == 3) { // if repeat every odd week
-                getLessonManager(currWeek).addLesson(lesson);
+                lessonManager.addLesson(lesson);
             }
-            currWeek++;
         }
     }
 
@@ -96,11 +99,12 @@ public class TimeTableManager {
      * @param lessonIndex
      *  The lesson index
      */
-    public static void removeLesson(DayOfWeek dayOfWeek, int lessonIndex) {
+    public static void removeLesson(DayOfWeek dayOfWeek, int lessonIndex) throws IndexOutOfBoundsException {
         int currWeek = getCurrNusWeekNum();
+        LessonManager lessonManager = getLessonManager(currWeek);
 
         // retrieve the unique ID, as index does not stay constant over different weeks
-        String id = getLessonManager(currWeek).getDayLessonList(dayOfWeek).get(lessonIndex).getHiddenId();
+        String id = lessonManager.getDayLessonList(dayOfWeek).get(lessonIndex).getHiddenId();
 
         // remove by ID
         for (LessonManager eachWeek : semesterMap.values()) {
@@ -118,7 +122,8 @@ public class TimeTableManager {
      */
     public static ArrayList<Lesson> getSpecificDayLessons(DayOfWeek dayOfWeek) {
         int currWeek = getCurrNusWeekNum();
-        return getLessonManager(currWeek).getDayLessonList(dayOfWeek);
+        LessonManager lessonManager = getLessonManager(currWeek);
+        return lessonManager.getDayLessonList(dayOfWeek);
     }
 
     /**
@@ -131,8 +136,9 @@ public class TimeTableManager {
      */
     public static ArrayList<ArrayList<Lesson>> getSpecifiedWeekLessons(int week) {
         ArrayList<ArrayList<Lesson>> outputList = new ArrayList<>();
+        LessonManager lessonManager = getLessonManager(week);
         for (DayOfWeek eachDay : DayOfWeek.values()) {
-            outputList.add(getLessonManager(week).getDayLessonList(eachDay));
+            outputList.add(lessonManager.getDayLessonList(eachDay));
         }
         return outputList;
     }
@@ -146,7 +152,7 @@ public class TimeTableManager {
      */
     public static int getCurrNusWeekNum() {
         LocalDateTime now = LocalDateTime.now();
-        int currNusWeek = now.get(ChronoField.ALIGNED_WEEK_OF_YEAR) - semStartWeekNum + 1;
+        int currNusWeek = now.get(ChronoField.ALIGNED_WEEK_OF_YEAR);
         return currNusWeek;
     }
 

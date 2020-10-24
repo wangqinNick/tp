@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class LessonTest {
-    static LessonManager manager;
+    static LessonManager manager = new LessonManager();
     static Lesson lesson1;
     static Lesson lesson2;
     static final String MOD_CODE_1 = "CS2113T";

@@ -18,7 +18,7 @@ public class TimeTableDeleteCommand extends TimeTableCommand {
         this.lessonIndexToDelete = lessonIndexToDelete;
     }
 
-    public void removeLessonFromTimeTable() throws LessonNotFoundException {
+    public void removeLessonFromTimeTable() {
         TimeTableManager.removeLesson(dayOfWeek, lessonIndexToDelete);
     }
 
@@ -28,7 +28,7 @@ public class TimeTableDeleteCommand extends TimeTableCommand {
         try {
             removeLessonFromTimeTable();
             message = MESSAGE_DELETE_LESSON_SUCCESS;
-        } catch (LessonNotFoundException e) {
+        } catch (IndexOutOfBoundsException e) {
             message = MESSAGE_LESSON_NOT_FOUND;
         }
         return new CommandResult(message);

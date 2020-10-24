@@ -2,7 +2,6 @@ package seedu.duke.parser;
 
 import seedu.duke.data.Lesson;
 import seedu.duke.data.LessonType;
-import seedu.duke.data.Module;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.exception.LessonInvalidTimeException;
 
@@ -12,13 +11,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 
-public class LessonParser {
-    private static final String MODULE_GROUP = "module";
-    private static final String DAY_GROUP = "day";
-    private static final String START_TIME_GROUP = "start";
-    private static final String END_TIME_GROUP = "end";
-    private static final String LESSON_TYPE_GROUP = "type";
+import static seedu.duke.parser.TimeTableCommandParser.DAY_GROUP;
+import static seedu.duke.parser.TimeTableCommandParser.END_TIME_GROUP;
+import static seedu.duke.parser.TimeTableCommandParser.LESSON_TYPE_GROUP;
+import static seedu.duke.parser.TimeTableCommandParser.MODULE_GROUP;
+import static seedu.duke.parser.TimeTableCommandParser.START_TIME_GROUP;
 
+public class LessonParser {
     /**
      * Parses the user input for the Lesson parameters, to create a Lesson.
      *
@@ -30,13 +29,12 @@ public class LessonParser {
      */
     public static Lesson parseLesson(Matcher lessonMatcher) throws
             ModuleManager.ModuleNotFoundException, LessonInvalidTimeException, DateTimeParseException {
-        String modString = lessonMatcher.group(MODULE_GROUP).toLowerCase().trim();
-        String dayString = lessonMatcher.group(DAY_GROUP).toLowerCase().trim();
-        String startTimeString = lessonMatcher.group(START_TIME_GROUP).toLowerCase().trim();
-        String endTimeString = lessonMatcher.group(END_TIME_GROUP).toLowerCase().trim();
-        String lessonTypeString = lessonMatcher.group(LESSON_TYPE_GROUP).toLowerCase().trim();
+        String modString = lessonMatcher.group(MODULE_GROUP).toUpperCase().trim();
+        String dayString = lessonMatcher.group(DAY_GROUP).toUpperCase().trim();
+        String startTimeString = lessonMatcher.group(START_TIME_GROUP).trim();
+        String endTimeString = lessonMatcher.group(END_TIME_GROUP).trim();
+        String lessonTypeString = lessonMatcher.group(LESSON_TYPE_GROUP).toUpperCase().trim();
         // Check if modString is in module list
-        Module moduleCode;
         if (!ModuleManager.contains(modString)) {
             throw new ModuleManager.ModuleNotFoundException();
         }
