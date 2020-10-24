@@ -5,6 +5,7 @@ import seedu.duke.exception.DuplicateDataException;
 import seedu.duke.exception.ModuleNotProvidedException;
 import seedu.duke.ui.TextUi;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ModuleManager {
@@ -143,7 +144,7 @@ public class ModuleManager {
     /**
      * List modules in the module map.
      *
-     * @return
+     * @returns
      *  The formatted module list from TextUi or null if list is empty
      */
     public static String list() {

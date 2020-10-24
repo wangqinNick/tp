@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class LessonManager {
-    private static final HashMap<DayOfWeek, ArrayList<Lesson>> lessonMap = new HashMap<>();
+    private final HashMap<DayOfWeek, ArrayList<Lesson>> lessonMap = new HashMap<>();
 
     /**
      * Initialise the lessonMap when it is empty.
      */
-    public static void initialise() {
+    public void initialise() {
         for (DayOfWeek eachDay : DayOfWeek.values()) {
             lessonMap.put(eachDay, new ArrayList<>());
         }
@@ -25,7 +25,7 @@ public class LessonManager {
      * @param newLesson
      *  The new Lesson object
      */
-    public static void addLesson(Lesson newLesson) throws LessonInvalidTimeException {
+    public void addLesson(Lesson newLesson) throws LessonInvalidTimeException {
         DayOfWeek lessonDay = newLesson.getDay();
 
         // if lessonMap is not initialised yet...
@@ -64,7 +64,7 @@ public class LessonManager {
      * @param lessonIndex
      *  The index of the lesson to be removed
      */
-    public static void removeLesson(DayOfWeek day, int lessonIndex) throws LessonNotFoundException {
+    public void removeLesson(DayOfWeek day, int lessonIndex) throws LessonNotFoundException {
         if (!lessonMap.containsKey(day)) {
             throw new LessonNotFoundException();
         }
@@ -72,6 +72,26 @@ public class LessonManager {
             throw new LessonNotFoundException();
         }
         lessonMap.get(day).remove(lessonIndex);
+    }
+
+    /**
+     * Removes the lesson at lessonIndex on the given day.
+     *
+     * @param day
+     *  The specified day
+     * @param id
+     *  The hiddenId of the lesson to be removed
+     */
+    public void removeLessonById(DayOfWeek day, String id) {
+        if (!lessonMap.containsKey(day)) {
+            return;
+        }
+        for (int i = 0; i < lessonMap.get(day).size(); i++) {
+            if (lessonMap.get(day).get(i).getHiddenId() == id) {
+                lessonMap.get(day).remove(i);
+                return;
+            }
+        }
     }
 
     /**
@@ -84,11 +104,11 @@ public class LessonManager {
      * @throws LessonNotFoundException
      *  If there are no lessons on that day
      */
-    public static ArrayList<Lesson> getDayLessonList(DayOfWeek day) {
+    public ArrayList<Lesson> getDayLessonList(DayOfWeek day) {
         return lessonMap.get(day);
     }
 
-    public static int getLessonCountOnDay(DayOfWeek day) {
+    public int getLessonCountOnDay(DayOfWeek day) {
         return lessonMap.get(day).size();
     }
 
@@ -100,7 +120,7 @@ public class LessonManager {
      * @return
      *  The filtered ArrayList of lessons generated from lessonMap
      */
-    public static ArrayList<Lesson> filterLessons(LessonFilter currentFilter) {
+    public ArrayList<Lesson> filterLessons(LessonFilter currentFilter) {
         ArrayList<Lesson> outputList = new ArrayList<>();
 
         for (DayOfWeek eachDay : DayOfWeek.values()) {
@@ -120,7 +140,7 @@ public class LessonManager {
      * @param day
      *  The specified day
      */
-    public static void clearDayLesson(DayOfWeek day) {
+    public void clearDayLesson(DayOfWeek day) {
         lessonMap.put(day, new ArrayList<>());
     }
 }

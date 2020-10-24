@@ -5,6 +5,7 @@ import seedu.duke.exception.LessonInvalidTimeException;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 public class Lesson {
     private String moduleCode;
@@ -13,6 +14,7 @@ public class Lesson {
     private DayOfWeek day;
     private LocalTime startTime;
     private LocalTime endTime;
+    private String hiddenId;
 
     public Lesson(String moduleCode, LessonType lessonType, DayOfWeek day, LocalTime startTime, LocalTime endTime)
             throws LessonInvalidTimeException {
@@ -53,6 +55,18 @@ public class Lesson {
 
     public LessonType getLessonType() {
         return lessonType;
+    }
+
+    /**
+     * Generates the unique hiddenId for each instance of this Lesson class.
+     * No two instances of Lesson class should share a hiddenId.
+     */
+    public void generateHiddenId() {
+        hiddenId = UUID.randomUUID().toString();
+    }
+
+    public String getHiddenId() {
+        return hiddenId;
     }
 
     public boolean isAfter(Lesson otherLesson) {
