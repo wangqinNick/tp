@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.alibaba.fastjson.JSON;
-import seedu.duke.ui.TextUi;
+import seedu.duke.data.TimeTable;
 
 /**
  * Manages all outputs from files, and the conversion from String in file to Object in memory.
@@ -31,6 +31,12 @@ import seedu.duke.ui.TextUi;
  */
 
 public class Decoder {
+    public static TimeTable loadTimeTable(String dataFileName) {
+        String jsonStr;
+        jsonStr = loadJsonStringFromFile(dataFileName);
+        TimeTable timetable = JSON.parseObject(jsonStr, TimeTable.class);
+        return timetable;
+    }
     /**
      * Loads a HashMap of Module objects from the specified file. Used for both user and NUS modules.
      *

@@ -10,6 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import com.alibaba.fastjson.JSON;
+import seedu.duke.data.TimeTableManager;
 
 /**
  * Manages all inputs to files, and the conversion from Object in memory to String in file.
@@ -19,10 +20,28 @@ import com.alibaba.fastjson.JSON;
  */
 public class Encoder {
     /**
+     * Saves timetable to file path/name specified.
+     *
+     * @param dataFileName
+     *  The name of the file to save to
+     * @throws IOException
+     *  When there is an error preparing the save file
+     */
+    public static void saveTimetable(String dataFileName) throws IOException{
+        File mySaveFile = new File(dataFileName);
+        prepareSaveFile(mySaveFile);
+        writeToFile(mySaveFile, JSON.toJSONString(TimeTableManager.getTimeTable()));
+    }
+
+    /**
      * Saves all tasks to file path/name specified.
      *
      * @param dataFileName
      *  The name of the file to save to
+     * @throws IOException
+     *  When there is an error preparing the save file
+     * @throws TaskManager.TaskNotFoundException
+     *  If index out of range (should never happen)
      */
     public static void saveTasks(String dataFileName) throws IOException, TaskManager.TaskNotFoundException {
         int taskCount = TaskManager.getTaskCount();
@@ -40,12 +59,16 @@ public class Encoder {
      *
      * @param dataFileName
      *  The name of the file to save to
+     * @throws IOException
+     *  When there is an error preparing the save file
+     * @throws ModuleManager.ModuleNotFoundException
+     *  If module not found (should never happen)
      */
     public static void saveModules(String dataFileName) throws IOException, ModuleManager.ModuleNotFoundException {
         File mySaveFile = new File(dataFileName);
         prepareSaveFile(mySaveFile);
+
         Module currentModule;
-        String[] modsToBeSaved = ModuleManager.getModCodeList();
         for (String eachModCode : ModuleManager.getModCodeList()) {
             currentModule = ModuleManager.getModule(eachModCode);
             writeToFile(mySaveFile, JSON.toJSONString(currentModule));
@@ -57,6 +80,10 @@ public class Encoder {
      *
      * @param dataFileName
      *  The name of the file to save to
+     * @throws IOException
+     *  When there is an error preparing the save file
+     * @throws ModuleManager.ModuleNotFoundException
+     *  If module not found (should never happen)
      */
     public static void saveNusModules(String dataFileName) throws IOException, ModuleManager.ModuleNotFoundException {
         File mySaveFile = new File(dataFileName);
