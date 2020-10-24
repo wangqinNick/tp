@@ -40,7 +40,13 @@ public class Message {
             + "list -t ------------------------------------- List all tasks\n"
             + "list -m ------------------------------------- List all modules\n"
             + "done <task index> --------------------------- Mark task as done\n"
+            + "timetable -day ------------------------------ View the timetable for the today\n"
+            + "timetable -week ----------------------------- View the timetable for the week\n"
+            + "timetable -add <module> <day> <start time> \n"
+            + "<end time> <lesson type> <repeat> ----------- Add a lesson to the timetable\n"
+            + "timetable -del <day> <lesson index> --------- Delete a lesson from the timetable\n"
             + "bye ----------------------------------------- Exit RaVi\n";
+
     public static final String MESSAGE_TIMETABLE_INIT = "Please enter the current week num e.g. 1 - 14"
             + " where 7 is recess week." + System.lineSeparator() + "In here, NUS week 7 onwards is week 8 onwards.";
 }
