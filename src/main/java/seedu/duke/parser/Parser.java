@@ -12,8 +12,8 @@ import seedu.duke.command.grade.GradeCommand;
 import seedu.duke.command.help.HelpCommand;
 import seedu.duke.command.list.ListCommand;
 import seedu.duke.command.misc.UndoCommand;
+import seedu.duke.command.timetable.TimeTableCommand;
 
-import java.security.InvalidParameterException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -91,11 +91,13 @@ public class Parser {
                     return DoneCommandParser.prepareDoneCommand(parameters);
                 case ListCommand.COMMAND_WORD:
                     return ListCommandParser.getListCommand(parameters); //command flag is the -t or -m
+                case TimeTableCommand.COMMAND_WORD:
+                    return TimeTableCommandParser.parseTimeTableCommand(parameters);
                 default:
                     return new HelpCommand();
                 }
             }
-        } catch (InvalidParameterException | NumberFormatException | IllegalStateException e) {
+        } catch (IllegalStateException | IllegalArgumentException e) {
             return new IncorrectCommand(MESSAGE_INVALID_PARAMETERS);
         } catch (NullPointerException e) {
             return new IncorrectCommand(MESSAGE_INVALID_COMMAND_WORD);

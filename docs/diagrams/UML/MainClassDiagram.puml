@@ -1,0 +1,43 @@
+@startuml
+
+class Duke {
+    TextUi ui
+}
+class Executor
+class Scanner
+
+package parser {
+    class Parser
+}
+
+package command {
+    class Command
+    class CommandResult
+}
+
+package data {
+    class InputOutputManager
+    class StateManager
+}
+
+package ui {
+    class TextUi {
+        Scanner in
+    }
+}
+
+Duke "1" *-- TextUi
+Duke <.. Parser
+Duke <.. Command
+Duke <.. CommandResult
+Duke <.. Executor
+Duke <.. InputOutputManager
+Duke <.. StateManager
+
+Parser <.. Command
+Executor <.. Command
+Executor <.. CommandResult
+
+TextUi "1" *-- Scanner
+
+@enduml

@@ -1,15 +1,16 @@
 package seedu.duke.ui;
 
 import seedu.duke.command.CommandResult;
-import seedu.duke.util.Message;
 import seedu.duke.data.Module;
 import seedu.duke.data.Task;
+import seedu.duke.util.Message;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
 import static seedu.duke.util.Message.MESSAGE_HELP;
+import static seedu.duke.util.Message.MESSAGE_TIMETABLE_INIT;
 
 public class TextUi {
     private static Scanner in;
@@ -116,6 +117,11 @@ public class TextUi {
         return userInput;
     }
 
+    public static int getCurrentWeekNum() {
+        String userInput = in.nextLine().trim();
+        return Integer.parseInt(userInput);
+    }
+
     /**
      * Shows the result of a command execution to the user.
      *
@@ -135,6 +141,13 @@ public class TextUi {
      */
     public static String getHelpMessage() {
         return MESSAGE_HELP;
+    }
+
+    public void showTimeTableInitialisationMessage() {
+        outputToUser(
+                DIVIDER_LINE,
+                MESSAGE_TIMETABLE_INIT,
+                DIVIDER_LINE);
     }
 }
 
