@@ -71,7 +71,7 @@ public class Parser {
             if (commandWord.equals(ExitCommand.COMMAND_WORD)) {
                 return new ExitCommand();
             } else if (commandWord.equals(HelpCommand.COMMAND_WORD)) {
-                return new HelpCommand();
+                return new HelpCommand("summary"); // TODO: Handle help command cases in switch statement
             } else {
                 switch (commandWord) {
                 case UndoCommand.COMMAND_WORD:
@@ -91,7 +91,7 @@ public class Parser {
                 case TimeTableCommand.COMMAND_WORD:
                     return TimeTableCommandParser.parseTimeTableCommand(parameters);
                 default:
-                    return new HelpCommand();
+                    return new HelpCommand("summary"); // TODO: Handle help command cases in switch statement
                 }
             }
         } catch (IllegalStateException | IllegalArgumentException e) {

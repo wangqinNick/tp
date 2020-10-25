@@ -6,6 +6,8 @@ import seedu.duke.command.PromptType;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.data.TaskManager;
 import seedu.duke.parser.Parser;
+import seedu.duke.ui.TextUi;
+
 import static seedu.duke.util.ExceptionMessage.MESSAGE_LIST_EMPTY;
 import static seedu.duke.util.Message.MESSAGE_LIST_PRINTED;
 
@@ -18,6 +20,7 @@ public class ListCommand extends Command {
                                         "\n\tFormat:" + FORMAT_TASK +
                                         "\n\nList all modules in the module list." +
                                         "\n\tFormat:" + FORMAT_MODULE;
+    public static final String PROMPT_HELP = TextUi.getCommandHelpMessage(COMMAND_WORD);
 
     public ListCommand(Parser.TypeOfEntries typeOfEntry) {
         this.typeOfEntry = typeOfEntry;

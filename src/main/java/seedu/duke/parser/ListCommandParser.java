@@ -20,8 +20,9 @@ public class ListCommandParser {
     protected static Command getListCommand(String parameters) {
         Matcher matcher = LIST_FORMAT.matcher(parameters);
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n%s",
-                    MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT, ListCommand.FORMAT_TASK, ListCommand.FORMAT_MODULE));
+            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n%s\n\n%s\n",
+                    MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT,
+                    ListCommand.FORMAT_TASK, ListCommand.FORMAT_MODULE, ListCommand.PROMPT_HELP));
         }
 
         String commandFlag = Parser.isMatcherNull(matcher.group(Parser.COMMAND_FLAG_GROUP))

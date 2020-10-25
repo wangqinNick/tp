@@ -26,8 +26,9 @@ public class DeleteCommandParser {
         Matcher matcher = DELETE_FORMAT.matcher(parameters);
 
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n%s",
-                    MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT, DeleteModuleCommand.FORMAT,DeleteTaskCommand.FORMAT));
+            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n%s\n\n%s\n",
+                    MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT,
+                    DeleteModuleCommand.FORMAT, DeleteTaskCommand.FORMAT, DeleteCommand.PROMPT_HELP));
         }
 
         String commandFlag = Parser.isMatcherNull(matcher.group(Parser.COMMAND_FLAG_GROUP))
@@ -38,8 +39,9 @@ public class DeleteCommandParser {
         // Checks for any string after the module or index given
         String invalid = matcher.group(INVALID_GROUP).trim();
         if (!invalid.isEmpty()) {
-            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
-                    MESSAGE_INVALID_COMMAND_FORMAT, invalid, MESSAGE_CHECK_COMMAND_FORMAT, DeleteCommand.FORMAT));
+            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n\n%s\n",
+                    MESSAGE_INVALID_COMMAND_FORMAT, invalid, MESSAGE_CHECK_COMMAND_FORMAT,
+                    DeleteCommand.FORMAT, DeleteCommand.PROMPT_HELP));
         }
 
         if (commandFlag.equals(MODULE_PREFIX)) {

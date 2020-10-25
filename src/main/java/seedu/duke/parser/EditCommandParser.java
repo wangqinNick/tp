@@ -2,6 +2,7 @@ package seedu.duke.parser;
 
 import seedu.duke.command.Command;
 import seedu.duke.command.IncorrectCommand;
+import seedu.duke.command.edit.EditCommand;
 import seedu.duke.command.edit.EditModuleCommand;
 import seedu.duke.command.edit.EditTaskCommand;
 
@@ -32,9 +33,9 @@ public class EditCommandParser {
         Matcher matcher = EDIT_PREFIX_FORMAT.matcher(parameters);
 
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n%s",
+            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n%s\n\n%s\n",
                     MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT, EditTaskCommand.FORMAT,
-                    EditModuleCommand.FORMAT));
+                    EditModuleCommand.FORMAT, EditCommand.PROMPT_HELP));
         }
 
         String commandFlag = Parser.isMatcherNull(matcher.group(COMMAND_FLAG_GROUP))
@@ -62,9 +63,9 @@ public class EditCommandParser {
     protected static Command prepareEditModuleCommand(String parameters) throws InvalidParameterException {
         Matcher matcher = EDIT_FORMAT.matcher(parameters);
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
+            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n\n%s\n",
                     MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT,
-                    EditModuleCommand.FORMAT));
+                    EditModuleCommand.FORMAT, EditCommand.PROMPT_HELP));
         }
 
         String oldModuleCode = matcher.group(FIRST_ARGUMENT_IDENTIFIER_GROUP).trim();
@@ -78,9 +79,9 @@ public class EditCommandParser {
             throws InvalidParameterException,NumberFormatException {
         Matcher matcher = EDIT_FORMAT.matcher(parameters);
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
+            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n\n%s\n",
                     MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT,
-                    EditModuleCommand.FORMAT));
+                    EditModuleCommand.FORMAT, EditCommand.PROMPT_HELP));
         }
 
         String stringTaskIndex = matcher.group(FIRST_ARGUMENT_IDENTIFIER_GROUP).trim();
