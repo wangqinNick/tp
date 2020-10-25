@@ -4,13 +4,13 @@ import seedu.duke.command.Command;
 import seedu.duke.command.IncorrectCommand;
 import seedu.duke.command.edit.EditModuleCommand;
 import seedu.duke.command.edit.EditTaskCommand;
-import seedu.duke.command.grade.GradeCommand;
 
 import java.security.InvalidParameterException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static seedu.duke.util.Message.*;
+import static seedu.duke.util.Message.MESSAGE_NO_EDIT_TASK;
+import static seedu.duke.util.Message.MESSAGE_NO_EDIT_MODULE;
 
 public class EditCommandParser {
     public static final String MODULE_PREFIX = "-m";
@@ -109,7 +109,7 @@ public class EditCommandParser {
      * @return
      * the message to user
      */
-    private static IncorrectCommand isEmptyCheck(String param, String message){
+    private static IncorrectCommand isEmptyCheck(String param, String message) {
         if (Parser.isEmptyParse(param)) {
             return new IncorrectCommand(message);
         } else {

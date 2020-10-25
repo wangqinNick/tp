@@ -25,7 +25,7 @@ public class DoneCommandParser {
             throw new InvalidParameterException();
         }
 
-        int intDigit = Integer.parseInt(digit);
+        int intDigit = Integer.parseInt(digit) - 1;
 
         return new DoneCommand(intDigit);
     }
