@@ -68,6 +68,8 @@ public class ExceptionMessage {
             + "However, note that the following file(s) could not be deleted completely from Nuke as they "
             + "could not be found:\n";
     public static final String MESSAGE_LIST_EMPTY = "\nYour list is empty.\n";
+    public static final String MESSAGE_STRING_IN_NUMBER = "There seems to be a string in the place of a number \n"
+            + "Please your command's format again. \n";
     public static final String MESSAGE_INVALID_COMMAND_WORD =
             "It seems you have input an incorrect command word. \n"
             + "Please key in help to see our list of commands. \n";

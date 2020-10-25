@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
 
 import static seedu.duke.util.ExceptionMessage.MESSAGE_INVALID_COMMAND_WORD;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_INVALID_PARAMETERS;
+import static seedu.duke.util.ExceptionMessage.MESSAGE_STRING_IN_NUMBER;
 import static seedu.duke.util.Message.MESSAGE_EMPTY_INPUT;
 import static seedu.duke.util.Message.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.duke.util.Message.MESSAGE_CHECK_COMMAND_FORMAT;
@@ -75,7 +76,7 @@ public class Parser {
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
             case CapCommand.COMMAND_WORD:
-                return new CapCommand();
+                return CapCommandParser.prepareCapCommand(parameters);
             case GradeCommand.COMMAND_WORD:
                 return GradeCommandParser.prepareGradeCommand(parameters);
             case UndoCommand.COMMAND_WORD:
@@ -98,6 +99,8 @@ public class Parser {
             default:
                 return new HelpCommand();
             }
+        } catch (NumberFormatException e) {
+            return new IncorrectCommand(MESSAGE_STRING_IN_NUMBER);
         } catch (IllegalStateException | IllegalArgumentException e) {
             return new IncorrectCommand(MESSAGE_INVALID_PARAMETERS);
         } catch (NullPointerException e) {

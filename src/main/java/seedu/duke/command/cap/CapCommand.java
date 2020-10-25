@@ -11,36 +11,48 @@ import java.util.HashMap;
 import static seedu.duke.util.Message.MESSAGE_CAP_DISPLAY;
 
 public class CapCommand extends Command {
+    private int totalMcTaken;
+    private double currentCap;
     public static final String COMMAND_WORD = "cap";
-    public static final String FORMAT = COMMAND_WORD;
+    public static final String FORMAT = COMMAND_WORD + "<past accumulated MC> + <current cap>";
 
     public static double Cap = 0.0;
 
-    private double gradeConvert(String grade) {
-        switch (grade) {
-        case "A+":
-        case "A":
-            return 5.0;
-        case "A-":
-            return 4.5;
-        case "B+":
-            return 4.0;
-        case "B":
-            return 3.5;
-        case "B-":
-            return 3.0;
-        case "C+":
-            return 2.5;
-        case "C":
-            return 2.0;
-        case "D+":
-            return 1.5;
-        case "D":
-            return 1.0;
-        case "F":
-        default:
-            return 0.0;
+    public CapCommand(int totalMcTaken,double currentCap) {
+        this.totalMcTaken = totalMcTaken;
+        this.currentCap = currentCap;
+    }
+
+    private enum GradeSchematic {
+        A_PLUS("A+",5.0),
+        A("A",5.0),
+        A_MINUS("A-",4.5),
+        B_PLUS("B+",4.0),
+        B("B",3.5),
+        B_MINUS("B-",3.0),
+        C_PLUS("C+",2.5),
+        C("C",2.0),
+        D_PLUS("D+",1.5),
+        D("D",1.0),
+        F("F",0.0);
+
+        private String symbol;
+        private final double value;
+
+        GradeSchematic(String symbol, double value) {
+            this.symbol = symbol;
+            this.value = value;
         }
+    }
+
+    private double gradeConvert(String grade) {
+        double score = 0.0;
+        for (GradeSchematic g : GradeSchematic.values()) {
+            if (grade.equals(g.symbol)) {
+                score = g.value;
+            }
+        }
+        return score;
     }
 
     private double calculateCap() {
@@ -54,7 +66,7 @@ public class CapCommand extends Command {
                     * gradeConvert(moduleList.get(i).getModuleGrade());
             sumMcGrade += mcGrade;
         }
-        Cap = sumMcGrade / sumMc;
+        Cap = ((currentCap * totalMcTaken) + sumMcGrade) / (sumMc + totalMcTaken);
         return Cap;
     }
 

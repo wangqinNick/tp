@@ -2,6 +2,7 @@ package seedu.duke.parser;
 
 import seedu.duke.command.Command;
 import seedu.duke.command.IncorrectCommand;
+import seedu.duke.command.edit.EditCommand;
 import seedu.duke.command.edit.EditModuleCommand;
 import seedu.duke.command.edit.EditTaskCommand;
 
@@ -38,7 +39,7 @@ public class EditCommandParser {
     protected static Command getEditCommand(String parameters) {
         Matcher matcher = EDIT_PREFIX_FORMAT.matcher(parameters);
 
-        Parser.matcherMatches(matcher, parameters, EditTaskCommand.FORMAT + "\n" + EditTaskCommand.FORMAT);
+        Parser.matcherMatches(matcher, parameters, EditModuleCommand.FORMAT + "\n" + EditTaskCommand.FORMAT);
 
         String commandFlag = Parser.isMatcherNull(matcher.group(COMMAND_FLAG_GROUP))
                 ? null : matcher.group(COMMAND_FLAG_GROUP).toLowerCase().trim();
