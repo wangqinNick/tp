@@ -14,9 +14,13 @@ import static seedu.duke.util.Message.MESSAGE_EDIT_MODULE_SUCCESS;
 
 public class EditModuleCommand extends EditCommand {
     public static final String FORMAT = EditCommand.COMMAND_WORD + " -m" + " <module code> <new module code>";
+    public static final String HELP =   "Edit a module code from the module list." +
+                                        "\n\tFormat: " + FORMAT +
+                                        "\n\tExample usage: edit CS2113 CS2113T";
     public static final Pattern REGEX_FORMAT = Pattern.compile(
             "(?<identifier>(edit)) -m(?<moduleCode>(?:\\s+\\w\\S*))(?<moduleCode1>(?:\\s+\\w\\S*))"
     );
+
     private String oldModuleCode;
     private String newModuleCode;
 

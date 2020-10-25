@@ -9,7 +9,10 @@ import static seedu.duke.util.Message.MESSAGE_DONE_TASK_SUCCESS;
 public class DoneCommand extends Command {
     private int taskId;
     public static final String COMMAND_WORD = "done";
-    public static final String FORMAT = COMMAND_WORD + " <opt> <args>";
+    public static final String FORMAT = COMMAND_WORD + " <task ID>";
+    public static final String HELP =   "Mark a task as done." +
+                                        "\n\tFormat: " + FORMAT +
+                                        "\n\tExample usage: done 1";
 
     public DoneCommand(int taskId) {
         this.taskId = taskId;

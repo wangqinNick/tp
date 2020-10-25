@@ -18,6 +18,10 @@ public class AddTaskCommand extends AddCommand {
     private String desc;
     private LocalDateTime dateTimeOfDeadline;
     public static final String FORMAT = COMMAND_WORD + " -t <task name> [-by <deadline>]";
+    public static final String HELP =   "Add a task to the scheduler." +
+                                        "\nFormat: " + FORMAT +
+                                        "\nExample usage: add -t Read Book" +
+                                        "\n               add -t Return Book -by 2-2-2020 1800\n\n";
 
     /**
      * Constructs AddTaskCommand without the deadline.

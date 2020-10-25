@@ -11,6 +11,9 @@ import static seedu.duke.util.Message.MESSAGE_ADD_MODULE_SUCCESS;
 public class AddModuleCommand extends AddCommand {
     private String module;
     public static final String FORMAT = COMMAND_WORD + " -m <module code>";
+    public static final String HELP =   "Add a module to the scheduler." +
+                                        "\n\tFormat: " + FORMAT +
+                                        "\n\tExample usage: add -m CS2113T";
 
     /**
      * Constructs AddModuleCommand and tests the format of the deadline.
