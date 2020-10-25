@@ -4,6 +4,7 @@ import seedu.duke.command.Command;
 import seedu.duke.command.IncorrectCommand;
 import seedu.duke.command.edit.EditModuleCommand;
 import seedu.duke.command.edit.EditTaskCommand;
+import seedu.duke.command.grade.GradeCommand;
 
 import java.security.InvalidParameterException;
 import java.util.regex.Matcher;
@@ -31,11 +32,7 @@ public class EditCommandParser {
     protected static Command getEditCommand(String parameters) {
         Matcher matcher = EDIT_PREFIX_FORMAT.matcher(parameters);
 
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n%s",
-                    MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT, EditTaskCommand.FORMAT,
-                    EditModuleCommand.FORMAT));
-        }
+        Parser.matcherMatches(matcher, parameters, EditTaskCommand.FORMAT + "\n" + EditTaskCommand.FORMAT);
 
         String commandFlag = Parser.isMatcherNull(matcher.group(COMMAND_FLAG_GROUP))
                 ? null : matcher.group(COMMAND_FLAG_GROUP).toLowerCase().trim();
@@ -61,11 +58,8 @@ public class EditCommandParser {
      */
     protected static Command prepareEditModuleCommand(String parameters) throws InvalidParameterException {
         Matcher matcher = EDIT_FORMAT.matcher(parameters);
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
-                    MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT,
-                    EditModuleCommand.FORMAT));
-        }
+
+        Parser.matcherMatches(matcher, parameters, EditTaskCommand.FORMAT);
 
         String oldModuleCode = matcher.group(FIRST_ARGUMENT_IDENTIFIER_GROUP).trim();
         String newModuleCode = matcher.group(SECOND_ARGUMENT_IDENTIFIER_GROUP).trim();
@@ -77,11 +71,8 @@ public class EditCommandParser {
     protected static Command prepareEditTaskCommand(String parameters)
             throws InvalidParameterException,NumberFormatException {
         Matcher matcher = EDIT_FORMAT.matcher(parameters);
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
-                    MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT,
-                    EditModuleCommand.FORMAT));
-        }
+
+        Parser.matcherMatches(matcher, parameters, EditModuleCommand.FORMAT);
 
         String stringTaskIndex = matcher.group(FIRST_ARGUMENT_IDENTIFIER_GROUP).trim();
         int taskIndex = Integer.parseInt(stringTaskIndex) - 1;

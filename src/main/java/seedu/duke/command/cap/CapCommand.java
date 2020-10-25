@@ -3,7 +3,10 @@ package seedu.duke.command.cap;
 import seedu.duke.command.Command;
 import seedu.duke.command.CommandResult;
 
+import seedu.duke.data.Module;
 import seedu.duke.data.ModuleManager;
+
+import java.util.HashMap;
 
 import static seedu.duke.util.Message.MESSAGE_CAP_DISPLAY;
 
@@ -41,13 +44,14 @@ public class CapCommand extends Command {
     }
 
     private double calculateCap() {
+        HashMap<String, Module> moduleList = ModuleManager.getModulesMap();
         double mcGrade;
         double sumMcGrade = 0;
         double sumMc = 0;
-        for (String i : ModuleManager.getModulesMap().keySet()) {
-            sumMc += ModuleManager.getModulesMap().get(i).getModuleCredit();
-            mcGrade = ModuleManager.getModulesMap().get(i).getModuleCredit()
-                    * gradeConvert(ModuleManager.getModulesMap().get(i).getModuleGrade());
+        for (String i : moduleList.keySet()) {
+            sumMc += moduleList.get(i).getModuleCredit();
+            mcGrade = moduleList.get(i).getModuleCredit()
+                    * gradeConvert(moduleList.get(i).getModuleGrade());
             sumMcGrade += mcGrade;
         }
         Cap = sumMcGrade / sumMc;

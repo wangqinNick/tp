@@ -21,6 +21,7 @@ import static seedu.duke.util.ExceptionMessage.MESSAGE_INVALID_COMMAND_WORD;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_INVALID_PARAMETERS;
 import static seedu.duke.util.Message.MESSAGE_EMPTY_INPUT;
 import static seedu.duke.util.Message.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.duke.util.Message.MESSAGE_CHECK_COMMAND_FORMAT;
 
 public class Parser {
     public enum TypeOfEntries {
@@ -69,33 +70,30 @@ public class Parser {
             String parameters = isMatcherNull(matcher.group(PARAMETERS_GROUP))
                     ? null : matcher.group(PARAMETERS_GROUP).trim();
 
-            if (commandWord.equals(ExitCommand.COMMAND_WORD)) {
+            switch (commandWord) {
+            case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
-            } else if (commandWord.equals(HelpCommand.COMMAND_WORD)) {
-                return new HelpCommand();
-            } else if (commandWord.equals(CapCommand.COMMAND_WORD)) {
+            case CapCommand.COMMAND_WORD:
                 return new CapCommand();
-            } else {
-                switch (commandWord) {
-                case GradeCommand.COMMAND_WORD:
-                    return GradeCommandParser.prepareGradeCommand(parameters);
-                case UndoCommand.COMMAND_WORD:
-                    return new UndoCommand();
-                case EditCommand.COMMAND_WORD:
-                    return EditCommandParser.getEditCommand(parameters);
-                case AddCommand.COMMAND_WORD:
-                    return AddCommandParser.prepareAddCommand(parameters);
-                case DeleteCommand.COMMAND_WORD:
-                    return DeleteCommandParser.getDeleteCommand(parameters);
-                case DoneCommand.COMMAND_WORD:
-                    return DoneCommandParser.prepareDoneCommand(parameters);
-                case ListCommand.COMMAND_WORD:
-                    return ListCommandParser.getListCommand(parameters); //command flag is the -t or -m
-                case TimeTableCommand.COMMAND_WORD:
-                    return TimeTableCommandParser.parseTimeTableCommand(parameters);
-                default:
-                    return new HelpCommand();
-                }
+            case GradeCommand.COMMAND_WORD:
+                return GradeCommandParser.prepareGradeCommand(parameters);
+            case UndoCommand.COMMAND_WORD:
+                return new UndoCommand();
+            case EditCommand.COMMAND_WORD:
+                return EditCommandParser.getEditCommand(parameters);
+            case AddCommand.COMMAND_WORD:
+                return AddCommandParser.prepareAddCommand(parameters);
+            case DeleteCommand.COMMAND_WORD:
+                return DeleteCommandParser.getDeleteCommand(parameters);
+            case DoneCommand.COMMAND_WORD:
+                return DoneCommandParser.prepareDoneCommand(parameters);
+            case ListCommand.COMMAND_WORD:
+                return ListCommandParser.getListCommand(parameters); //command flag is the -t or -m
+            case TimeTableCommand.COMMAND_WORD:
+                return TimeTableCommandParser.parseTimeTableCommand(parameters);
+            case HelpCommand.COMMAND_WORD:
+            default:
+                return new HelpCommand();
             }
         } catch (IllegalStateException | IllegalArgumentException e) {
             return new IncorrectCommand(MESSAGE_INVALID_PARAMETERS);
@@ -124,4 +122,26 @@ public class Parser {
         }
         return true;
     }
+
+    /**
+     * Checks if the user input matches the REGEX format of the parser.
+     *
+     * @param matcher
+     * the format to follow
+     * @param parameters
+     * the user input
+     * @param format
+     * the actual correct format if user input doesn't match
+     * @return
+     * message to user showing the actual correct format
+     */
+    protected static Command matcherMatches(Matcher matcher, String parameters, String format) {
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
+                    MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT, format));
+        }
+        return null;
+    }
+
+
 }

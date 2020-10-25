@@ -19,10 +19,8 @@ public class GradeCommandParser {
 
     protected static Command prepareGradeCommand(String parameters) throws NumberFormatException {
         Matcher matcher = GRADE_FORMAT.matcher(parameters);
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
-                    MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT, GradeCommand.FORMAT));
-        }
+
+        Parser.matcherMatches(matcher, parameters, GradeCommand.FORMAT);
 
         String module = Parser.isMatcherNull(matcher.group(MODULE_GROUP))
                 ? null : matcher.group(MODULE_GROUP).toLowerCase().trim();

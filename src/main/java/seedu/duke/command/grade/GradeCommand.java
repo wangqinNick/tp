@@ -57,7 +57,7 @@ public class GradeCommand extends Command {
      * @throws InvalidGradeException
      * If the grade isn't recognised by the NUS grading schematic
      */
-    protected void grade(Module moduleToBeGraded) throws InvalidGradeException, ModuleManager.ModuleNotFoundException {
+    private void grade(Module moduleToBeGraded) throws InvalidGradeException, ModuleManager.ModuleNotFoundException {
         if (testGrade(grade)) {
             ModuleManager.grade(moduleToBeGraded,grade,moduleCredit);
         } else {

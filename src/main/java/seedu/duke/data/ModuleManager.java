@@ -70,17 +70,18 @@ public class ModuleManager {
     /**
      * Checks if the module to be graded is in the moduleMap and assigns the grade to the module.
      *
-     * @param moduleCode
+     * @param module
      * module to be graded
      * @param grade
      * the grade to be assigned
      * @throws ModuleNotFoundException
      * if there is no such module in the module list input by the user
      */
-    public static void grade(Module moduleCode, String grade, int moduleCredit) throws ModuleNotFoundException {
-        if (contains(moduleCode.getModuleCode())) {
-            modulesMap.get(moduleCode.getModuleCode()).setModuleGrade(grade);
-            modulesMap.get(moduleCode.getModuleCode()).setModuleCredit(moduleCredit);
+    public static void grade(Module module, String grade, int moduleCredit) throws ModuleNotFoundException {
+        String moduleCode = module.getModuleCode();
+        if (contains(moduleCode)) {
+            modulesMap.get(moduleCode).setModuleGrade(grade);
+            modulesMap.get(moduleCode).setModuleCredit(moduleCredit);
         } else {
             throw new ModuleNotFoundException();
         }
