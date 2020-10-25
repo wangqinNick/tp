@@ -31,7 +31,7 @@ public class Message {
     public static final String MESSAGE_INCOMPLETE_UNDATED_TASKLIST = "\nIncomplete undated tasks:";
     public static final String MESSAGE_INCOMPLETE_DATED_TASKLIST = "\nIncomplete dated tasks:";
     public static final String MESSAGE_SUMMARY_PRINTED = "Your Task Summary\n";
-    public static final String MESSAGE_HELP =
+    public static final String MESSAGE_COMMAND_LIST =
             "Command                                        Function\n"
                     + "help ----------------------------------------- View command list\n"
                     + "add -t <task desc.> [-by] -------------------- Add task\n"

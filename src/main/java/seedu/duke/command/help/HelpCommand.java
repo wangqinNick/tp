@@ -63,7 +63,7 @@ public class HelpCommand extends Command {
             break;
         // TODO: Timetable commands
         default:
-            output = TextUi.getHelpMessage();
+            output = TextUi.getCommandList();
             break;
         }
         return new CommandResult(output);
