@@ -7,9 +7,9 @@ public class ExceptionMessage {
             + "Alternatively, enter .. to move to the parent directory instead.\n";
 
 
-    public static final String MESSAGE_MODULE_NOT_FOUND = "Sorry, the module is not found.\n";
+    public static final String MESSAGE_MODULE_NOT_FOUND = "Sorry, the module is not in your module list.\n";
     public static final String MESSAGE_MODULE_NOT_PROVIDED = "Sorry, the module is not provided by NUS currently.\n";
-    public static final String MESSAGE_DUPLICATE_MODULE = "Sorry, the module already exists.\n";
+    public static final String MESSAGE_DUPLICATE_MODULE = "Sorry, the module already exists in your list.\n";
 
     public static final String MESSAGE_CATEGORY_NOT_FOUND = "Sorry, the category is not found.\n";
     public static final String MESSAGE_DUPLICATE_CATEGORY = "Sorry, the category already exists.\n";
@@ -71,8 +71,8 @@ public class ExceptionMessage {
     public static final String MESSAGE_INVALID_COMMAND_WORD =
             "It seems you have input an incorrect command word. \n"
             + "Please key in help to see our list of commands. \n";
-    public static final String MESSAGE_LESSON_OVERLAP = "Sorry, the lesson you have attempted to add "
-            + "overlaps with other lessons.\n";
+    public static final String MESSAGE_LESSON_INVALID_TIME = "Sorry, the lesson you have attempted to add "
+            + "either overlaps with other lessons or has an invalid start time.\n";
     public static final String MESSAGE_LESSON_NOT_FOUND = "Sorry, the lesson you have attempted to delete "
             + "does not exist.\n";
     public static final String MESSAGE_REPEAT_FREQUENCY_UNKNOWN = "Sorry, the lesson you have attempted to add does "

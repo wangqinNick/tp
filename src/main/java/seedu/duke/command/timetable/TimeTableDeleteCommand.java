@@ -18,7 +18,7 @@ public class TimeTableDeleteCommand extends TimeTableCommand {
         this.lessonIndexToDelete = lessonIndexToDelete;
     }
 
-    public void removeLessonFromTimeTable() {
+    public void removeLessonFromTimeTable() throws IndexOutOfBoundsException {
         TimeTableManager.removeLesson(dayOfWeek, lessonIndexToDelete);
     }
 

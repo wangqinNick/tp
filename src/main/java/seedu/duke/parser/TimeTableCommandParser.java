@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 
 import static seedu.duke.command.timetable.TimeTableCommand.TIMETABLE_LESSON_DELETE_USER_FORMAT;
 import static seedu.duke.command.timetable.TimeTableCommand.TIMETABLE_LESSON_PARAMETER_USER_FORMAT;
-import static seedu.duke.util.ExceptionMessage.MESSAGE_LESSON_OVERLAP;
+import static seedu.duke.util.ExceptionMessage.MESSAGE_LESSON_INVALID_TIME;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_MODULE_NOT_FOUND;
 import static seedu.duke.util.Message.MESSAGE_CHECK_COMMAND_FORMAT;
 import static seedu.duke.util.Message.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -79,7 +79,7 @@ public abstract class TimeTableCommandParser {
         } catch (ModuleManager.ModuleNotFoundException e) {
             return new IncorrectCommand(MESSAGE_MODULE_NOT_FOUND);
         } catch (LessonInvalidTimeException e) {
-            return new IncorrectCommand(MESSAGE_LESSON_OVERLAP);
+            return new IncorrectCommand(MESSAGE_LESSON_INVALID_TIME);
         }
         return command;
     }
