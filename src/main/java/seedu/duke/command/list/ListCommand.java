@@ -12,7 +12,8 @@ import static seedu.duke.util.Message.MESSAGE_LIST_PRINTED;
 public class ListCommand extends Command {
     private Parser.TypeOfEntries typeOfEntry;
     public static final String COMMAND_WORD = "list";
-    public static final String FORMAT = COMMAND_WORD + " <opt> <args>";
+    public static final String FORMAT_TASK = COMMAND_WORD + " -t";
+    public static final String FORMAT_MODULE = COMMAND_WORD + " -m";
 
     public ListCommand(Parser.TypeOfEntries typeOfEntry) {
         this.typeOfEntry = typeOfEntry;
