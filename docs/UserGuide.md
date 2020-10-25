@@ -31,7 +31,7 @@ Format: `add -t <task_name> [-by <deadline>]`
 
 Example of usage: 
 * `add -t read chapter 1`
-* `add -t read chapter 1 -by 12 Sep`
+* `add -t read chapter 1 -by 2-2-2020 1800`
 
 #### Adding a module: `add -m`
 Add a module to the scheduler.  
