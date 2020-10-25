@@ -17,7 +17,7 @@ public class Message {
     public static final String MESSAGE_NO_EDIT_MODULE = "Please enter a new module code to edit.\n";
     public static final String MESSAGE_NO_EDIT_TASK = "Please enter a new task index to edit.\n";
     public static final String MESSAGE_NO_ADD_MODULE = "Please enter a new module code to add.";
-    public static final String MESSAGE_NO_ADD_TASK = "Please enter a new task index to add.\n";
+    public static final String MESSAGE_NO_ADD_TASK = "Please enter a new task to add.\n";
     public static final String MESSAGE_GOODBYE = "Good bye!";
     public static final String MESSAGE_WELCOME = "Welcome to RAVI";
     public static final String MESSAGE_DONE_TASK_SUCCESS = "SUCCESS!! The task has been marked as done.\n";

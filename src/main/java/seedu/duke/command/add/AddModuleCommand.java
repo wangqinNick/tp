@@ -10,6 +10,7 @@ import static seedu.duke.util.Message.MESSAGE_ADD_MODULE_SUCCESS;
 
 public class AddModuleCommand extends AddCommand {
     private String module;
+    public static final String FORMAT = COMMAND_WORD + " -m <module code>";
 
     /**
      * Constructs AddModuleCommand and tests the format of the deadline.

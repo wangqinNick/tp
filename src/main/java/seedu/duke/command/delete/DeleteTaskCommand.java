@@ -9,6 +9,7 @@ import static seedu.duke.util.Message.MESSAGE_DELETE_TASK_SUCCESS;
 
 public class DeleteTaskCommand extends DeleteCommand {
     private int taskId;
+    public static final String FORMAT = DeleteCommand.COMMAND_WORD + " -t" + " <task_index>";
 
     /**
      * Constructor to delete task from task list.

@@ -9,6 +9,8 @@ import static seedu.duke.util.Message.MESSAGE_DELETE_MODULE_SUCCESS;
 
 public class DeleteModuleCommand extends DeleteCommand {
     private String moduleCode;
+    public static final String FORMAT = DeleteCommand.COMMAND_WORD + " -m" + " <module_code>";
+
 
     /**
      * Constructor to delete module from module list.

@@ -17,6 +17,7 @@ public class AddTaskCommand extends AddCommand {
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-yyyy HHmm");
     private String desc;
     private LocalDateTime dateTimeOfDeadline;
+    public static final String FORMAT = COMMAND_WORD + " -t <task name> [-by <deadline>]";
 
     /**
      * Constructs AddTaskCommand without the deadline.
