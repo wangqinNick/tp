@@ -27,7 +27,7 @@ public class Encoder {
      * @throws IOException
      *  When there is an error preparing the save file
      */
-    public static void saveTimetable(String dataFileName) throws IOException{
+    public static void saveTimetable(String dataFileName) throws IOException {
         File mySaveFile = new File(dataFileName);
         prepareSaveFile(mySaveFile);
         writeToFile(mySaveFile, JSON.toJSONString(TimeTableManager.getTimeTable()));

@@ -137,7 +137,9 @@ public class Lesson {
     }
 
     // vvv Required for fastJSON, not used otherwise vvv
-    public Lesson() {}
+    public Lesson() {
+
+    }
 
     public void setModuleCode(String moduleCode) {
         this.moduleCode = moduleCode;
@@ -155,7 +157,7 @@ public class Lesson {
         this.day = day;
     }
 
-    public void setLessonType (LessonType lessonType) {
+    public void setLessonType(LessonType lessonType) {
         this.lessonType = lessonType;
     }
 

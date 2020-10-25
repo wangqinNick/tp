@@ -9,7 +9,9 @@ public class TimeTable {
     public int semEndWeekNum;
     public int semRecessWeekNum;
 
-    public TimeTable() {}
+    public TimeTable() {
+
+    }
 
     public void initWeek(int weekNum) {
         semesterMap.put(weekNum, new LessonManager());

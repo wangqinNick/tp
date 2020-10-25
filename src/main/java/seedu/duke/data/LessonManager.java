@@ -13,9 +13,9 @@ public class LessonManager {
     private static final DukeLogger logger = new DukeLogger(LessonManager.class.getName());
 
     /**
-     * Initialise the lessonMap when it is empty.
+     * Initialise the lessonMap upon construction.
      */
-    public void initialise() {
+    public LessonManager() {
         for (DayOfWeek eachDay : DayOfWeek.values()) {
             lessonMap.put(eachDay, new ArrayList<>());
         }
@@ -34,7 +34,6 @@ public class LessonManager {
         // if lessonMap is not initialised yet...
         if (lessonMap.keySet().size() == 0) {
             logger.getLogger().info("Adding to uninitialised lessonMap");
-            initialise();
             lessonMap.get(lessonDay).add(newLesson);
             return;
         }
@@ -62,6 +61,11 @@ public class LessonManager {
             logger.getLogger().info("Lesson inserted at index " + indexToInsertNewLesson);
             lessonMap.get(lessonDay).add(indexToInsertNewLesson, newLesson);
         }
+    }
+
+    // required for fastJSON, not used otherwise
+    public void addLesson(DayOfWeek day, Lesson lesson) {
+        lessonMap.get(day).add(lesson);
     }
 
     /**
@@ -155,13 +159,12 @@ public class LessonManager {
     }
 
     /**
-     * Clears the lesson ArrayList for a given day.
-     *
-     * @param day
-     *  The specified day
+     * Resets lessonMap to blank state.
      */
-    public void clearDayLesson(DayOfWeek day) {
-        lessonMap.put(day, new ArrayList<>());
+    public void clearAllLessons() {
+        for (DayOfWeek eachDay : DayOfWeek.values()) {
+            lessonMap.put(eachDay, new ArrayList<>());
+        }
     }
 
     // required for fastJSON, not used otherwise
@@ -172,10 +175,5 @@ public class LessonManager {
     // required for fastJSON, not used otherwise
     public void setLessonMap(HashMap<DayOfWeek, ArrayList<Lesson>> lessonMap) {
         this.lessonMap = lessonMap;
-    }
-
-    // required for fastJSON, not used otherwise
-    public void addLesson(DayOfWeek day, Lesson lesson) {
-        lessonMap.get(day).add(lesson);
     }
 }

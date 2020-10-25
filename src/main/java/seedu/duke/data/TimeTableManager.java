@@ -96,9 +96,9 @@ public class TimeTableManager {
             if (currWeek == timetable.getSemRecessWeekNum()) { // don't add for recess week
             } else if (repeat == 1) { // if repeat every week
                 lessonManager.addLesson(lesson);
-            } else if (currWeek % 2 == 0 && repeat == 2) { // if repeat every even week
+            } else if (isEvenWeek(currWeek) && repeat == 2) { // if repeat every even week
                 lessonManager.addLesson(lesson);
-            } else if (currWeek % 2 == 1 && repeat == 3) { // if repeat every odd week
+            } else if (isOddWeek(currWeek) && repeat == 3) { // if repeat every odd week
                 lessonManager.addLesson(lesson);
             }
         }
@@ -120,10 +120,12 @@ public class TimeTableManager {
         logger.getLogger().info("Removing lesson with index " + lessonIndex + " on " + dayOfWeek
                 + " (failed if no successful removal log below)");
         int currWeek = getCurrWeekNum();
-        LessonManager lessonManager = timetable.getLessonManagerOfWeek(currWeek);
 
         // retrieve the unique ID, as index does not stay constant over different weeks
-        String id = lessonManager.getDayLessonList(dayOfWeek).get(lessonIndex).getHiddenId();
+        LessonManager lessonManager = timetable.getLessonManagerOfWeek(currWeek);
+        Lesson lesson = lessonManager.getDayLessonList(dayOfWeek).get(lessonIndex);
+        String id = lesson.getHiddenId();
+
         // remove by ID
         timetable.removeLessonById(dayOfWeek, id);
         logger.getLogger().info("Successful removal of lesson with hiddenId " + id);
@@ -171,6 +173,42 @@ public class TimeTableManager {
         return now.get(ChronoField.ALIGNED_WEEK_OF_YEAR);
     }
 
+    /**
+     * Checks whether the current NUS week is odd.
+     *
+     * @return
+     *  Whether current NUS week is odd.
+     */
+    public static boolean isOddWeek(int week) {
+        int recessWeek = timetable.getSemRecessWeekNum();
+        int startWeek = timetable.getSemStartWeekNum();
+        if (week < recessWeek) {
+            return (week - startWeek + 1) % 2 == 1; // check if the NUS week is even
+        } else if (week == recessWeek) {
+            return false;
+        } else {
+            return (week - startWeek + 1) % 2 == 0; // check if the NUS week is even (accounting for recess week)
+        }
+    }
+
+    /**
+     * Checks whether the current NUS week is even.
+     *
+     * @return
+     *  Whether current NUS week is even.
+     */
+    public static boolean isEvenWeek(int week) {
+        int recessWeek = timetable.getSemRecessWeekNum();
+        int startWeek = timetable.getSemStartWeekNum();
+        if (week < recessWeek) {
+            return (week - startWeek + 1) % 2 == 0; // check if the NUS week is even
+        } else if (week == recessWeek) {
+            return false;
+        } else {
+            return (week - startWeek + 1) % 2 == 1; // check if the NUS week is even (accounting for recess week)
+        }
+    }
+
     public static int getWeekLessonCount(int week) {
         return timetable.countWeekLessons(week);
     }
@@ -185,6 +223,10 @@ public class TimeTableManager {
 
     public static void loadTimeTable(TimeTable loadedTimeTable) {
         timetable = loadedTimeTable;
+    }
+
+    public static void clearTimeTable() {
+        timetable = new TimeTable();
     }
 
     /*

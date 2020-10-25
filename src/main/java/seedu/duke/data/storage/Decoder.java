@@ -37,6 +37,7 @@ public class Decoder {
         TimeTable timetable = JSON.parseObject(jsonStr, TimeTable.class);
         return timetable;
     }
+
     /**
      * Loads a HashMap of Module objects from the specified file. Used for both user and NUS modules.
      *

@@ -51,7 +51,7 @@ public class TimeTableViewCommand extends TimeTableCommand {
                 output += eachLesson.toString() + "\n";
             }
             return output;
-        } catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             return "oops";
         }
     }
