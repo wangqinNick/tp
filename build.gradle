@@ -5,6 +5,10 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '5.1.0'
 }
 
+run {
+    enableAssertions = true
+}
+
 repositories {
     mavenCentral()
 }
