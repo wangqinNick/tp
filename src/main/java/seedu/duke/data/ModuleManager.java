@@ -68,6 +68,26 @@ public class ModuleManager {
     }
 
     /**
+     * Checks if the module to be graded is in the moduleMap and assigns the grade to the module.
+     *
+     * @param module
+     * module to be graded
+     * @param grade
+     * the grade to be assigned
+     * @throws ModuleNotFoundException
+     * if there is no such module in the module list input by the user
+     */
+    public static void grade(Module module, String grade, int moduleCredit) throws ModuleNotFoundException {
+        String moduleCode = module.getModuleCode();
+        if (contains(moduleCode)) {
+            modulesMap.get(moduleCode).setModuleGrade(grade);
+            modulesMap.get(moduleCode).setModuleCredit(moduleCredit);
+        } else {
+            throw new ModuleNotFoundException();
+        }
+    }
+
+    /**
      * Checks for duplicates of the same module code in the Module List.
      * @param moduleCode
      *  The module code to check
