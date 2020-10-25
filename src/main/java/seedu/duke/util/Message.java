@@ -29,7 +29,10 @@ public class Message {
     public static final String MESSAGE_UNDO_AT_BEGINNING = "You are already at the initial state!";
     public static final String MESSAGE_GRADE_MODULE_SUCCESS = "Module graded successfully! \n";
     public static final String MESSAGE_CAP_DISPLAY = "Your current CAP is \n";
-
+    public static final String MESSAGE_COMPLETED_TASKLIST = "\nCompleted tasks:";
+    public static final String MESSAGE_INCOMPLETE_UNDATED_TASKLIST = "\nIncomplete undated tasks:";
+    public static final String MESSAGE_INCOMPLETE_DATED_TASKLIST = "\nIncomplete dated tasks:";
+    public static final String MESSAGE_SUMMARY_PRINTED = "Your Task Summary\n";
     public static final String MESSAGE_HELP =
               "Command                                       Function\n"
             + "help ---------------------------------------- View command list\n"

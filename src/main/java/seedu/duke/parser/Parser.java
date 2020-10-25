@@ -12,6 +12,7 @@ import seedu.duke.command.grade.GradeCommand;
 import seedu.duke.command.help.HelpCommand;
 import seedu.duke.command.list.ListCommand;
 import seedu.duke.command.misc.UndoCommand;
+import seedu.duke.command.summary.SummaryCommand;
 import seedu.duke.command.timetable.TimeTableCommand;
 
 import java.util.regex.Matcher;
@@ -89,6 +90,8 @@ public class Parser {
                 return DoneCommandParser.prepareDoneCommand(parameters);
             case ListCommand.COMMAND_WORD:
                 return ListCommandParser.getListCommand(parameters); //command flag is the -t or -m
+            case SummaryCommand.COMMAND_WORD:
+                return new SummaryCommand();
             case TimeTableCommand.COMMAND_WORD:
                 return TimeTableCommandParser.parseTimeTableCommand(parameters);
             case HelpCommand.COMMAND_WORD:
@@ -142,6 +145,4 @@ public class Parser {
         }
         return null;
     }
-
-
 }
