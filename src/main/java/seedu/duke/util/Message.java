@@ -3,8 +3,10 @@ package seedu.duke.util;
 public class Message {
     public static final String MESSAGE_ADD_TASK_SUCCESS = "SUCCESS!! The task has been added.\n";
     public static final String MESSAGE_ADD_MODULE_SUCCESS = "SUCCESS!! The module has been added.\n";
+    public static final String MESSAGE_ADD_LESSON_SUCCESS = "SUCCESS!! The lesson has been added.\n";
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "SUCCESS!! The task has been deleted.\n";
     public static final String MESSAGE_DELETE_MODULE_SUCCESS = "SUCCESS!! The module has been deleted.\n";
+    public static final String MESSAGE_DELETE_LESSON_SUCCESS = "SUCCESS!! The lesson has been deleted.\n";
     public static final String MESSAGE_EDIT_MODULE_SUCCESS = "SUCCESS!! The module has been updated.\n";
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "SUCCESS!! The task has been updated.\n";
     public static final String MESSAGE_EMPTY_INPUT = "Please enter a command.\n";
@@ -41,5 +43,13 @@ public class Message {
             + "list -t ------------------------------------- List all tasks\n"
             + "list -m ------------------------------------- List all modules\n"
             + "done <task index> --------------------------- Mark task as done\n"
+            + "timetable -day ------------------------------ View the timetable for today\n"
+            + "timetable -week ----------------------------- View the timetable for the week\n"
+            + "timetable -add <module> <day> <start time> \n"
+            + "<end time> <lesson type> <repeat> ----------- Add a lesson to the timetable\n"
+            + "timetable -del <day> <lesson index> --------- Delete a lesson from the timetable\n"
             + "bye ----------------------------------------- Exit RaVi\n";
+
+    public static final String MESSAGE_TIMETABLE_INIT = "Please enter the current week num e.g. 1 - 14"
+            + " where 7 is recess week." + System.lineSeparator() + "In here, NUS week 7 onwards is week 8 onwards.";
 }

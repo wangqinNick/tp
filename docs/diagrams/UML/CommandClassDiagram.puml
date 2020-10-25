@@ -1,0 +1,64 @@
+@startuml
+
+
+abstract class Command {
+    PromptType promptType
+    PromptType getPromptType()
+    void setPromptType()
+    CommandResult execute()
+}
+
+class CommandResult {
+    String feedbackToUser
+}
+
+abstract class FilterCommand
+
+abstract class AddCommand
+class AddModuleCommand
+class AddTaskCommand
+
+abstract class DeleteCommand
+class DeleteModuleCommand
+class DeleteTaskCommand
+
+abstract class EditCommand
+class EditModuleCommand
+class EditTaskCommand
+
+class DoneCommand
+class UndoCommand
+class HelpCommand
+class ListCommand
+class ExitCommand
+class IncorrectCommand
+enum PromptType {
+    WARNING,
+    INFORMATIVE,
+    NONE,
+    EDIT
+}
+
+AddCommand <|-- AddModuleCommand
+AddCommand <|-- AddTaskCommand
+DeleteCommand <|-- DeleteModuleCommand
+DeleteCommand <|-- DeleteTaskCommand
+EditCommand <|-- EditModuleCommand
+EditCommand <|-- EditTaskCommand
+
+Command <|-- AddCommand
+Command <|-- DeleteCommand
+Command <|-- EditCommand
+Command <|-- FilterCommand
+Command <|-- DoneCommand
+Command <|-- HelpCommand
+Command <|-- ListCommand
+Command <|-- UndoCommand
+Command <|-- ExitCommand
+Command <|-- IncorrectCommand
+
+Command *-- PromptType
+Command <.. CommandResult
+
+
+@enduml

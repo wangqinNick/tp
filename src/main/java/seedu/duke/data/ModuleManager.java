@@ -1,9 +1,11 @@
 package seedu.duke.data;
 
+import seedu.duke.data.storage.InputOutputManager;
 import seedu.duke.exception.DataNotFoundException;
 import seedu.duke.exception.DuplicateDataException;
 import seedu.duke.exception.ModuleNotProvidedException;
 import seedu.duke.ui.TextUi;
+import seedu.duke.DukeLogger;
 
 import java.util.HashMap;
 
@@ -12,6 +14,8 @@ public class ModuleManager {
     // modulesMap is the main module list. Maps module code to module object.
     private static HashMap<String, Module> nusModsMap = new HashMap<>();
     // nusModsMap is the module list containing the Module objects created from NUSMods' JSON file of modules.
+
+    private static final DukeLogger logger = new DukeLogger(ModuleManager.class.getName());
 
     /**
      *  Finds a module with the specified module code in the Module List.
@@ -24,11 +28,13 @@ public class ModuleManager {
      *  If the module is not found in the Module List
      */
     public static Module getModule(String moduleCode) throws ModuleNotFoundException {
+        logger.getLogger().info("Retrieving module with code: " + moduleCode);
         for (Module module : modulesMap.values()) {
             if (module.getModuleCode().equalsIgnoreCase(moduleCode)) {
                 return module;
             }
         }
+        logger.getLogger().warning("Can't retrieve module because it doesn't exist!");
         throw new ModuleNotFoundException();
     }
 
@@ -46,12 +52,15 @@ public class ModuleManager {
      */
     public static void edit(Module newModule, String oldModuleCode)
             throws ModuleNotProvidedException, DuplicateModuleException {
+        logger.getLogger().info("Editing module at old module code: " + oldModuleCode);
         //modulesMap.get(module.getCode()).setTitle(moduleDescription);
         Module oldModule = modulesMap.get(oldModuleCode);
         if (!modulesMap.containsKey(oldModuleCode)) {
+            logger.getLogger().warning("Old module code not found!");
             throw new ModuleNotProvidedException();
         }
         if (oldModule.isSameModule(newModule)) {
+            logger.getLogger().warning("Can't edit to new mod code because it exists!");
             throw new DuplicateModuleException();
         }
         modulesMap.remove(oldModuleCode);
@@ -80,7 +89,9 @@ public class ModuleManager {
      *  The module object to add to the module list
      */
     public static void add(Module newModule) throws DuplicateModuleException {
+        logger.getLogger().info("Adding module with code: " + newModule.getModuleCode());
         if (contains(newModule.getModuleCode())) {
+            logger.getLogger().warning("Can't add module because it already exists!");
             throw new DuplicateModuleException();
         }
         modulesMap.put(newModule.getModuleCode(), newModule);
@@ -92,23 +103,13 @@ public class ModuleManager {
      *  The module code of the module to remove from the module list
      */
     public static boolean delete(String moduleCode) throws ModuleNotFoundException {
+        logger.getLogger().info("Deleting module with code: " + moduleCode);
         if (!contains(moduleCode)) {
+            logger.getLogger().warning("Can't delete module because it doesn't exist!");
             throw new ModuleNotFoundException();
         }
         modulesMap.remove(moduleCode);
         return false;
-    }
-
-    /**
-     * Adds a module to the NUSMods Module List.
-     * @param newModule
-     *  The module object to add to the module list
-     */
-    public static void addNusMod(Module newModule) throws DuplicateModuleException {
-        if (contains(newModule.getModuleCode())) {
-            throw new DuplicateModuleException();
-        }
-        nusModsMap.put(newModule.getModuleCode(), newModule);
     }
 
     /**
@@ -143,7 +144,7 @@ public class ModuleManager {
     /**
      * List modules in the module map.
      *
-     * @return
+     * @returns
      *  The formatted module list from TextUi or null if list is empty
      */
     public static String list() {
@@ -176,7 +177,7 @@ public class ModuleManager {
      * Clears all modules in modulesMap.
      */
     public static void clearModules() {
-        modulesMap = new HashMap<String, Module>();
+        modulesMap = new HashMap<>();
     }
 
     /**
