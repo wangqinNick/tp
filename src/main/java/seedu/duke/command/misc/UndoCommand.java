@@ -10,10 +10,11 @@ import java.util.EmptyStackException;
 
 import static seedu.duke.util.Message.MESSAGE_UNDO_AT_BEGINNING;
 import static seedu.duke.util.Message.MESSAGE_UNDO_SUCCESS;
-import static seedu.duke.util.Message.MESSAGE_UNDO_UNSUCCESSFUL;
 
 public class UndoCommand extends Command {
     public static final String COMMAND_WORD = "undo";
+    public static final String HELP =   "Undo last action."
+                                        + "\n\tFormat: " + COMMAND_WORD;
 
     public UndoCommand() {
         this.promptType = PromptType.INFORMATIVE;

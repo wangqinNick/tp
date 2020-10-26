@@ -2,7 +2,6 @@ package seedu.duke.parser;
 
 import seedu.duke.command.Command;
 import seedu.duke.command.done.DoneCommand;
-import seedu.duke.command.grade.GradeCommand;
 
 import java.security.InvalidParameterException;
 import java.util.regex.Matcher;
@@ -16,7 +15,7 @@ public class DoneCommandParser {
             throws NumberFormatException, InvalidParameterException {
         Matcher matcher = DONE_FORMAT.matcher(parameters);
 
-        Parser.matcherMatches(matcher, parameters, DoneCommand.FORMAT);
+        Parser.matcherMatches(matcher, parameters, DoneCommand.FORMAT, DoneCommand.PROMPT_HELP);
 
         String digit = Parser.isMatcherNull(matcher.group(NUMBER_GROUP))
                 ? null : matcher.group(NUMBER_GROUP).trim();

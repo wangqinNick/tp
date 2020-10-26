@@ -3,13 +3,19 @@ package seedu.duke.command.done;
 import seedu.duke.command.Command;
 import seedu.duke.command.CommandResult;
 import seedu.duke.data.TaskManager;
+import seedu.duke.ui.TextUi;
+
 import static seedu.duke.util.ExceptionMessage.MESSAGE_TASK_NOT_FOUND;
 import static seedu.duke.util.Message.MESSAGE_DONE_TASK_SUCCESS;
 
 public class DoneCommand extends Command {
     private int taskId;
     public static final String COMMAND_WORD = "done";
-    public static final String FORMAT = COMMAND_WORD + " <opt> <args>";
+    public static final String FORMAT = COMMAND_WORD + " <task_index>";
+    public static final String HELP =   "Mark a task as done."
+                                        + "\n\tFormat: " + FORMAT
+                                        + "\n\tExample usage: done 1";
+    public static final String PROMPT_HELP = TextUi.getCommandHelpMessage(COMMAND_WORD);
 
     public DoneCommand(int taskId) {
         this.taskId = taskId;

@@ -15,7 +15,7 @@ public class CapCommandParser {
     protected static Command prepareCapCommand(String parameters) throws NumberFormatException,NullPointerException {
         Matcher matcher = CUMULATIVE_CAP_FORMAT.matcher(parameters);
 
-        Parser.matcherMatches(matcher,parameters, CapCommand.FORMAT);
+        Parser.matcherMatches(matcher,parameters, CapCommand.FORMAT, CapCommand.PROMPT_HELP);
 
         String mc = Parser.isMatcherNull(matcher.group(TOTAL_MC_GROUP))
                 ? null : matcher.group(TOTAL_MC_GROUP).trim();

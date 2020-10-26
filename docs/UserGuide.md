@@ -15,7 +15,7 @@ Repository Assistant with a Versatile Interface (ra.VI) is a desktop app for man
 Some example commands you can try:
 * `add -t`: Add a task
 * `list -t`: List all tasks
-* `exit`: Exit the program read chapter 1`
+* `bye`: Exit the program read chapter 1`
 5. Refer to the Features below for details of each command
 
 ## Features 
@@ -31,7 +31,7 @@ Format: `add -t <task_name> [-by <deadline>]`
 
 Example of usage: 
 * `add -t read chapter 1`
-* `add -t read chapter 1 -by 2-2-2020 1800`
+* `add -t read chapter 1 -by 30-12-2020 1800`
 
 #### Adding a module: `add -m`
 Add a module to the scheduler.  
@@ -40,13 +40,15 @@ Format: `add -m <module_code>`
 Example of usage: 
 * `add -m CS1231`
 
-### Editing an item: `edit <opt><args>`
-#### Editing a task description: `edit -t <task_index> <args>`
+### Editing an item: `edit <opt> <args>`
+#### Editing a task description: `edit -t <task_index> <task_name>`
 Edit a task description in the scheduler.  
-Format: `edit -t <task_index> <args>`
+Format: `edit -t <task_index> <task_name>`
 
 Example of usage: 
 * `edit -t 3 revise for CS2113`
+
+Note: You can find the task indexes with `list -t`  
 
 #### Editing a module: `edit -m <module_code> <new_module_code>`
 Edit a module code in the scheduler.  
@@ -55,7 +57,7 @@ Format: `edit -m <module_code> <new_module_code>`
 Example of usage: 
 * `edit -m CS2113 CS2113T`
 
-### Deleting an item: `del <opt><args>`
+### Deleting an item: `del <opt> <args>`
 #### Deleting a task: `del -t <task_index>`
 Remove a task from the scheduler.  
 Format: `del -t <task_index>`
@@ -69,6 +71,8 @@ Format: `del -m <module_code>`
 
 Example of usage: 
 * `del -m CS1010`
+
+Note: You can find the task indexes with `list -t`  
 
 ### Listing all items: `list <opt> <args>`
 #### Listing all tasks: `list -t`

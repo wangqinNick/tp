@@ -1,14 +1,10 @@
 package seedu.duke.parser;
 
 import seedu.duke.command.Command;
-import seedu.duke.command.IncorrectCommand;
 import seedu.duke.command.grade.GradeCommand;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static seedu.duke.util.Message.MESSAGE_CHECK_COMMAND_FORMAT;
-import static seedu.duke.util.Message.MESSAGE_INVALID_COMMAND_FORMAT;
 
 public class GradeCommandParser {
     protected static final String MODULE_GROUP = "module";
@@ -20,7 +16,7 @@ public class GradeCommandParser {
     protected static Command prepareGradeCommand(String parameters) throws NumberFormatException {
         Matcher matcher = GRADE_FORMAT.matcher(parameters);
 
-        Parser.matcherMatches(matcher, parameters, GradeCommand.FORMAT);
+        Parser.matcherMatches(matcher, parameters, GradeCommand.FORMAT, GradeCommand.PROMPT_HELP);
 
         String module = Parser.isMatcherNull(matcher.group(MODULE_GROUP))
                 ? null : matcher.group(MODULE_GROUP).toLowerCase().trim();

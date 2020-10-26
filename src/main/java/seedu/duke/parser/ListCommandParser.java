@@ -1,17 +1,11 @@
 package seedu.duke.parser;
 
 import seedu.duke.command.Command;
-import seedu.duke.command.IncorrectCommand;
-import seedu.duke.command.add.AddCommand;
-import seedu.duke.command.grade.GradeCommand;
 import seedu.duke.command.list.ListCommand;
 
 import java.security.InvalidParameterException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static seedu.duke.util.Message.MESSAGE_CHECK_COMMAND_FORMAT;
-import static seedu.duke.util.Message.MESSAGE_INVALID_COMMAND_FORMAT;
 
 public class ListCommandParser {
     public static final String MODULE_PREFIX = "-m";
@@ -22,7 +16,7 @@ public class ListCommandParser {
     protected static Command getListCommand(String parameters) {
         Matcher matcher = LIST_FORMAT.matcher(parameters);
 
-        Parser.matcherMatches(matcher, parameters, ListCommand.FORMAT);
+        Parser.matcherMatches(matcher, parameters, ListCommand.FORMAT, ListCommand.PROMPT_HELP);
 
         String commandFlag = Parser.isMatcherNull(matcher.group(Parser.COMMAND_FLAG_GROUP))
                 ? null : matcher.group(Parser.COMMAND_FLAG_GROUP).toLowerCase().trim();

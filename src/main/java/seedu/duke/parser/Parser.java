@@ -97,7 +97,7 @@ public class Parser {
                 return TimeTableCommandParser.parseTimeTableCommand(parameters);
             case HelpCommand.COMMAND_WORD:
             default:
-                return new HelpCommand();
+                return new HelpCommand("bye");
             }
         } catch (NumberFormatException e) {
             return new IncorrectCommand(MESSAGE_STRING_IN_NUMBER);
@@ -141,10 +141,11 @@ public class Parser {
      * @return
      * message to user showing the actual correct format
      */
-    protected static Command matcherMatches(Matcher matcher, String parameters, String format) {
+    protected static Command matcherMatches(Matcher matcher, String parameters, String format, String helpPrompt) {
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
-                    MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT, format));
+            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n\n%s\n",
+                    MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT, format,
+                    helpPrompt));
         }
         return null;
     }
