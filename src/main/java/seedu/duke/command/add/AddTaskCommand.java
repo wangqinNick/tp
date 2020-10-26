@@ -17,11 +17,11 @@ public class AddTaskCommand extends AddCommand {
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-yyyy HHmm");
     private String desc;
     private LocalDateTime dateTimeOfDeadline;
-    public static final String FORMAT = COMMAND_WORD + " -t <task name> [-by <deadline>]";
+    public static final String FORMAT = COMMAND_WORD + " -t <task_name> [-by <deadline>]";
     public static final String HELP =   "Add a task to the scheduler." +
                                         "\nFormat: " + FORMAT +
                                         "\nExample usage: add -t Read Book" +
-                                        "\n               add -t Return Book -by 2-2-2020 1800\n\n";
+                                        "\n               add -t Return Book -by 30-12-2020 1800\n\n";
 
     /**
      * Constructs AddTaskCommand without the deadline.

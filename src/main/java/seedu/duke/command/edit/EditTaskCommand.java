@@ -12,7 +12,7 @@ public class EditTaskCommand extends EditCommand {
 
     private int taskID;
     private String newTaskDescription;
-    public static final String FORMAT = EditCommand.COMMAND_WORD + " -t" + " <task ID> <new task description>";
+    public static final String FORMAT = EditCommand.COMMAND_WORD + " -t" + " <task_index> <task_name>";
     public static final String HELP =   "Edit a task description from the task list." +
                                         "\n\tFormat: " + FORMAT +
                                         "\n\tExample usage: edit -t 1 Project meeting\n\n";

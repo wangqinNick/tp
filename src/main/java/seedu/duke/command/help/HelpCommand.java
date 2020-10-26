@@ -19,10 +19,11 @@ import seedu.duke.ui.TextUi;
 
 public class HelpCommand extends Command {
     public static final String COMMAND_WORD = "help";
-    public static final String FORMAT = COMMAND_WORD + " <command word>";
+    public static final String FORMAT = COMMAND_WORD + " [<command word>]";
     public static final String HELP =   "View command information." +
                                         "\n\tFormat: " + FORMAT +
-                                        "\n\tExample usage: help add\n";
+                                        "\n\tExample usage: help" +
+                                        "                   \nhelp add\n";
     private String commandType;
 
     public HelpCommand(String commandType){
