@@ -2,14 +2,12 @@ package seedu.duke.parser;
 
 import seedu.duke.command.Command;
 import seedu.duke.command.IncorrectCommand;
-import seedu.duke.command.grade.GradeCommand;
 import seedu.duke.command.timetable.TimeTableAddCommand;
 import seedu.duke.command.timetable.TimeTableCommand;
 import seedu.duke.command.timetable.TimeTableDeleteCommand;
 import seedu.duke.command.timetable.TimeTableViewCommand;
 import seedu.duke.data.Lesson;
 import seedu.duke.data.ModuleManager;
-import seedu.duke.data.TimeTable;
 import seedu.duke.exception.LessonInvalidTimeException;
 
 import java.time.DayOfWeek;
@@ -19,6 +17,7 @@ import java.util.regex.Pattern;
 
 import static seedu.duke.command.timetable.TimeTableCommand.TIMETABLE_LESSON_DELETE_USER_FORMAT;
 import static seedu.duke.command.timetable.TimeTableCommand.TIMETABLE_LESSON_PARAMETER_USER_FORMAT;
+import static seedu.duke.util.ExceptionMessage.MESSAGE_DATE_TIME_UNKNOWN;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_LESSON_INVALID_TIME;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_MODULE_NOT_FOUND;
 import static seedu.duke.util.Message.MESSAGE_CHECK_COMMAND_FORMAT;
@@ -38,7 +37,7 @@ public abstract class TimeTableCommandParser {
     public static final String FILTER_FORMAT = "-filter";
     public static final String VIEW_DAY_FORMAT = "-day";
     public static final String VIEW_WEEK_FORMAT = "-week";
-    private static final Pattern TIMETABLE_FORMAT = Pattern.compile("(?<commandFlag>-[a-zA-Z0-9]+)"
+    private static final Pattern TIMETABLE_FORMAT = Pattern.compile("(?<commandFlag>-[a-zA-Z]+)"
             + "(?<timeTableParams>.*)");
     private static final Pattern TIMETABLE_LESSON_PARAMETER_FORMAT =
             Pattern.compile("(?<module>\\S+\\s*)(?<day>\\S+\\s*)(?<start>\\d+\\s*)(?<end>\\d+\\s*)"
@@ -54,7 +53,8 @@ public abstract class TimeTableCommandParser {
      * @return IncorrectCommand or any of the timetable commands.
      * @throws NumberFormatException When the timetable view command is not given DAY, WEEK or a number.
      */
-    public static Command parseTimeTableCommand(String parameters) throws NumberFormatException {
+    public static Command parseTimeTableCommand(String parameters) throws IllegalArgumentException,
+            IllegalStateException {
         Command command;
         Matcher matcher = TIMETABLE_FORMAT.matcher(parameters);
 
@@ -74,13 +74,15 @@ public abstract class TimeTableCommandParser {
                 command = parseTimeTableFilterCommand(timeTableParams);
                 break;
             default: // Check if it is a view command
-                command = parseTimeTableViewCommand(commandFlag);
+                command = parseTimeTableViewCommand(commandFlag, timeTableParams);
                 break;
             }
         } catch (ModuleManager.ModuleNotFoundException e) {
             return new IncorrectCommand(MESSAGE_MODULE_NOT_FOUND);
         } catch (LessonInvalidTimeException e) {
             return new IncorrectCommand(MESSAGE_LESSON_INVALID_TIME);
+        } catch (DateTimeParseException e) {
+            return new IncorrectCommand(MESSAGE_DATE_TIME_UNKNOWN);
         }
         return command;
     }
@@ -94,8 +96,11 @@ public abstract class TimeTableCommandParser {
      * @param commandFlag User input determining if it is day, week or custom view.
      * @return TimeTableViewCommand or IncorrectCommand
      */
-    public static Command parseTimeTableViewCommand(String commandFlag) throws NumberFormatException {
+    public static Command parseTimeTableViewCommand(String commandFlag, String timeTableParams) {
         int daysToView;
+        if (!timeTableParams.isEmpty()) {
+            commandFlag = "";
+        }
         switch (commandFlag) {
         case VIEW_DAY_FORMAT:
             daysToView = 1;
@@ -122,7 +127,8 @@ public abstract class TimeTableCommandParser {
      * @throws DateTimeParseException When the time of either the start or end is in the wrong format.
      */
     public static Command parseTimeTableAddCommand(String lessonParams)
-            throws ModuleManager.ModuleNotFoundException, LessonInvalidTimeException, DateTimeParseException {
+            throws ModuleManager.ModuleNotFoundException, LessonInvalidTimeException, DateTimeParseException,
+            IllegalArgumentException, IllegalStateException {
         Matcher lessonMatcher = TIMETABLE_LESSON_PARAMETER_FORMAT.matcher(lessonParams);
 
         Parser.matcherMatches(lessonMatcher, lessonParams, TIMETABLE_LESSON_PARAMETER_USER_FORMAT);
@@ -142,12 +148,13 @@ public abstract class TimeTableCommandParser {
      *
      * @return TimeTableDeleteCommand or IncorrectCommand
      */
-    public static Command parseTimeTableDeleteCommand(String deleteParams) {
+    public static Command parseTimeTableDeleteCommand(String deleteParams) throws IllegalArgumentException,
+            IllegalStateException {
         Matcher lessonMatcher = TIMETABLE_DELETE_PARAMETER_FORMAT.matcher(deleteParams);
         Parser.matcherMatches(lessonMatcher, deleteParams, TIMETABLE_LESSON_DELETE_USER_FORMAT);
-        // Must account for the user input vs the actual week number
         String dayString = lessonMatcher.group(DAY_GROUP).toUpperCase().trim();
         DayOfWeek dayOfWeek = DayOfWeek.valueOf(dayString);
+        // Must account for the user input vs the week of year number
         int indexToBeDeleted = Integer.parseInt(lessonMatcher.group(INDEX_GROUP)) - 1;
         return new TimeTableDeleteCommand(dayOfWeek, indexToBeDeleted);
     }
