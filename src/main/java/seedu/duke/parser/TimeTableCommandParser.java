@@ -2,14 +2,12 @@ package seedu.duke.parser;
 
 import seedu.duke.command.Command;
 import seedu.duke.command.IncorrectCommand;
-import seedu.duke.command.grade.GradeCommand;
 import seedu.duke.command.timetable.TimeTableAddCommand;
 import seedu.duke.command.timetable.TimeTableCommand;
 import seedu.duke.command.timetable.TimeTableDeleteCommand;
 import seedu.duke.command.timetable.TimeTableViewCommand;
 import seedu.duke.data.Lesson;
 import seedu.duke.data.ModuleManager;
-import seedu.duke.data.TimeTable;
 import seedu.duke.exception.LessonInvalidTimeException;
 
 import java.time.DayOfWeek;

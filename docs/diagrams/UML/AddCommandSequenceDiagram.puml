@@ -23,50 +23,37 @@ end
 <-- ":AddCommandParser": AddCommand
 destroy ":AddCommandParser"
 
+--> ":AddModuleCommand": execute()
 activate ":AddModuleCommand"
-":AddModuleCommand" -> ":AddModuleCommand": execute()
-activate ":AddModuleCommand"
-":AddModuleCommand" --> ":AddModuleCommand"
-deactivate ":AddModuleCommand"
 create ":CommandResult"
-":AddModuleCommand" --> ":CommandResult": <<construct>>
+":AddModuleCommand" -> ":CommandResult": <<construct>>
+activate ":CommandResult"
+":AddModuleCommand" <- ":CommandResult": CommandResult
+deactivate ":CommandResult"
+<-- ":AddModuleCommand": CommandResult
 deactivate ":AddModuleCommand"
 destroy ":AddModuleCommand"
-":CommandResult" --> "ui:TextUi": showResultToUser()
-activate "ui:TextUi"
-deactivate "ui:TextUi"
-activate ":CommandResult"
-deactivate ":CommandResult"
 
-
+--> ":AddTaskCommand": execute()
 activate ":AddTaskCommand"
-":AddTaskCommand" -> ":AddTaskCommand": execute()
-activate ":AddTaskCommand"
-":AddTaskCommand" --> ":AddTaskCommand"
-deactivate ":AddTaskCommand"
 create ":CommandResult"
-":AddTaskCommand" --> ":CommandResult": <<construct>>
+":AddTaskCommand" -> ":CommandResult": <<construct>>
+activate ":CommandResult"
+":AddTaskCommand" <- ":CommandResult": CommandResult
+deactivate ":CommandResult"
+<-- ":AddTaskCommand": CommandResult
 deactivate ":AddTaskCommand"
 destroy ":AddTaskCommand"
-":CommandResult" --> "ui:TextUi": showResultToUser()
-activate "ui:TextUi"
-deactivate "ui:TextUi"
-activate ":CommandResult"
-deactivate ":CommandResult"
 
+--> ":IncorrectCommand": execute()
 activate ":IncorrectCommand"
-":IncorrectCommand" -> ":IncorrectCommand": execute()
-activate ":IncorrectCommand"
-":IncorrectCommand" --> ":IncorrectCommand"
-deactivate ":IncorrectCommand"
 create ":CommandResult"
-":IncorrectCommand" --> ":CommandResult": <<construct>>
+":IncorrectCommand" -> ":CommandResult": <<construct>>
+activate ":CommandResult"
+":IncorrectCommand" <- ":CommandResult": CommandResult
+deactivate ":CommandResult"
+<-- ":IncorrectCommand": CommandResult
 deactivate ":IncorrectCommand"
 destroy ":IncorrectCommand"
-":CommandResult" --> "ui:TextUi": showResultToUser()
-activate "ui:TextUi"
-deactivate "ui:TextUi"
-activate ":CommandResult"
-deactivate ":CommandResult"
 
 @enduml
