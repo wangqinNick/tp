@@ -1,6 +1,6 @@
 package seedu.duke.data;
 
-enum LessonType {
+public enum LessonType {
     TUTORIAL,
     LECTURE,
     SEMINAR,

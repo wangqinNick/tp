@@ -1,5 +1,6 @@
 package seedu.duke.parser;
 
+import seedu.duke.command.cap.CapCommand;
 import seedu.duke.command.Command;
 import seedu.duke.command.ExitCommand;
 import seedu.duke.command.IncorrectCommand;
@@ -7,18 +8,22 @@ import seedu.duke.command.add.AddCommand;
 import seedu.duke.command.delete.DeleteCommand;
 import seedu.duke.command.done.DoneCommand;
 import seedu.duke.command.edit.EditCommand;
+import seedu.duke.command.grade.GradeCommand;
 import seedu.duke.command.help.HelpCommand;
 import seedu.duke.command.list.ListCommand;
 import seedu.duke.command.misc.UndoCommand;
+import seedu.duke.command.summary.SummaryCommand;
+import seedu.duke.command.timetable.TimeTableCommand;
 
-import java.security.InvalidParameterException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static seedu.duke.util.ExceptionMessage.MESSAGE_INVALID_COMMAND_WORD;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_INVALID_PARAMETERS;
+import static seedu.duke.util.ExceptionMessage.MESSAGE_STRING_IN_NUMBER;
 import static seedu.duke.util.Message.MESSAGE_EMPTY_INPUT;
 import static seedu.duke.util.Message.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.duke.util.Message.MESSAGE_CHECK_COMMAND_FORMAT;
 
 public class Parser {
     public enum TypeOfEntries {
@@ -67,29 +72,36 @@ public class Parser {
             String parameters = isMatcherNull(matcher.group(PARAMETERS_GROUP))
                     ? null : matcher.group(PARAMETERS_GROUP).trim();
 
-            if (commandWord.equals(ExitCommand.COMMAND_WORD)) {
+            switch (commandWord) {
+            case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
-            } else if (commandWord.equals(HelpCommand.COMMAND_WORD)) {
+            case CapCommand.COMMAND_WORD:
+                return CapCommandParser.prepareCapCommand(parameters);
+            case GradeCommand.COMMAND_WORD:
+                return GradeCommandParser.prepareGradeCommand(parameters);
+            case UndoCommand.COMMAND_WORD:
+                return new UndoCommand();
+            case EditCommand.COMMAND_WORD:
+                return EditCommandParser.getEditCommand(parameters);
+            case AddCommand.COMMAND_WORD:
+                return AddCommandParser.prepareAddCommand(parameters);
+            case DeleteCommand.COMMAND_WORD:
+                return DeleteCommandParser.getDeleteCommand(parameters);
+            case DoneCommand.COMMAND_WORD:
+                return DoneCommandParser.prepareDoneCommand(parameters);
+            case ListCommand.COMMAND_WORD:
+                return ListCommandParser.getListCommand(parameters); //command flag is the -t or -m
+            case SummaryCommand.COMMAND_WORD:
+                return new SummaryCommand();
+            case TimeTableCommand.COMMAND_WORD:
+                return TimeTableCommandParser.parseTimeTableCommand(parameters);
+            case HelpCommand.COMMAND_WORD:
+            default:
                 return new HelpCommand();
-            } else {
-                switch (commandWord) {
-                case UndoCommand.COMMAND_WORD:
-                    return new UndoCommand();
-                case EditCommand.COMMAND_WORD:
-                    return EditCommandParser.getEditCommand(parameters);
-                case AddCommand.COMMAND_WORD:
-                    return AddCommandParser.prepareAddCommand(parameters);
-                case DeleteCommand.COMMAND_WORD:
-                    return DeleteCommandParser.getDeleteCommand(parameters);
-                case DoneCommand.COMMAND_WORD:
-                    return DoneCommandParser.prepareDoneCommand(parameters);
-                case ListCommand.COMMAND_WORD:
-                    return ListCommandParser.getListCommand(parameters); //command flag is the -t or -m
-                default:
-                    return new HelpCommand();
-                }
             }
-        } catch (InvalidParameterException | NumberFormatException | IllegalStateException e) {
+        } catch (NumberFormatException e) {
+            return new IncorrectCommand(MESSAGE_STRING_IN_NUMBER);
+        } catch (IllegalStateException | IllegalArgumentException e) {
             return new IncorrectCommand(MESSAGE_INVALID_PARAMETERS);
         } catch (NullPointerException e) {
             return new IncorrectCommand(MESSAGE_INVALID_COMMAND_WORD);
@@ -115,5 +127,25 @@ public class Parser {
             }
         }
         return true;
+    }
+
+    /**
+     * Checks if the user input matches the REGEX format of the parser.
+     *
+     * @param matcher
+     * the format to follow
+     * @param parameters
+     * the user input
+     * @param format
+     * the actual correct format if user input doesn't match
+     * @return
+     * message to user showing the actual correct format
+     */
+    protected static Command matcherMatches(Matcher matcher, String parameters, String format) {
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
+                    MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT, format));
+        }
+        return null;
     }
 }

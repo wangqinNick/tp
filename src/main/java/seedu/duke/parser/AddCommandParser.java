@@ -5,6 +5,7 @@ import seedu.duke.command.IncorrectCommand;
 import seedu.duke.command.add.AddCommand;
 import seedu.duke.command.add.AddModuleCommand;
 import seedu.duke.command.add.AddTaskCommand;
+import seedu.duke.command.grade.GradeCommand;
 
 import java.security.InvalidParameterException;
 import java.util.regex.Matcher;
@@ -28,10 +29,7 @@ public class AddCommandParser {
     protected static Command prepareAddCommand(String parameters)
             throws InvalidParameterException, IllegalStateException {
         Matcher matcher = ADD_FORMAT.matcher(parameters);
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
-                    MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT, AddCommand.FORMAT));
-        }
+        Parser.matcherMatches(matcher, parameters, AddCommand.FORMAT);
 
         String commandFlag = Parser.isMatcherNull(matcher.group(COMMAND_FLAG_GROUP))
                 ? null : matcher.group(COMMAND_FLAG_GROUP).toLowerCase().trim();
