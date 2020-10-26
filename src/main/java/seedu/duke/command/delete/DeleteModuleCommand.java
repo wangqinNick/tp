@@ -31,7 +31,7 @@ public class DeleteModuleCommand extends DeleteCommand {
     }
 
     /**
-     * Deletes the module from the module list.
+     * Executes the DeleteModuleCommand to delete the module from the module list.
      *
      * @return CommandResult containing acknowledgement of the delete or errors.
      */

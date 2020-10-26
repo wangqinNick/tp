@@ -12,7 +12,7 @@ public class AddModuleCommand extends AddCommand {
     private String module;
 
     /**
-     * Constructs AddModuleCommand and tests the format of the deadline.
+     * Constructs AddModuleCommand.
      *
      * @param module Module code to be added.
      */
@@ -33,7 +33,7 @@ public class AddModuleCommand extends AddCommand {
     }
 
     /**
-     * Adds the module to the module list.
+     * Executes the AddModuleCommand to add the module to the module list.
      *
      * @return CommandResult containing acknowledgement of the add module or messages from exceptions.
      */

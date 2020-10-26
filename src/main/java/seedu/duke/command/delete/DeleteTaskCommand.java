@@ -31,7 +31,7 @@ public class DeleteTaskCommand extends DeleteCommand {
     }
 
     /**
-     * Deletes the task from the task list.
+     * Executes the DeleteTaskCommand to delete the task from the task list.
      *
      * @return CommandResult containing acknowledgement of the delete or errors.
      */
