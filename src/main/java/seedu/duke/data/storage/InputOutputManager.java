@@ -116,12 +116,8 @@ public class InputOutputManager {
         logger.getLogger().info("Saving NUS modules into " + nusModuleFileName);
         try {
             Encoder.saveNusModules(nusModuleFile.toString());
-        } catch (ModuleManager.ModuleNotFoundException e) {
+        } catch (ModuleManager.ModuleNotFoundException | IOException e) {
             logger.getLogger().log(Level.WARNING, e.getLocalizedMessage(), e);
-            // print module not found
-        } catch (IOException e) {
-            logger.getLogger().log(Level.WARNING, e.getLocalizedMessage(), e);
-            e.printStackTrace();
         }
     }
 }
