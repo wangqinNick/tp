@@ -97,7 +97,7 @@ public class Parser {
                 return TimeTableCommandParser.parseTimeTableCommand(parameters);
             case HelpCommand.COMMAND_WORD:
             default:
-                return new HelpCommand();
+                return HelpCommandParser.prepareHelpCommand(parameters);
             }
         } catch (NumberFormatException e) {
             return new IncorrectCommand(MESSAGE_STRING_IN_NUMBER);
