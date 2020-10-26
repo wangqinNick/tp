@@ -1,7 +1,10 @@
 package seedu.duke.command.add;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import seedu.duke.command.CommandResult;
+import seedu.duke.data.ModuleManager;
+import seedu.duke.data.storage.InputOutputManager;
 import seedu.duke.util.ExceptionMessage;
 
 import java.time.format.DateTimeParseException;
@@ -15,6 +18,11 @@ public class AddCommandTest {
     static final String BAD_DEADLINE = "bad_deadline";
     static final String EMPTY_DEADLINE = "";
     static final String SPACES_DEADLINE = "        ";
+
+    @BeforeAll
+    static void setup() {
+        InputOutputManager.loadNusModSave();
+    }
 
     @Test
     void addModule_duplicateModuleMessage_isShown() {
