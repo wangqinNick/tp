@@ -3,7 +3,9 @@ package seedu.duke.command.timetable;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import seedu.duke.command.Command;
 import seedu.duke.command.CommandResult;
+import seedu.duke.command.IncorrectCommand;
 import seedu.duke.data.Lesson;
 import seedu.duke.data.LessonType;
 import seedu.duke.data.Module;
@@ -11,12 +13,14 @@ import seedu.duke.data.ModuleManager;
 import seedu.duke.data.TimeTableManager;
 import seedu.duke.exception.LessonInvalidTimeException;
 import seedu.duke.exception.TimeTableInitialiseException;
+import seedu.duke.parser.TimeTableCommandParser;
 import seedu.duke.util.ExceptionMessage;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TimeTableCommandTest {
     static final int BAD_REPEAT_FREQ = 4;
@@ -30,7 +34,7 @@ public class TimeTableCommandTest {
     static final String MOD_CODE_1 = "CS2113T";
     static final String MOD_CODE_2 = "CG2271";
     static final String MOD_CODE_3 = "MA1511";
-    static final String badViewFormat = "";
+    static final String badViewFormat = "-no";
 
     static final DayOfWeek DAY_OF_WEEK = DayOfWeek.MONDAY;
     static final LocalTime LESSON_1_START = LocalTime.of(14,0);
@@ -81,6 +85,7 @@ public class TimeTableCommandTest {
 
     @Test
     void viewTimeTable_badViewFormat_IncorrectCommand_isReturned() {
-
+        Command timeTableviewCommand = TimeTableCommandParser.parseTimeTableViewCommand(badViewFormat);
+        assertTrue(timeTableviewCommand instanceof IncorrectCommand);
     }
 }
