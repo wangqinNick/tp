@@ -13,7 +13,7 @@ else TASK_PREFIX
     activate ":AddTaskCommand"
     ":AddCommandParser" <-- ":AddTaskCommand": AddTaskCommand
     deactivate ":AddTaskCommand"
-else
+else UNKNOWN_PREFIX
     create ":IncorrectCommand"
     ":AddCommandParser" -> ":IncorrectCommand": <<construct>>
     activate ":IncorrectCommand"
