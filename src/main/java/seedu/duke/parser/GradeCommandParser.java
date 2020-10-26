@@ -2,6 +2,7 @@ package seedu.duke.parser;
 
 import seedu.duke.command.Command;
 import seedu.duke.command.grade.GradeCommand;
+import seedu.duke.exception.InvalidMatchException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,7 +14,8 @@ public class GradeCommandParser {
     protected static final Pattern GRADE_FORMAT =
             Pattern.compile("(?<module>[a-zA-Z0-9]+)" + "(?<mc>\\s\\S+)" + "(?<grade>.*)");
 
-    protected static Command prepareGradeCommand(String parameters) throws NumberFormatException {
+    protected static Command prepareGradeCommand(String parameters)
+            throws NumberFormatException, InvalidMatchException {
         Matcher matcher = GRADE_FORMAT.matcher(parameters);
 
         Parser.matcherMatches(matcher, parameters, GradeCommand.FORMAT, GradeCommand.PROMPT_HELP);

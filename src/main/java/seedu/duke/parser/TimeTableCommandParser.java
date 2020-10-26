@@ -8,6 +8,7 @@ import seedu.duke.command.timetable.TimeTableDeleteCommand;
 import seedu.duke.command.timetable.TimeTableViewCommand;
 import seedu.duke.data.Lesson;
 import seedu.duke.data.ModuleManager;
+import seedu.duke.exception.InvalidMatchException;
 import seedu.duke.exception.LessonInvalidTimeException;
 
 import java.time.DayOfWeek;
@@ -52,7 +53,8 @@ public abstract class TimeTableCommandParser {
      * @return IncorrectCommand or any of the timetable commands.
      * @throws NumberFormatException When the timetable view command is not given DAY, WEEK or a number.
      */
-    public static Command parseTimeTableCommand(String parameters) throws NumberFormatException {
+    public static Command parseTimeTableCommand(String parameters)
+            throws NumberFormatException, InvalidMatchException {
         Command command;
         Matcher matcher = TIMETABLE_FORMAT.matcher(parameters);
 
@@ -120,7 +122,8 @@ public abstract class TimeTableCommandParser {
      * @throws DateTimeParseException When the time of either the start or end is in the wrong format.
      */
     public static Command parseTimeTableAddCommand(String lessonParams)
-            throws ModuleManager.ModuleNotFoundException, LessonInvalidTimeException, DateTimeParseException {
+            throws ModuleManager.ModuleNotFoundException, LessonInvalidTimeException,
+            DateTimeParseException, InvalidMatchException {
         Matcher lessonMatcher = TIMETABLE_LESSON_PARAMETER_FORMAT.matcher(lessonParams);
 
         Parser.matcherMatches(lessonMatcher, lessonParams, TIMETABLE_LESSON_PARAMETER_USER_FORMAT,
@@ -141,7 +144,7 @@ public abstract class TimeTableCommandParser {
      *
      * @return TimeTableDeleteCommand or IncorrectCommand
      */
-    public static Command parseTimeTableDeleteCommand(String deleteParams) {
+    public static Command parseTimeTableDeleteCommand(String deleteParams) throws InvalidMatchException {
         Matcher lessonMatcher = TIMETABLE_DELETE_PARAMETER_FORMAT.matcher(deleteParams);
         Parser.matcherMatches(lessonMatcher, deleteParams, TIMETABLE_LESSON_DELETE_USER_FORMAT,
                 TimeTableCommand.PROMPT_HELP);

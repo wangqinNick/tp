@@ -5,6 +5,7 @@ import seedu.duke.command.IncorrectCommand;
 import seedu.duke.command.add.AddCommand;
 import seedu.duke.command.edit.EditModuleCommand;
 import seedu.duke.command.edit.EditTaskCommand;
+import seedu.duke.exception.InvalidMatchException;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -32,14 +33,14 @@ class ParserTest {
     }
 
     @Test
-    void prepareEditModuleCommandTest() {
+    void prepareEditModuleCommandTest() throws InvalidMatchException {
 
         assertTrue(new EditCommandParser().prepareEditModuleCommand("cs2113 cs3224")
                 instanceof EditModuleCommand);
     }
 
     @Test
-    void prepareEditTaskCommandTest_returnsEditTaskCommand() {
+    void prepareEditTaskCommandTest_returnsEditTaskCommand() throws InvalidMatchException {
         assertTrue(new EditCommandParser().prepareEditTaskCommand(TASK_TO_EDIT)
                 instanceof EditTaskCommand);
     }
@@ -51,7 +52,7 @@ class ParserTest {
     }
 
     @Test
-    void prepareAddCommandTest_returnsAddCommand() {
+    void prepareAddCommandTest_returnsAddCommand() throws InvalidMatchException {
         assertTrue(new AddCommandParser().prepareAddCommand(TASK_TO_ADD_WITH_DEADLINE)
                 instanceof AddCommand);
         assertTrue(new AddCommandParser().prepareAddCommand(TASK_TO_ADD_WITHOUT_DEADLINE)
@@ -59,7 +60,7 @@ class ParserTest {
     }
 
     @Test
-    void prepareAddCommandTest_returnsIncorrectCommand() {
+    void prepareAddCommandTest_returnsIncorrectCommand() throws InvalidMatchException {
         assertTrue(new AddCommandParser().prepareAddCommand(BAD_TASK_TO_ADD)
                 instanceof IncorrectCommand);
     }
