@@ -23,13 +23,14 @@ public class HelpCommand extends Command {
                                         + "\n                 help add\n";
     private String commandType;
 
-    public HelpCommand(String commandType){
+    public HelpCommand(String commandType) {
         this.commandType = commandType;
     }
+
     /**
      * Prints help message.
      *
-     * @return CommandResult containing list of available commands
+     * @return CommandResult containing help message for that command
      */
     @Override
     public CommandResult execute() {

@@ -22,6 +22,7 @@ public class GradeCommand extends Command {
     public static final String HELP =   "Grades and allocates the Module Credit to the Module."
                                         + "\n\tFormat: " + FORMAT
                                         + "\n\tExample usage: grade CS2113T 4 A+";
+
     /**
      * Constructs GradeCommand.
      *
