@@ -15,7 +15,7 @@ Repository Assistant with a Versatile Interface (ra.VI) is a desktop app for man
 Some example commands you can try:
 * `add -t`: Add a task
 * `list -t`: List all tasks
-* `exit`: Exit the program read chapter 1`
+* `bye`: Exit the program read chapter 1`
 5. Refer to the Features below for details of each command
 
 ## Features 
@@ -40,7 +40,7 @@ Format: `add -m <module_code>`
 Example of usage: 
 * `add -m CS1231`
 
-### Editing an item: `edit <opt><args>`
+### Editing an item: `edit <opt> <args>`
 #### Editing a task description: `edit -t <task_index> <args>`
 Edit a task description in the scheduler.  
 Format: `edit -t <task_index> <args>`
@@ -55,7 +55,7 @@ Format: `edit -m <module_code> <new_module_code>`
 Example of usage: 
 * `edit -m CS2113 CS2113T`
 
-### Deleting an item: `del <opt><args>`
+### Deleting an item: `del <opt> <args>`
 #### Deleting a task: `del -t <task_index>`
 Remove a task from the scheduler.  
 Format: `del -t <task_index>`
