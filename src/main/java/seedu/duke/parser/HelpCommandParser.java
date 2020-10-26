@@ -15,7 +15,7 @@ public class HelpCommandParser {
     protected static Command prepareHelpCommand(String parameters) throws InvalidParameterException {
         Matcher matcher = HELP_FORMAT.matcher(parameters);
 
-        Parser.matcherMatches(matcher, parameters, HelpCommand.FORMAT);
+        Parser.matcherMatches(matcher, parameters, HelpCommand.FORMAT,HelpCommand.HELP);
 
         String helpCommandWord = Parser.isMatcherNull(matcher.group(HCW_GROUP))
                 ? "genericHelp" : matcher.group(HCW_GROUP).trim();
