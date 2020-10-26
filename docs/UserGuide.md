@@ -41,12 +41,14 @@ Example of usage:
 * `add -m CS1231`
 
 ### Editing an item: `edit <opt> <args>`
-#### Editing a task description: `edit -t <task_index> <args>`
+#### Editing a task description: `edit -t <task_index> <task_name>`
 Edit a task description in the scheduler.  
-Format: `edit -t <task_index> <args>`
+Format: `edit -t <task_index> <task_name>`
 
 Example of usage: 
 * `edit -t 3 revise for CS2113`
+
+Note: You can find the task indexes with `list -t`  
 
 #### Editing a module: `edit -m <module_code> <new_module_code>`
 Edit a module code in the scheduler.  
@@ -69,6 +71,8 @@ Format: `del -m <module_code>`
 
 Example of usage: 
 * `del -m CS1010`
+
+Note: You can find the task indexes with `list -t`  
 
 ### Listing all items: `list <opt> <args>`
 #### Listing all tasks: `list -t`
