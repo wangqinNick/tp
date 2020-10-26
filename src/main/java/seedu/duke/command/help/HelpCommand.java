@@ -15,13 +15,13 @@ import seedu.duke.command.timetable.TimeTableCommand;
 import seedu.duke.ui.TextUi;
 
 public class HelpCommand extends Command {
+    private String commandType;
     public static final String COMMAND_WORD = "help";
     public static final String FORMAT = COMMAND_WORD + " [<command_word>]";
     public static final String HELP =   "View command information."
                                         + "\n\tFormat: " + FORMAT
                                         + "\n\tExample usage: help"
                                         + "\n                 help add\n";
-    private String commandType;
 
     public HelpCommand(String commandType) {
         this.commandType = commandType;

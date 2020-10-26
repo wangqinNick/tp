@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 public class DoneCommandParser {
     protected static final String NUMBER_GROUP = "digit";
-    protected static final Pattern DONE_FORMAT = Pattern.compile("(?<digit>.*)");
+    protected static final Pattern DONE_FORMAT = Pattern.compile("(?<digit>\\S+)");
 
     protected static Command prepareDoneCommand(String parameters)
             throws NumberFormatException, InvalidParameterException, InvalidMatchException {
