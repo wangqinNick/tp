@@ -1,0 +1,72 @@
+@startuml
+-> ":AddCommandParser": prepareAddCommand()
+activate ":AddCommandParser"
+alt MODULE_PREFIX
+    create ":AddModuleCommand"
+    ":AddCommandParser" -> ":AddModuleCommand": <<construct>> getAddCommand()
+    activate ":AddModuleCommand"
+    ":AddCommandParser" <-- ":AddModuleCommand": AddModuleCommand
+    deactivate ":AddModuleCommand"
+else TASK_PREFIX
+    create ":AddTaskCommand"
+    ":AddCommandParser" -> ":AddTaskCommand": <<construct>> getAddCommand()
+    activate ":AddTaskCommand"
+    ":AddCommandParser" <-- ":AddTaskCommand": AddTaskCommand
+    deactivate ":AddTaskCommand"
+else
+    create ":IncorrectCommand"
+    ":AddCommandParser" -> ":IncorrectCommand": <<construct>>
+    activate ":IncorrectCommand"
+    ":AddCommandParser" <- ":IncorrectCommand"
+    deactivate ":IncorrectCommand"
+end
+<-- ":AddCommandParser": AddCommand
+destroy ":AddCommandParser"
+
+activate ":AddModuleCommand"
+":AddModuleCommand" -> ":AddModuleCommand": execute()
+activate ":AddModuleCommand"
+":AddModuleCommand" --> ":AddModuleCommand"
+deactivate ":AddModuleCommand"
+create ":CommandResult"
+":AddModuleCommand" --> ":CommandResult": <<construct>>
+deactivate ":AddModuleCommand"
+destroy ":AddModuleCommand"
+":CommandResult" --> "ui:TextUi": showResultToUser()
+activate "ui:TextUi"
+deactivate "ui:TextUi"
+activate ":CommandResult"
+deactivate ":CommandResult"
+
+
+activate ":AddTaskCommand"
+":AddTaskCommand" -> ":AddTaskCommand": execute()
+activate ":AddTaskCommand"
+":AddTaskCommand" --> ":AddTaskCommand"
+deactivate ":AddTaskCommand"
+create ":CommandResult"
+":AddTaskCommand" --> ":CommandResult": <<construct>>
+deactivate ":AddTaskCommand"
+destroy ":AddTaskCommand"
+":CommandResult" --> "ui:TextUi": showResultToUser()
+activate "ui:TextUi"
+deactivate "ui:TextUi"
+activate ":CommandResult"
+deactivate ":CommandResult"
+
+activate ":IncorrectCommand"
+":IncorrectCommand" -> ":IncorrectCommand": execute()
+activate ":IncorrectCommand"
+":IncorrectCommand" --> ":IncorrectCommand"
+deactivate ":IncorrectCommand"
+create ":CommandResult"
+":IncorrectCommand" --> ":CommandResult": <<construct>>
+deactivate ":IncorrectCommand"
+destroy ":IncorrectCommand"
+":CommandResult" --> "ui:TextUi": showResultToUser()
+activate "ui:TextUi"
+deactivate "ui:TextUi"
+activate ":CommandResult"
+deactivate ":CommandResult"
+
+@enduml
