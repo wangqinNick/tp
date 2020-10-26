@@ -5,6 +5,7 @@ import seedu.duke.command.CommandResult;
 import seedu.duke.data.Module;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.exception.InvalidGradeException;
+import seedu.duke.ui.TextUi;
 
 import static seedu.duke.util.ExceptionMessage.MESSAGE_MODULE_NOT_FOUND;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_INVALID_GRADE;
@@ -16,8 +17,11 @@ public class GradeCommand extends Command {
     private int moduleCredit;
     private String grade;
     public static final String COMMAND_WORD = "grade";
-    public static final String FORMAT = COMMAND_WORD + "<module> <Module Credit> <graded>";
-
+    public static final String FORMAT = COMMAND_WORD + "<module> <modular_credit> <grade>";
+    public static final String PROMPT_HELP = TextUi.getCommandHelpMessage(COMMAND_WORD);
+    public static final String HELP =   "Grades and allocates the Module Credit to the Module." +
+                                        "\n\tFormat: " + FORMAT +
+                                        "\n\tExample usage: grade CS2113T 4 A+";
     /**
      * Constructs GradeCommand.
      *

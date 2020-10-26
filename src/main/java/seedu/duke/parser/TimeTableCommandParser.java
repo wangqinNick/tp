@@ -2,14 +2,12 @@ package seedu.duke.parser;
 
 import seedu.duke.command.Command;
 import seedu.duke.command.IncorrectCommand;
-import seedu.duke.command.grade.GradeCommand;
 import seedu.duke.command.timetable.TimeTableAddCommand;
 import seedu.duke.command.timetable.TimeTableCommand;
 import seedu.duke.command.timetable.TimeTableDeleteCommand;
 import seedu.duke.command.timetable.TimeTableViewCommand;
 import seedu.duke.data.Lesson;
 import seedu.duke.data.ModuleManager;
-import seedu.duke.data.TimeTable;
 import seedu.duke.exception.LessonInvalidTimeException;
 
 import java.time.DayOfWeek;
@@ -58,7 +56,7 @@ public abstract class TimeTableCommandParser {
         Command command;
         Matcher matcher = TIMETABLE_FORMAT.matcher(parameters);
 
-        Parser.matcherMatches(matcher, parameters, TimeTableCommand.FORMAT);
+        Parser.matcherMatches(matcher, parameters, TimeTableCommand.FORMAT, TimeTableCommand.PROMPT_HELP);
 
         try {
             String commandFlag = matcher.group(Parser.COMMAND_FLAG_GROUP).toLowerCase().trim();
@@ -125,7 +123,7 @@ public abstract class TimeTableCommandParser {
             throws ModuleManager.ModuleNotFoundException, LessonInvalidTimeException, DateTimeParseException {
         Matcher lessonMatcher = TIMETABLE_LESSON_PARAMETER_FORMAT.matcher(lessonParams);
 
-        Parser.matcherMatches(lessonMatcher, lessonParams, TIMETABLE_LESSON_PARAMETER_USER_FORMAT);
+        Parser.matcherMatches(lessonMatcher, lessonParams, TIMETABLE_LESSON_PARAMETER_USER_FORMAT, TimeTableCommand.PROMPT_HELP);
 
         Lesson newLesson = LessonParser.parseLesson(lessonMatcher);
         // Convert repeatString to int
@@ -144,7 +142,7 @@ public abstract class TimeTableCommandParser {
      */
     public static Command parseTimeTableDeleteCommand(String deleteParams) {
         Matcher lessonMatcher = TIMETABLE_DELETE_PARAMETER_FORMAT.matcher(deleteParams);
-        Parser.matcherMatches(lessonMatcher, deleteParams, TIMETABLE_LESSON_DELETE_USER_FORMAT);
+        Parser.matcherMatches(lessonMatcher, deleteParams, TIMETABLE_LESSON_DELETE_USER_FORMAT,TimeTableCommand.PROMPT_HELP);
         // Must account for the user input vs the actual week number
         String dayString = lessonMatcher.group(DAY_GROUP).toUpperCase().trim();
         DayOfWeek dayOfWeek = DayOfWeek.valueOf(dayString);
