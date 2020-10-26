@@ -81,7 +81,7 @@ public class AddTaskCommand extends AddCommand {
     }
 
     /**
-     * Adds the task to the task list.
+     * Executes the AddTaskCommand to add the task to the task list.
      *
      * @return CommandResult containing acknowledgement of the add task or messages from exceptions.
      */
