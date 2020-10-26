@@ -95,7 +95,8 @@ public abstract class TimeTableCommandParser {
      * timetable -week
      *
      * @param commandFlag User input determining if it is day, week or custom view.
-     * @return TimeTableViewCommand or IncorrectCommand
+     * @param timeTableParams Remaining user input.
+     * @return TimeTableViewCommand or IncorrectCommand.
      */
     public static Command parseTimeTableViewCommand(String commandFlag, String timeTableParams) {
         int daysToView;
@@ -110,8 +111,7 @@ public abstract class TimeTableCommandParser {
             daysToView = 7;
             break;
         default:
-            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
-                    MESSAGE_INVALID_COMMAND_FORMAT, commandFlag,
+            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n", MESSAGE_INVALID_COMMAND_FORMAT, commandFlag,
                     MESSAGE_CHECK_COMMAND_FORMAT, TimeTableCommand.FORMAT));
         }
         return new TimeTableViewCommand(daysToView);
@@ -126,6 +126,7 @@ public abstract class TimeTableCommandParser {
      * @throws ModuleManager.ModuleNotFoundException When the module is not found in the module list.
      * @throws LessonInvalidTimeException When the start is greater than or equal to end time of the Lesson.
      * @throws DateTimeParseException When the time of either the start or end is in the wrong format.
+     * @throws InvalidMatchException When the lessonParams do not match the TimeTableAddCommand regex.
      */
     public static Command parseTimeTableAddCommand(String lessonParams)
             throws ModuleManager.ModuleNotFoundException, LessonInvalidTimeException,
@@ -149,12 +150,12 @@ public abstract class TimeTableCommandParser {
      * index can be found through timetable -week
      *
      * @return TimeTableDeleteCommand or IncorrectCommand
+     * @throws InvalidMatchException When the lessonParams do not match the TimeTableDeleteCommand regex.
      */
     public static Command parseTimeTableDeleteCommand(String deleteParams) throws InvalidMatchException {
         Matcher lessonMatcher = TIMETABLE_DELETE_PARAMETER_FORMAT.matcher(deleteParams);
         Parser.matcherMatches(lessonMatcher, deleteParams, TIMETABLE_LESSON_DELETE_USER_FORMAT,
                 TimeTableCommand.PROMPT_HELP);
-        // Must account for the user input vs the actual week number
         String dayString = lessonMatcher.group(DAY_GROUP).toUpperCase().trim();
         DayOfWeek dayOfWeek = DayOfWeek.valueOf(dayString);
         // Must account for the user input vs the week of year number
