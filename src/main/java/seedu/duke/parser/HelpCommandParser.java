@@ -2,6 +2,7 @@ package seedu.duke.parser;
 
 import seedu.duke.command.Command;
 import seedu.duke.command.help.HelpCommand;
+import seedu.duke.exception.InvalidMatchException;
 
 import java.security.InvalidParameterException;
 import java.util.regex.Matcher;
@@ -12,7 +13,8 @@ public class HelpCommandParser {
     protected static final Pattern HELP_FORMAT =
             Pattern.compile("((?<helpCommandWord>\\S+)?)");
 
-    protected static Command prepareHelpCommand(String parameters) throws InvalidParameterException {
+    protected static Command prepareHelpCommand(String parameters)
+            throws InvalidParameterException, InvalidMatchException {
         Matcher matcher = HELP_FORMAT.matcher(parameters);
 
         Parser.matcherMatches(matcher, parameters, HelpCommand.FORMAT,HelpCommand.HELP);
