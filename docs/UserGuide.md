@@ -9,7 +9,7 @@ Repository Assistant with a Versatile Interface (ra.VI) is a desktop app for man
 {Give steps to get started quickly}
 
 1. Ensure that you have Java 11 or above installed.
-2. Down the latest version of `ra.VI` from [here](http://link.to/duke).
+2. Download the latest version of `ra.VI` from [here](https://github.com/AY2021S1-CS2113T-T09-2/tp/releases/tag/v1.0).
 3. Copy the file to the folder you want to use as the home folder for your scheduler. Double-click the file to start the app. 
 4. Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter will open the help window.  
 Some example commands you can try:
@@ -24,14 +24,14 @@ Some example commands you can try:
 ### Viewing help: `help`
 Shows a message with the list of available commands and functions.
 
-### Adding an item: `add <opt><args>`
+### Adding an item: `add <opt> <args>`
 #### Adding a task: `add -t [-by]`
 Add a task to the scheduler.  
 Format: `add -t <task_name> [-by <deadline>]`
 
 Example of usage: 
 * `add -t read chapter 1`
-* `add -t read chapter 1 -by 12 Sep`
+* `add -t read chapter 1 -by 30-12-2020 1800`
 
 #### Adding a module: `add -m`
 Add a module to the scheduler.  
@@ -53,7 +53,7 @@ Edit a module code in the scheduler.
 Format: `edit -m <module_code> <new_module_code>`
 
 Example of usage: 
-* `edit -m “CS2113” “CS2113T”`
+* `edit -m CS2113 CS2113T`
 
 ### Deleting an item: `del <opt><args>`
 #### Deleting a task: `del -t <task_index>`
@@ -88,7 +88,7 @@ Example of usage:
 
 ### Exiting the program: `bye`
 Exits ra.VI.  
-Format:`exit`
+Format: `bye`
 
 ## FAQ
 
