@@ -10,9 +10,9 @@ import static seedu.duke.util.Message.MESSAGE_DELETE_MODULE_SUCCESS;
 public class DeleteModuleCommand extends DeleteCommand {
     private String moduleCode;
     public static final String FORMAT = DeleteCommand.COMMAND_WORD + " -m" + " <module_code>";
-    public static final String HELP =   "Delete a module from the scheduler." +
-                                        "\n\tFormat: " + FORMAT +
-                                        "\n\tExample usage: del -m CS2113T";
+    public static final String HELP =   "Delete a module from the scheduler."
+                                        + "\n\tFormat: " + FORMAT
+                                        + "\n\tExample usage: del -m CS2113T";
 
     /**
      * Constructor to delete module from module list.

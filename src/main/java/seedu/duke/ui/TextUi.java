@@ -174,7 +174,7 @@ public class TextUi {
     }
 
     /**
-     * gets command list
+     * Gets command list.
      *
      * @return the list of available commands
      */
@@ -183,11 +183,11 @@ public class TextUi {
     }
 
     /**
-     * gets Help Message.
+     * Gets Help Message prompt.
      *
      * @return the list of available commands
      */
-    public static String getCommandHelpMessage(String commandWord){
+    public static String getCommandHelpMessage(String commandWord) {
         return String.format("For more information on %s, type `help %s`", commandWord, commandWord);
     }
 

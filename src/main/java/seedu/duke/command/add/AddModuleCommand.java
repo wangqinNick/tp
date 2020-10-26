@@ -1,6 +1,5 @@
 package seedu.duke.command.add;
 
-import seedu.duke.command.Command;
 import seedu.duke.command.CommandResult;
 import seedu.duke.command.PromptType;
 import seedu.duke.data.Module;
@@ -13,9 +12,9 @@ import static seedu.duke.util.Message.MESSAGE_ADD_MODULE_SUCCESS;
 public class AddModuleCommand extends AddCommand {
     private String module;
     public static final String FORMAT = COMMAND_WORD + " -m <module_code>";
-    public static final String HELP =   "Add a module from NUSMods to the scheduler." +
-                                        "\n\tFormat: " + FORMAT +
-                                        "\n\tExample usage: add -m CS2113T";
+    public static final String HELP =   "Add a module from NUSMods to the scheduler."
+                                        + "\n\tFormat: " + FORMAT
+                                        + "\n\tExample usage: add -m CS2113T";
 
     /**
      * Constructs AddModuleCommand.

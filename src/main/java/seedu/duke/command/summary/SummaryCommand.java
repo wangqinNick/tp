@@ -9,8 +9,8 @@ import static seedu.duke.util.Message.MESSAGE_SUMMARY_PRINTED;
 
 public class SummaryCommand extends Command {
     public static final String COMMAND_WORD = "summary";
-    public static final String HELP =   "View task summary" +
-                                        "\n\tFormat: " + COMMAND_WORD;
+    public static final String HELP =   "View task summary"
+                                        + "\n\tFormat: " + COMMAND_WORD;
 
     /**
      * Lists the tasks from respective lists in summaryLists.

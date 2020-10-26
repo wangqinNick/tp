@@ -123,7 +123,8 @@ public abstract class TimeTableCommandParser {
             throws ModuleManager.ModuleNotFoundException, LessonInvalidTimeException, DateTimeParseException {
         Matcher lessonMatcher = TIMETABLE_LESSON_PARAMETER_FORMAT.matcher(lessonParams);
 
-        Parser.matcherMatches(lessonMatcher, lessonParams, TIMETABLE_LESSON_PARAMETER_USER_FORMAT, TimeTableCommand.PROMPT_HELP);
+        Parser.matcherMatches(lessonMatcher, lessonParams, TIMETABLE_LESSON_PARAMETER_USER_FORMAT,
+                TimeTableCommand.PROMPT_HELP);
 
         Lesson newLesson = LessonParser.parseLesson(lessonMatcher);
         // Convert repeatString to int
@@ -142,7 +143,8 @@ public abstract class TimeTableCommandParser {
      */
     public static Command parseTimeTableDeleteCommand(String deleteParams) {
         Matcher lessonMatcher = TIMETABLE_DELETE_PARAMETER_FORMAT.matcher(deleteParams);
-        Parser.matcherMatches(lessonMatcher, deleteParams, TIMETABLE_LESSON_DELETE_USER_FORMAT,TimeTableCommand.PROMPT_HELP);
+        Parser.matcherMatches(lessonMatcher, deleteParams, TIMETABLE_LESSON_DELETE_USER_FORMAT,
+                TimeTableCommand.PROMPT_HELP);
         // Must account for the user input vs the actual week number
         String dayString = lessonMatcher.group(DAY_GROUP).toUpperCase().trim();
         DayOfWeek dayOfWeek = DayOfWeek.valueOf(dayString);

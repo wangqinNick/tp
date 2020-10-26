@@ -39,7 +39,8 @@ public class EditCommandParser {
     protected static Command getEditCommand(String parameters) {
         Matcher matcher = EDIT_PREFIX_FORMAT.matcher(parameters);
 
-        Parser.matcherMatches(matcher, parameters, EditModuleCommand.FORMAT + "\n" + EditTaskCommand.FORMAT, EditCommand.PROMPT_HELP);
+        Parser.matcherMatches(matcher, parameters, EditModuleCommand.FORMAT + "\n" + EditTaskCommand.FORMAT,
+                EditCommand.PROMPT_HELP);
 
         String commandFlag = Parser.isMatcherNull(matcher.group(COMMAND_FLAG_GROUP))
                 ? null : matcher.group(COMMAND_FLAG_GROUP).toLowerCase().trim();

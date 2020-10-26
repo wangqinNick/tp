@@ -17,10 +17,10 @@ import seedu.duke.ui.TextUi;
 public class HelpCommand extends Command {
     public static final String COMMAND_WORD = "help";
     public static final String FORMAT = COMMAND_WORD + " [<command_word>]";
-    public static final String HELP =   "View command information." +
-                                        "\n\tFormat: " + FORMAT +
-                                        "\n\tExample usage: help" +
-                                        "\n                 help add\n";
+    public static final String HELP =   "View command information."
+                                        + "\n\tFormat: " + FORMAT
+                                        + "\n\tExample usage: help"
+                                        + "\n                 help add\n";
     private String commandType;
 
     public HelpCommand(String commandType){
@@ -34,7 +34,7 @@ public class HelpCommand extends Command {
     @Override
     public CommandResult execute() {
         String output = "";
-        switch (commandType){
+        switch (commandType) {
         case AddCommand.COMMAND_WORD:
             output = AddCommand.HELP;
             break;
@@ -68,7 +68,6 @@ public class HelpCommand extends Command {
         case SummaryCommand.COMMAND_WORD:
             output = SummaryCommand.HELP;
             break;
-        // TODO: Timetable commands
         default:
             output = TextUi.getCommandList();
             break;
