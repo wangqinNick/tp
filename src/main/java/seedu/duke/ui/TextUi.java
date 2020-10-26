@@ -9,7 +9,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import static seedu.duke.util.ExceptionMessage.MESSAGE_LIST_EMPTY;
+import static seedu.duke.util.Message.MESSAGE_COMPLETED_TASKLIST;
 import static seedu.duke.util.Message.MESSAGE_HELP;
+import static seedu.duke.util.Message.MESSAGE_INCOMPLETE_DATED_TASKLIST;
+import static seedu.duke.util.Message.MESSAGE_INCOMPLETE_UNDATED_TASKLIST;
 import static seedu.duke.util.Message.MESSAGE_TIMETABLE_INIT;
 
 public class TextUi {
@@ -62,6 +66,7 @@ public class TextUi {
             stringFormat.append(getIndexListFormat(displayIndex, t.toString()));
             displayIndex++;
         }
+        stringFormat.append("\n");
         return stringFormat.toString();
     }
 
@@ -81,6 +86,41 @@ public class TextUi {
     }
 
     /**
+     * Formats the lists in summaryLists to string with their index.
+     *
+     * @param summaryLists the list of ArrayLists to be formatted
+     */
+    public static String getSummaryList(ArrayList<ArrayList<Task>> summaryLists) {
+        final StringBuilder message = new StringBuilder();
+        
+        ArrayList<Task> incompleteDatedList = summaryLists.get(0);
+        message.append(MESSAGE_INCOMPLETE_DATED_TASKLIST);
+        if (incompleteDatedList.size() > 0) {
+            message.append(TextUi.getIndexTaskList(incompleteDatedList));
+        } else {
+            message.append(MESSAGE_LIST_EMPTY);
+        }
+
+        ArrayList<Task> incompleteUndatedList = summaryLists.get(1);
+        message.append(MESSAGE_INCOMPLETE_UNDATED_TASKLIST);
+        if (incompleteUndatedList.size() > 0) {
+            message.append(TextUi.getIndexTaskList(incompleteUndatedList));
+        } else {
+            message.append(MESSAGE_LIST_EMPTY);
+        }
+
+        ArrayList<Task> completeList = summaryLists.get(2);
+        message.append(MESSAGE_COMPLETED_TASKLIST);
+        if (completeList.size() > 0) {
+            message.append(TextUi.getIndexTaskList(completeList));
+        } else {
+            message.append(MESSAGE_LIST_EMPTY);
+        }
+
+        return message.toString();
+    }
+
+    /**
      *  Formats a string with its index in the list.
      *
      * @param listIndex task/module index
@@ -89,7 +129,6 @@ public class TextUi {
     public static String getIndexListFormat(int listIndex, String listItem) {
         return String.format(MESSAGE_INDEX_LIST_FORMAT, listIndex, listItem);
     }
-
 
     /**
      * Trims spacing and checks if input is empty.

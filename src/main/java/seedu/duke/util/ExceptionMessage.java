@@ -67,10 +67,14 @@ public class ExceptionMessage {
             "Deletion completed.\n"
             + "However, note that the following file(s) could not be deleted completely from Nuke as they "
             + "could not be found:\n";
-    public static final String MESSAGE_LIST_EMPTY = "Your list is empty.\n";
+    public static final String MESSAGE_LIST_EMPTY = "\nYour list is empty.\n";
+    public static final String MESSAGE_STRING_IN_NUMBER = "There seems to be a string in the place of a number \n"
+            + "Please your command's format again. \n";
     public static final String MESSAGE_INVALID_COMMAND_WORD =
             "It seems you have input an incorrect command word. \n"
             + "Please key in help to see our list of commands. \n";
+    public static final String MESSAGE_INVALID_GRADE =
+            "The grade input is not recognised by the NUS grading schematic. \n";
     public static final String MESSAGE_LESSON_INVALID_TIME = "Sorry, the lesson you have attempted to add "
             + "either overlaps with other lessons or has an invalid start time.\n";
     public static final String MESSAGE_LESSON_NOT_FOUND = "Sorry, the lesson you have attempted to delete "
