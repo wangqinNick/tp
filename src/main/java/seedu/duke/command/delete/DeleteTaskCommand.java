@@ -42,7 +42,7 @@ public class DeleteTaskCommand extends DeleteCommand {
             deleteTask(taskId);
             message = MESSAGE_DELETE_TASK_SUCCESS;
         } catch (TaskManager.TaskNotFoundException e) {
-            return new CommandResult(MESSAGE_TASK_NOT_FOUND);
+            message = MESSAGE_TASK_NOT_FOUND;
         }
         return new CommandResult(message);
     }

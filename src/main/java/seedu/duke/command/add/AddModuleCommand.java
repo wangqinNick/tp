@@ -44,7 +44,7 @@ public class AddModuleCommand extends AddCommand {
             addModule(module);
             message = MESSAGE_ADD_MODULE_SUCCESS;
         } catch (ModuleManager.DuplicateModuleException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_MODULE);
+            message = MESSAGE_DUPLICATE_MODULE;
         }
         return new CommandResult(message);
     }
