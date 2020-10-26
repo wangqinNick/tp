@@ -1,140 +1,95 @@
 package seedu.duke.ui;
 
-import seedu.duke.command.CommandResult;
-import seedu.duke.util.Message;
-import seedu.duke.data.Module;
-import seedu.duke.data.Task;
+import seedu.duke.directory.Module;
+import seedu.duke.directory.Task;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
 
-import static seedu.duke.util.Message.MESSAGE_HELP;
+import static seedu.duke.util.Constant.NEWLINE;
 
 public class TextUi {
-    private static Scanner in;
-
-    //Offset required to convert between 1-indexing and 0-indexing
-    public static final int DISPLAY_INDEX_OFFSET = 1;
-
-    public static final String DIVIDER_LINE = "~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~*";
-
-    //%1$ catches the furthest left arg, %2$ catches the 2nd arg
-    private static final String MESSAGE_INDEX_LIST_FORMAT = "\n%1$d. %2$s";
-
-    public TextUi() {
+    public static final int LIST_INDEX_OFFSET = 1;
+    public static final int INDEX_OFF_SET = -1;
+    public static final String MESSAGE_LIST_RESPOND_FORMAT = "%s";
+    public static final String MESSAGE_MODULE_LIST = "%d. %s %s";
+    public static final String MESSAGE_TASK_LIST = "%d. %s";
+    private static StringBuilder modulesMessages;
+    private static StringBuilder tasksMessages;
+    /**
+     * Return the message of all modules in a specific task list
+     * @param modules the specific task list
+     * @return the appended task message
+     */
+    public static String getAppendedModules(ArrayList<Module> modules){
+        getModuleListMessage(modules);
+        return modulesMessages.toString();
     }
 
-    public TextUi(Scanner in) {
-        this.in = in;
-    }
-
-    public static void showGoodByeMessage() {
-        outputToUser(
-                DIVIDER_LINE,
-                Message.MESSAGE_GOODBYE,
-                DIVIDER_LINE);
-    }
-
-    public static void showWelcomeMessage()     {
-        outputToUser(
-                DIVIDER_LINE,
-                Message.MESSAGE_WELCOME,
-                DIVIDER_LINE);
-    }
-
-    public static void outputToUser(String... output) {
-        for (String o : output) {
-            System.out.println(o);
+    /**
+     * get taskList message
+     */
+    private static void getModuleListMessage(ArrayList<Module> taskListToPrint) {
+        modulesMessages = new StringBuilder();
+        for (int index = LIST_INDEX_OFFSET; index <= taskListToPrint.size() ; index++) {
+            Module module = taskListToPrint.get(index+ INDEX_OFF_SET);
+            appendAllModuleMessage(index, module);
         }
     }
 
     /**
-     * Formats an Arraylist of type Task with their Index.
-     *
-     * @param taskList the list to be formatted
+     * append all tasks message
+     * @param index index of the task
+     * @param module the task to append message
      */
-    public static String getIndexTaskList(ArrayList<Task> taskList) {
-        final StringBuilder stringFormat = new StringBuilder();
-        int displayIndex = 0 + DISPLAY_INDEX_OFFSET;
-        for (Task t : taskList) {
-            stringFormat.append(getIndexListFormat(displayIndex, t.toString()));
-            displayIndex++;
+    private static void appendAllModuleMessage(int index, Module module) {
+        modulesMessages.append(
+                String.format(
+                        MESSAGE_LIST_RESPOND_FORMAT,
+                        String.format(
+                                MESSAGE_MODULE_LIST,
+                                index,
+                                module.getModuleCode(),
+                                module.getTitle())
+                )
+        ).append(NEWLINE);
+    }
+
+    /**
+     * Return the message of all modules in a specific task list
+     * @param tasks the specific task list
+     * @return the appended task message
+     */
+    public static String getAppendedTasks(ArrayList<Task> tasks){
+        getTaskListMessage(tasks);
+        return tasksMessages.toString();
+    }
+
+    /**
+     * get taskList message
+     */
+    private static void getTaskListMessage(ArrayList<Task> taskListToPrint) {
+        tasksMessages = new StringBuilder();
+        for (int index = LIST_INDEX_OFFSET; index <= taskListToPrint.size() ; index++) {
+            Task task = taskListToPrint.get(index+ INDEX_OFF_SET);
+            appendAllModuleMessage(index, task);
         }
-        return stringFormat.toString();
     }
 
     /**
-     * Formats the HashMap to string with their index.
-     *
-     * @param modulesMap the HashMap to be formatted
+     * append all tasks message
+     * @param index index of the task
+     * @param task the task to append message
      */
-    public static String getIndexModuleList(HashMap<String, Module> modulesMap) {
-        final StringBuilder stringFormat = new StringBuilder();
-        int displayIndex = 0 + DISPLAY_INDEX_OFFSET;
-        for (Module module : modulesMap.values()) {
-            stringFormat.append(getIndexListFormat(displayIndex, module.toString()));
-            displayIndex++;
-        }
-        return stringFormat.toString();
-    }
-
-    /**
-     *  Formats a string with its index in the list.
-     *
-     * @param listIndex task/module index
-     * @param listItem task/module name or description
-     */
-    public static String getIndexListFormat(int listIndex, String listItem) {
-        return String.format(MESSAGE_INDEX_LIST_FORMAT, listIndex, listItem);
-    }
-
-
-    /**
-     * Trims spacing and checks if input is empty.
-     *
-     * @param rawInputLine full input from user
-     * @return true if inputline is a legit command
-     */
-    private static boolean isEmptyCheck(String rawInputLine) {
-        return rawInputLine.trim().isEmpty();
-    }
-
-    /**
-     * gets the User's input command.
-     *
-     * @return the trimmed command input
-     */
-    public static String getUserCommand() {
-        System.out.println("Enter Command: ");
-        String userInput = in.nextLine();
-
-        while (isEmptyCheck(userInput)) {
-            userInput = in.nextLine();
-        }
-
-        return userInput;
-    }
-
-    /**
-     * Shows the result of a command execution to the user.
-     *
-     * @param result the relevant message shown to user
-     */
-    public void showResultToUser(CommandResult result) {
-        outputToUser(
-                DIVIDER_LINE,
-                result.feedbackToUser,
-                DIVIDER_LINE);
-    }
-
-    /**
-     * gets Help Message.
-     *
-     * @return the list of available commands
-     */
-    public static String getHelpMessage() {
-        return MESSAGE_HELP;
+    private static void appendAllModuleMessage(int index, Task task) {
+        tasksMessages.append(
+                String.format(
+                        MESSAGE_LIST_RESPOND_FORMAT,
+                        String.format(
+                                MESSAGE_TASK_LIST,
+                                index,
+                                task.getDescription())
+                )
+        ).append(NEWLINE);
     }
 }
-

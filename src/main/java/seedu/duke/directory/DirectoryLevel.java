@@ -4,14 +4,7 @@ public enum DirectoryLevel {
     NONE,
     ROOT,
     MODULE,
-    TASK,
-
-    TAG {
-        @Override
-        public DirectoryLevel next() {
-            return NONE;
-        }
-    };
+    TASK;
 
     public DirectoryLevel next() {
         return values()[ordinal() + 1];

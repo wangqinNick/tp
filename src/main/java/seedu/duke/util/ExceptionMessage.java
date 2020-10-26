@@ -26,7 +26,6 @@ public class ExceptionMessage {
     public static final String MESSAGE_MISSING_PARAMETERS = "Sorry, some parameters seem to be missing.\n";
 
     public static final String MESSAGE_INVALID_PRIORITY = "Alert! Priority should be a number between 0 and 20.\n";
-    /*
     public static final String MESSAGE_INVALID_DATETIME_FORMAT =
             "Sorry, the deadline you entered is not in a recognised datetime format.\n"
             + "Please make sure to follow the datetime format as such:\n\t"
@@ -35,7 +34,6 @@ public class ExceptionMessage {
             "Sorry, the date you entered is not in a recognised date format.\n"
             + "Please make sure to follow the date format as such:\n\t"
             + DateTime.DATE_FORMAT + "\nExample: 07/07/2020\n";
-    */
 
     public static final String MESSAGE_LIST_NUMBER_NOT_FOUND =
             "The List number is not found on the list! Deletion is aborted.\n";
@@ -67,8 +65,4 @@ public class ExceptionMessage {
             "Deletion completed.\n"
             + "However, note that the following file(s) could not be deleted completely from Nuke as they "
             + "could not be found:\n";
-    public static final String MESSAGE_LIST_EMPTY = "Your list is empty.\n";
-    public static final String MESSAGE_INVALID_COMMAND_WORD =
-            "It seems you have input an incorrect command word. \n"
-            + "Please key in help to see our list of commands. \n";
 }

@@ -3,22 +3,25 @@ package seedu.duke;
 import seedu.duke.command.Command;
 import seedu.duke.command.CommandResult;
 import seedu.duke.command.PromptType;
-import seedu.duke.data.StateManager;
-import seedu.duke.parser.Parser;
+import seedu.duke.util.Message;
+
+import java.io.IOException;
 
 public class Executor {
+
     /**
-     * Executes command.
+     * Returns the command result after the command is executed
      *
-     * @param userInput The input from the user to be parsed and executed as a command
+     * @param parsedCommand The input from the user to be executed as a command
      * @return commandResult that contains the execute output information
      */
-    public static CommandResult executeCommand(String userInput) {
-        Command command = new Parser().parseCommand(userInput);
-        CommandResult result = command.execute();
-        if (command.getPromptType() == PromptType.EDIT) {
-            StateManager.saveState();
+    public static CommandResult executeCommand(Command parsedCommand) {
+        var commandResult = parsedCommand.execute();
+        if (parsedCommand.getPromptType() == PromptType.EDIT){
+            //StateManager.saveState();
         }
-        return result;
+        //IOManager.saveAsJson();
+        return commandResult;
     }
+
 }
