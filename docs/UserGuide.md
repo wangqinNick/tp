@@ -83,6 +83,20 @@ Format: `list -t`
 List all modules in the scheduler.  
 Format: `list -m`
 
+#### Grade a existing module: `grade <module code> <grade>`
+Assign a grade to a module in the Scheduler.
+Format: `grade <moduleCode> <grade>`
+
+Example of usage:
+* `grade CS2101 B+`
+
+#### Calculate your cap after the semester: `cap <total module credit taken> <current cap>`
+Calculate your new updated cap, accumulated from past semesters.
+Format: `cap <total module credit taken> <current cap>`
+
+Example of usage:
+* `cap 46 4.24`
+
 ### Mark as done: `done <task_index>`
 Mark a task in the scheduler as done.  
 Format: `done <task_index>`
