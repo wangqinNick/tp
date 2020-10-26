@@ -26,7 +26,7 @@ public class DeleteCommandParser {
     protected static Command getDeleteCommand(String parameters) throws NumberFormatException {
         Matcher matcher = DELETE_FORMAT.matcher(parameters);
 
-        Parser.matcherMatches(matcher, parameters, DeleteCommand.FORMAT);
+        Parser.matcherMatches(matcher, parameters, DeleteCommand.FORMAT, DeleteCommand.PROMPT_HELP);
 
         String commandFlag = Parser.isMatcherNull(matcher.group(Parser.COMMAND_FLAG_GROUP))
                 ? null : matcher.group(Parser.COMMAND_FLAG_GROUP).toLowerCase().trim();
@@ -36,8 +36,9 @@ public class DeleteCommandParser {
         // Checks for any string after the module or index given
         String invalid = matcher.group(INVALID_GROUP).trim();
         if (!invalid.isEmpty()) {
-            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
-                    MESSAGE_INVALID_COMMAND_FORMAT, invalid, MESSAGE_CHECK_COMMAND_FORMAT, DeleteCommand.FORMAT));
+            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n\n%s\n",
+                    MESSAGE_INVALID_COMMAND_FORMAT, invalid, MESSAGE_CHECK_COMMAND_FORMAT,
+                    DeleteCommand.FORMAT, DeleteCommand.PROMPT_HELP));
         }
 
         if (commandFlag.equals(MODULE_PREFIX)) {

@@ -5,7 +5,6 @@ import seedu.duke.command.IncorrectCommand;
 import seedu.duke.command.add.AddCommand;
 import seedu.duke.command.add.AddModuleCommand;
 import seedu.duke.command.add.AddTaskCommand;
-import seedu.duke.command.grade.GradeCommand;
 
 import java.security.InvalidParameterException;
 import java.util.regex.Matcher;
@@ -29,7 +28,8 @@ public class AddCommandParser {
     protected static Command prepareAddCommand(String parameters)
             throws InvalidParameterException, IllegalStateException {
         Matcher matcher = ADD_FORMAT.matcher(parameters);
-        Parser.matcherMatches(matcher, parameters, AddCommand.FORMAT);
+
+        Parser.matcherMatches(matcher, parameters, AddCommand.FORMAT, AddCommand.PROMPT_HELP);
 
         String commandFlag = Parser.isMatcherNull(matcher.group(COMMAND_FLAG_GROUP))
                 ? null : matcher.group(COMMAND_FLAG_GROUP).toLowerCase().trim();
@@ -41,8 +41,9 @@ public class AddCommandParser {
         if (dashBy != null) {
             taskDeadline = matcher.group(DEADLINE_GROUP).trim();
             if (taskDeadline.isEmpty()) { // -by is present but empty deadline
-                return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
-                    MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT, AddTaskCommand.FORMAT));
+                return new IncorrectCommand(String.format("%s%s\n\n%s%s\n\n%s\n",
+                    MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT,
+                        AddTaskCommand.FORMAT, AddCommand.PROMPT_HELP));
             }
         }
         // no task input by user

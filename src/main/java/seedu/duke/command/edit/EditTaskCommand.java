@@ -2,9 +2,7 @@ package seedu.duke.command.edit;
 
 import seedu.duke.command.CommandResult;
 import seedu.duke.command.PromptType;
-import seedu.duke.data.Task;
 import seedu.duke.data.TaskManager;
-import seedu.duke.parser.Parser;
 import seedu.duke.util.Message;
 
 import static seedu.duke.util.Message.MESSAGE_EDIT_TASK_SUCCESS;
@@ -14,8 +12,10 @@ public class EditTaskCommand extends EditCommand {
 
     private int taskID;
     private String newTaskDescription;
-    public static final String FORMAT = EditCommand.COMMAND_WORD + "-t" + " <task ID> <new task description>";
-
+    public static final String FORMAT = EditCommand.COMMAND_WORD + " -t" + " <task_index> <task_name>";
+    public static final String HELP =   "Edit a task description from the task list."
+                                        + "\n\tFormat: " + FORMAT
+                                        + "\n\tExample usage: edit -t 1 Project meeting\n\n";
 
     /**
      * Constructs the command to edit a task.
