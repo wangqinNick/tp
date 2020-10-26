@@ -14,6 +14,7 @@ import seedu.duke.command.list.ListCommand;
 import seedu.duke.command.misc.UndoCommand;
 import seedu.duke.command.summary.SummaryCommand;
 import seedu.duke.command.timetable.TimeTableCommand;
+import seedu.duke.exception.InvalidMatchException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,7 +24,6 @@ import static seedu.duke.util.ExceptionMessage.MESSAGE_INVALID_PARAMETERS;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_STRING_IN_NUMBER;
 import static seedu.duke.util.Message.MESSAGE_EMPTY_INPUT;
 import static seedu.duke.util.Message.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.duke.util.Message.MESSAGE_CHECK_COMMAND_FORMAT;
 
 public class Parser {
     public enum TypeOfEntries {
@@ -105,6 +105,8 @@ public class Parser {
             return new IncorrectCommand(MESSAGE_INVALID_PARAMETERS);
         } catch (NullPointerException e) {
             return new IncorrectCommand(MESSAGE_INVALID_COMMAND_WORD);
+        } catch (InvalidMatchException e) {
+            return new IncorrectCommand(e.getMessage());
         }
     }
 
@@ -138,15 +140,11 @@ public class Parser {
      * the user input
      * @param format
      * the actual correct format if user input doesn't match
-     * @return
-     * message to user showing the actual correct format
      */
-    protected static Command matcherMatches(Matcher matcher, String parameters, String format, String helpPrompt) {
+    protected static void matcherMatches(Matcher matcher, String parameters, String format, String helpPrompt)
+            throws InvalidMatchException {
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n\n%s\n",
-                    MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT, format,
-                    helpPrompt));
+            throw new InvalidMatchException(parameters,format,helpPrompt);
         }
-        return null;
     }
 }
