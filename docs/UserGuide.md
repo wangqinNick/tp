@@ -90,6 +90,67 @@ Format: `done <task_index>`
 Example of usage: 
 * `done 1`
 
+### Edit an item: `edit <opt> <args>`
+#### Edit a task: `edit -t <task index> <new task desc.>`
+Edit a task in the scheduler with a new task description.  
+Format: `edit -t <task index> <new task desc.>`
+
+Example of usage: 
+* `edit -t 1 read a book`
+
+#### Edit a module: `edit -m <module code> <new module code>`
+Edit a module in the scheduler with a new module code.  
+Format: `edit -m <module code> <new module code>`
+
+Example of usage: 
+* `edit -m CS2113T CG2271`
+
+### Undo a command: `undo`
+Takes the previous command and revert its changes.\
+Requires the previous command to be undone, a command that affects the storage. e.g. add, del, edit, done
+Format: `undo`
+
+Example of usage: 
+1. `add -m CS2113T`
+2. `undo`
+
+### Summary: `summary`
+Gets an overall view of the tasks.
+Format: `summary`
+
+Example of usage: 
+* `summary`
+
+### TimeTable: `timetable <opt> <args>`
+#### View the timetable: `timetable <args>`
+View the timetable for the day or for the week.\
+`<args>` : Must be one of the following : `-day` or `-week`
+
+Example of usage: 
+* `timetable -day`
+* `timetable -week`
+
+#### Add a lesson: `timetable -add <module> <day> <start time> <end time> <lesson type> <repeat>`
+Adds a lesson to the timetable.\
+`<module>` : Must be added to the module list. See module list with `list -m`.\
+`<day>` : Must be one of the following : `MONDAY`, `TUESDAY`, `WEDNESDAY`, `THURSDAY`, `FRIDAY`, `SATURDAY`, `SUNDAY`
+`<start time>` : Must be in 24h format
+`<end time>` : Must be in 24h format and is after `<start time>`
+`<lesson type>` : Must be one of the following : `TUTORIAL`, `LECTURE`, `SEMINAR`, `LAB`, `RECITATION`, `SESSION`
+`<repeat>` : 0 : One time lesson ; 1 : Once a week ; 2 : Every even week ; 3 : Every odd week
+
+Example of usage: 
+* `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 0`
+* `timetable -add CS2113T MONDAY 1300 1500 LAB 1`
+
+#### Delete a lesson: `timetable -del <day> <lesson index>`
+Deletes a lesson from the timetable.\
+`<day>` : Must be one of the following : `MONDAY`, `TUESDAY`, `WEDNESDAY`, `THURSDAY`, `FRIDAY`, `SATURDAY`, `SUNDAY`
+`<lesson index>` : Index of the lesson to be deleted. See timetable and the indexes with `timetable -day` or `timetable -week`
+
+Example of usage: 
+* `timetable -del CS2101 1`
+
 ### Exiting the program: `bye`
 Exits ra.VI.  
 Format: `bye`
@@ -104,4 +165,6 @@ Format: `bye`
 
 {Give a 'cheat sheet' of commands here}
 
-* Add todo `todo n/TODO_NAME d/DEADLINE`
+* Add task `add -t TASK_NAME DEADLINE`
+* Add module `add -m MODULE_NAME`
+
