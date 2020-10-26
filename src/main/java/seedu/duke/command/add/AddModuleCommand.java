@@ -12,7 +12,7 @@ public class AddModuleCommand extends AddCommand {
     private String module;
 
     /**
-     * Constructs AddModuleCommand and tests the format of the deadline.
+     * Constructs AddModuleCommand.
      *
      * @param module Module code to be added.
      */
@@ -33,7 +33,7 @@ public class AddModuleCommand extends AddCommand {
     }
 
     /**
-     * Adds the module to the module list.
+     * Executes the AddModuleCommand to add the module to the module list.
      *
      * @return CommandResult containing acknowledgement of the add module or messages from exceptions.
      */
@@ -44,7 +44,7 @@ public class AddModuleCommand extends AddCommand {
             addModule(module);
             message = MESSAGE_ADD_MODULE_SUCCESS;
         } catch (ModuleManager.DuplicateModuleException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_MODULE);
+            message = MESSAGE_DUPLICATE_MODULE;
         }
         return new CommandResult(message);
     }
