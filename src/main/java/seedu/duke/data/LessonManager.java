@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class LessonManager {
-    private HashMap<DayOfWeek, ArrayList<Lesson>> lessonMap = new HashMap<>();
+    private static HashMap<DayOfWeek, ArrayList<Lesson>> lessonMap = new HashMap<>();
     private static final DukeLogger logger = new DukeLogger(LessonManager.class.getName());
 
     /**
@@ -120,7 +120,7 @@ public class LessonManager {
      * @throws LessonNotFoundException
      *  If there are no lessons on that day
      */
-    public ArrayList<Lesson> getDayLessonList(DayOfWeek day) {
+    public static ArrayList<Lesson> getDayLessonList(DayOfWeek day) {
         return lessonMap.get(day);
     }
 
