@@ -5,6 +5,7 @@ import seedu.duke.command.IncorrectCommand;
 import seedu.duke.command.edit.EditCommand;
 import seedu.duke.command.edit.EditModuleCommand;
 import seedu.duke.command.edit.EditTaskCommand;
+import seedu.duke.exception.InvalidMatchException;
 
 import java.security.InvalidParameterException;
 import java.util.regex.Matcher;
@@ -36,7 +37,7 @@ public class EditCommandParser {
      * @return
      *  The command to prepare the respective module or task command for edit
      */
-    protected static Command getEditCommand(String parameters) {
+    protected static Command getEditCommand(String parameters) throws InvalidMatchException {
         Matcher matcher = EDIT_PREFIX_FORMAT.matcher(parameters);
 
         Parser.matcherMatches(matcher, parameters, EditModuleCommand.FORMAT + "\n" + EditTaskCommand.FORMAT,
@@ -64,7 +65,8 @@ public class EditCommandParser {
      * @return
      *  The command to edit a module
      */
-    protected static Command prepareEditModuleCommand(String parameters) throws InvalidParameterException {
+    protected static Command prepareEditModuleCommand(String parameters)
+            throws InvalidParameterException, InvalidMatchException {
         Matcher matcher = EDIT_FORMAT.matcher(parameters);
 
         Parser.matcherMatches(matcher, parameters, EditTaskCommand.FORMAT, EditCommand.PROMPT_HELP);
@@ -87,7 +89,7 @@ public class EditCommandParser {
      *  The command to edit a task
      */
     protected static Command prepareEditTaskCommand(String parameters)
-            throws InvalidParameterException,NumberFormatException {
+            throws InvalidParameterException, NumberFormatException, InvalidMatchException {
         Matcher matcher = EDIT_FORMAT.matcher(parameters);
 
         Parser.matcherMatches(matcher, parameters, EditModuleCommand.FORMAT, EditCommand.PROMPT_HELP);
