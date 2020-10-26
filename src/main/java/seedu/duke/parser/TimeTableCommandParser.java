@@ -41,10 +41,10 @@ public abstract class TimeTableCommandParser {
     private static final Pattern TIMETABLE_FORMAT = Pattern.compile("(?<commandFlag>-[a-zA-Z]+)"
             + "(?<timeTableParams>.*)");
     private static final Pattern TIMETABLE_LESSON_PARAMETER_FORMAT =
-            Pattern.compile("(?<module>\\S+\\s*)(?<day>\\S+\\s*)(?<start>\\d+\\s*)(?<end>\\d+\\s*)"
-            + "(?<type>\\S+\\s*)(?<repeat>\\d+\\s*)");
+            Pattern.compile("(?<module>[a-zA-Z0-9]+\\s+)(?<day>[a-zA-Z]+\\s+)(?<start>[0-9]+\\s+)(?<end>[0-9]+\\s+)"
+            + "(?<type>[a-zA-Z]+\\s+)(?<repeat>[0-9]+\\s*)");
     private static final Pattern TIMETABLE_DELETE_PARAMETER_FORMAT =
-            Pattern.compile("(?<day>\\S+\\s*)(?<index>\\d+\\s*)");
+            Pattern.compile("(?<day>[a-zA-Z]+\\s+)(?<index>[0-9]+\\s*)");
 
     /**
      * Parses all timetable related commands into their respective parsers.

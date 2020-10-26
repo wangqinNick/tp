@@ -44,7 +44,7 @@ public class TimeTableCommandTest {
     static final LessonType LESSON_TYPE = LessonType.LECTURE;
 
     @BeforeAll
-    static void setupUserMods() throws ModuleManager.DuplicateModuleException {
+    static void setupUserMods() throws ModuleManager.DuplicateModuleException, ModuleManager.ModuleNotFoundException {
         ModuleManager.clearModules();
         ModuleManager.add(new Module(MOD_CODE_1));
         ModuleManager.add(new Module(MOD_CODE_2));
