@@ -1,0 +1,32 @@
+@startuml
+-> ":GradeCommandParser": prepareGradeCommand()
+activate ":GradeCommandParser"
+create ":GradeCommand"
+":GradeCommandParser" -> ":GradeCommand": GradeCommand(moduleGraded,moduleCredit,grade)
+deactivate ":GradeCommandParser"
+activate ":GradeCommand"
+":GradeCommand" -> ":ModuleManager" : getModule(moduleGraded)
+activate ":ModuleManager"
+":GradeCommand" <-- ":ModuleManager" :moduleToBeGraded
+deactivate ":ModuleManager"
+":GradeCommand" -> ":GradeCommand" : grade(moduleToBeGraded)
+alt testGrade(grade)
+    activate ":GradeCommand"
+    ":GradeCommand" -> ":ModuleManager" :grade(moduleToBeGraded,grade,moduleCredit)
+    activate ":ModuleManager"
+    ":GradeCommand" <-- ":ModuleManager"
+    deactivate ":ModuleManager"
+else
+    <-- ":GradeCommand" : InvalidGradeException()
+end
+":GradeCommand" --> ":GradeCommand"
+deactivate ":GradeCommand"
+create ":CommandResult"
+":GradeCommand" -> ":CommandResult"
+deactivate ":GradeCommand"
+activate ":CommandResult"
+":CommandResult" -> "ui:TextUi" :showResultToUser()
+deactivate ":CommandResult"
+activate "ui:TextUi"
+deactivate "ui:TextUi"
+@enduml
