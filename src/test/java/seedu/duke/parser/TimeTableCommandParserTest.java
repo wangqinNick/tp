@@ -8,6 +8,7 @@ import seedu.duke.data.LessonType;
 import seedu.duke.data.Module;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.data.TimeTableManager;
+import seedu.duke.exception.InvalidMatchException;
 import seedu.duke.exception.TimeTableInitialiseException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -40,7 +41,8 @@ public class TimeTableCommandParserTest {
             + GOOD_REPEAT_FREQ;
 
     @BeforeEach
-    void setupTimeTable() throws TimeTableInitialiseException, ModuleManager.DuplicateModuleException {
+    void setupTimeTable() throws TimeTableInitialiseException, ModuleManager.DuplicateModuleException,
+            ModuleManager.ModuleNotFoundException {
         ModuleManager.clearModules();
         ModuleManager.add(new Module(GOOD_MOD_CODE));
         TimeTableManager.clearTimeTable();
@@ -48,13 +50,13 @@ public class TimeTableCommandParserTest {
     }
 
     @Test
-    void badTimeTableCommandFlag_IncorrectCommand_isReturned() {
+    void badTimeTableCommandFlag_IncorrectCommand_isReturned() throws InvalidMatchException {
         Command command = TimeTableCommandParser.parseTimeTableCommand(BAD_TIMETABLE_COMMAND_FORMAT);
         assertTrue(command instanceof IncorrectCommand);
     }
 
     @Test
-    void bad_Module_TimeTableAddCommandFlag_IncorrectCommand_isReturned() {
+    void bad_Module_TimeTableAddCommandFlag_IncorrectCommand_isReturned() throws InvalidMatchException {
         Command command = TimeTableCommandParser.parseTimeTableCommand(BAD_TIMETABLE_COMMAND_FORMAT);
         assertTrue(command instanceof IncorrectCommand);
     }
