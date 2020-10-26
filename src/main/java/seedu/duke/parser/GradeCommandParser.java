@@ -14,6 +14,18 @@ public class GradeCommandParser {
     protected static final Pattern GRADE_FORMAT =
             Pattern.compile("(?<module>[a-zA-Z0-9]+)" + "(?<mc>\\s\\S+)" + "(?<grade>.*)");
 
+    /**
+     * Takes the user's input and parses it into the respective arguments for Grade Command.
+     *
+     * @param parameters
+     * the user's input without the command word
+     * @return
+     * Grade Command with relevant arguments
+     * @throws NumberFormatException
+     * When a string is parsed as an integer/double
+     * @throws InvalidMatchException
+     * When the user input doesn't match the REGEX format for the Grade Command
+     */
     protected static Command prepareGradeCommand(String parameters)
             throws NumberFormatException, InvalidMatchException {
         Matcher matcher = GRADE_FORMAT.matcher(parameters);

@@ -13,6 +13,18 @@ public class HelpCommandParser {
     protected static final Pattern HELP_FORMAT =
             Pattern.compile("((?<helpCommandWord>\\S+)?)");
 
+    /**
+     * Takes the user's input and parses it into the respective arguments for Help Command.
+     *
+     * @param parameters
+     * the user's input without the command word
+     * @return
+     * Help Command with relevant arguments
+     * @throws InvalidParameterException
+     * When the user inputs parameters that arent accepted by the commands format
+     * @throws InvalidMatchException
+     * When the user input doesn't match the REGEX format for the Help Command
+     */
     protected static Command prepareHelpCommand(String parameters)
             throws InvalidParameterException, InvalidMatchException {
         Matcher matcher = HELP_FORMAT.matcher(parameters);
