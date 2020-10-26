@@ -39,6 +39,17 @@ enum PromptType {
     EDIT
 }
 
+DoneCommand --|> Command
+HelpCommand --|> Command
+ListCommand --|> Command
+UndoCommand --|> Command
+ExitCommand --|> Command
+IncorrectCommand --|> Command
+FilterCommand --|> Command
+
+PromptType -* Command
+Command <. CommandResult
+
 AddCommand <|-- AddModuleCommand
 AddCommand <|-- AddTaskCommand
 DeleteCommand <|-- DeleteModuleCommand
@@ -46,19 +57,9 @@ DeleteCommand <|-- DeleteTaskCommand
 EditCommand <|-- EditModuleCommand
 EditCommand <|-- EditTaskCommand
 
-Command <|-- AddCommand
 Command <|-- DeleteCommand
 Command <|-- EditCommand
-Command <|-- FilterCommand
-Command <|-- DoneCommand
-Command <|-- HelpCommand
-Command <|-- ListCommand
-Command <|-- UndoCommand
-Command <|-- ExitCommand
-Command <|-- IncorrectCommand
-
-Command *-- PromptType
-Command <.. CommandResult
+Command <|-- AddCommand
 
 
 @enduml

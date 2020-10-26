@@ -7,7 +7,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import static seedu.duke.data.TimeTableManager.getCurrNusWeekNum;
+import static seedu.duke.data.TimeTableManager.getCurrWeekNum;
 import static seedu.duke.data.TimeTableManager.getSpecificDayLessons;
 import static seedu.duke.data.TimeTableManager.getSpecifiedWeekLessons;
 
@@ -43,9 +43,17 @@ public class TimeTableViewCommand extends TimeTableCommand {
     }
 
     public String generateWeekTimeTable() {
-        ArrayList<ArrayList<Lesson>> weekLessons = getSpecifiedWeekLessons(getCurrNusWeekNum());
+        ArrayList<ArrayList<Lesson>> weekLessons = getSpecifiedWeekLessons(getCurrWeekNum());
         // TODO: do display logic inside TextUi
-        return "TODO";
+        try {
+            String output = "";
+            for (Lesson eachLesson : weekLessons.get(0)) {
+                output += eachLesson.toString() + "\n";
+            }
+            return output;
+        } catch (IndexOutOfBoundsException e) {
+            return "oops";
+        }
     }
 
     @Override

@@ -2,12 +2,14 @@ package seedu.duke.parser;
 
 import seedu.duke.command.Command;
 import seedu.duke.command.IncorrectCommand;
+import seedu.duke.command.grade.GradeCommand;
 import seedu.duke.command.timetable.TimeTableAddCommand;
 import seedu.duke.command.timetable.TimeTableCommand;
 import seedu.duke.command.timetable.TimeTableDeleteCommand;
 import seedu.duke.command.timetable.TimeTableViewCommand;
 import seedu.duke.data.Lesson;
 import seedu.duke.data.ModuleManager;
+import seedu.duke.data.TimeTable;
 import seedu.duke.exception.LessonInvalidTimeException;
 
 import java.time.DayOfWeek;
@@ -17,7 +19,7 @@ import java.util.regex.Pattern;
 
 import static seedu.duke.command.timetable.TimeTableCommand.TIMETABLE_LESSON_DELETE_USER_FORMAT;
 import static seedu.duke.command.timetable.TimeTableCommand.TIMETABLE_LESSON_PARAMETER_USER_FORMAT;
-import static seedu.duke.util.ExceptionMessage.MESSAGE_LESSON_OVERLAP;
+import static seedu.duke.util.ExceptionMessage.MESSAGE_LESSON_INVALID_TIME;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_MODULE_NOT_FOUND;
 import static seedu.duke.util.Message.MESSAGE_CHECK_COMMAND_FORMAT;
 import static seedu.duke.util.Message.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -55,10 +57,9 @@ public abstract class TimeTableCommandParser {
     public static Command parseTimeTableCommand(String parameters) throws NumberFormatException {
         Command command;
         Matcher matcher = TIMETABLE_FORMAT.matcher(parameters);
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
-                    MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT, TimeTableCommand.FORMAT));
-        }
+
+        Parser.matcherMatches(matcher, parameters, TimeTableCommand.FORMAT);
+
         try {
             String commandFlag = matcher.group(Parser.COMMAND_FLAG_GROUP).toLowerCase().trim();
             String timeTableParams = matcher.group(TIMETABLE_GROUP).toLowerCase().trim();
@@ -79,7 +80,7 @@ public abstract class TimeTableCommandParser {
         } catch (ModuleManager.ModuleNotFoundException e) {
             return new IncorrectCommand(MESSAGE_MODULE_NOT_FOUND);
         } catch (LessonInvalidTimeException e) {
-            return new IncorrectCommand(MESSAGE_LESSON_OVERLAP);
+            return new IncorrectCommand(MESSAGE_LESSON_INVALID_TIME);
         }
         return command;
     }
@@ -123,11 +124,9 @@ public abstract class TimeTableCommandParser {
     public static Command parseTimeTableAddCommand(String lessonParams)
             throws ModuleManager.ModuleNotFoundException, LessonInvalidTimeException, DateTimeParseException {
         Matcher lessonMatcher = TIMETABLE_LESSON_PARAMETER_FORMAT.matcher(lessonParams);
-        if (!lessonMatcher.matches()) {
-            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
-                MESSAGE_INVALID_COMMAND_FORMAT, lessonParams, MESSAGE_CHECK_COMMAND_FORMAT,
-                    TIMETABLE_LESSON_PARAMETER_USER_FORMAT));
-        }
+
+        Parser.matcherMatches(lessonMatcher, lessonParams, TIMETABLE_LESSON_PARAMETER_USER_FORMAT);
+
         Lesson newLesson = LessonParser.parseLesson(lessonMatcher);
         // Convert repeatString to int
         String repeatString = lessonMatcher.group(REPEAT_GROUP).toLowerCase().trim();
@@ -145,11 +144,7 @@ public abstract class TimeTableCommandParser {
      */
     public static Command parseTimeTableDeleteCommand(String deleteParams) {
         Matcher lessonMatcher = TIMETABLE_DELETE_PARAMETER_FORMAT.matcher(deleteParams);
-        if (!lessonMatcher.matches()) {
-            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
-                    MESSAGE_INVALID_COMMAND_FORMAT, deleteParams, MESSAGE_CHECK_COMMAND_FORMAT,
-                    TIMETABLE_LESSON_DELETE_USER_FORMAT));
-        }
+        Parser.matcherMatches(lessonMatcher, deleteParams, TIMETABLE_LESSON_DELETE_USER_FORMAT);
         // Must account for the user input vs the actual week number
         String dayString = lessonMatcher.group(DAY_GROUP).toUpperCase().trim();
         DayOfWeek dayOfWeek = DayOfWeek.valueOf(dayString);

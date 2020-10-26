@@ -24,10 +24,10 @@ public class LessonTest {
     static final LocalTime time_15 = LocalTime.of(15,0);
 
     @BeforeEach
-    void setupModObjects() throws LessonInvalidTimeException {
+    void setupLessonObjects() throws LessonInvalidTimeException {
         lesson1 = new Lesson(MOD_CODE_1, LessonType.LECTURE, DayOfWeek.MONDAY, time_12, time_13);
         lesson2 = new Lesson(MOD_CODE_2, LessonType.LECTURE, DayOfWeek.MONDAY, time_14, time_15);
-        manager.initialise();
+        manager.clearAllLessons();
         manager.addLesson(lesson1);
         manager.addLesson(lesson2);
     }

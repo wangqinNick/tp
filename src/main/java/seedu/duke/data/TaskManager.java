@@ -109,6 +109,18 @@ public class TaskManager {
     }
 
     /**
+     * Gets Task summary.
+     *
+     * @return
+     *  The message containing the task summary
+     */
+    public static String getSummary() {
+        ArrayList<ArrayList<Task>> summaryLists = summary();
+        String message = TextUi.getSummaryList(summaryLists);
+        return message;
+    }
+
+    /**
      * Gets Task List.
      *
      * @return tasksList
