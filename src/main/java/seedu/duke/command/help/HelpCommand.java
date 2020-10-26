@@ -10,7 +10,7 @@ public class HelpCommand extends Command {
     public static final String COMMAND_WORD = "help";
     public static final String FORMAT = COMMAND_WORD;
 
-    public HelpCommand(String commandType){
+    public HelpCommand(String commandType) {
         this.commandType = commandType;
     }
 

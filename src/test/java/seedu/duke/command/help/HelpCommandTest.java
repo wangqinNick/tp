@@ -27,7 +27,7 @@ public class HelpCommandTest {
 
     @Test
     void testHelpCommand() {
-        HelpCommand helpCommand = new HelpCommand(null);
+        HelpCommand helpCommand = new HelpCommand("");
         CommandResult commandResult = helpCommand.execute();
         assertEquals(HELP_MESSAGE, commandResult.feedbackToUser);
     }
