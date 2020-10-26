@@ -31,7 +31,7 @@ public class DeleteModuleCommand extends DeleteCommand {
     }
 
     /**
-     * Deletes the module from the module list.
+     * Executes the DeleteModuleCommand to delete the module from the module list.
      *
      * @return CommandResult containing acknowledgement of the delete or errors.
      */
@@ -42,7 +42,7 @@ public class DeleteModuleCommand extends DeleteCommand {
             deleteModule(moduleCode);
             message = MESSAGE_DELETE_MODULE_SUCCESS;
         } catch (ModuleManager.ModuleNotFoundException e) {
-            return new CommandResult(MESSAGE_MODULE_NOT_FOUND);
+            message = MESSAGE_MODULE_NOT_FOUND;
         }
         return new CommandResult(message);
     }
