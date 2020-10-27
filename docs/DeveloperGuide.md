@@ -55,7 +55,7 @@ commands. Command is a dependency of Parser as Parser creates Command objects to
 The Command family of classes are nearly all derived from the abstract Command class, except for
 CommandResult and PromptType. All Command classes belong to the command package.
 
-The Command classes carry information about the user's command. There is one class for each exact user command.
+The Command classes carry information about the user's command. There is one class for each exact user command.  
 The `execute()` function of the Command class generates a CommandResult, which holds the reply to the user.
 
 PromptType indicates the functionality of the Command object. The most useful type is EDIT, which indicates to
@@ -139,7 +139,7 @@ Extending from the abstract Command class are the AddModule, AddTask Command cla
 As seen from the sequence diagram above, this is the flow of an add command.\
 AddCommand is an abstract class, inheriting from it are AddTaskCommand and AddModuleComand.\
 The AddCommandParser decides to create either AddModuleCommand, AddTaskCommand or IncorrectCommand objects based on the user input.\
-Each of these have an execute() function that creates a CommandResult object that shows the user the result of the command through TextUi, using `showOutputToUser()`\
+Each of these have an execute() function that creates a CommandResult object that shows the user the result of the command through TextUi, using `showOutputToUser()`
 
 Given below is an example usage scenario and how the add feature behaves at each step.
 
@@ -160,10 +160,6 @@ e.g. `add -t task -by 2nd Jan`
 * Module already exists in module list\
 e.g. `add -m CS1010` but the module list already contains `CS1010`
 
-<<<<<<< HEAD
-### [proposed] Grade Feature 
-This proposed feature is facilitated by ModuleManager and Module classes.  
-=======
 ### Cap Feature 
 This feature is faciliatated by ModuleManager and Module classes.
 It extends `Command` and runs through the `ModuleManager`, checking every `grade` and `moduleCredit`.
@@ -240,7 +236,7 @@ Common reasons for failure include:
 e.g. `timetable -add CS2101 TUE 0800 1000 LECTURE 1`\
 e.g. `timetable -add CS2101 TUESDAY 8am 10am LECTURE 1`\
 e.g. `timetable -add CS2101 TUESDAY 0800 1000 NONSENSE 1`\
-e.g. `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 5`\
+e.g. `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 5`
 * Module does not exist in module list\
 e.g. `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 1` but the module list does not contain `CS2101`. Available modules can be found by entering `list -m`
 e.g. `timetable -add BAD TUESDAY 0800 1000 LECTURE 1` but the module list does not contain `BAD` and `BAD` is not a valid NUS module.
@@ -261,7 +257,7 @@ Otherwise, an exception message will be shown explaining the exception to the us
 Common reasons for failure include:
 
 * Wrong command format\
-e.g. `timetable -del TUE 1`\
+e.g. `timetable -del TUE 1`
 * Lesson does not exist in the timetable\
 e.g. `timetable -del TUESDAY 5` but the timetable does not contain a lesson/s on `TUESDAY` at index `5`. Current lessons can be found by entering `timetable -day` or `timetable -week`
 
@@ -295,14 +291,14 @@ e.g. `timetable -del TUESDAY 5` but the timetable does not contain a lesson/s on
 ## Instructions for manual testing
 
 {Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+
+Given below are instructions to test the app manually.
 1. Download the latest version of `ra.VI` from [here](https://github.com/AY2021S1-CS2113T-T09-2/tp/releases/tag/v1.0) and copy it into an empty folder.
 2. Open a new terminal window and navigate to the same directory where duke.jar is located. 
 3. Enter the command `java -jar duke.jar` into the terminal window to launch the application. The application should now be running.
 4. Enter the command `help` to get a list of all available commands and its usages.
 5. For a detailed list on the command features, refer to the [user guide](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/UserGuide.md).
 6. Simply enter `bye` to terminate and exit the application.
-
-Given below are instructions to test the app manually.
 
 ### Launch and shutdown
 
