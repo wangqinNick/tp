@@ -1,20 +1,26 @@
 package seedu.duke.ui;
 
 import seedu.duke.command.CommandResult;
+import seedu.duke.data.Lesson;
 import seedu.duke.data.Module;
 import seedu.duke.data.Task;
 import seedu.duke.util.Message;
 
+import java.time.DayOfWeek;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
 import static seedu.duke.util.ExceptionMessage.MESSAGE_LIST_EMPTY;
-import static seedu.duke.util.Message.MESSAGE_COMPLETED_TASKLIST;
 import static seedu.duke.util.Message.MESSAGE_COMMAND_LIST;
+import static seedu.duke.util.Message.MESSAGE_COMPLETED_TASKLIST;
 import static seedu.duke.util.Message.MESSAGE_INCOMPLETE_DATED_TASKLIST;
 import static seedu.duke.util.Message.MESSAGE_INCOMPLETE_UNDATED_TASKLIST;
+import static seedu.duke.util.Message.MESSAGE_NO_LESSONS;
+import static seedu.duke.util.Message.MESSAGE_TIMETABLE_HEADER;
 import static seedu.duke.util.Message.MESSAGE_TIMETABLE_INIT;
+import static seedu.duke.util.Message.MESSAGE_TIMETABLE_FOOTER;
 
 public class TextUi {
     private static Scanner in;
@@ -193,9 +199,51 @@ public class TextUi {
 
     public void showTimeTableInitialisationMessage() {
         outputToUser(
-                DIVIDER_LINE,
-                MESSAGE_TIMETABLE_INIT,
-                DIVIDER_LINE);
+            DIVIDER_LINE,
+            MESSAGE_TIMETABLE_INIT,
+            DIVIDER_LINE);
+    }
+
+    /**
+     * Prints day timetable.
+     *
+     * @return the String of the day's timetable
+     */
+    public static String printDayTimetable(DayOfWeek day, ArrayList<Lesson> lessonList) {
+        StringBuilder output = new StringBuilder();
+        if (lessonList.size() > 0) {
+            output.append(System.lineSeparator())
+                    .append(day)
+                    .append(System.lineSeparator())
+                    .append(MESSAGE_TIMETABLE_HEADER);
+            for (Lesson lesson : lessonList) {
+                int lessonNumber = lessonList.indexOf(lesson) + 1;
+                output.append(printLessonBlock(lesson, lessonNumber));
+            }
+        } else {
+            output = new StringBuilder(MESSAGE_NO_LESSONS + day + "\n");
+        }
+        return output.toString();
+    }
+
+    /**
+     * Prints a timetable block for a particular lesson.
+     *
+     * @return the timetable block containing lesson time, number and name
+     */
+    public static String printLessonBlock(Lesson lesson, int lessonIndex) {
+        DateTimeFormatter time = DateTimeFormatter.ofPattern("HHmm");
+        String startTime = lesson.getStartTime().format(time);
+        String endTime = lesson.getEndTime().format(time);
+        String lessonNumber = String.format("%02d", lessonIndex);
+        String message = "";
+
+        message += " | " + startTime + "-" + endTime
+                + " | " + lessonNumber
+                + " | " + lesson.getModuleCode() + " " + lesson.getLessonTypeString() + " |"
+                + MESSAGE_TIMETABLE_FOOTER;
+
+        return message;
     }
 }
 
