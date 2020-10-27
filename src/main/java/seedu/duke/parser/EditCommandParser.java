@@ -12,7 +12,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static seedu.duke.util.Message.MESSAGE_NO_EDIT_TASK;
-import static seedu.duke.util.Message.MESSAGE_NO_EDIT_MODULE;
 
 public class EditCommandParser {
     public static final String MODULE_PREFIX = "-m";

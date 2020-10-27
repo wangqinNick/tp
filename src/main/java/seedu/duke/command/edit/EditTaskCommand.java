@@ -10,8 +10,8 @@ import static seedu.duke.util.Message.MESSAGE_EDIT_TASK_SUCCESS;
 
 public class EditTaskCommand extends EditCommand {
 
-    private int taskID;
-    private String newTaskDescription;
+    private final int taskID;
+    private final String newTaskDescription;
     public static final String FORMAT = EditCommand.COMMAND_WORD + " -t" + " <task_index> <task_name>";
     public static final String HELP =   "Edit a task description from the task list."
                                         + "\n\tFormat: " + FORMAT

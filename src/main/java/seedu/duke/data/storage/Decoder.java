@@ -6,7 +6,6 @@ import seedu.duke.data.Module;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.io.IOException;
@@ -15,6 +14,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -71,8 +71,6 @@ public class Decoder {
      *  The name of the file to read from
      * @return
      *  The ArrayList tasksList
-     * @throws FileNotFoundException
-     *  When the file does not exist
      */
     public static ArrayList<Task> loadTasks(String dataFileName) {
         String jsonStr;
@@ -158,7 +156,7 @@ public class Decoder {
                 System.out.print("cannot connect!");
             } else {
                 int fileSize = urlConn.getContentLength(); // get the length of the data
-                InputStreamReader isReader = new InputStreamReader(urlConn.getInputStream(), "UTF-8");
+                InputStreamReader isReader = new InputStreamReader(urlConn.getInputStream(), StandardCharsets.UTF_8);
                 BufferedReader reader = new BufferedReader(isReader);
                 StringBuffer buffer = new StringBuffer();
                 String line; // to save the content of every line
@@ -171,8 +169,6 @@ public class Decoder {
                 //System.out.print(buffer.toString());
                 content = buffer.toString();
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

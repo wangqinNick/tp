@@ -7,7 +7,6 @@ import seedu.duke.command.PromptType;
 import seedu.duke.data.StateManager;
 import seedu.duke.data.TimeTableManager;
 import seedu.duke.data.storage.InputOutputManager;
-import seedu.duke.exception.TimeTableInitialiseException;
 import seedu.duke.parser.Parser;
 import seedu.duke.ui.TextUi;
 
@@ -31,7 +30,7 @@ public class Duke {
     }
 
     /** Sets up the storage, loads up the data from the storage file and prints the welcome message.  */
-    private void start(String[] args) throws FileNotFoundException {
+    private void start(String[] args) {
         Scanner in = new Scanner(System.in);
         this.ui = new TextUi(in);
         InputOutputManager.start();
@@ -42,10 +41,10 @@ public class Duke {
                 int currWeekNum = TextUi.getCurrentWeekNum();
                 TimeTableManager.initialise(currWeekNum);
             } catch (Exception e) {
-                ui.outputToUser(TIMETABLE_NOT_INITIALISED);
+                TextUi.outputToUser(TIMETABLE_NOT_INITIALISED);
             }
         }
-        ui.showWelcomeMessage();
+        TextUi.showWelcomeMessage();
         logger.getLogger().info("Initialised scanner, UI, and IO");
     }
 

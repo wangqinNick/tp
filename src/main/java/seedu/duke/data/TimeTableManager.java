@@ -98,7 +98,8 @@ public class TimeTableManager {
         // add for every week, or alternate weeks
         for (; currWeek < timetable.getSemEndWeekNum(); currWeek++) { // don't add for reading week
             lessonManager = timetable.getLessonManagerOfWeek(currWeek);
-            if (currWeek == timetable.getSemRecessWeekNum()) { // don't add for recess week
+            if (currWeek == timetable.getSemRecessWeekNum()) {
+                // don't add for recess week
             } else if (repeat == 1) { // if repeat every week
                 lessonManager.addLesson(lesson);
             } else if (isEvenWeek(currWeek) && repeat == 2) { // if repeat every even week

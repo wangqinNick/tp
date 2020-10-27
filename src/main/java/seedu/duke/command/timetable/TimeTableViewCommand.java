@@ -13,8 +13,8 @@ import static seedu.duke.data.TimeTableManager.getSpecificDayLessons;
 import static seedu.duke.data.TimeTableManager.getSpecifiedWeekLessons;
 
 public class TimeTableViewCommand extends TimeTableCommand {
-    private int numOfDays;
-    private LocalDateTime now = LocalDateTime.now();
+    private final int numOfDays;
+    private final LocalDateTime now = LocalDateTime.now();
 
     public TimeTableViewCommand(int numOfDays) {
         this.numOfDays = numOfDays;

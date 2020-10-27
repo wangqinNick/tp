@@ -37,7 +37,7 @@ public class TextUi {
     }
 
     public TextUi(Scanner in) {
-        this.in = in;
+        TextUi.in = in;
     }
 
     public static void showGoodByeMessage() {
@@ -67,7 +67,7 @@ public class TextUi {
      */
     public static String getIndexTaskList(ArrayList<Task> taskList) {
         final StringBuilder stringFormat = new StringBuilder();
-        int displayIndex = 0 + DISPLAY_INDEX_OFFSET;
+        int displayIndex = DISPLAY_INDEX_OFFSET;
         for (Task t : taskList) {
             stringFormat.append(getIndexListFormat(displayIndex, t.toString()));
             displayIndex++;
@@ -83,7 +83,7 @@ public class TextUi {
      */
     public static String getIndexModuleList(HashMap<String, Module> modulesMap) {
         final StringBuilder stringFormat = new StringBuilder();
-        int displayIndex = 0 + DISPLAY_INDEX_OFFSET;
+        int displayIndex = DISPLAY_INDEX_OFFSET;
         for (Module module : modulesMap.values()) {
             stringFormat.append(getIndexListFormat(displayIndex, module.toString()));
             displayIndex++;

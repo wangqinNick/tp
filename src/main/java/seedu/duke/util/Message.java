@@ -21,8 +21,8 @@ public class Message {
     public static final String MESSAGE_GOODBYE = "Good bye!";
     public static final String MESSAGE_WELCOME = "Welcome to RAVI";
     public static final String MESSAGE_DONE_TASK_SUCCESS = "SUCCESS!! The task has been marked as done.\n";
-    public static final String ICON_DONE = "\u2713";
-    public static final String ICON_NOT_DONE = "\u2718";
+    public static final String ICON_DONE = "\u221A";
+    public static final String ICON_NOT_DONE = "\u0078";
     public static final String MESSAGE_LIST_PRINTED = "List:\n";
     public static final String MESSAGE_UNDO_SUCCESS = "Undo successfully!";
     public static final String MESSAGE_UNDO_UNSUCCESSFUL = "Sorry, there was an IO error when undoing the state.";

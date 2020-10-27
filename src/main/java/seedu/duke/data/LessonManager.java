@@ -102,7 +102,7 @@ public class LessonManager {
             return;
         }
         for (int i = 0; i < lessonMap.get(day).size(); i++) {
-            if (lessonMap.get(day).get(i).getHiddenId() == id) {
+            if (lessonMap.get(day).get(i).getHiddenId().equals(id)) {
                 lessonMap.get(day).remove(i);
                 logger.getLogger().info("Lesson removed at index: " + i);
                 return;
@@ -117,8 +117,6 @@ public class LessonManager {
      *  The specified day
      * @return
      *  The ArrayList of lessons on that day
-     * @throws LessonNotFoundException
-     *  If there are no lessons on that day
      */
     public ArrayList<Lesson> getDayLessonList(DayOfWeek day) {
         return lessonMap.get(day);

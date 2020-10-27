@@ -10,7 +10,7 @@ import static seedu.duke.util.ExceptionMessage.MESSAGE_MODULE_NOT_PROVIDED;
 import static seedu.duke.util.Message.MESSAGE_ADD_MODULE_SUCCESS;
 
 public class AddModuleCommand extends AddCommand {
-    private String module;
+    private final String module;
     public static final String FORMAT = COMMAND_WORD + " -m <module_code>";
     public static final String HELP =   "Add a module from NUSMods to the scheduler."
                                         + "\n\tFormat: " + FORMAT
@@ -45,7 +45,7 @@ public class AddModuleCommand extends AddCommand {
      */
     @Override
     public CommandResult execute() {
-        String message = "";
+        String message;
         try {
             addModule(module);
             message = MESSAGE_ADD_MODULE_SUCCESS;

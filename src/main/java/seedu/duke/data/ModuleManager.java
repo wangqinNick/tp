@@ -124,14 +124,13 @@ public class ModuleManager {
      * @param moduleCode
      *  The module code of the module to remove from the module list
      */
-    public static boolean delete(String moduleCode) throws ModuleNotFoundException {
+    public static void delete(String moduleCode) throws ModuleNotFoundException {
         logger.getLogger().info("Deleting module with code: " + moduleCode);
         if (!contains(moduleCode)) {
             logger.getLogger().warning("Can't delete module because it doesn't exist!");
             throw new ModuleNotFoundException();
         }
         modulesMap.remove(moduleCode);
-        return false;
     }
 
     /**
