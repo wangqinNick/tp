@@ -129,12 +129,36 @@ This section describes some noteworthy details on how certain features are imple
 ### Add/Delete Feature
 This feature is facilitated by the TaskManager, ModuleManager and proposed NoteManager classes.
 Extending from the Command classes are the AddModule, AddTask and proposed AddNotes Command classes. It implements the following operations:
-* AddTask#addTask() - Add a task to the task list through TaskManager.add()
-* AddModule#addModule() - Add a module to the module list through ModuleManager.add()
-* DeleteTask#deleteTask() - Deletes a task from the task list through TaskManager.delete()
-* DeleteModule#deleteModule() - Deletes a module from the module list through ModuleManager.delete()\
+* AddTask#`addTask()` - Add a task to the task list through `TaskManager.add()`
+* AddModule#`addModule()` - Add a module to the module list through `ModuleManager.add()`
+* DeleteTask#`deleteTask()` - Deletes a task from the task list through `TaskManager.delete()`
+* DeleteModule#`deleteModule()` - Deletes a module from the module list through `ModuleManager.delete()`
 
-To add on, each Command class has a execute() which will run in the main loop. This returns a CommandResult object which will print a message to the user.
+![UML class diagram for Parser Family Classes](/docs/diagrams/AddCommandSequenceDiagram.png?raw=true)
+
+As seen from the sequence diagram above, this is the flow of an add command.\
+AddCommand is an abstract class, inheriting from it are AddTaskCommand and AddModuleComand.\
+The AddCommandParser decides to create either AddModuleCommand, AddTaskCommand or IncorrectCommand objects based on the user input.\
+Each of these have an execute() function that creates a CommandResult object that shows the user the result of the command through TextUi, using `showOutputToUser()`\
+
+Given below is an example usage scenario and how the add feature behaves at each step.
+
+Step 1. The user launches the application for the first time.
+
+Step 2. The user inputs `add -m CS2101` into Ravi, as the user wants to note down a module named ‘CS2101’ and add it to their module list.\
+This input is received by the Ui as a string. This string is parsed by the Parser, and thereafter the AddCommandParser, before creating an AddModuleCommand. 
+
+Step 3. The AddModuleCommand is executed, returning a `CommandResult` containing a success message if the module has been successfully added.\
+Otherwise, an exception message will be shown explaining the exception to the user.\
+Common reasons for failure include:
+
+* Wrong command format\
+e.g. `add --t task`\
+e.g. `add -t task --by 2-10-2020 1400`\
+e.g. `add -m Fake Mod`\
+e.g. `add -t task -by 2nd Jan`
+* Module already exists in module list\
+e.g. Module list contains CS1010, but user tries to enter `add -m CS1010`
 
 ### [proposed] Grade Feature 
 This proposed feature is facilitated by ModuleManager and Module classes. 
@@ -148,8 +172,7 @@ Step 1. The user launches the application for the first time. The user inputs `a
 
 Step 2. The user inputs `grade CS2101 4 A+`. Where the user input is parsed and allocated to by the parser to GradeCommand. `GradeCommand#execute()` is called and moduleManager checks if such a module exists in the user’s module list, then checks if the input grade is valid according to the NUS grading schematic and finally assigns the specific module , the grade and module credits.
 
-Step 3. The `CommandResult` returns the success message to show the user that their module has successfully been graded. Otherwise, an exception message will be shown with regards to the exception caught. 
-
+Step 3. The `CommandResult` returns the success message to show the user that their module has successfully been graded. Otherwise, an exception message will be shown with regards to the exception caught.
 
 ## User Stories
 
@@ -164,7 +187,6 @@ Step 3. The `CommandResult` returns the success message to show the user that th
 |v1.0|user|delete modules from the application|keep track of new modules|
 |v2.0|user|view my timetable quickly|be aware of my classes and prepare for them quickly|
 |v2.0|user|view a summary of my tasks|be aware of my tasks and work on them as needed|
-|v2.0|user|write notes for my modules|manage my notes together with my tasks and modules|
 |v2.0|user|grade my modules|keep track of my grades for respective modules|
 
 ## Non-Functional Requirements
@@ -188,7 +210,7 @@ Given below are instructions to test the app manually.
 ### Adding a task w/ deadline
 1. Adding a task without deadline
     1. Test case: `add -t read a book`
-    Expected: Task `read a book` will be added to the task list. Details of the added task is shown in the status message.
+    Expected: Task `read a book` will be added to the task list. Details of the success of the added task will be shown.
     2. Test case: `add -t `
     Expected: As there is no task to add, details of the associated error message will be shown.
 2. Adding a task with deadline
@@ -203,10 +225,22 @@ Given below are instructions to test the app manually.
 1. Adding a module
     1. Test case: `add -m CS2113T`
     Expected: Module `CS2113T` will be checked against the NUS module list. 
-    Since `CS2113T` is a valid module, it will be added to the module list. Details of the added module is shown in the status message.
+    Since `CS2113T` is a valid module, it will be added to the module list. Details of the success of the added module will be shown.
     2. Test case: `add -m Fake Mod`
-    Expected: As there is no such module `Fake Mod` in the NUS module list.
-    It will not be added to the module list. Details of the associated error message will be shown.
+    Expected: As there is no such module `Fake Mod` in the NUS module list, it will not be added to the module list. Details of the associated error message will be shown.
+
+### Deleting a task
+1. Deleting a task
+    1. Test case: `del -t 1` where `task` is index `0` in the task list
+    Expected: The DeleteCommandParser parses `1` and converts it to index `0` in the task list. As task `task` is the index `0` in the task list, `task` will be deleted from the task list.
+    2. Test case: `del -t 10` where there is no task of index `9` in the task list
+    Expected: The DeleteCommandParser parses `10` and converts it to index `9` in the task list. As there is no task of index `9` in the task list, the deletion will give an error. Details of the associated error message will be shown.
+
+1. Deleting a module
+    1. Test case: `del -m CS2113T` where `CS2113T` has been previously added to the module list
+    Expected: As module `CS2113T` is in the module list, `CS2113T` will be deleted from the module list. Details of the success of the deleted module will be shown.
+    2. Test case: `del -m 0` where there is no module `0` in the module list
+    Expected: As there is no such module in the module list, the deletion will give an error. Details of the associated error message will be shown.
     
 ### Adding a lesson to the timetable
 
