@@ -236,6 +236,7 @@ Given below are instructions to test the app manually.
     2. Test case: `del -t 10` where there is no task of index `9` in the task list
     Expected: The DeleteCommandParser parses `10` and converts it to index `9` in the task list. As there is no task of index `9` in the task list, the deletion will give an error. Details of the associated error message will be shown.
 
+### Deleting a module
 1. Deleting a module
     1. Test case: `del -m CS2113T` where `CS2113T` has been previously added to the module list
     Expected: As module `CS2113T` is in the module list, `CS2113T` will be deleted from the module list. Details of the success of the deleted module will be shown.

@@ -1,0 +1,63 @@
+@startuml
+class TimeTableAddCommand
+class TimeTableDeleteCommand
+class TimeTableViewCommand
+class LessonManager
+
+abstract class TimeTableCommandParser {
+    {static} parseTimeTableCommand()
+    {static} parseTimeTableAddCommand()
+    {static} parseTimeTableDeleteCommand()
+    {static} parseTimeTableViewCommand()
+}
+
+abstract class TimeTableCommand {
+    execute()
+}
+
+abstract class Command {
+    execute()
+}
+
+class TimeTable {
+    execute()
+}
+
+class TimeTableAddCommand {
+    execute()
+}
+
+class TimeTableViewCommand {
+    execute()
+}
+
+class TimeTableDeleteCommand {
+    execute()
+}
+
+class IncorrectCommand {
+    execute()
+}
+
+class TimeTableManager {
+    {static} initialise()
+    {static} addLesson()
+    {static} removeLesson()
+    {static} getSpecificDayLessons()
+    {static} getSpecifiedWeekLessons()
+}
+
+TimeTableCommand --|> Command
+IncorrectCommand --|> Command
+
+TimeTableCommandParser -- "0..1" TimeTableCommand
+TimeTableCommandParser -- "0..1" IncorrectCommand
+
+TimeTableAddCommand --|> TimeTableCommand
+TimeTableDeleteCommand --|> TimeTableCommand
+TimeTableViewCommand --|> TimeTableCommand
+TimeTableManager *-- "1" TimeTable
+TimeTable o-- "1..13" LessonManager
+
+
+@enduml
