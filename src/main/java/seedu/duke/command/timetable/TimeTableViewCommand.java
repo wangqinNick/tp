@@ -25,7 +25,7 @@ public class TimeTableViewCommand extends TimeTableCommand {
     public String generateDayTimeTable() {
         ArrayList<Lesson> lessonList;
         lessonList = getSpecificDayLessons(now.getDayOfWeek());
-        return "Current NUS Week: " + getCurrNusWeekStr() + "\n\n" + TextUi.printDayTimetable(now, lessonList);
+        return "Current NUS Week: " + getCurrNusWeekStr() + "\n" + TextUi.printDayTimetable(now, lessonList);
     }
 
     public String generateWeekTimeTable() {
