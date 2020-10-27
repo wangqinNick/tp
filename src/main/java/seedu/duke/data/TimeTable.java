@@ -37,7 +37,7 @@ public class TimeTable {
         return semesterMap.get(weekNum);
     }
 
-    public void removeLessonById(DayOfWeek dayOfWeek, String id) {
+    public void deleteLessonById(DayOfWeek dayOfWeek, String id) {
         for (LessonManager eachWeek : semesterMap.values()) {
             eachWeek.removeLessonById(dayOfWeek, id);
         }
