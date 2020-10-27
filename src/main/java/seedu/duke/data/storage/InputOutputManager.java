@@ -27,10 +27,14 @@ public class InputOutputManager {
     static final String nusModuleFileName = FileName.NUSMOD_SAVE_FILE_NAME + FileName.FILE_EXT;
     static final String timetableFileName = FileName.TIMETABLE_SAVE_FILE_NAME + FileName.FILE_EXT;
 
-    static final java.nio.file.Path userModuleFile = java.nio.file.Paths.get(String.valueOf(dirPath), userModuleFileName);
-    static final java.nio.file.Path userTaskFile = java.nio.file.Paths.get(String.valueOf(dirPath), userTaskFileName);
-    static final java.nio.file.Path nusModuleFile = java.nio.file.Paths.get(String.valueOf(dirPath), nusModuleFileName);
-    static final java.nio.file.Path timetableFile = java.nio.file.Paths.get(String.valueOf(dirPath), timetableFileName);
+    static final java.nio.file.Path userModuleFile =
+            java.nio.file.Paths.get(String.valueOf(dirPath),userModuleFileName);
+    static final java.nio.file.Path userTaskFile =
+            java.nio.file.Paths.get(String.valueOf(dirPath), userTaskFileName);
+    static final java.nio.file.Path nusModuleFile =
+            java.nio.file.Paths.get(String.valueOf(dirPath), nusModuleFileName);
+    static final java.nio.file.Path timetableFile =
+            java.nio.file.Paths.get(String.valueOf(dirPath), timetableFileName);
 
     private static final DukeLogger logger = new DukeLogger(InputOutputManager.class.getName());
 
