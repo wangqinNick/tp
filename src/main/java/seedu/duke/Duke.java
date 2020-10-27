@@ -41,10 +41,10 @@ public class Duke {
                 int currWeekNum = TextUi.getCurrentWeekNum();
                 TimeTableManager.initialise(currWeekNum);
             } catch (Exception e) {
-                TextUi.outputToUser(TIMETABLE_NOT_INITIALISED);
+                ui.outputToUser(TIMETABLE_NOT_INITIALISED);
             }
         }
-        TextUi.showWelcomeMessage();
+        ui.showWelcomeMessage();
         logger.getLogger().info("Initialised scanner, UI, and IO");
     }
 

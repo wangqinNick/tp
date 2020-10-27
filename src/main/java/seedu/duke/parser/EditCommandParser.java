@@ -68,7 +68,7 @@ public class EditCommandParser {
             throws InvalidParameterException, InvalidMatchException {
         Matcher matcher = EDIT_FORMAT.matcher(parameters);
 
-        Parser.matcherMatches(matcher, parameters, EditCommand.FORMAT, EditCommand.PROMPT_HELP);
+        Parser.matcherMatches(matcher, parameters, EditModuleCommand.FORMAT, EditCommand.PROMPT_HELP);
 
         String oldModuleCode = matcher.group(FIRST_ARGUMENT_IDENTIFIER_GROUP).trim();
         String newModuleCode = matcher.group(SECOND_ARGUMENT_IDENTIFIER_GROUP).trim();
@@ -92,7 +92,7 @@ public class EditCommandParser {
             throws InvalidParameterException, NumberFormatException, InvalidMatchException {
         Matcher matcher = EDIT_FORMAT.matcher(parameters);
 
-        Parser.matcherMatches(matcher, parameters, EditModuleCommand.FORMAT, EditCommand.PROMPT_HELP);
+        Parser.matcherMatches(matcher, parameters, EditTaskCommand.FORMAT, EditCommand.PROMPT_HELP);
 
         String stringTaskIndex = matcher.group(FIRST_ARGUMENT_IDENTIFIER_GROUP).trim();
         int taskIndex = Integer.parseInt(stringTaskIndex) - 1;
