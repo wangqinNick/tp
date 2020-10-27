@@ -3,6 +3,7 @@ package seedu.duke.data;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import seedu.duke.data.storage.InputOutputManager;
 import seedu.duke.exception.LessonInvalidTimeException;
 import seedu.duke.exception.TimeTableInitialiseException;
 
@@ -32,6 +33,7 @@ public class TimeTableTest {
 
     @BeforeAll
     static void setupUserMods() throws ModuleManager.DuplicateModuleException, ModuleManager.ModuleNotFoundException {
+        InputOutputManager.loadNusModSave();
         ModuleManager.clearModules();
         ModuleManager.add(new Module(MOD_CODE_1));
         ModuleManager.add(new Module(MOD_CODE_2));
