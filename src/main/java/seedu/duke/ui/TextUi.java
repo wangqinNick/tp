@@ -7,8 +7,10 @@ import seedu.duke.data.Task;
 import seedu.duke.util.Message;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -21,6 +23,7 @@ import static seedu.duke.util.Message.MESSAGE_NO_LESSONS;
 import static seedu.duke.util.Message.MESSAGE_TIMETABLE_HEADER;
 import static seedu.duke.util.Message.MESSAGE_TIMETABLE_INIT;
 import static seedu.duke.util.Message.MESSAGE_TIMETABLE_FOOTER;
+import static seedu.duke.util.Message.MESSAGE_TIMETABLE_MIDDLE;
 
 public class TextUi {
     private static Scanner in;
@@ -213,19 +216,25 @@ public class TextUi {
      *
      * @return the String of the day's timetable
      */
-    public static String printDayTimetable(DayOfWeek day, ArrayList<Lesson> lessonList) {
+    public static String printDayTimetable(LocalDate now, ArrayList<Lesson> lessonList) {
         StringBuilder output = new StringBuilder();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(", dd-MM-yy");
         if (lessonList.size() > 0) {
             output.append(System.lineSeparator())
-                    .append(day)
+                    .append(now.getDayOfWeek() + now.format(formatter) + ":")
                     .append(System.lineSeparator())
                     .append(MESSAGE_TIMETABLE_HEADER);
             for (Lesson lesson : lessonList) {
                 int lessonNumber = lessonList.indexOf(lesson) + 1;
                 output.append(printLessonBlock(lesson, lessonNumber));
+                if (lessonNumber == lessonList.size()) {
+                    output.append(MESSAGE_TIMETABLE_FOOTER);
+                } else {
+                    output.append(MESSAGE_TIMETABLE_MIDDLE);
+                }
             }
         } else {
-            output = new StringBuilder(MESSAGE_NO_LESSONS + day + "\n");
+            output = new StringBuilder(MESSAGE_NO_LESSONS + now.getDayOfWeek() + now.format(formatter) + ".\n");
         }
         return output.toString();
     }
@@ -240,14 +249,27 @@ public class TextUi {
         String startTime = lesson.getStartTime().format(time);
         String endTime = lesson.getEndTime().format(time);
         String lessonNumber = String.format("%02d", lessonIndex);
-        String message = "";
-
-        message += " | " + startTime + "-" + endTime
-                + " | " + lessonNumber
-                + " | " + lesson.getModuleCode() + " " + lesson.getLessonTypeString() + " |"
-                + MESSAGE_TIMETABLE_FOOTER;
+        String message = String.format(" │%s│%s│%s│",
+                centerString(11, startTime + "-" + endTime),
+                centerString(4, lessonNumber),
+                centerString(20, lesson.getModuleCode() + " " + lesson.getLessonTypeString()));
 
         return message;
+    }
+
+    /**
+     * Simple function that returns a string centered in 'width' number of characters.
+     * Empty characters (i.e. left/right padding) are spaces.
+     *
+     * @param width
+     *  The number of characters for width
+     * @param s
+     *  The string to be centered
+     * @return
+     *  The centered string
+     */
+    public static String centerString (int width, String s) {
+        return String.format("%-" + width  + "s", String.format("%" + (s.length() + (width - s.length()) / 2) + "s", s));
     }
 }
 

@@ -5,7 +5,9 @@ import seedu.duke.data.Lesson;
 import seedu.duke.ui.TextUi;
 
 import java.time.DayOfWeek;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import static java.time.temporal.TemporalAdjusters.previousOrSame;
+import static java.time.temporal.TemporalAdjusters.nextOrSame;
 import java.util.ArrayList;
 
 import static seedu.duke.data.TimeTableManager.getCurrWeekNum;
@@ -14,7 +16,7 @@ import static seedu.duke.data.TimeTableManager.getSpecifiedWeekLessons;
 
 public class TimeTableViewCommand extends TimeTableCommand {
     private final int numOfDays;
-    private final LocalDateTime now = LocalDateTime.now();
+    private final LocalDate now = LocalDate.now();
 
     public TimeTableViewCommand(int numOfDays) {
         this.numOfDays = numOfDays;
@@ -22,21 +24,19 @@ public class TimeTableViewCommand extends TimeTableCommand {
 
     public String generateDayTimeTable() {
         ArrayList<Lesson> lessonList;
-        DayOfWeek day = now.getDayOfWeek();
-        lessonList = getSpecificDayLessons(day);
-        return TextUi.printDayTimetable(day, lessonList);
+        lessonList = getSpecificDayLessons(now.getDayOfWeek());
+        return TextUi.printDayTimetable(now, lessonList);
     }
 
     public String generateWeekTimeTable() {
         int currentWeek = getCurrWeekNum();
-        int dayVal = 1;
         ArrayList<ArrayList<Lesson>> weekLessons = getSpecifiedWeekLessons(currentWeek);
         StringBuilder out = new StringBuilder();
+        LocalDate dateIterator = now.with(previousOrSame(DayOfWeek.MONDAY));
 
         for (ArrayList<Lesson> dayLesson : weekLessons) {
-            DayOfWeek day = DayOfWeek.of(dayVal);
-            out.append(TextUi.printDayTimetable(day, dayLesson));
-            dayVal++;
+            out.append(TextUi.printDayTimetable(dateIterator, dayLesson));
+            dateIterator = dateIterator.plusDays(1);
         }
 
         return out.toString();

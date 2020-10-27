@@ -60,10 +60,11 @@ public class Message {
             "Please enter the current week num e.g. 1 - 14"
                     + " where 7 is recess week.\n" + "In here, NUS week 7 onwards is week 8 onwards.";
     public static final String MESSAGE_TIMETABLE_HEADER =
-            "  _________________________________\n"
-                    + " |   Time    | ID |     Lesson     |\n"
-                    + " |___________|____|________________|\n";
-    public static final String MESSAGE_TIMETABLE_FOOTER = "\n |___________|____|________________|\n";
+            " ┌───────────┬────┬────────────────────┐\n"
+            + " │   Time    │ ID │       Lesson       │\n"
+            + " ├───────────┼────┼────────────────────┤\n";
+    public static final String MESSAGE_TIMETABLE_MIDDLE = "\n ├───────────┼────┼────────────────────┤\n";
+    public static final String MESSAGE_TIMETABLE_FOOTER = "\n └───────────┴────┴────────────────────┘\n";
     public static final String MESSAGE_NO_LESSONS = "\nNo lessons on ";
     /*
     public static final String MESSAGE_COMMAND_LIST =
