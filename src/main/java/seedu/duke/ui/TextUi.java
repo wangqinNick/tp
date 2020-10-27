@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 import static seedu.duke.util.ExceptionMessage.MESSAGE_LIST_EMPTY;
-import static seedu.duke.util.Message.MESSAGE_COMMAND_LIST;
+import static seedu.duke.util.Message.MESSAGE_GENERAL_HELP;
 import static seedu.duke.util.Message.MESSAGE_COMPLETED_TASKLIST;
 import static seedu.duke.util.Message.MESSAGE_INCOMPLETE_DATED_TASKLIST;
 import static seedu.duke.util.Message.MESSAGE_INCOMPLETE_UNDATED_TASKLIST;
@@ -28,7 +28,9 @@ public class TextUi {
     //Offset required to convert between 1-indexing and 0-indexing
     public static final int DISPLAY_INDEX_OFFSET = 1;
 
-    public static final String DIVIDER_LINE = "~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~*";
+    public static final String TOP_DIV_LINE = "═════════════════════════════════════════════════════";
+    public static final String PREFIX_ARROW = "⤍\t";
+    public static final String BOT_DIV_LINE = "═════════════════════════════════════════════════════";
 
     //%1$ catches the furthest left arg, %2$ catches the 2nd arg
     private static final String MESSAGE_INDEX_LIST_FORMAT = "\n%1$d. %2$s";
@@ -42,16 +44,35 @@ public class TextUi {
 
     public static void showGoodByeMessage() {
         outputToUser(
-                DIVIDER_LINE,
-                Message.MESSAGE_GOODBYE,
-                DIVIDER_LINE);
+                TOP_DIV_LINE,
+                PREFIX_ARROW + Message.MESSAGE_GOODBYE,
+                BOT_DIV_LINE);
     }
 
     public static void showWelcomeMessage()     {
         outputToUser(
-                DIVIDER_LINE,
-                Message.MESSAGE_WELCOME,
-                DIVIDER_LINE);
+                TOP_DIV_LINE,
+                PREFIX_ARROW + Message.MESSAGE_WELCOME,
+                BOT_DIV_LINE);
+    }
+
+    public void showTimeTableInitialisationMessage() {
+        outputToUser(
+                TOP_DIV_LINE,
+                PREFIX_ARROW + MESSAGE_TIMETABLE_INIT,
+                BOT_DIV_LINE);
+    }
+
+    /**
+     * Shows the result of a command execution to the user.
+     *
+     * @param result the relevant message shown to user
+     */
+    public void showResultToUser(CommandResult result) {
+        outputToUser(
+                TOP_DIV_LINE,
+                result.feedbackToUser,
+                BOT_DIV_LINE);
     }
 
     public static void outputToUser(String... output) {
@@ -152,8 +173,10 @@ public class TextUi {
      * @return the trimmed command input
      */
     public static String getUserCommand() {
-        System.out.println("Enter Command: ");
+        System.out.println("Command: ");
+        System.out.print("⋗\t");
         String userInput = in.nextLine();
+        System.out.print("\n\n");
 
         while (isEmptyCheck(userInput)) {
             userInput = in.nextLine();
@@ -168,24 +191,12 @@ public class TextUi {
     }
 
     /**
-     * Shows the result of a command execution to the user.
-     *
-     * @param result the relevant message shown to user
-     */
-    public void showResultToUser(CommandResult result) {
-        outputToUser(
-                DIVIDER_LINE,
-                result.feedbackToUser,
-                DIVIDER_LINE);
-    }
-
-    /**
      * Gets command list.
      *
      * @return the list of available commands
      */
     public static String getCommandList() {
-        return MESSAGE_COMMAND_LIST;
+        return MESSAGE_GENERAL_HELP;
     }
 
     /**
@@ -195,13 +206,6 @@ public class TextUi {
      */
     public static String getCommandHelpMessage(String commandWord) {
         return String.format("For more information on %s, type `help %s`", commandWord, commandWord);
-    }
-
-    public void showTimeTableInitialisationMessage() {
-        outputToUser(
-            DIVIDER_LINE,
-            MESSAGE_TIMETABLE_INIT,
-            DIVIDER_LINE);
     }
 
     /**
