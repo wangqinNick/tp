@@ -1,0 +1,41 @@
+@startuml
+
+-> ":Parser": parseCommand()
+activate ":Parser"
+    create ":SummaryCommand"
+    ":Parser" -> ":SummaryCommand": SummaryCommand()
+    activate ":SummaryCommand"
+    ":Parser" <-- ":SummaryCommand"
+    deactivate ":SummaryCommand"
+deactivate ":Parser"
+
+-> ":SummaryCommand": execute()
+activate ":SummaryCommand"
+    create ":TaskManager"
+    ":SummaryCommand" -> ":TaskManager": getSummary()
+    activate ":TaskManager"
+        create ":TextUi"
+        ":TaskManager" -> ":TextUi": getSummaryList()
+        activate ":TextUi"
+        ":TaskManager" <-- ":TextUi": message
+        deactivate ":TextUi"
+    ":SummaryCommand" <-- ":TaskManager": output
+    deactivate ":TaskManager"
+alt output null
+    create ":CommandResult"
+    ":SummaryCommand" -> ":CommandResult": CommandResult(MESSAGE_LIST_EMPTY)
+    activate ":CommandResult"
+    ":SummaryCommand" <-- ":CommandResult": CommandResult
+    deactivate ":CommandResult"
+    <-- ":SummaryCommand" : CommandResult
+else else
+    create ":CommandResult"
+    ":SummaryCommand" -> ":CommandResult": CommandResult(MESSAGE_SUMMARY_PRINTED + output)
+    activate ":CommandResult"
+    ":SummaryCommand" <-- ":CommandResult": CommandResult
+    deactivate ":CommandResult"
+    <-- ":SummaryCommand" : CommandResult
+    deactivate ":SummaryCommand"
+destroy ":SummaryCommand"
+end
+@enduml
