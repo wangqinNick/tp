@@ -160,11 +160,41 @@ e.g. `add -t task -by 2nd Jan`
 * Module already exists in module list\
 e.g. `add -m CS1010` but the module list already contains `CS1010`
 
-### [proposed] Grade Feature 
-This proposed feature is facilitated by ModuleManager and Module classes. 
+### Cap Feature 
+This feature is faciliatated by ModuleManager and Module classes.
+It extends `Command` and runs through the `ModuleManager`, checking every `grade` and `moduleCredit`.
+* `CapCommand#gradeConvert` - Takes the grade of a module and assigns it a value according to the NUS grading schematic
+* `CapCommand#calculateCap` - Uses a formula to calculate the user's current cap, with the user's total Module Credit taken and current cap.
+
+![Sequence diagram for Cap Feature in Command class](/docs/diagrams/CapCommandSequenceDiagram.png?raw=true)
+
+As seen from the sequence diagram above, this is the flow of a Cap command.
+The CapCommandParser parses the user's input and assigns the relevant attributes in the Cap Command constructor, such as `totalMcTaken` and `currentCap`.
+When Cap Command is being executed , a CommandResult object is created that calculates the user's current cap after taking into account the current `ModuleManager` modules and the past semester's total mc taken and current cap.
+
+Given below is an example usage scenario and how the cap feature behaves at each step. 
+
+Step 1. The user launches the application for the first time. 
+
+Step 2. The user inputs `add -m CS2101` into Ravi, as the user adds a module he's taking into the `ModuleManager`. The user keys in as many modules into Ravi as they are taking. 
+
+Step 3. Once the user attains a grade for the modules keyed in, he inputs `grade CS2101 4 A-` and grades all the other modules he has taken.
+
+Step 4. Once every module in the `ModuleManager` has been graded, he inputs `cap 46 4.24` to calculate his accumulative cap after attaining his new grades.
+
+Step 5. The `CommandResult` returns the success message to show the user his current cap after attaining his grades.
+
+### Grade Feature 
+This feature is facilitated by ModuleManager and Module classes. 
 It extends `Command` and is stored internally inside `Module` as an `grade` and `moduleCredit`.
 * `GradeCommand#testgrade(stringGrade)` - checks if the input grade is valid according to NUS grading schematic 
 * `GradeCommand#grade(moduleModule)` - assigns the specific module present in the module list, the grade and moduleCredit attributes.
+
+![Sequence diagram for Grade Feature in Command class](/docs/diagrams/GradeCommandSequenceDiagram.png?raw=true)
+
+As seen from the sequence diagram above, this is the flow of a Grade command.
+The GradeCommandParser parses the user's input, and assigns the relevant attributes in the Grade Command constructor, such as `moduleCredit` and `grade`
+When Grade Command is being executed,a CommandResult object is created that shows the user the result of the command through TextUi, using `showOutputToUser()`
 
 Given below is an example usage scenario and how the grade feature behaves at each step.
 
@@ -172,7 +202,7 @@ Step 1. The user launches the application. The user inputs `add -m CS2101` into 
 
 Step 2. The user inputs `grade CS2101 4 A+`. Where the user input is parsed and allocated to by the parser to GradeCommand. `GradeCommand#execute()` is called and moduleManager checks if such a module exists in the user’s module list, then checks if the input grade is valid according to the NUS grading schematic and finally assigns the specific module , the grade and module credits.
 
-Step 3. The `CommandResult` returns the success message to show the user that their module has successfully been graded. Otherwise, an exception message will be shown with regards to the exception caught.
+Step 3. The `CommandResult` returns the success message to show the user that their module has successfully been graded. Otherwise, an exception message will be shown regarding the exception caught.
 
 ### Timetable Feature 
 This feature is faciliatated by TimeTableManager and TimeTableCommand classes.
@@ -245,6 +275,7 @@ e.g. `timetable -del TUESDAY 5` but the timetable does not contain a lesson/s on
 |v2.0|user|view my timetable quickly|be aware of my classes and prepare for them quickly|
 |v2.0|user|view a summary of my tasks|be aware of my tasks and work on them as needed|
 |v2.0|user|grade my modules|keep track of my grades for respective modules|
+|v2.0|user|calculate my accumulative cap|keep track of my progress in university|
 
 ## Non-Functional Requirements
 
@@ -310,14 +341,15 @@ Given below are instructions to test the app manually.
 
 ### Viewing the timetable
 
+### Calculating the Accumulated Cap after the current semester
+1. Calculate the Cap:
+    1. Test case: `cap 46 4.24`, where the modules in Module List has already been graded individually.
+    Excepted: Each module in `ModuleManager` will be checked for its `moduleCredit` and `grade`, it is accumulated in variables.
+    Using the accumulative cap formula and the user's most updated cap will be calculated and shown to user.
+
 ### Grading an existing module in module list
-1. Add a module:
-    1. Test case: `add -m CS2101`
-    Expected:  Module `CS2101` will be checked against the NUS module list. 
-    Since `CS2113T` is a valid module, it will be added to the module list.
-    Details of the added module is shown in the status message.
-2. Grade the module:
-    1. Test case: `grade CS2101 4 A+`
+1. Grade the module:
+    1. Test case: `grade CS2101 4 A+` , where the module `CS2101` has been previously added to the module list
     Expected: Module `CS2101` will be checked if its inside ModuleManager.
     Since `CS2101` exists then the attributes of `4` and `A+` which are module credit and grade,
     will be added to the Module.  
