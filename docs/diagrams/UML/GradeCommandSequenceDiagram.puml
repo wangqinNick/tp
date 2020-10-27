@@ -2,17 +2,24 @@
 -> ":GradeCommandParser": prepareGradeCommand()
 activate ":GradeCommandParser"
 create ":GradeCommand"
-":GradeCommandParser" -> ":GradeCommand": GradeCommand(moduleGraded,moduleCredit,grade)
-deactivate ":GradeCommandParser"
+":GradeCommandParser" -> ":GradeCommand": <<construct>> GradeCommand()
 activate ":GradeCommand"
-":GradeCommand" -> ":ModuleManager" : getModule(moduleGraded)
+":GradeCommandParser" <-- ":GradeCommand" : GradeCommand
+deactivate ":GradeCommand"
+<-- ":GradeCommandParser" : GradeCommand
+deactivate ":GradeCommandParser"
+destroy ":GradeCommandParser"
+-> ":GradeCommand" : execute()
+activate ":GradeCommand"
+deactivate ":GradeCommandParser"
+":GradeCommand" -> ":ModuleManager" : getModule()
 activate ":ModuleManager"
 ":GradeCommand" <-- ":ModuleManager" :moduleToBeGraded
 deactivate ":ModuleManager"
-":GradeCommand" -> ":GradeCommand" : grade(moduleToBeGraded)
+":GradeCommand" -> ":GradeCommand" : grade()
 alt testGrade(grade)
     activate ":GradeCommand"
-    ":GradeCommand" -> ":ModuleManager" :grade(moduleToBeGraded,grade,moduleCredit)
+    ":GradeCommand" -> ":ModuleManager" :grade()
     activate ":ModuleManager"
     ":GradeCommand" <-- ":ModuleManager"
     deactivate ":ModuleManager"
@@ -22,11 +29,11 @@ end
 ":GradeCommand" --> ":GradeCommand"
 deactivate ":GradeCommand"
 create ":CommandResult"
-":GradeCommand" -> ":CommandResult"
-deactivate ":GradeCommand"
+":GradeCommand" -> ":CommandResult" : <<construct>>
 activate ":CommandResult"
-":CommandResult" -> "ui:TextUi" :showResultToUser()
+":GradeCommand" <-- ":CommandResult" : CommandResult
 deactivate ":CommandResult"
-activate "ui:TextUi"
-deactivate "ui:TextUi"
+<- ":GradeCommand" : CommandResult
+deactivate ":GradeCommand"
+destroy ":GradeCommand"
 @enduml

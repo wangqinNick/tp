@@ -2,8 +2,14 @@
 -> ":CapCommandParser" : prepareCapCommand()
 activate ":CapCommandParser"
 create ":CapCommand"
-":CapCommandParser" -> ":CapCommand" : CapCommand(totalMcTaken,currentCap)
+":CapCommandParser" -> ":CapCommand" : <<construct>> CapCommand()
+activate ":CapCommand"
+":CapCommandParser" <-- ":CapCommand" : CapCommand
+deactivate ":CapCommand"
+<-- ":CapCommandParser" : CapCommand
+destroy ":CapCommandParser"
 deactivate ":CapCommandParser"
+-> ":CapCommand" : execute()
 activate ":CapCommand"
 ":CapCommand" -> ":CapCommand" : calculateCap()
 activate ":CapCommand"
@@ -18,11 +24,11 @@ deactivate ":CapCommand"
 ":CapCommand" <-- ":CapCommand" : Cap
 deactivate ":CapCommand"
 create ":CommandResult"
-":CapCommand" -> ":CommandResult"
-deactivate ":CapCommand"
+":CapCommand" -> ":CommandResult" : <<construct>>
 activate ":CommandResult"
-":CommandResult" -> "ui:TextUi" :showResultToUser()
+":CapCommand" <-- ":CommandResult" : CommandResult
 deactivate ":CommandResult"
-activate "ui:TextUi"
-deactivate "ui:TextUi"
+<-- ":CapCommand" : CommandResult
+deactivate ":CapCommand"
+destroy ":CapCommand"
 @enduml
