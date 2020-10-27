@@ -37,12 +37,12 @@ This section describes some noteworthy details on how certain features are imple
 
 ### Top level classes
 
-This is a class diagram of the top level of raVi.
-The classes depicted here are those which are direct dependencies of the main class Duke.
-The various dependencies of the classes depicted here are not shown to avoid cluttering, and are described in later sections.
+This is a class diagram of the top level of raVi.  
+The classes depicted here are those which are direct dependencies of the main class Duke.  
+The various dependencies of the classes depicted here are not shown to avoid cluttering, and are described in later sections.  
 
-The main class is called Duke (carried over from legacy codebase). The main loop is held within the main class.
-Most classes used by the main class are static in nature and do not need to be instantiated.
+The main class is called Duke (carried over from legacy codebase). The main loop is held within the main class.  
+Most classes used by the main class are static in nature and do not need to be instantiated.  
 
 The Command and CommandResult objects are dependencies of Executor in addition to Duke. Executor can be
 viewed as a simple layer of abstraction on top of Command and CommandResult to facilitate the execution of user
@@ -108,18 +108,18 @@ The target user profile for raVI is described by the following:
 
 ### Value proposition
 
-A common problem amongst freshmen is the inability to organise all the incoming information.
-NUS places a focus on taking responsibility for your own learning, so it might be a tough transition from tertiary education.
+A common problem amongst freshmen is the inability to organise all the incoming information.  
+NUS places a focus on taking responsibility for your own learning, so it might be a tough transition from tertiary education.  
 A lot of students miss lessons, assignments, and even exams, just because they're struggling to adapt to the new
 environment.
 
-raVI helps students to manage their school-related information in a compact, stripped-down interface that does not bombard them with too much information.
+raVI helps students to manage their school-related information in a compact, stripped-down interface that does not bombard them with too much information.  
 When you receive your modules and lessons, simply enter them into raVI as they arrive. raVI will keep track of all of it
-for you.
-You can create tasks, give them deadlines, and tag them to certain modules. You can see all of your tasks and deadlines at a glance.
+for you.  
+You can create tasks, give them deadlines, and tag them to certain modules. You can see all of your tasks and deadlines at a glance.  
 You can even write and save your notes in raVI, uncluttering your work environment even further.
 
-raVI is even integrated with NUSMods, bringing its comprehensive library of information to your fingertips.
+raVI is even integrated with NUSMods, bringing its comprehensive library of information to your fingertips.  
 All of the above features are wrapped in a compact, no-frills command-line interface. No confusing menus and dropdowns
 to distract you; only simple commands to give you what you want.
 
@@ -161,7 +161,7 @@ e.g. `add -t task -by 2nd Jan`
 e.g. Module list contains CS1010, but user tries to enter `add -m CS1010`
 
 ### [proposed] Grade Feature 
-This proposed feature is facilitated by ModuleManager and Module classes. 
+This proposed feature is facilitated by ModuleManager and Module classes.  
 It extends `Command` and is stored internally inside `Module` as an `grade` and `moduleCredit`.
 * `GradeCommand#testgrade(stringGrade)` - checks if the input grade is valid according to NUS grading schematic 
 * `GradeCommand#grade(moduleModule)` - assigns the specific module present in the module list, the grade and moduleCredit attributes.
@@ -203,49 +203,61 @@ Step 3. The `CommandResult` returns the success message to show the user that th
 ## Instructions for manual testing
 
 {Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+1. Download the latest version of `ra.VI` from [here](https://github.com/AY2021S1-CS2113T-T09-2/tp/releases/tag/v1.0) and copy it into an empty folder.
+2. Open a new terminal window and navigate to the same directory where duke.jar is located. 
+3. Enter the command `java -jar duke.jar` into the terminal window to launch the application. The application should now be running.
+4. Enter the command `help` to get a list of all available commands and its usages.
+5. For a detailed list on the command features, refer to the [user guide](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/UserGuide.md).
+6. Simply enter `bye` to terminate and exit the application.
+
 Given below are instructions to test the app manually.
 
 ### Launch and shutdown
 
 ### Adding a task w/ deadline
 1. Adding a task without deadline
-    1. Test case: `add -t read a book`
+    1. Test case: `add -t read a book`  
     Expected: Task `read a book` will be added to the task list. Details of the success of the added task will be shown.
-    2. Test case: `add -t `
+    2. Test case: `add -t `  
     Expected: As there is no task to add, details of the associated error message will be shown.
 2. Adding a task with deadline
-    1. Test case: `add -t read a book -by 20-10-2020 1800`
+    1. Test case: `add -t read a book -by 20-10-2020 1800`  
     Expected: Task `read a book` will be added to the task list. Additionally, the deadline 
     will be added to the task.
     Details of the added task is shown in the status message.
-    2. Test case: `add -t read a book -by 20/20/2020`
+    2. Test case: `add -t read a book -by 20/20/2020`  
     Expected: Invalid deadline `20/20/2020` will not allow the task to be added to the task list. Details of the associated error message will be shown.
 
 ### Adding a module
 1. Adding a module
-    1. Test case: `add -m CS2113T`
-    Expected: Module `CS2113T` will be checked against the NUS module list. 
+    1. Test case: `add -m CS2113T`  
+    Expected: Module `CS2113T` will be checked against the NUS module list.  
     Since `CS2113T` is a valid module, it will be added to the module list. Details of the success of the added module will be shown.
-    2. Test case: `add -m Fake Mod`
+    2. Test case: `add -m Fake Mod`  
     Expected: As there is no such module `Fake Mod` in the NUS module list, it will not be added to the module list. Details of the associated error message will be shown.
 
 ### Deleting a task
 1. Deleting a task
-    1. Test case: `del -t 1` where `task` is index `0` in the task list
+    1. Test case: `del -t 1` where `task` is index `0` in the task list  
     Expected: The DeleteCommandParser parses `1` and converts it to index `0` in the task list. As task `task` is the index `0` in the task list, `task` will be deleted from the task list.
-    2. Test case: `del -t 10` where there is no task of index `9` in the task list
+    2. Test case: `del -t 10` where there is no task of index `9` in the task list  
     Expected: The DeleteCommandParser parses `10` and converts it to index `9` in the task list. As there is no task of index `9` in the task list, the deletion will give an error. Details of the associated error message will be shown.
 
 1. Deleting a module
-    1. Test case: `del -m CS2113T` where `CS2113T` has been previously added to the module list
+    1. Test case: `del -m CS2113T` where `CS2113T` has been previously added to the module list  
     Expected: As module `CS2113T` is in the module list, `CS2113T` will be deleted from the module list. Details of the success of the deleted module will be shown.
-    2. Test case: `del -m 0` where there is no module `0` in the module list
+    2. Test case: `del -m 0` where there is no module `0` in the module list  
     Expected: As there is no such module in the module list, the deletion will give an error. Details of the associated error message will be shown.
     
 ### Adding a lesson to the timetable
 
 ### Marking a task as done / undone
-
+1. Marking a task as done
+    1. Test case: `done 1` where `task` is index `0` in the task list  
+    Expected: The DoneCommandParser parses `1` and converts it to index `0` in the task list.  As task `task` is the index `0` in the task list, `task` will be marked as done.
+    2. Test case: `done 10` where there is no task of index `9` in the task list  
+    Expected: The DoneCommandParser parses `10` and converts it to index `9` in the task list.  As there is no task of index `9` in the task list, an error is thrown. Details of the associated error message will be shown.
+    
 ### Editing a task
 
 ### Editing a module
@@ -254,12 +266,12 @@ Given below are instructions to test the app manually.
 
 ### Grading an existing module in module list
 1. Add a module:
-    1. Test case: `add -m CS2101`
+    1. Test case: `add -m CS2101`  
     Expected:  Module `CS2101` will be checked against the NUS module list. 
     Since `CS2113T` is a valid module, it will be added to the module list.
     Details of the added module is shown in the status message.
 2. Grade the module:
-    1. Test case: `grade CS2101 4 A+`
+    1. Test case: `grade CS2101 4 A+`  
     Expected: Module `CS2101` will be checked if its inside ModuleManager.
     Since `CS2101` exists then the attributes of `4` and `A+` which are module credit and grade,
     will be added to the Module.  
@@ -270,9 +282,9 @@ Given below are instructions to test the app manually.
 
 ### Saving data
 1. Add tasks and modules, then exit
-    1. Test case: `add -t task 1`, `add -m CS1010`, `bye`
+    1. Test case: `add -t task 1`, `add -m CS1010`, `bye`  
     Expected: `user_task_data.json` and `user_mod_data.json` should be created in `<ROOT>/data/` with a JSON
     representation of the task and module.
 2. Loading tasks and modules
-    1. Test case: Run raVI again after the first test case, then run `list -t` and `list -m`
+    1. Test case: Run raVI again after the first test case, then run `list -t` and `list -m`  
     Expected: `task 1` should be shown in the task list, and `CS1010` should be shown in the module list.
