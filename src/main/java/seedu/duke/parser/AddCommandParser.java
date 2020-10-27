@@ -26,6 +26,20 @@ public class AddCommandParser {
     protected static final Pattern ADD_FORMAT =
             Pattern.compile("(?<commandFlag>-\\S+)" + "(?<desc>[^-]*)" + "((?<by>-by)?)" + "((?<deadline>.*)?)");
 
+    /**
+     * Takes the user's input and parses it into the respective arguments for AddCommand.
+     *
+     * @param parameters
+     * the user's input without the command word
+     * @return
+     * AddCommand with the relevant parameters
+     * @throws InvalidParameterException
+     * When an invalid parameter is given by the user
+     * @throws IllegalStateException
+     * When a method has been invoked at an illegal time
+     * @throws InvalidMatchException
+     * When the user input doesn't match the REGEX format for the AddCommand
+     */
     protected static Command prepareAddCommand(String parameters)
             throws InvalidParameterException, IllegalStateException, InvalidMatchException {
         Matcher matcher = ADD_FORMAT.matcher(parameters);
@@ -56,6 +70,18 @@ public class AddCommandParser {
         return getAddCommand(commandFlag, addedTask, taskDeadline);
     }
 
+    /**
+     * Checks the prefix of the user's input and calls the respective Add command according to it.
+     *
+     * @param commandFlag
+     * The command flag which is either '-t' for task or '-m' for module
+     * @param addedTask
+     * Task or module to be added
+     * @param taskDeadline
+     * The deadline, if given , assigned to the task
+     * @return
+     * the respective Add command for either task or module
+     */
     private static AddCommand getAddCommand(String commandFlag, String addedTask, String taskDeadline) {
         if (commandFlag.equals(MODULE_PREFIX)) {
             return new AddModuleCommand(addedTask);

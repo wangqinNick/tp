@@ -21,7 +21,6 @@ public class EditCommandParser {
     protected static final String ARGUMENT_IDENTIFIER_GROUP = "argument";
     protected static final String FIRST_ARGUMENT_IDENTIFIER_GROUP = "firstArg";
     protected static final String SECOND_ARGUMENT_IDENTIFIER_GROUP = "secondArg";
-    protected static final String INVALID_GROUP = "invalid";
 
     protected static final Pattern EDIT_PREFIX_FORMAT =
             Pattern.compile("(?<commandFlag>-\\S+)" + "(?<argument>.*)");
@@ -74,10 +73,11 @@ public class EditCommandParser {
         String oldModuleCode = matcher.group(FIRST_ARGUMENT_IDENTIFIER_GROUP).trim();
         String newModuleCode = matcher.group(SECOND_ARGUMENT_IDENTIFIER_GROUP).trim();
 
-        isEmptyCheck(oldModuleCode,MESSAGE_NO_EDIT_MODULE);
-        isEmptyCheck(newModuleCode,MESSAGE_NO_EDIT_MODULE);
-
-        return new EditModuleCommand(oldModuleCode, newModuleCode);
+        if (Parser.isEmptyParse(oldModuleCode) || Parser.isEmptyParse(newModuleCode)) {
+            return new IncorrectCommand(MESSAGE_NO_EDIT_TASK);
+        } else {
+            return new EditModuleCommand(oldModuleCode, newModuleCode);
+        }
     }
 
     /**
@@ -98,26 +98,10 @@ public class EditCommandParser {
         int taskIndex = Integer.parseInt(stringTaskIndex) - 1;
         String newTaskDescription = matcher.group(SECOND_ARGUMENT_IDENTIFIER_GROUP).trim();
 
-        isEmptyCheck(newTaskDescription,MESSAGE_NO_EDIT_TASK);
-
-        return new EditTaskCommand(taskIndex,newTaskDescription);
-    }
-
-    /**
-     * Checks if parameters that aren't suppose to be empty, are empty.
-     *
-     * @param param
-     * string to be checked
-     * @param message
-     * message of the error
-     * @return
-     * the message to user
-     */
-    private static IncorrectCommand isEmptyCheck(String param, String message) {
-        if (Parser.isEmptyParse(param)) {
-            return new IncorrectCommand(message);
+        if (Parser.isEmptyParse(newTaskDescription)) {
+            return new IncorrectCommand(MESSAGE_NO_EDIT_TASK);
         } else {
-            return null;
+            return new EditTaskCommand(taskIndex,newTaskDescription);
         }
     }
 }

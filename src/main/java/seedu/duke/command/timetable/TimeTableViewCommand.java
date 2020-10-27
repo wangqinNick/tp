@@ -2,6 +2,7 @@ package seedu.duke.command.timetable;
 
 import seedu.duke.command.CommandResult;
 import seedu.duke.data.Lesson;
+import seedu.duke.ui.TextUi;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
@@ -20,40 +21,25 @@ public class TimeTableViewCommand extends TimeTableCommand {
     }
 
     public String generateDayTimeTable() {
-        DayOfWeek today = now.getDayOfWeek();
-        ArrayList<Lesson> todayLessons = getSpecificDayLessons(today);
-
-        // TODO: do display logic inside TextUi
-        return "TODO";
-
-        /*
-        ArrayList<Lesson> dayLessonList;
-        String out = "";
-        for (;numOfDays > 0; numOfDays--) {
-            dayLessonList = LessonManager.getDayLessonList(now.getDayOfWeek());
-            out += DIVIDER_LINE + System.lineSeparator();
-            out += now.getDayOfWeek() + System.lineSeparator();
-            for (Lesson lesson : dayLessonList) {
-                out += lesson.toString() + System.lineSeparator();
-            }
-        }
-        out += DIVIDER_LINE;
-        return out;
-        */
+        ArrayList<Lesson> lessonList;
+        DayOfWeek day = now.getDayOfWeek();
+        lessonList = getSpecificDayLessons(day);
+        return TextUi.printDayTimetable(day, lessonList);
     }
 
     public String generateWeekTimeTable() {
-        ArrayList<ArrayList<Lesson>> weekLessons = getSpecifiedWeekLessons(getCurrWeekNum());
-        // TODO: do display logic inside TextUi
-        try {
-            String output = "";
-            for (Lesson eachLesson : weekLessons.get(0)) {
-                output += eachLesson.toString() + "\n";
-            }
-            return output;
-        } catch (IndexOutOfBoundsException e) {
-            return "oops";
+        int currentWeek = getCurrWeekNum();
+        int dayVal = 1;
+        ArrayList<ArrayList<Lesson>> weekLessons = getSpecifiedWeekLessons(currentWeek);
+        StringBuilder out = new StringBuilder();
+
+        for (ArrayList<Lesson> dayLesson : weekLessons) {
+            DayOfWeek day = DayOfWeek.of(dayVal);
+            out.append(TextUi.printDayTimetable(day, dayLesson));
+            dayVal++;
         }
+
+        return out.toString();
     }
 
     @Override
