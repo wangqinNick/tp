@@ -12,8 +12,6 @@ class CommandResult {
     String feedbackToUser
 }
 
-abstract class FilterCommand
-
 abstract class AddCommand
 class AddModuleCommand
 class AddTaskCommand
@@ -25,6 +23,11 @@ class DeleteTaskCommand
 abstract class EditCommand
 class EditModuleCommand
 class EditTaskCommand
+
+abstract class TimeTableCommand
+class TimeTableAddCommand
+class TimeTableDeleteCommand
+class TimeTableViewCommand
 
 class DoneCommand
 class UndoCommand
@@ -39,27 +42,32 @@ enum PromptType {
     EDIT
 }
 
-DoneCommand --|> Command
-HelpCommand --|> Command
-ListCommand --|> Command
-UndoCommand --|> Command
-ExitCommand --|> Command
-IncorrectCommand --|> Command
-FilterCommand --|> Command
+Command <|- HelpCommand
+Command <|- ListCommand
+Command <|- ExitCommand
+Command <|-- DeleteCommand
+Command <|-- AddCommand
+EditCommand ---|> Command
+DoneCommand -|> Command
+UndoCommand -|> Command
+IncorrectCommand -|> Command
+TimeTableCommand ---|> Command
 
 PromptType -* Command
+
 Command <. CommandResult
 
 AddCommand <|-- AddModuleCommand
 AddCommand <|-- AddTaskCommand
+
 DeleteCommand <|-- DeleteModuleCommand
 DeleteCommand <|-- DeleteTaskCommand
-EditCommand <|-- EditModuleCommand
-EditCommand <|-- EditTaskCommand
 
-Command <|-- DeleteCommand
-Command <|-- EditCommand
-Command <|-- AddCommand
+EditModuleCommand --|> EditCommand
+EditTaskCommand --|> EditCommand
 
+TimeTableAddCommand --|> TimeTableCommand
+TimeTableDeleteCommand --|> TimeTableCommand
+TimeTableViewCommand --|> TimeTableCommand
 
 @enduml

@@ -2,7 +2,7 @@
 class TimeTableAddCommand
 class TimeTableDeleteCommand
 class TimeTableViewCommand
-class LessonManager
+class Lesson
 
 abstract class TimeTableCommandParser {
     {static} parseTimeTableCommand()
@@ -20,7 +20,7 @@ abstract class Command {
 }
 
 class TimeTable {
-    execute()
+    HashMap<Integer, LessonManager> semesterMap
 }
 
 class TimeTableAddCommand {
@@ -39,6 +39,10 @@ class IncorrectCommand {
     execute()
 }
 
+class LessonManager {
+    HashMap<DayOfWeek, ArrayList<Lesson>> lessonMap
+}
+
 class TimeTableManager {
     {static} initialise()
     {static} addLesson()
@@ -53,11 +57,14 @@ IncorrectCommand --|> Command
 TimeTableCommandParser -- "0..1" TimeTableCommand
 TimeTableCommandParser -- "0..1" IncorrectCommand
 
-TimeTableAddCommand --|> TimeTableCommand
+TimeTableAddCommand -|> TimeTableCommand
 TimeTableDeleteCommand --|> TimeTableCommand
 TimeTableViewCommand --|> TimeTableCommand
 TimeTableManager *-- "1" TimeTable
 TimeTable o-- "1..13" LessonManager
+LessonManager o-- "*" Lesson
+
+TimeTableManager ...> TimeTableCommand
 
 
 @enduml
