@@ -11,7 +11,8 @@ import java.security.InvalidParameterException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static seedu.duke.util.Message.MESSAGE_NO_EDIT_TASK;
+import static seedu.duke.util.ExceptionMessage.MESSAGE_NO_EDIT_TASK;
+import static seedu.duke.util.ExceptionMessage.MESSAGE_NO_EDIT_MODULE;
 
 public class EditCommandParser {
     public static final String MODULE_PREFIX = "-m";
@@ -67,13 +68,13 @@ public class EditCommandParser {
             throws InvalidParameterException, InvalidMatchException {
         Matcher matcher = EDIT_FORMAT.matcher(parameters);
 
-        Parser.matcherMatches(matcher, parameters, EditTaskCommand.FORMAT, EditCommand.PROMPT_HELP);
+        Parser.matcherMatches(matcher, parameters, EditCommand.FORMAT, EditCommand.PROMPT_HELP);
 
         String oldModuleCode = matcher.group(FIRST_ARGUMENT_IDENTIFIER_GROUP).trim();
         String newModuleCode = matcher.group(SECOND_ARGUMENT_IDENTIFIER_GROUP).trim();
 
         if (Parser.isEmptyParse(oldModuleCode) || Parser.isEmptyParse(newModuleCode)) {
-            return new IncorrectCommand(MESSAGE_NO_EDIT_TASK);
+            return new IncorrectCommand(MESSAGE_NO_EDIT_MODULE);
         } else {
             return new EditModuleCommand(oldModuleCode, newModuleCode);
         }

@@ -17,10 +17,6 @@ public class Message {
             "Sorry, the command entered contains some unrecognised parameters starting from here:\n";
     public static final String MESSAGE_CHECK_COMMAND_FORMAT =
             "Please check to make sure to follow the command format:\n";
-    public static final String MESSAGE_NO_EDIT_MODULE = "Please enter a new module code to edit.\n";
-    public static final String MESSAGE_NO_EDIT_TASK = "Please enter a new task index to edit.\n";
-    public static final String MESSAGE_NO_ADD_MODULE = "Please enter a new module code to add.";
-    public static final String MESSAGE_NO_ADD_TASK = "Please enter a new task to add.\n";
     public static final String MESSAGE_GOODBYE = "Goodbye, hope to see you soon!";
     public static final String MESSAGE_WELCOME = "Repository Assistant with a Versatile Interface (ra.VI)";
     public static final String MESSAGE_DONE_TASK_SUCCESS = "The task has been successfully marked as complete.\n";

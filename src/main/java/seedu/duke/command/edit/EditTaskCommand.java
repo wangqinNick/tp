@@ -3,7 +3,7 @@ package seedu.duke.command.edit;
 import seedu.duke.command.CommandResult;
 import seedu.duke.command.PromptType;
 import seedu.duke.data.TaskManager;
-import seedu.duke.util.Message;
+import seedu.duke.util.ExceptionMessage;
 
 import static seedu.duke.util.Message.MESSAGE_EDIT_TASK_SUCCESS;
 
@@ -41,7 +41,7 @@ public class EditTaskCommand extends EditCommand {
             edit();
             return new CommandResult(MESSAGE_EDIT_TASK_SUCCESS);
         } catch (IndexOutOfBoundsException e) {
-            return new CommandResult(Message.MESSAGE_NO_EDIT_TASK);
+            return new CommandResult(ExceptionMessage.MESSAGE_NO_EDIT_TASK);
         }
     }
 }
