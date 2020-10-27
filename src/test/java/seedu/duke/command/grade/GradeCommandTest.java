@@ -23,21 +23,21 @@ class GradeCommandTest {
     }
 
     @Test
-    void GradeCommand_MessageGradeSuccessful_isShown() {
+    void gradeCommand_MessageGradeSuccessful_isShown() {
         GradeCommand gradeCommand = new GradeCommand(MODULE_CODE,4,"A+");
         CommandResult commandResult = gradeCommand.execute();
         assertEquals(Message.MESSAGE_GRADE_MODULE_SUCCESS, commandResult.feedbackToUser);
     }
 
     @Test
-    void GradeCommand_MessageModuleNotFound_isShown() {
+    void gradeCommand_MessageModuleNotFound_isShown() {
         GradeCommand gradeCommand = new GradeCommand(NON_EXISTENT_MODULE_CODE, 4, "A+");
         CommandResult commandResult = gradeCommand.execute();
         assertEquals(ExceptionMessage.MESSAGE_MODULE_NOT_FOUND, commandResult.feedbackToUser);
     }
 
     @Test
-    void GradeCommand_MessageInvalidGrade_isShown() {
+    void gradeCommand_MessageInvalidGrade_isShown() {
         GradeCommand gradeCommand = new GradeCommand(MODULE_CODE, 4, "SU bah");
         CommandResult commandResult = gradeCommand.execute();
         assertEquals(ExceptionMessage.MESSAGE_INVALID_GRADE, commandResult.feedbackToUser);

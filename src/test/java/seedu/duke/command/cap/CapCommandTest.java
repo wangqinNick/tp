@@ -25,7 +25,7 @@ public class CapCommandTest {
     }
 
     @Test
-    void CapCommand_MessageCapDisplayWithCap_isShown() {
+    void capCommand_MessageCapDisplayWithCap_isShown() {
         CapCommand capCommand = new CapCommand(20,4.24);
         CommandResult commandResult = capCommand.execute();
         assertEquals(String.format("%s%.2f\n",MESSAGE_CAP_DISPLAY,CAP), commandResult.feedbackToUser);
