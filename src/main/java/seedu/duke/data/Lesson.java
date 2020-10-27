@@ -122,7 +122,7 @@ public class Lesson {
      * @return
      *  String of lesson type
      */
-    private String getLessonTypeString() {
+    public String getLessonTypeString() {
         switch (lessonType) {
         case LECTURE:
             return "Lecture";
