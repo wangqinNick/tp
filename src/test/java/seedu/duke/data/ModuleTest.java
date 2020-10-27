@@ -14,20 +14,16 @@ public class ModuleTest {
     static final String MOD_CODE_2 = "CG2271";
 
     @BeforeEach
-    void setupModObjects() {
+    void setupModObjects() throws ModuleManager.DuplicateModuleException, ModuleManager.ModuleNotFoundException {
         normalMod1 = new Module(MOD_CODE_1);
         normalMod1.setTitle("Test");
         normalMod2 = new Module(MOD_CODE_2);
         normalMod2.setTitle("Test 2");
-        try {
-            ModuleManager.clearModules();
-            ModuleManager.add(normalMod1);
-            ModuleManager.add(normalMod2);
-        } catch (ModuleManager.DuplicateModuleException e) {
-            // do nothing
-        }
+        ModuleManager.clearModules();
+        ModuleManager.add(normalMod1);
+        ModuleManager.add(normalMod2);
     }
-
+    
     @Test
     void getModuleCount_isEquals2() {
         assertEquals(2, ModuleManager.getModCodeList().length);

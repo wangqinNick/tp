@@ -28,7 +28,8 @@ public class LessonParser {
      * @throws DateTimeParseException When the time of either the start or end is in the wrong format.
      */
     public static Lesson parseLesson(Matcher lessonMatcher) throws
-            ModuleManager.ModuleNotFoundException, LessonInvalidTimeException, DateTimeParseException {
+            ModuleManager.ModuleNotFoundException, LessonInvalidTimeException, DateTimeParseException,
+            IllegalArgumentException {
         String modString = lessonMatcher.group(MODULE_GROUP).toUpperCase().trim();
         String dayString = lessonMatcher.group(DAY_GROUP).toUpperCase().trim();
         String startTimeString = lessonMatcher.group(START_TIME_GROUP).trim();
