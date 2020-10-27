@@ -1,46 +1,37 @@
 package seedu.duke.parser;
 
 import org.junit.jupiter.api.Test;
-import seedu.duke.command.IncorrectCommand;
-import seedu.duke.command.add.AddCommand;
-import seedu.duke.command.edit.EditModuleCommand;
-import seedu.duke.command.edit.EditTaskCommand;
 import seedu.duke.exception.InvalidMatchException;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class ParserTest {
-    static final String TASK_TO_ADD_WITH_DEADLINE = "-t project work -by 2-2-2020 1800";
-    static final String TASK_TO_ADD_WITHOUT_DEADLINE = "-t do quiz";
-    static final String BAD_TASK_TO_ADD = "-t do quiz -by ";
+    private static final Pattern TEST_FORMAT = Pattern.compile("(?<firstArg>\\S+)");
 
     @Test
-    void isNothingToEdit_emptyString_returnsTrue() {
+    void isEmptyParse_emptyString_returnsTrue() {
         assertTrue(new Parser().isEmptyParse(""));
         assertTrue(new Parser().isEmptyParse("", ""));
         assertTrue(new Parser().isEmptyParse("", "", ""));
     }
 
     @Test
-    void isNothingToEdit_nonemptyString_returnsFalse() {
+    void isEmptyParse_nonemptyString_returnsFalse() {
         assertFalse(new Parser().isEmptyParse(" "));
         assertFalse(new Parser().isEmptyParse(" ", ""));
         assertFalse(new Parser().isEmptyParse("", "b", ""));
     }
 
     @Test
-    void prepareAddCommandTest_returnsAddCommand() throws InvalidMatchException {
-        assertTrue(new AddCommandParser().prepareAddCommand(TASK_TO_ADD_WITH_DEADLINE)
-                instanceof AddCommand);
-        assertTrue(new AddCommandParser().prepareAddCommand(TASK_TO_ADD_WITHOUT_DEADLINE)
-                instanceof AddCommand);
-    }
-
-    @Test
-    void prepareAddCommandTest_returnsIncorrectCommand() throws InvalidMatchException {
-        assertTrue(new AddCommandParser().prepareAddCommand(BAD_TASK_TO_ADD)
-                instanceof IncorrectCommand);
+    void matcherMatches_InvalidMatchException_isThrown() {
+        String userInput = "this mod is time consuming";
+        Matcher matcher = TEST_FORMAT.matcher(userInput);
+        assertThrows(InvalidMatchException.class,
+            () -> Parser.matcherMatches(matcher,userInput,"",""));
     }
 }

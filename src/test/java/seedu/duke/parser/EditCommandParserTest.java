@@ -12,7 +12,6 @@ class EditCommandParserTest {
     static final String TASK_TO_EDIT = "3 read a book";
     static final String BAD_TASK_TO_EDIT = "read a book";
     static final String MODULE_TO_EDIT = "cs2113 cs3224";
-    static final String BAD_MODULE_TO_EDIT = "";
 
     @Test
     void prepareEditModuleCommandTest_returnsEditModuleCommand() throws InvalidMatchException {
@@ -29,6 +28,6 @@ class EditCommandParserTest {
     @Test
     void prepareEditTaskCommandTest_NumberFormatException_isThrown() {
         assertThrows(NumberFormatException.class,
-                () -> new EditCommandParser().prepareEditTaskCommand(BAD_TASK_TO_EDIT));
+            () -> new EditCommandParser().prepareEditTaskCommand(BAD_TASK_TO_EDIT));
     }
 }

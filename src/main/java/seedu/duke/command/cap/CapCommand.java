@@ -15,7 +15,7 @@ public class CapCommand extends Command {
     private int totalMcTaken;
     private double currentCap;
     public static final String COMMAND_WORD = "cap";
-    public static final String FORMAT = COMMAND_WORD + "<accumulated_credits> + <current_cap>";
+    public static final String FORMAT = COMMAND_WORD + " <accumulated_credits> + <current_cap>";
     public static final String PROMPT_HELP = TextUi.getCommandHelpMessage(COMMAND_WORD);
     public static final String HELP =   "Calculates your CAP."
                                         + "\n\tFormat: " + FORMAT

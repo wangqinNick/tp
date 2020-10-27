@@ -12,7 +12,7 @@ public class GradeCommandParser {
     protected static final String GRADE_GROUP = "grade";
     protected static final String MC_GROUP = "mc";
     protected static final Pattern GRADE_FORMAT =
-            Pattern.compile("(?<module>[a-zA-Z0-9]+)" + "(?<mc>\\s\\S+)" + "(?<grade>.*)");
+            Pattern.compile("(?<module>[a-zA-Z0-9]+)" + "(?<mc>\\s\\S+)" + "(?<grade>\\s\\S+)");
 
     /**
      * Takes the user's input and parses it into the respective arguments for Grade Command.
