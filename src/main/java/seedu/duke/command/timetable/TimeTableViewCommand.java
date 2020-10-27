@@ -5,8 +5,8 @@ import seedu.duke.data.Lesson;
 import seedu.duke.data.LessonManager;
 import seedu.duke.ui.TextUi;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import static seedu.duke.data.TimeTableManager.getCurrWeekNum;
@@ -21,45 +21,26 @@ public class TimeTableViewCommand extends TimeTableCommand {
     }
 
     public String generateDayTimeTable() {
-        ArrayList<Lesson> dayLessonList;
-        String out = "";
-        for (;numOfDays > 0; numOfDays--) {
-            dayLessonList = LessonManager.getDayLessonList(now.getDayOfWeek());
+        ArrayList<Lesson> lessonList;
+        lessonList = LessonManager.getDayLessonList(now.getDayOfWeek());
+        DayOfWeek day = now.getDayOfWeek();
 
-            out += TextUi.DIVIDER_LINE + System.lineSeparator();
-            out += now.getDayOfWeek() + System.lineSeparator();
-
-            DateTimeFormatter time = DateTimeFormatter.ofPattern("Hmm");
-
-            for (Lesson lesson : dayLessonList) {
-                String start = lesson.getStartTime().format(time);
-                String end = lesson.getEndTime().format(time);
-                out += printTimetableBlock(lesson.getModuleCode(), lesson.getLessonTypeString(), start, end);
-            }
-        }
-        return out;
-    }
-
-    public String printTimetableBlock(String moduleCode, String lessonType, String start, String end){
-        String message = "";
-        message += " | " + start + "-" + end;
-        message += " | " + moduleCode + " " + lessonType + " |\n";
-        return message;
+        return TextUi.printDayTimetable(day, lessonList);
     }
 
     public String generateWeekTimeTable() {
-        int currWeek = getCurrWeekNum();
-        ArrayList<ArrayList<Lesson>> weekLessons = getSpecifiedWeekLessons(currWeek);
-        
-        try {
-            String output = "";
-            for (Lesson eachLesson : weekLessons.get(0)) {
-                output += eachLesson.toString() + "\n";
-            }
-            return output;
-        } catch (IndexOutOfBoundsException e) {
-            return "oops";
+        int currentWeek = getCurrWeekNum();
+        int dayVal = 1;
+        ArrayList<ArrayList<Lesson>> weekLessons = getSpecifiedWeekLessons(currentWeek);
+        StringBuilder out = new StringBuilder();
+
+        for (ArrayList<Lesson> dayLesson : weekLessons) {
+            DayOfWeek day = DayOfWeek.of(dayVal);
+            out.append(TextUi.printDayTimetable(day, dayLesson));
+            dayVal++;
         }
+
+        return out.toString();
     }
 
     @Override

@@ -48,22 +48,6 @@ public class Lesson {
         return lessonType;
     }
 
-    public String getLessonTypeChar(){
-        switch (lessonType) {
-            case LECTURE:
-                return "LT";
-            case TUTORIAL:
-                return "TT";
-            case LAB:
-                return "LB";
-            case SEMINAR:
-                return "SM";
-            case RECITATION:
-                return "RT";
-            default:
-                return "SS";
-        }
-    }
     /**
      * Generates the unique hiddenId for each instance of this Lesson class.
      * No two instances of Lesson class should share a hiddenId.
