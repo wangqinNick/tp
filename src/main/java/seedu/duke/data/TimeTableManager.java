@@ -182,6 +182,22 @@ public class TimeTableManager {
     }
 
     /**
+     * Get the current week number (of NUS calendar).
+     *
+     * @return
+     *  The current week number.
+     */
+    public static String getCurrNusWeekStr() {
+        if (getCurrWeekNum() == timetable.getSemRecessWeekNum()) {
+            return "Recess week";
+        } else if (getCurrWeekNum() == timetable.getSemEndWeekNum()) {
+            return "Reading week";
+        } else {
+            return Integer.toString(getCurrWeekNum() - timetable.getSemStartWeekNum() + 1);
+        }
+    }
+
+    /**
      * Checks whether the current NUS week is odd.
      *
      * @param week
