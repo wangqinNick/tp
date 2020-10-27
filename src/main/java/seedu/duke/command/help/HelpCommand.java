@@ -21,7 +21,7 @@ public class HelpCommand extends Command {
     public static final String HELP =   "View command information."
                                         + "\n\tFormat: " + FORMAT
                                         + "\n\tExample usage: help"
-                                        + "\n                 help add\n";
+                                        + "\n\t               help add";
 
     public HelpCommand(String commandType) {
         this.commandType = commandType;
