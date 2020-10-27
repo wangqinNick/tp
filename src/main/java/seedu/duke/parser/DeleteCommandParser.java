@@ -24,6 +24,18 @@ public class DeleteCommandParser {
             Pattern.compile("((?<commandFlag>.*-\\S+)?)"
                     + "(?<taskModule>\\s\\S+)" + "((?<invalid>.*)?)");
 
+    /**
+     * Takes the user's input and parses it into the respective arguments for Delete Command.
+     *
+     * @param parameters
+     * the user's input without the command word
+     * @return
+     * Delete command with relevant arguments
+     * @throws NumberFormatException
+     * When a string is parsed as an integer/double
+     * @throws InvalidMatchException
+     * When the user input doesn't match the REGEX format for the Delete Command
+     */
     protected static Command getDeleteCommand(String parameters) throws NumberFormatException, InvalidMatchException {
         Matcher matcher = DELETE_FORMAT.matcher(parameters);
 
