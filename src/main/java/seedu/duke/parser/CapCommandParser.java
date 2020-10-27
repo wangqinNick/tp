@@ -13,6 +13,20 @@ public class CapCommandParser {
     protected static final Pattern CUMULATIVE_CAP_FORMAT =
             Pattern.compile("(?<totalMc>\\d+)" + "(?<cap>.*)");
 
+    /**
+     * Takes the user's input and parses it into the respective arguments for CapCommand.
+     *
+     * @param parameters
+     * the user's input without the command word
+     * @return
+     * CapCommand with the relevant parameters
+     * @throws NumberFormatException
+     * When a string is parsed as an integer/double
+     * @throws NullPointerException
+     * referenced object is accessed by its a null
+     * @throws InvalidMatchException
+     * When the user input doesn't match the REGEX format for the Cap Command
+     */
     protected static Command prepareCapCommand(String parameters)
             throws NumberFormatException, NullPointerException, InvalidMatchException {
         Matcher matcher = CUMULATIVE_CAP_FORMAT.matcher(parameters);
