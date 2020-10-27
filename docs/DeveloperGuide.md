@@ -1,5 +1,10 @@
-# Developer Guide for raVI
+---
+layout: page
+title: Developer Guide
+---
+* Table of Contents
 {:toc}
+
 ## Setting up
 
 ### Software Prerequisites

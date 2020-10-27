@@ -1,2 +1,12 @@
-theme: jekyll-theme-architect
+title: "ra.VI"
+theme: jekyll-theme-hacker
+
+header_pages:
+  - UserGuide.md
+  - DeveloperGuide.md
+  - AboutUs.md
+
+repository: "AY2021S1-CS2113T-T09-2/tp"
+github_icon: "images/github-icon.png"
+
 markdown: kramdown
