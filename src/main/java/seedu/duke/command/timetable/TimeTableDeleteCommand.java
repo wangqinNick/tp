@@ -24,7 +24,7 @@ public class TimeTableDeleteCommand extends TimeTableCommand {
      *  When the index given by the user is out of bounds.
      */
     public void removeLessonFromTimeTable() throws IndexOutOfBoundsException {
-        TimeTableManager.removeLesson(dayOfWeek, lessonIndexToDelete);
+        TimeTableManager.deleteLesson(dayOfWeek, lessonIndexToDelete);
     }
 
     @Override

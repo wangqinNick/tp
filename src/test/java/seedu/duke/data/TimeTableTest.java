@@ -99,13 +99,13 @@ public class TimeTableTest {
         TimeTableManager.addLesson(lesson3, 1);
 
         assertEquals(3, TimeTableManager.getWeekLessonCount(CURR_WEEK));
-        TimeTableManager.removeLesson(DayOfWeek.MONDAY, 0);
+        TimeTableManager.deleteLesson(DayOfWeek.MONDAY, 0);
 
         assertEquals(2, TimeTableManager.getWeekLessonCount(CURR_WEEK));
-        TimeTableManager.removeLesson(DayOfWeek.MONDAY, 0);
+        TimeTableManager.deleteLesson(DayOfWeek.MONDAY, 0);
 
         assertEquals(1, TimeTableManager.getWeekLessonCount(CURR_WEEK));
-        TimeTableManager.removeLesson(DayOfWeek.MONDAY, 0);
+        TimeTableManager.deleteLesson(DayOfWeek.MONDAY, 0);
 
         assertEquals(0, TimeTableManager.getWeekLessonCount(CURR_WEEK));
     }
@@ -120,12 +120,12 @@ public class TimeTableTest {
         assertEquals(2, TimeTableManager.getWeekLessonCount(CURR_WEEK));
         assertEquals(2, TimeTableManager.getWeekLessonCount(CURR_WEEK + 1));
         assertEquals(2, TimeTableManager.getWeekLessonCount(CURR_WEEK + 2));
-        TimeTableManager.removeLesson(DayOfWeek.MONDAY, 0); // remove 'repeat 1' lesson
+        TimeTableManager.deleteLesson(DayOfWeek.MONDAY, 0); // remove 'repeat 1' lesson
 
         assertEquals(1, TimeTableManager.getWeekLessonCount(CURR_WEEK));
         assertEquals(1, TimeTableManager.getWeekLessonCount(CURR_WEEK + 1));
         assertEquals(1, TimeTableManager.getWeekLessonCount(CURR_WEEK + 2));
-        TimeTableManager.removeLesson(DayOfWeek.MONDAY, 0); // remove 'repeat 3' lesson
+        TimeTableManager.deleteLesson(DayOfWeek.MONDAY, 0); // remove 'repeat 3' lesson
 
         assertEquals(0, TimeTableManager.getWeekLessonCount(CURR_WEEK));
         assertEquals(1, TimeTableManager.getWeekLessonCount(CURR_WEEK + 1));
@@ -135,7 +135,7 @@ public class TimeTableTest {
     @Test
     void verify_removeLesson_throwsOutOfBounds() {
         assertThrows(IndexOutOfBoundsException.class,
-            () -> TimeTableManager.removeLesson(DayOfWeek.MONDAY, 1));
+            () -> TimeTableManager.deleteLesson(DayOfWeek.MONDAY, 1));
     }
 
 }
