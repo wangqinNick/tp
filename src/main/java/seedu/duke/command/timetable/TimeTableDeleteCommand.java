@@ -2,7 +2,6 @@ package seedu.duke.command.timetable;
 
 import seedu.duke.command.CommandResult;
 import seedu.duke.data.TimeTableManager;
-import seedu.duke.exception.LessonNotFoundException;
 
 import java.time.DayOfWeek;
 
@@ -18,6 +17,12 @@ public class TimeTableDeleteCommand extends TimeTableCommand {
         this.lessonIndexToDelete = lessonIndexToDelete;
     }
 
+    /**
+     * Method runs during execution. Deletes the lesson from the timetable.
+     *
+     * @throws IndexOutOfBoundsException
+     *  When the index given by the user is out of bounds.
+     */
     public void removeLessonFromTimeTable() throws IndexOutOfBoundsException {
         TimeTableManager.removeLesson(dayOfWeek, lessonIndexToDelete);
     }
