@@ -110,9 +110,9 @@ public class TimeTableManager {
     }
 
     /**
-     * Removes lesson by identifying the unique lesson from the current week, dayOfWeek, and lessonIndex.
+     * Deletes lesson by identifying the unique lesson from the current week, dayOfWeek, and lessonIndex.
      * Using the params, the lesson is found and the unique hiddenId is obtained.
-     * Uses the removeLessonById method of LessonManager to remove all lessons with this hiddenId.
+     * Uses the removeLessonById method of LessonManager to delete all lessons with this hiddenId.
      *
      * @param dayOfWeek
      *  The day of week.
@@ -121,9 +121,9 @@ public class TimeTableManager {
      * @throws IndexOutOfBoundsException
      *  When the lesson index is out of bounds.
      */
-    public static void removeLesson(DayOfWeek dayOfWeek, int lessonIndex) throws IndexOutOfBoundsException {
-        logger.getLogger().info("Removing lesson with index " + lessonIndex + " on " + dayOfWeek
-                + " (failed if no successful removal log below)");
+    public static void deleteLesson(DayOfWeek dayOfWeek, int lessonIndex) throws IndexOutOfBoundsException {
+        logger.getLogger().info("Deleting lesson with index " + lessonIndex + " on " + dayOfWeek
+                + " (failed if no successful deletion log below)");
         int currWeek = getCurrWeekNum();
 
         // retrieve the unique ID, as index does not stay constant over different weeks
@@ -132,8 +132,8 @@ public class TimeTableManager {
         String id = lesson.getHiddenId();
 
         // remove by ID
-        timetable.removeLessonById(dayOfWeek, id);
-        logger.getLogger().info("Successful removal of lesson with hiddenId " + id);
+        timetable.deleteLessonById(dayOfWeek, id);
+        logger.getLogger().info("Successful deletion of lesson with hiddenId " + id);
     }
 
     /**

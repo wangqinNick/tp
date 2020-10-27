@@ -8,9 +8,10 @@ import seedu.duke.command.add.AddModuleCommand;
 import seedu.duke.command.add.AddTaskCommand;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.data.TaskManager;
-import seedu.duke.util.ExceptionMessage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.duke.util.ExceptionMessage.MESSAGE_MODULE_NOT_FOUND;
+import static seedu.duke.util.ExceptionMessage.MESSAGE_TASK_NOT_FOUND;
 
 public class DeleteCommandTest {
     static final String MOD_CODE = "CS2113T";
@@ -36,13 +37,13 @@ public class DeleteCommandTest {
     void deleteMissingModuleMessage_isShown() {
         DeleteCommand deleteMissingModuleTest = new DeleteModuleCommand(MOD_CODE_MISSING);
         CommandResult commandResult = deleteMissingModuleTest.execute();
-        assertEquals(ExceptionMessage.MESSAGE_MODULE_NOT_FOUND, commandResult.feedbackToUser);
+        assertEquals(MESSAGE_MODULE_NOT_FOUND, commandResult.feedbackToUser);
     }
 
     @Test
     void deleteMissingTaskMessage_isShown() {
         DeleteCommand deleteMissingTaskTest = new DeleteTaskCommand(TASK_ID_MISSING);
         CommandResult commandResult = deleteMissingTaskTest.execute();
-        assertEquals(ExceptionMessage.MESSAGE_TASK_NOT_FOUND, commandResult.feedbackToUser);
+        assertEquals(MESSAGE_TASK_NOT_FOUND, commandResult.feedbackToUser);
     }
 }
