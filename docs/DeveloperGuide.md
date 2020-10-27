@@ -1,8 +1,6 @@
----
-layout: page
-title: Developer Guide
----
-* Table of Contents
+#Developer Guide for ra.VI
+
+## Table of Contents
 {:toc}
 
 ## Setting up
