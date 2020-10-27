@@ -1,11 +1,13 @@
 package seedu.duke.command.grade;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.duke.command.CommandResult;
 import seedu.duke.command.add.AddCommand;
 import seedu.duke.command.add.AddModuleCommand;
 import seedu.duke.data.ModuleManager;
+import seedu.duke.data.storage.InputOutputManager;
 import seedu.duke.util.ExceptionMessage;
 import seedu.duke.util.Message;
 
@@ -14,6 +16,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class GradeCommandTest {
     static final String MODULE_CODE = "CG2271";
     static final String NON_EXISTENT_MODULE_CODE = "CS2101";
+
+    @BeforeAll
+    static void setup() {
+        InputOutputManager.loadNusModSave();
+    }
 
     @BeforeEach
     void setupModObjects() {
