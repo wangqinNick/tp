@@ -18,9 +18,9 @@ public class ListCommand extends Command {
     public static final String FORMAT_MODULE = COMMAND_WORD + " -m";
     public static final String FORMAT = FORMAT_TASK + "\n" + FORMAT_MODULE;
     public static final String HELP =   "List all tasks in the task list."
-                                        + "\n\tFormat:" + FORMAT_TASK
+                                        + "\n\tFormat: " + FORMAT_TASK
                                         + "\n\nList all modules in the module list."
-                                        + "\n\tFormat:" + FORMAT_MODULE;
+                                        + "\n\tFormat: " + FORMAT_MODULE;
     public static final String PROMPT_HELP = TextUi.getCommandHelpMessage(COMMAND_WORD);
 
     public ListCommand(Parser.TypeOfEntries typeOfEntry) {
