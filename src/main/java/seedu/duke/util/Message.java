@@ -17,7 +17,7 @@ public class Message {
     public static final String MESSAGE_NO_EDIT_MODULE = "Please enter a new module code to edit.\n";
     public static final String MESSAGE_NO_EDIT_TASK = "Please enter a new task index to edit.\n";
     public static final String MESSAGE_NO_ADD_MODULE = "Please enter a new module code to add.";
-    public static final String MESSAGE_NO_ADD_TASK = "Please enter a new task index to add.\n";
+    public static final String MESSAGE_NO_ADD_TASK = "Please enter a new task to add.\n";
     public static final String MESSAGE_GOODBYE = "Good bye!";
     public static final String MESSAGE_WELCOME = "Welcome to RAVI";
     public static final String MESSAGE_DONE_TASK_SUCCESS = "SUCCESS!! The task has been marked as done.\n";
@@ -33,24 +33,28 @@ public class Message {
     public static final String MESSAGE_INCOMPLETE_UNDATED_TASKLIST = "\nIncomplete undated tasks:";
     public static final String MESSAGE_INCOMPLETE_DATED_TASKLIST = "\nIncomplete dated tasks:";
     public static final String MESSAGE_SUMMARY_PRINTED = "Your Task Summary\n";
-    public static final String MESSAGE_HELP =
-              "Command                                       Function\n"
-            + "help ---------------------------------------- View command list\n"
-            + "add -t <task desc.> [-by] ------------------- Add task\n"
-            + "add -m <module> ----------------------------- Add module\n"
-            + "edit -t <task index> <new task desc.> ------- Edit a task's description\n"
-            + "edit -m <module code> <new module code> ----- Edit a module\n"
-            + "del -t <task index> ------------------------- Delete a task\n"
-            + "del -m <module index> ----------------------- Delete a module\n"
-            + "list -t ------------------------------------- List all tasks\n"
-            + "list -m ------------------------------------- List all modules\n"
-            + "done <task index> --------------------------- Mark task as done\n"
-            + "timetable -day ------------------------------ View the timetable for today\n"
-            + "timetable -week ----------------------------- View the timetable for the week\n"
-            + "timetable -add <module> <day> <start time> \n"
-            + "<end time> <lesson type> <repeat> ----------- Add a lesson to the timetable\n"
-            + "timetable -del <day> <lesson index> --------- Delete a lesson from the timetable\n"
-            + "bye ----------------------------------------- Exit RaVi\n";
+    public static final String MESSAGE_COMMAND_LIST =
+            "Command                                        Function\n"
+                    + "help ----------------------------------------- View command list\n"
+                    + "add -t <task desc.> [-by] -------------------- Add task\n"
+                    + "add -m <module> ------------------------------ Add module\n"
+                    + "cap <total mc taken> <current cap> ----------- Calculate the accumulated cap after a semester\n"
+                    + "edit -t <task index> <new task desc.> -------- Edit a task's description\n"
+                    + "edit -m <module code> <new module code> ------ Edit a module\n"
+                    + "del -t <task index> -------------------------- Delete a task\n"
+                    + "del -m <module index> ------------------------ Delete a module\n"
+                    + "grade <module code> <grade> ------------------ Grade an existing module\n"
+                    + "list -t -------------------------------------- List all tasks\n"
+                    + "list -m -------------------------------------- List all modules\n"
+                    + "done <task index> ---------------------------- Mark task as done\n"
+                    + "undo ----------------------------------------- Undo previous action\n"
+                    + "summary -------------------------------------- View task summary\n"
+                    + "timetable -day ------------------------------- View the timetable for today\n"
+                    + "timetable -week ------------------------------ View the timetable for the week\n"
+                    + "timetable -add <module> <day> <start time> --- Add a module to the timetable\n"
+                    + "<end time> <lesson type> <repeat> ------------ Add a lesson to the timetable\n"
+                    + "timetable -del <day> <lesson index> ---------- Delete a lesson from the timetable\n"
+                    + "bye ------------------------------------------ Exit RaVi\n";
 
     public static final String MESSAGE_TIMETABLE_INIT = "Please enter the current week num e.g. 1 - 14"
             + " where 7 is recess week." + System.lineSeparator() + "In here, NUS week 7 onwards is week 8 onwards.";

@@ -31,7 +31,7 @@ public class TimeTableTest {
     static final int CURR_WEEK = now.get(ChronoField.ALIGNED_WEEK_OF_YEAR);
 
     @BeforeAll
-    static void setupUserMods() throws ModuleManager.DuplicateModuleException {
+    static void setupUserMods() throws ModuleManager.DuplicateModuleException, ModuleManager.ModuleNotFoundException {
         ModuleManager.clearModules();
         ModuleManager.add(new Module(MOD_CODE_1));
         ModuleManager.add(new Module(MOD_CODE_2));

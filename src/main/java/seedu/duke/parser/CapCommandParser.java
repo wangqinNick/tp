@@ -2,6 +2,7 @@ package seedu.duke.parser;
 
 import seedu.duke.command.Command;
 import seedu.duke.command.cap.CapCommand;
+import seedu.duke.exception.InvalidMatchException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,10 +13,11 @@ public class CapCommandParser {
     protected static final Pattern CUMULATIVE_CAP_FORMAT =
             Pattern.compile("(?<totalMc>\\d+)" + "(?<cap>.*)");
 
-    protected static Command prepareCapCommand(String parameters) throws NumberFormatException,NullPointerException {
+    protected static Command prepareCapCommand(String parameters)
+            throws NumberFormatException, NullPointerException, InvalidMatchException {
         Matcher matcher = CUMULATIVE_CAP_FORMAT.matcher(parameters);
 
-        Parser.matcherMatches(matcher,parameters, CapCommand.FORMAT);
+        Parser.matcherMatches(matcher,parameters, CapCommand.FORMAT, CapCommand.PROMPT_HELP);
 
         String mc = Parser.isMatcherNull(matcher.group(TOTAL_MC_GROUP))
                 ? null : matcher.group(TOTAL_MC_GROUP).trim();
