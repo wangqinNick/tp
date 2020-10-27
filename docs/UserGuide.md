@@ -1,11 +1,69 @@
 # ra.VI User Guide
+Welcome to the ra.VI User Guide! Choose a section or sub-section from the table of contents below, get step-by-step instructions, and plan your day.
 
-## Introduction
+## Table of contents
+1. **About-Introduction-Product Overview-Quick Start**  
+1.1 About  
+1.2 Introduction  
+1.3 Product Overview  
+1.4 Quick Start
+2. **Key Features**  
+2.1 Key features  
+3. **Installation-Getting Started**  
+3.1 Installation  
+3.2 Getting started  
+4. **Features**  
+4.1 Viewing help  
+4.2 Add an item  
+... 4.2.1 Add a task  
+... 4.2.2 Add a module  
+4.3 Edit an item  
+... 4.2.1 Edit a task description  
+... 4.2.2 Editing a module  
+4.4 Delete an item  
+... 4.2.1 Delete a task  
+... 4.2.2 Delete a module  
+4.4 List items  
+... 4.2.1 List tasks  
+... 4.2.2 List modules  
+4.5 Grade a module  
+4.6 Calculate CAP  
+4.7 Mark task as done  
+4.8 Undo previous command  
+4.9 Summary  
+4.10 Timetable  
+... 4.10.1 View timetable  
+... 4.10.2 Add a lesson  
+... 4.10.3 Delete a lesson  
+4.11 Exit  
 
-Repository Assistant with a Versatile Interface (ra.VI) is a desktop app for managing tasks, deadlines, and notes, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ra.VI can manage your tasks faster than traditional GUI apps.
+### 1.1 About
+This user guide provides in-depth documentation on the ra.VI installation process, system configuration and management. In addition, the quick start guide prvoides and end-to-end setup process to begin tracking your tasks and timetable with ra.VI.
 
-## Quick Start
+### 1.2 Introduction
+Repository Assistant with a Versatile Interface (ra.VI) is a desktop app for managing tasks, deadlines, and notes, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ra.VI can manage your tasks faster than traditional GUI apps.\
+ra.VI helps you to manage your tasks, and their corresponding deadlines with ease. It can also help you plan your timetable and being organised keeps you ahead of the curve.
 
+**1.2.1 Tasks**\
+A task refers to something that you would like to get done. This refers to reading a book or doing an assignment. Tasks can be created with or without a deadline.
+**1.2.2 Deadline**\
+A deadline refers to a date and time associated with a task. This is in the format d-M-YYYY Hmm, e.g. 23-12-2020 1400
+**1.2.3 Modules**\
+A module refers to a module taken under NUS. Entered modules will be checked against the list of NUS modules.
+**1.2.4 CAP**\
+CAP refers to Cumulative Average Point, which is the grading system used by NUS. CAP will be calculated based on your modules.
+**1.2.5 Done**\
+A task can be marked as done. This will signify completion of the task so that you can get an easy view of any remaining tasks.
+**1.2.6 Timetable**\
+The timetable is specific to you. It allows you to add lessons to your timetable with respect to the modules that you are taking. After setting the timetable up the first time, you do not need to go through the set up again.
+
+### 1.3 Product Overview
+ra.VI is targeted at the NUS freshman. As freshman, there are many documents and new procedures that you must get familiar with. This may be daunting for you but ra.VI will provide you with the assistance you need. 
+By helping you keep track of your tasks and deadlines, you will be able to keep on top of deadlines. 
+Moreover, the timetable feature helps you to schedule your lessons, allowing you to be more prepared for lessons.
+Adding on, ra.VI also allows you to keep track of your CAP, so that you can keep tabs on how well you are doing, motivating you towards that elusive CAP 5.0.
+
+### 1.4 Quick Start
 {Give steps to get started quickly}
 
 1. Ensure that you have Java 11 or above installed.
@@ -104,6 +162,52 @@ Format: `done <task_index>`
 Example of usage: 
 * `done 1`
 
+### Undo a command: `undo`
+Takes the previous command and revert its changes.\
+Requires the previous command to be undone, a command that affects the storage. e.g. add, del, edit, done
+Format: `undo`
+
+Example of usage: 
+1. `add -m CS2113T`
+2. `undo`
+
+### Summary: `summary`
+Gets an overall view of the tasks.
+Format: `summary`
+
+Example of usage: 
+* `summary`
+
+### TimeTable: `timetable <opt> <args>`
+#### View the timetable: `timetable <args>`
+View the timetable for the day or for the week.\
+`<args>` : Must be one of the following : `-day` or `-week`
+
+Example of usage: 
+* `timetable -day`
+* `timetable -week`
+
+#### Add a lesson: `timetable -add <module> <day> <start time> <end time> <lesson type> <repeat>`
+Adds a lesson to the timetable.\
+`<module>` : Must be added to the module list. See module list with `list -m`.\
+`<day>` : Must be one of the following : `MONDAY`, `TUESDAY`, `WEDNESDAY`, `THURSDAY`, `FRIDAY`, `SATURDAY`, `SUNDAY`
+`<start time>` : Must be in 24h format
+`<end time>` : Must be in 24h format and is after `<start time>`
+`<lesson type>` : Must be one of the following : `TUTORIAL`, `LECTURE`, `SEMINAR`, `LAB`, `RECITATION`, `SESSION`
+`<repeat>` : 0 : One time lesson ; 1 : Once a week ; 2 : Every even week ; 3 : Every odd week
+
+Example of usage: 
+* `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 0`
+* `timetable -add CS2113T MONDAY 1300 1500 LAB 1`
+
+#### Delete a lesson: `timetable -del <day> <lesson index>`
+Deletes a lesson from the timetable.\
+`<day>` : Must be one of the following : `MONDAY`, `TUESDAY`, `WEDNESDAY`, `THURSDAY`, `FRIDAY`, `SATURDAY`, `SUNDAY`
+`<lesson index>` : Index of the lesson to be deleted. See timetable and the indexes with `timetable -day` or `timetable -week`
+
+Example of usage: 
+* `timetable -del CS2101 1`
+
 ### Exiting the program: `bye`
 Exits ra.VI.  
 Format: `bye`
@@ -118,4 +222,6 @@ Format: `bye`
 
 {Give a 'cheat sheet' of commands here}
 
-* Add todo `todo n/TODO_NAME d/DEADLINE`
+* Add task `add -t TASK_NAME DEADLINE`
+* Add module `add -m MODULE_NAME`
+
