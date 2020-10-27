@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 import static seedu.duke.util.ExceptionMessage.MESSAGE_LIST_EMPTY;
 import static seedu.duke.util.Message.MESSAGE_COMPLETED_TASKLIST;
-import static seedu.duke.util.Message.MESSAGE_HELP;
+import static seedu.duke.util.Message.MESSAGE_COMMAND_LIST;
 import static seedu.duke.util.Message.MESSAGE_INCOMPLETE_DATED_TASKLIST;
 import static seedu.duke.util.Message.MESSAGE_INCOMPLETE_UNDATED_TASKLIST;
 import static seedu.duke.util.Message.MESSAGE_TIMETABLE_INIT;
@@ -174,12 +174,21 @@ public class TextUi {
     }
 
     /**
-     * gets Help Message.
+     * Gets command list.
      *
      * @return the list of available commands
      */
-    public static String getHelpMessage() {
-        return MESSAGE_HELP;
+    public static String getCommandList() {
+        return MESSAGE_COMMAND_LIST;
+    }
+
+    /**
+     * Gets Help Message prompt.
+     *
+     * @return the list of available commands
+     */
+    public static String getCommandHelpMessage(String commandWord) {
+        return String.format("For more information on %s, type `help %s`", commandWord, commandWord);
     }
 
     public void showTimeTableInitialisationMessage() {

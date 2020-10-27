@@ -6,13 +6,18 @@ import seedu.duke.data.Module;
 import seedu.duke.data.ModuleManager;
 
 import static seedu.duke.util.ExceptionMessage.MESSAGE_DUPLICATE_MODULE;
+import static seedu.duke.util.ExceptionMessage.MESSAGE_MODULE_NOT_PROVIDED;
 import static seedu.duke.util.Message.MESSAGE_ADD_MODULE_SUCCESS;
 
 public class AddModuleCommand extends AddCommand {
     private String module;
+    public static final String FORMAT = COMMAND_WORD + " -m <module_code>";
+    public static final String HELP =   "Add a module from NUSMods to the scheduler."
+                                        + "\n\tFormat: " + FORMAT
+                                        + "\n\tExample usage: add -m CS2113T";
 
     /**
-     * Constructs AddModuleCommand and tests the format of the deadline.
+     * Constructs AddModuleCommand.
      *
      * @param module Module code to be added.
      */
@@ -27,13 +32,14 @@ public class AddModuleCommand extends AddCommand {
      * @param module Module code to be added.
      * @throws ModuleManager.DuplicateModuleException if the module is already in the list
      */
-    private void addModule(String module) throws ModuleManager.DuplicateModuleException {
+    private void addModule(String module) throws ModuleManager.DuplicateModuleException,
+            ModuleManager.ModuleNotFoundException {
         Module newModule = new Module(module);
         ModuleManager.add(newModule);
     }
 
     /**
-     * Adds the module to the module list.
+     * Executes the AddModuleCommand to add the module to the module list.
      *
      * @return CommandResult containing acknowledgement of the add module or messages from exceptions.
      */
@@ -44,7 +50,9 @@ public class AddModuleCommand extends AddCommand {
             addModule(module);
             message = MESSAGE_ADD_MODULE_SUCCESS;
         } catch (ModuleManager.DuplicateModuleException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_MODULE);
+            message = MESSAGE_DUPLICATE_MODULE;
+        } catch (ModuleManager.ModuleNotFoundException e) {
+            message = MESSAGE_MODULE_NOT_PROVIDED;
         }
         return new CommandResult(message);
     }

@@ -5,6 +5,7 @@ import seedu.duke.command.CommandResult;
 
 import seedu.duke.data.Module;
 import seedu.duke.data.ModuleManager;
+import seedu.duke.ui.TextUi;
 
 import java.util.HashMap;
 
@@ -14,7 +15,11 @@ public class CapCommand extends Command {
     private int totalMcTaken;
     private double currentCap;
     public static final String COMMAND_WORD = "cap";
-    public static final String FORMAT = COMMAND_WORD + "<past accumulated MC> + <current cap>";
+    public static final String FORMAT = COMMAND_WORD + "<accumulated_credits> + <current_cap>";
+    public static final String PROMPT_HELP = TextUi.getCommandHelpMessage(COMMAND_WORD);
+    public static final String HELP =   "Calculates your CAP."
+                                        + "\n\tFormat: " + FORMAT
+                                        + "\n\tExample usage: cap 20 4.5";
 
     public static double Cap = 0.0;
 

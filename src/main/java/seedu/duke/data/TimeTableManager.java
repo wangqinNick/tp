@@ -17,6 +17,11 @@ public class TimeTableManager {
     /**
      * Initialise the semesterMap when it is empty.
      * Takes in the current week number in order to initialise.
+     *
+     * @param userCurrWeekNum
+     *  The current nus week number.
+     * @throws TimeTableInitialiseException
+     *  when the userCurrWeekNum is not accepted.
      */
     public static void initialise(int userCurrWeekNum) throws TimeTableInitialiseException {
         logger.getLogger().info("Initialising timetable with user input: " + userCurrWeekNum);
@@ -110,11 +115,11 @@ public class TimeTableManager {
      * Uses the removeLessonById method of LessonManager to remove all lessons with this hiddenId.
      *
      * @param dayOfWeek
-     *  The day of week
+     *  The day of week.
      * @param lessonIndex
-     *  The lesson index
+     *  The lesson index.
      * @throws IndexOutOfBoundsException
-     *  When the lesson index is out of bounds
+     *  When the lesson index is out of bounds.
      */
     public static void removeLesson(DayOfWeek dayOfWeek, int lessonIndex) throws IndexOutOfBoundsException {
         logger.getLogger().info("Removing lesson with index " + lessonIndex + " on " + dayOfWeek
@@ -135,9 +140,9 @@ public class TimeTableManager {
      * Get an ArrayList of lessons happening on a certain day.
      *
      * @param dayOfWeek
-     *  The specific day of week
+     *  The specific day of week.
      * @return
-     *  The ArrayList of lessons
+     *  The ArrayList of lessons.
      */
     public static ArrayList<Lesson> getSpecificDayLessons(DayOfWeek dayOfWeek) {
         int currWeek = getCurrWeekNum();
@@ -150,8 +155,10 @@ public class TimeTableManager {
      * Outer ArrayList: Holds one ArrayList for each day of week, starting from Monday.
      * Inner ArrayList: Holds lessons happening on that day of week.
      *
+     * @param currWeek
+     *  The current week.
      * @return
-     *  The ArrayList of ArrayList of lessons
+     *  The ArrayList of ArrayList of lessons.
      */
     public static ArrayList<ArrayList<Lesson>> getSpecifiedWeekLessons(int currWeek) {
         ArrayList<ArrayList<Lesson>> outputList = new ArrayList<>();
@@ -176,6 +183,8 @@ public class TimeTableManager {
     /**
      * Checks whether the current NUS week is odd.
      *
+     * @param week
+     *  The week number to check.
      * @return
      *  Whether current NUS week is odd.
      */

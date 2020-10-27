@@ -21,6 +21,16 @@ public class TimeTableAddCommand extends TimeTableCommand {
         this.repeatFreq = repeatFreq;
     }
 
+    /**
+     * Method runs during execution. Adds the lesson to the timetable.
+     *
+     * @throws LessonInvalidTimeException
+     *  When the lesson overlaps with an existing lesson.
+     * @throws RepeatFrequencyInvalidException
+     *  When the repeat parameter given by the user is not from 0 - 3.
+     * @throws ModuleManager.ModuleNotFoundException
+     *  When the module to be added to the timetable is not in the module list.
+     */
     public void addLessonToTimeTable() throws LessonInvalidTimeException, RepeatFrequencyInvalidException,
             ModuleManager.ModuleNotFoundException {
         if (repeatFreq < 0 || repeatFreq > 3) {
