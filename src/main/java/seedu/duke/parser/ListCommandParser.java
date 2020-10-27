@@ -14,6 +14,16 @@ public class ListCommandParser {
     protected static final Pattern LIST_FORMAT =
             Pattern.compile("(?<commandFlag>.*-\\S+)");
 
+    /**
+     * Takes the user's input and parses it into the respective arguments for List Command.
+     *
+     * @param parameters
+     * the user's input without the command word
+     * @return
+     * List Command with relevant arguments
+     * @throws InvalidMatchException
+     * When the user input doesn't match the REGEX format for the List Command
+     */
     protected static Command getListCommand(String parameters) throws InvalidMatchException {
         Matcher matcher = LIST_FORMAT.matcher(parameters);
 
