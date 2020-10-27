@@ -2,7 +2,6 @@ package seedu.duke.command.timetable;
 
 import seedu.duke.command.CommandResult;
 import seedu.duke.data.Lesson;
-import seedu.duke.data.LessonManager;
 import seedu.duke.ui.TextUi;
 
 import java.time.DayOfWeek;
@@ -10,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import static seedu.duke.data.TimeTableManager.getCurrWeekNum;
+import static seedu.duke.data.TimeTableManager.getSpecificDayLessons;
 import static seedu.duke.data.TimeTableManager.getSpecifiedWeekLessons;
 
 public class TimeTableViewCommand extends TimeTableCommand {
@@ -22,9 +22,8 @@ public class TimeTableViewCommand extends TimeTableCommand {
 
     public String generateDayTimeTable() {
         ArrayList<Lesson> lessonList;
-        lessonList = LessonManager.getDayLessonList(now.getDayOfWeek());
         DayOfWeek day = now.getDayOfWeek();
-
+        lessonList = getSpecificDayLessons(day);
         return TextUi.printDayTimetable(day, lessonList);
     }
 
