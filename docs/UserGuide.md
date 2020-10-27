@@ -1,8 +1,45 @@
 # ra.VI User Guide
-
-## Introduction
+## Table of contents
+1. **About-Introduction-Product Overview-Quick Start**  
+1.1 About  
+1.2 Introduction  
+1.3 Product Overview  
+1.4 Quick Start
+2. **Key Features**  
+2.1 Key features  
+3. **Installation-Getting Started**  
+3.1 Installation  
+3.2 Getting started  
+4. **Features**  
+4.1 Viewing help  
+4.2 Add an item  
+... 4.2.1 Add a task  
+... 4.2.2 Add a module  
+4.3 Edit an item  
+... 4.2.1 Edit a task description  
+... 4.2.2 Editing a module  
+4.4 Delete an item  
+... 4.2.1 Delete a task  
+... 4.2.2 Delete a module  
+4.4 List items  
+... 4.2.1 List tasks  
+... 4.2.2 List modules  
+4.5 Grade a module  
+4.6 Calculate CAP  
+4.7 Mark task as done  
+4.8 Undo previous command  
+4.9 Summary  
+4.10 Timetable  
+... 4.10.1 View timetable  
+... 4.10.2 Add a lesson  
+... 4.10.3 Delete a lesson  
+4.11 Exit  
+  
+## Introducing ra.VI
 
 Repository Assistant with a Versatile Interface (ra.VI) is a desktop app for managing tasks, deadlines, and notes, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ra.VI can manage your tasks faster than traditional GUI apps.
+
+This user guide provides in-depth documentation on the ra.VI installation process, system configuration and management. In addition, the quick start guide prvoides and end-to-end setup process to get you started.
 
 ## Quick Start
 
@@ -103,21 +140,6 @@ Format: `done <task_index>`
 
 Example of usage: 
 * `done 1`
-
-### Edit an item: `edit <opt> <args>`
-#### Edit a task: `edit -t <task index> <new task desc.>`
-Edit a task in the scheduler with a new task description.  
-Format: `edit -t <task index> <new task desc.>`
-
-Example of usage: 
-* `edit -t 1 read a book`
-
-#### Edit a module: `edit -m <module code> <new module code>`
-Edit a module in the scheduler with a new module code.  
-Format: `edit -m <module code> <new module code>`
-
-Example of usage: 
-* `edit -m CS2113T CG2271`
 
 ### Undo a command: `undo`
 Takes the previous command and revert its changes.\
