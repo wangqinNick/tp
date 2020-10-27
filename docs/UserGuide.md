@@ -1,4 +1,6 @@
 # ra.VI User Guide
+Welcome to the ra.VI User Guide! Choose a section or sub-section from the table of contents below, get step-by-step instructions, and plan your day.
+
 ## Table of contents
 1. **About-Introduction-Product Overview-Quick Start**  
 1.1 About  
@@ -34,15 +36,34 @@
 ... 4.10.2 Add a lesson  
 ... 4.10.3 Delete a lesson  
 4.11 Exit  
-  
-## Introducing ra.VI
 
-Repository Assistant with a Versatile Interface (ra.VI) is a desktop app for managing tasks, deadlines, and notes, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ra.VI can manage your tasks faster than traditional GUI apps.
+### 1.1 About
+This user guide provides in-depth documentation on the ra.VI installation process, system configuration and management. In addition, the quick start guide prvoides and end-to-end setup process to begin tracking your tasks and timetable with ra.VI.
 
-This user guide provides in-depth documentation on the ra.VI installation process, system configuration and management. In addition, the quick start guide prvoides and end-to-end setup process to get you started.
+### 1.2 Introduction
+Repository Assistant with a Versatile Interface (ra.VI) is a desktop app for managing tasks, deadlines, and notes, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ra.VI can manage your tasks faster than traditional GUI apps.\
+ra.VI helps you to manage your tasks, and their corresponding deadlines with ease. It can also help you plan your timetable and being organised keeps you ahead of the curve.
 
-## Quick Start
+**1.2.1 Tasks**\
+A task refers to something that you would like to get done. This refers to reading a book or doing an assignment. Tasks can be created with or without a deadline.
+**1.2.2 Deadline**\
+A deadline refers to a date and time associated with a task. This is in the format d-M-YYYY Hmm, e.g. 23-12-2020 1400
+**1.2.3 Modules**\
+A module refers to a module taken under NUS. Entered modules will be checked against the list of NUS modules.
+**1.2.4 CAP**\
+CAP refers to Cumulative Average Point, which is the grading system used by NUS. CAP will be calculated based on your modules.
+**1.2.5 Done**\
+A task can be marked as done. This will signify completion of the task so that you can get an easy view of any remaining tasks.
+**1.2.6 Timetable**\
+The timetable is specific to you. It allows you to add lessons to your timetable with respect to the modules that you are taking. After setting the timetable up the first time, you do not need to go through the set up again.
 
+### 1.3 Product Overview
+ra.VI is targeted at the NUS freshman. As freshman, there are many documents and new procedures that you must get familiar with. This may be daunting for you but ra.VI will provide you with the assistance you need. 
+By helping you keep track of your tasks and deadlines, you will be able to keep on top of deadlines. 
+Moreover, the timetable feature helps you to schedule your lessons, allowing you to be more prepared for lessons.
+Adding on, ra.VI also allows you to keep track of your CAP, so that you can keep tabs on how well you are doing, motivating you towards that elusive CAP 5.0.
+
+### 1.4 Quick Start
 {Give steps to get started quickly}
 
 1. Ensure that you have Java 11 or above installed.
