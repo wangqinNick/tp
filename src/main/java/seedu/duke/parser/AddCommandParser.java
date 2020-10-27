@@ -5,6 +5,7 @@ import seedu.duke.command.IncorrectCommand;
 import seedu.duke.command.add.AddCommand;
 import seedu.duke.command.add.AddModuleCommand;
 import seedu.duke.command.add.AddTaskCommand;
+import seedu.duke.exception.InvalidMatchException;
 
 import java.security.InvalidParameterException;
 import java.util.regex.Matcher;
@@ -26,7 +27,7 @@ public class AddCommandParser {
             Pattern.compile("(?<commandFlag>-\\S+)" + "(?<desc>[^-]*)" + "((?<by>-by)?)" + "((?<deadline>.*)?)");
 
     protected static Command prepareAddCommand(String parameters)
-            throws InvalidParameterException, IllegalStateException {
+            throws InvalidParameterException, IllegalStateException, InvalidMatchException {
         Matcher matcher = ADD_FORMAT.matcher(parameters);
 
         Parser.matcherMatches(matcher, parameters, AddCommand.FORMAT, AddCommand.PROMPT_HELP);

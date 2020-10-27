@@ -2,6 +2,7 @@ package seedu.duke.parser;
 
 import seedu.duke.command.Command;
 import seedu.duke.command.list.ListCommand;
+import seedu.duke.exception.InvalidMatchException;
 
 import java.security.InvalidParameterException;
 import java.util.regex.Matcher;
@@ -13,7 +14,7 @@ public class ListCommandParser {
     protected static final Pattern LIST_FORMAT =
             Pattern.compile("(?<commandFlag>.*-\\S+)");
 
-    protected static Command getListCommand(String parameters) {
+    protected static Command getListCommand(String parameters) throws InvalidMatchException {
         Matcher matcher = LIST_FORMAT.matcher(parameters);
 
         Parser.matcherMatches(matcher, parameters, ListCommand.FORMAT, ListCommand.PROMPT_HELP);

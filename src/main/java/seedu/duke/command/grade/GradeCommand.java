@@ -17,7 +17,7 @@ public class GradeCommand extends Command {
     private int moduleCredit;
     private String grade;
     public static final String COMMAND_WORD = "grade";
-    public static final String FORMAT = COMMAND_WORD + "<module> <modular_credit> <grade>";
+    public static final String FORMAT = COMMAND_WORD + " <module_code> <modular_credit> <grade>";
     public static final String PROMPT_HELP = TextUi.getCommandHelpMessage(COMMAND_WORD);
     public static final String HELP =   "Grades and allocates the Module Credit to the Module."
                                         + "\n\tFormat: " + FORMAT

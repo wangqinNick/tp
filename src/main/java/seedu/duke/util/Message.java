@@ -36,30 +36,33 @@ public class Message {
     public static final String MESSAGE_COMMAND_LIST =
             "Command                                        Function\n"
             + "help ----------------------------------------- View command list\n"
-            + "add -t <task desc.> [-by] -------------------- Add task\n"
-            + "add -m <module> ------------------------------ Add module\n"
-            + "edit -t <task index> <new task desc.> -------- Edit a task's description\n"
-            + "edit -m <module code> <new module code> ------ Edit a module\n"
-            + "del -t <task index> -------------------------- Delete a task\n"
-            + "del -m <module index> ------------------------ Delete a module\n"
-            + "list -t -------------------------------------- List all tasks\n"
-            + "list -m -------------------------------------- List all modules\n"
-            + "done <task index> ---------------------------- Mark task as done\n"
+            + "help [<command_word>] ------------------------ View command information\n"
+            + "add -t <task_name> [-by <deadline>] ---------- Add task to the scheduler\n"
+            + "add -m <module_code> ------------------------- Add a module from NUSMods to the scheduler\n"
+            + "cap <total_mc> <current_cap> ----------------- Calculate your CAP\n"
+            + "del -t <task_index> -------------------------- Delete a task from the scheduler\n"
+            + "del -m <module_code> ------------------------- Delete a module from the scheduler\n"
+            + "done <task_index> ---------------------------- Mark a task as done\n"
+            + "edit -t <task_index> <task_name> ------------- Edit a task's description from the task list\n"
+            + "edit -m <module_code> <new_module_code> ------ Edit a module code from the module list\n"
+            + "grade <module_code> <grade> ------------------ Grades and allocates the Module Credit to the Module\n"
+            + "list -t -------------------------------------- List all tasks in the task list\n"
+            + "list -m -------------------------------------- List all modules in the module list\n"
             + "undo ----------------------------------------- Undo previous action\n"
             + "summary -------------------------------------- View task summary\n"
             + "timetable -day ------------------------------- View the timetable for today\n"
             + "timetable -week ------------------------------ View the timetable for the week\n"
-            + "timetable -add <module> <day> <start time> --- Add a module to the timetable\n"
+            + "timetable -add <module_code> <day> <start_time>\n"
             + "<end time> <lesson type> <repeat> ------------ Add a lesson to the timetable\n"
-            + "timetable -del <day> <lesson index> ---------- Delete a lesson from the timetable\n"
+            + "timetable -del <day> <lesson_index> ---------- Delete a lesson from the timetable\n"
             + "bye ------------------------------------------ Exit RaVi\n";
     public static final String MESSAGE_TIMETABLE_INIT =
             "Please enter the current week num e.g. 1 - 14"
-            + " where 7 is recess week.\n" + "In here, NUS week 7 onwards is week 8 onwards.";
+                    + " where 7 is recess week.\n" + "In here, NUS week 7 onwards is week 8 onwards.";
     public static final String MESSAGE_TIMETABLE_HEADER =
             "  _________________________________\n"
-            + " |   Time    | ID |     Lesson     |\n"
-            + " |___________|____|________________|\n";
+                    + " |   Time    | ID |     Lesson     |\n"
+                    + " |___________|____|________________|\n";
     public static final String MESSAGE_TIMETABLE_FOOTER = "\n |___________|____|________________|\n";
     public static final String MESSAGE_NO_LESSONS = "\nNo lessons on ";
 }

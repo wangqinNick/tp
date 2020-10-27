@@ -6,6 +6,7 @@ import seedu.duke.command.delete.DeleteCommand;
 import seedu.duke.command.delete.DeleteModuleCommand;
 import seedu.duke.command.delete.DeleteTaskCommand;
 import seedu.duke.command.grade.GradeCommand;
+import seedu.duke.exception.InvalidMatchException;
 
 import java.security.InvalidParameterException;
 import java.util.regex.Matcher;
@@ -23,7 +24,7 @@ public class DeleteCommandParser {
             Pattern.compile("((?<commandFlag>.*-\\S+)?)"
                     + "(?<taskModule>\\s\\S+)" + "((?<invalid>.*)?)");
 
-    protected static Command getDeleteCommand(String parameters) throws NumberFormatException {
+    protected static Command getDeleteCommand(String parameters) throws NumberFormatException, InvalidMatchException {
         Matcher matcher = DELETE_FORMAT.matcher(parameters);
 
         Parser.matcherMatches(matcher, parameters, DeleteCommand.FORMAT, DeleteCommand.PROMPT_HELP);
