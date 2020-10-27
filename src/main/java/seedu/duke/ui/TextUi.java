@@ -31,9 +31,9 @@ public class TextUi {
     //Offset required to convert between 1-indexing and 0-indexing
     public static final int DISPLAY_INDEX_OFFSET = 1;
 
-    public static final String TOP_DIV_LINE = "═════════════════════════════════════════════════════";
+    public static final String TOP_DIV_LINE = "════════════════════════════════════════════════════════════";
     public static final String PREFIX_ARROW = "⤍\t";
-    public static final String BOT_DIV_LINE = "═════════════════════════════════════════════════════";
+    public static final String BOT_DIV_LINE = "════════════════════════════════════════════════════════════";
 
     //%1$ catches the furthest left arg, %2$ catches the 2nd arg
     private static final String MESSAGE_INDEX_LIST_FORMAT = "\n%1$d. %2$s";

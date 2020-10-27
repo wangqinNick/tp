@@ -7,18 +7,20 @@ public abstract class TimeTableCommand extends Command {
     public static final String COMMAND_WORD = "timetable";
     public static final String TIMETABLE_DAY_VIEW_FORMAT = COMMAND_WORD + " -day";
     public static final String TIMETABLE_WEEK_VIEW_FORMAT = COMMAND_WORD + " -week";
-    public static final String TIMETABLE_LESSON_PARAMETER_USER_FORMAT  = COMMAND_WORD
+    public static final String TIMETABLE_LESSON_ADD_USER_FORMAT  = COMMAND_WORD
             + " -add <module_code> <day> <start_time> "
             + "<end_time> <lesson_type> <repeat>";
     public static final String TIMETABLE_LESSON_DELETE_USER_FORMAT  = COMMAND_WORD + " -del <day> <lesson_index>";
-    public static final String FORMAT = TIMETABLE_LESSON_PARAMETER_USER_FORMAT
-            + "\n" + TIMETABLE_LESSON_DELETE_USER_FORMAT;
+    public static final String FORMAT = TIMETABLE_LESSON_ADD_USER_FORMAT
+            + "\n" + TIMETABLE_LESSON_DELETE_USER_FORMAT
+            + "\n" + TIMETABLE_DAY_VIEW_FORMAT
+            + "\n" + TIMETABLE_WEEK_VIEW_FORMAT;
     public static final String HELP =   "View day's timetable"
            + "\n\tFormat: " + TIMETABLE_DAY_VIEW_FORMAT
            + "\n\nView week's timetable"
            + "\n\tFormat: " + TIMETABLE_WEEK_VIEW_FORMAT
            + "\n\nAdd a lesson to the timetable."
-           + "\n\tFormat: " + TIMETABLE_LESSON_PARAMETER_USER_FORMAT
+           + "\n\tFormat: " + TIMETABLE_LESSON_ADD_USER_FORMAT
            + "\n\t<repeat> 0: Once"
            + "\n\t         1: Once a week"
            + "\n\t         2: Even weeks"
