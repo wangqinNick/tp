@@ -23,7 +23,7 @@ public class TextUi {
     public static final int DISPLAY_INDEX_OFFSET = 1;
 
     public static final String DIVIDER_LINE = "~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-"
-            +"~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~*";
+            + "~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~*";
 
     //%1$ catches the furthest left arg, %2$ catches the 2nd arg
     private static final String MESSAGE_INDEX_LIST_FORMAT = "\n%1$d. %2$s";
