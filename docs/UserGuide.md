@@ -209,7 +209,7 @@ Example of usage:
 * `timetable -del CS2101 1`
 
 ### Exiting the program: `bye`
-Exits ra.VI.  
+Exits ra.VI.\
 Format: `bye`
 
 ## FAQ
