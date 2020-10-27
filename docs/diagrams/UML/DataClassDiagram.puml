@@ -6,8 +6,8 @@
         class Decoder
         class Encoder
 
-        InputOutputManager <.. Decoder
-        InputOutputManager <.. Encoder
+        InputOutputManager ..> Decoder
+        InputOutputManager ..> Encoder
     }
 
     class Module {
@@ -18,19 +18,28 @@
         HashMap<String, Module> modulesMap
         HashMap<String, Module> nusModsMap
     }
-    ModuleManager "*" *-- Module
-    InputOutputManager <.. ModuleManager
+    ModuleManager *-- "*"  Module
+    InputOutputManager ...> ModuleManager
+
+    class TimeTable {
+        HashMap<Integer, LessonManager> semesterMap
+    }
+    class TimeTableManager {
+        TimeTable timetable
+    }
+    TimeTableManager *-- "1" TimeTable
+    TimeTable *-- "1..13" LessonManager
 
     class Task {
         String name
-        LocalDateTime deadline = null
+        LocalDateTime deadline
         boolean isDone
     }
     class TaskManager {
         ArrayList<Task> tasksList
     }
-    TaskManager "*" *-- Task
-    InputOutputManager <.. TaskManager
+    TaskManager *-- "*" Task
+    InputOutputManager ..> TaskManager
 
     class State {
         String encodedSavedList
@@ -40,7 +49,7 @@
         Stack<State> undoStack
         Stack<State> redoStack
     }
-    StateManager "*" *-- State
+    StateManager *- "*" State
 
     class Lesson {
         String moduleCode
@@ -62,20 +71,19 @@
         RECITATION,
         SESSION
     }
-    LessonManager "*" *-- Lesson
-    LessonManager <.. LessonType
-    LessonManager <.. LessonFilter
-    InputOutputManager <.. LessonManager
+    LessonManager *-- "*"  Lesson
+    LessonManager ..> LessonType
+    LessonManager ..> LessonFilter
+    InputOutputManager ..> TimeTableManager
 }
-package command {
-    abstract class Command
+package command{
 }
 class Duke
-Duke <.. Command
-Duke <.. InputOutputManager
-Command <.. LessonManager
-Command <.. TaskManager
-Command <.. ModuleManager
-Command <.. StateManager
+Duke ..> command
+Duke ..> InputOutputManager
+command ..> TimeTableManager
+command ..> TaskManager
+command ..> ModuleManager
+command ..> StateManager
 
 @enduml
