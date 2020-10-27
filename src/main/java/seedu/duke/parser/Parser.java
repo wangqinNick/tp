@@ -43,17 +43,14 @@ public class Parser {
 
     //(?<identifier>(?:\s+\w\S*)*)+ -m+ (?<moduleCode>(?:\\s+" + "(?:\\s+\\w\\S*)+)?)(?<invalid>.*)
 
-
     /**
-     * Parses the input string read by the <b>UI</b> and converts the string into a specific <b>Command</b>, which is
-     * to be executed by the <b>Nuke</b> program.
-     * <p></p>
-     * <b>Note</b>: The user input has to start with a certain keyword (i.e. <i>command word</i>), otherwise an
-     * <i>Invalid Command Exception</i> will be thrown.
+     * Takes the user's full input and parses it, checking for the command word and assigning it to the relevant
+     * prepare command.
      *
-     * @param input The user input read by the <b>UI</b>
-     * @return The <b>corresponding</b> command to be executed
-     * @see Command
+     * @param input
+     * User's full input
+     * @return
+     * Relevant prepare command from the respective commands' parsers
      */
     public Command parseCommand(String input) {
         if (input.isBlank()) {
