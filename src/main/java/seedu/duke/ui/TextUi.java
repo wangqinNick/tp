@@ -167,10 +167,9 @@ public class TextUi {
      * @return the trimmed command input
      */
     public static String getUserCommand() {
-        System.out.println("Command: ");
+        System.out.println("\n\nCommand: ");
         System.out.print("⋗\t");
         String userInput = in.nextLine();
-        System.out.print("\n\n");
 
         while (isEmptyCheck(userInput)) {
             userInput = in.nextLine();
