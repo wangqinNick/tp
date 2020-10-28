@@ -207,8 +207,8 @@ Step 5. The user inputs `list -m`. The CommandResult returns
 ### Cap Feature 
 This feature is faciliatated by ModuleManager and Module classes.
 It extends `Command` and runs through the `ModuleManager`, checking every `grade` and `moduleCredit`.
-* `CapCommand#gradeConvert` - Takes the grade of a module and assigns it a value according to the NUS grading schematic
-* `CapCommand#calculateCap` - Uses a formula to calculate the user's current cap, with the user's total Module Credit taken and current cap.
+* `CapCommand.gradeConvert` - Takes the grade of a module and assigns it a value according to the NUS grading schematic
+* `CapCommand.calculateCap` - Uses a formula to calculate the user's current cap, with the user's total Module Credit taken and current cap.
 
 ![Sequence diagram for Cap Feature in Command class](/docs/diagrams/CapCommandSequenceDiagram.png?raw=true)
 
@@ -231,8 +231,8 @@ Step 5. The `CommandResult` returns the success message to show the user his cur
 ### Grade Feature 
 This feature is facilitated by ModuleManager and Module classes. 
 It extends `Command` and is stored internally inside `Module` as an `grade` and `moduleCredit`.
-* `GradeCommand#testgrade(stringGrade)` - checks if the input grade is valid according to NUS grading schematic 
-* `GradeCommand#grade(moduleModule)` - assigns the specific module present in the module list, the grade and moduleCredit attributes.
+* `GradeCommand.testgrade(stringGrade)` - checks if the input grade is valid according to NUS grading schematic 
+* `GradeCommand.grade(moduleModule)` - assigns the specific module present in the module list, the grade and moduleCredit attributes.
 
 ![Sequence diagram for Grade Feature in Command class](/docs/diagrams/GradeCommandSequenceDiagram.png?raw=true)
 
