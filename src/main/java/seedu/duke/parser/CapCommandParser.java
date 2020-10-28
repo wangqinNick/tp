@@ -11,7 +11,7 @@ public class CapCommandParser {
     protected static final String TOTAL_MC_GROUP = "totalMc";
     protected static final String CAP_GROUP = "cap";
     protected static final Pattern CUMULATIVE_CAP_FORMAT =
-            Pattern.compile("(?<totalMc>\\d+)" + "(?<cap>.*)");
+            Pattern.compile("(?<totalMc>\\d+)" + "(?<cap>\\s[0-9.]+)");
 
     /**
      * Takes the user's input and parses it into the respective arguments for CapCommand.

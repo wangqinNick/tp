@@ -333,11 +333,22 @@ Given below are instructions to test the app manually.
     
 ### Adding a lesson to the timetable
 
-### Marking a task as done / undone
+### Marking a task as done
 
 ### Editing a task
+1. Editing a task 
+    1. Test case: `edit -t 3 read a book` where task index `3` has already been added previously into the task list.
+    Expected: As the task at index `3` is in the task list, the task description will be edited and changed to `read a book`.Details of the success of the edit task will be shown.
+    2. Test case: `edit -t 10 meet girlfriend` where there is no task `10` in the task list
+    Expected: As there is no such task in the task list, an error will be given to the user. Details of the associated error message will be shown.
 
 ### Editing a module
+1. Editing a module 
+    1. Test case: `edit -m CG2271 GER1000` where module `CG2271` has already been added previously into the module list.
+    Expected: As `CG2271` is in the module list, the module will be edited and changed to `GER1000`.Details of the success of the edit module will be shown.
+    2. Test case: `edit -m ACC1101 GER1000` where there is no module `ACC1101` in the module list
+    Expected: As there is no such module in the module list, an error will be given to the user. Details of the associated error message will be shown.
+
 
 ### Viewing the timetable
 
@@ -355,8 +366,11 @@ Given below are instructions to test the app manually.
     will be added to the Module.  
 
 ### Undo the previous command
-
-### Redo the previous command
+1. Undo previous action:
+    1. Test case: `undo` , after the user has input in an initial command.
+    Expected: The previous command that was input will be undone. Details of the success of the undone will be shown.
+    2. Test case: `undo` , without any initial input by the user.
+    Expected: Due to the fact that there is nothing to undo as there was no user input, details of the associated error message will be shown.
 
 ### Saving data
 1. Add tasks and modules, then exit
