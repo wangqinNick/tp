@@ -5,7 +5,6 @@ import seedu.duke.command.IncorrectCommand;
 import seedu.duke.command.delete.DeleteCommand;
 import seedu.duke.command.delete.DeleteModuleCommand;
 import seedu.duke.command.delete.DeleteTaskCommand;
-import seedu.duke.command.grade.GradeCommand;
 import seedu.duke.exception.InvalidMatchException;
 
 import java.security.InvalidParameterException;

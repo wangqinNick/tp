@@ -9,7 +9,7 @@ import static seedu.duke.util.ExceptionMessage.MESSAGE_TASK_NOT_FOUND;
 import static seedu.duke.util.Message.MESSAGE_DONE_TASK_SUCCESS;
 
 public class DoneCommand extends Command {
-    private int taskId;
+    private final int taskId;
     public static final String COMMAND_WORD = "done";
     public static final String FORMAT = COMMAND_WORD + " <task_index>";
     public static final String HELP =   "Mark a task as done."
@@ -38,7 +38,7 @@ public class DoneCommand extends Command {
      */
     @Override
     public CommandResult execute() {
-        String message = "";
+        String message;
         try {
             doneTask(taskId);
             message = MESSAGE_DONE_TASK_SUCCESS;

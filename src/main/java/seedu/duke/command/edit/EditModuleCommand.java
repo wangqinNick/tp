@@ -21,8 +21,8 @@ public class EditModuleCommand extends EditCommand {
             "(?<identifier>(edit)) -m(?<moduleCode>(?:\\s+\\w\\S*))(?<moduleCode1>(?:\\s+\\w\\S*))"
     );
 
-    private String oldModuleCode;
-    private String newModuleCode;
+    private final String oldModuleCode;
+    private final String newModuleCode;
 
     /**
      * Constructs the command to edit a module.

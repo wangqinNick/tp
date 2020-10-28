@@ -12,7 +12,7 @@ import static seedu.duke.util.ExceptionMessage.MESSAGE_LIST_EMPTY;
 import static seedu.duke.util.Message.MESSAGE_LIST_PRINTED;
 
 public class ListCommand extends Command {
-    private Parser.TypeOfEntries typeOfEntry;
+    private final Parser.TypeOfEntries typeOfEntry;
     public static final String COMMAND_WORD = "list";
     public static final String FORMAT_TASK = COMMAND_WORD + " -t";
     public static final String FORMAT_MODULE = COMMAND_WORD + " -m";

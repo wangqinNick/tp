@@ -11,7 +11,7 @@ import java.security.InvalidParameterException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.duke.util.Message.MESSAGE_EDIT_TASK_SUCCESS;
-import static seedu.duke.util.Message.MESSAGE_NO_EDIT_TASK;
+import static seedu.duke.util.ExceptionMessage.MESSAGE_NO_EDIT_TASK;
 
 public class EditTaskCommandTest {
 

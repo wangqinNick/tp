@@ -6,14 +6,14 @@ import seedu.duke.data.Module;
 import seedu.duke.data.Task;
 import seedu.duke.util.Message;
 
-import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
 import static seedu.duke.util.ExceptionMessage.MESSAGE_LIST_EMPTY;
-import static seedu.duke.util.Message.MESSAGE_COMMAND_LIST;
+import static seedu.duke.util.Message.MESSAGE_GENERAL_HELP;
 import static seedu.duke.util.Message.MESSAGE_COMPLETED_TASKLIST;
 import static seedu.duke.util.Message.MESSAGE_INCOMPLETE_DATED_TASKLIST;
 import static seedu.duke.util.Message.MESSAGE_INCOMPLETE_UNDATED_TASKLIST;
@@ -21,6 +21,7 @@ import static seedu.duke.util.Message.MESSAGE_NO_LESSONS;
 import static seedu.duke.util.Message.MESSAGE_TIMETABLE_HEADER;
 import static seedu.duke.util.Message.MESSAGE_TIMETABLE_INIT;
 import static seedu.duke.util.Message.MESSAGE_TIMETABLE_FOOTER;
+import static seedu.duke.util.Message.MESSAGE_TIMETABLE_MIDDLE;
 
 public class TextUi {
     private static Scanner in;
@@ -28,7 +29,9 @@ public class TextUi {
     //Offset required to convert between 1-indexing and 0-indexing
     public static final int DISPLAY_INDEX_OFFSET = 1;
 
-    public static final String DIVIDER_LINE = "~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~*";
+    public static final String DIV_LINE =
+            "════════════════════════════════════════════════════════════════════════════════";
+    public static final int MAX_WIDTH = DIV_LINE.length();
 
     //%1$ catches the furthest left arg, %2$ catches the 2nd arg
     private static final String MESSAGE_INDEX_LIST_FORMAT = "\n%1$d. %2$s";
@@ -37,21 +40,33 @@ public class TextUi {
     }
 
     public TextUi(Scanner in) {
-        this.in = in;
-    }
-
-    public static void showGoodByeMessage() {
-        outputToUser(
-                DIVIDER_LINE,
-                Message.MESSAGE_GOODBYE,
-                DIVIDER_LINE);
+        TextUi.in = in;
     }
 
     public static void showWelcomeMessage()     {
         outputToUser(
-                DIVIDER_LINE,
-                Message.MESSAGE_WELCOME,
-                DIVIDER_LINE);
+                DIV_LINE,
+                centerString(MAX_WIDTH, Message.MESSAGE_WELCOME),
+                DIV_LINE);
+    }
+
+    public void showTimeTableInitialisationMessage() {
+        outputToUser(
+                DIV_LINE,
+                MESSAGE_TIMETABLE_INIT,
+                DIV_LINE);
+    }
+
+    /**
+     * Shows the result of a command execution to the user.
+     *
+     * @param result the relevant message shown to user
+     */
+    public void showResultToUser(CommandResult result) {
+        outputToUser(
+                DIV_LINE,
+                result.feedbackToUser,
+                DIV_LINE);
     }
 
     public static void outputToUser(String... output) {
@@ -67,7 +82,7 @@ public class TextUi {
      */
     public static String getIndexTaskList(ArrayList<Task> taskList) {
         final StringBuilder stringFormat = new StringBuilder();
-        int displayIndex = 0 + DISPLAY_INDEX_OFFSET;
+        int displayIndex = DISPLAY_INDEX_OFFSET;
         for (Task t : taskList) {
             stringFormat.append(getIndexListFormat(displayIndex, t.toString()));
             displayIndex++;
@@ -83,7 +98,7 @@ public class TextUi {
      */
     public static String getIndexModuleList(HashMap<String, Module> modulesMap) {
         final StringBuilder stringFormat = new StringBuilder();
-        int displayIndex = 0 + DISPLAY_INDEX_OFFSET;
+        int displayIndex = DISPLAY_INDEX_OFFSET;
         for (Module module : modulesMap.values()) {
             stringFormat.append(getIndexListFormat(displayIndex, module.toString()));
             displayIndex++;
@@ -152,7 +167,8 @@ public class TextUi {
      * @return the trimmed command input
      */
     public static String getUserCommand() {
-        System.out.println("Enter Command: ");
+        System.out.println("\n\nCommand: ");
+        System.out.print("⋗\t");
         String userInput = in.nextLine();
 
         while (isEmptyCheck(userInput)) {
@@ -168,24 +184,12 @@ public class TextUi {
     }
 
     /**
-     * Shows the result of a command execution to the user.
-     *
-     * @param result the relevant message shown to user
-     */
-    public void showResultToUser(CommandResult result) {
-        outputToUser(
-                DIVIDER_LINE,
-                result.feedbackToUser,
-                DIVIDER_LINE);
-    }
-
-    /**
      * Gets command list.
      *
      * @return the list of available commands
      */
     public static String getCommandList() {
-        return MESSAGE_COMMAND_LIST;
+        return MESSAGE_GENERAL_HELP;
     }
 
     /**
@@ -197,31 +201,30 @@ public class TextUi {
         return String.format("For more information on %s, type `help %s`", commandWord, commandWord);
     }
 
-    public void showTimeTableInitialisationMessage() {
-        outputToUser(
-            DIVIDER_LINE,
-            MESSAGE_TIMETABLE_INIT,
-            DIVIDER_LINE);
-    }
-
     /**
      * Prints day timetable.
      *
      * @return the String of the day's timetable
      */
-    public static String printDayTimetable(DayOfWeek day, ArrayList<Lesson> lessonList) {
+    public static String printDayTimetable(LocalDate now, ArrayList<Lesson> lessonList) {
         StringBuilder output = new StringBuilder();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(", dd-MM-yy");
         if (lessonList.size() > 0) {
             output.append(System.lineSeparator())
-                    .append(day)
+                    .append(now.getDayOfWeek() + now.format(formatter) + ":")
                     .append(System.lineSeparator())
                     .append(MESSAGE_TIMETABLE_HEADER);
             for (Lesson lesson : lessonList) {
                 int lessonNumber = lessonList.indexOf(lesson) + 1;
                 output.append(printLessonBlock(lesson, lessonNumber));
+                if (lessonNumber == lessonList.size()) {
+                    output.append(MESSAGE_TIMETABLE_FOOTER);
+                } else {
+                    output.append(MESSAGE_TIMETABLE_MIDDLE);
+                }
             }
         } else {
-            output = new StringBuilder(MESSAGE_NO_LESSONS + day + "\n");
+            output = new StringBuilder(MESSAGE_NO_LESSONS + now.getDayOfWeek() + now.format(formatter) + ".\n");
         }
         return output.toString();
     }
@@ -236,14 +239,28 @@ public class TextUi {
         String startTime = lesson.getStartTime().format(time);
         String endTime = lesson.getEndTime().format(time);
         String lessonNumber = String.format("%02d", lessonIndex);
-        String message = "";
-
-        message += " | " + startTime + "-" + endTime
-                + " | " + lessonNumber
-                + " | " + lesson.getModuleCode() + " " + lesson.getLessonTypeString() + " |"
-                + MESSAGE_TIMETABLE_FOOTER;
+        String message = String.format(" │%s│%s│%s│",
+                centerString(11, startTime + "-" + endTime),
+                centerString(4, lessonNumber),
+                centerString(20, lesson.getModuleCode() + " " + lesson.getLessonTypeString()));
 
         return message;
+    }
+
+    /**
+     * Simple function that returns a string centered in 'width' number of characters.
+     * Empty characters (i.e. left/right padding) are spaces.
+     *
+     * @param width
+     *  The number of characters for width
+     * @param s
+     *  The string to be centered
+     * @return
+     *  The centered string
+     */
+    public static String centerString(int width, String s) {
+        return String.format("%-" + width  + "s",
+            String.format("%" + (s.length() + (width - s.length()) / 2) + "s", s));
     }
 }
 
