@@ -1,7 +1,6 @@
 #Developer Guide for ra.VI
 
 ## Table of Contents
-{:toc}
 
 ## Setting up
 
