@@ -70,8 +70,8 @@ public class InputOutputManager {
             } else {
                 logger.getLogger().info("Skipping timetable save; file does not exist: " + timetableFile);
             }
-            loadNusModSave(); // will load from NUSMods API if file not found
         }
+        loadNusModSave(); // will load from NUSMods API if file not found
     }
 
     /**
