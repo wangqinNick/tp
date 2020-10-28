@@ -3,6 +3,7 @@
 ## Table of Contents
 
 ## Setting up
+The following section describes how to set up ra.VI on your own computer.
 
 ### Software Prerequisites
 
@@ -293,7 +294,7 @@ Step 2. The user inputs `add -m CS2101`, as the user wants to note down a module
 
 Step 3. The user inputs `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 1`. This means the user wants to add a `CS2101 LECTURE` that occurs once a week on `TUESDAY 0800 1000`. This command will be parsed and eventually returns a TimeTableAddCommand.
 
-Step 4. The user inputs `timetable -del TUESDAY 1`. This means the user wants to delete the `CS2101 TUESDAY 0800 1000 LECTURE` lessons. The `1` at the end reflects lessons on index `1` on `TUESDAY`. This command will be parsed and eventually returns a TimeTableDeleteCommand.
+Step 4. The user inputs `timetable -del TUESDAY 1`. This means the user wants to delete the `CS2101 TUESDAY 0800 1000 LECTURE` lessons. The `1` at the end reflects lessons on index `1` on `TUESDAY` as reflected by `timetable -day` or `timetable -week`. This command will be parsed and eventually returns a TimeTableDeleteCommand.
 
 Step 4. The TimeTableDeleteCommand is executed, returning a `CommandResult` containing a success message if the Lessons have been successfully deleted.\
 Otherwise, an exception message will be shown explaining the exception to the user.\
@@ -303,6 +304,27 @@ Common reasons for failure include:
 e.g. `timetable -del TUE 1`
 * Lesson does not exist in the timetable\
 e.g. `timetable -del TUESDAY 5` but the timetable does not contain a lesson/s on `TUESDAY` at index `5`. Current lessons can be found by entering `timetable -day` or `timetable -week`
+
+#### View the timetable
+Given below is an example scenario to view the timetable for the day.
+
+Step 1. The user adds a lesson to the timetable for today, for e.g. `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 1`.\
+
+Step 2. The user inputs `timetable -day`
+
+Step 3. The timetable for the day is shown to the user. The user is able to see the Tuesday CS2101 lecture that was previously added in step 1.
+
+#### Filter the timetable
+Given below is an example scenario to filter the timetable for CS2101 LECTURE.
+
+Step 1. The user adds a lesson to the timetable for today, for e.g. `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 1`.\
+
+Step 2. The user inputs `timetable -filter CS2101 - - - LECTURE`
+
+Step 3. All CS2101 lectures in the timetable are shown to the user. The user is able to see the CS2101 weekly lectures that were previously added in step 1.
+
+* Wrong command format\
+e.g. `timetable -filter`
 
 ## User Stories
 
@@ -344,8 +366,6 @@ Given below are instructions to test the app manually.
 5. For a detailed list on the command features, refer to the [user guide](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/UserGuide.md).
 6. Simply enter `bye` to terminate and exit the application.
 
-### Launch and shutdown
-
 ### Adding a task w/ deadline
 1. Adding a task without deadline
     1. Test case: `add -t read a book`  
@@ -382,7 +402,29 @@ Given below are instructions to test the app manually.
     2. Test case: `del -m 0` where there is no module `0` in the module list  
     Expected: As there is no such module in the module list, the deletion will give an error. Details of the associated error message will be shown.
     
-### Adding a lesson to the timetable
+### Amend the timetable
+1. Adding a lesson
+    1. Test case: `timetable -add CS2113T MONDAY 1200 1400 LECTURE 0` where `CS2113T` is a module in module list
+    Expected: The TimeTableCommandParser parses the lesson parameters, `CS2113T` is the associated module, `MONDAY 1200 1400 LECTURE` reflects that the lesson is a lecture on Monday from 12pm to 2pm. `0` indicates that this lesson only occurs once.\
+    Since `CS2113T` is a valid module in the module list, the lesson will be added to the timetable. Details of the success of the added lesson will be shown.
+2. Deleting a lesson
+    1. Test case: `timetable -del MONDAY 0` where the only lesson on MONDAY is a CS2113T lecture from 12pm to 2pm.\
+    Expected: The TimeTableCommandParser parses the lesson parameters, and searches for a lesson/s of index `0` on `MONDAY`. However, the timetable does not contain such lesson/s. Details of the associated error message will be shown.
+
+### Viewing the timetable
+1. Timetable for the day
+    1. Test case: `timetable -day`
+    Expected: If there are no lessons for today, this information is shown to the user. Otherwise, the lessons for today are explicitly shown to the user.
+2. Timetable for the week
+    1. Test case: `timetable -week`
+    Expected: The lessons from today up to 6 days ahead from today are explicitly shown to the user.
+
+### Filtering the timetable
+1. Filter all lessons
+    1. Test case: `timetable -filter CS2113T - - - -`
+    Expected: All CS2113T lessons are shown to the user.
+    2. Test case: `timetable -filter CS2113T  - - - LECTURE`
+    Expected: All CS2113T lectures are shown to the user.
 
 ### Marking a task as done / undone
 1. Marking a task as done
@@ -405,9 +447,6 @@ Given below are instructions to test the app manually.
     2. Test case: `edit -m ACC1101 GER1000` where there is no module `ACC1101` in the module list
     Expected: As there is no such module in the module list, an error will be given to the user. Details of the associated error message will be shown.
 
-
-### Viewing the timetable
-
 ### Calculating the Accumulated Cap after the current semester
 1. Calculate the Cap:
     1. Test case: `cap 46 4.24`, where the modules in Module List has already been graded individually.
@@ -429,6 +468,8 @@ Given below are instructions to test the app manually.
     Expected: Due to the fact that there is nothing to undo as there was no user input, details of the associated error message will be shown.
 
 ### Saving data
+**Do note that if you exit the application without entering `bye`, ra.VI will not be able to retrieve any data that was amended during that session**\
+**Tampering with the files created by ra.VI, through any other application, will also cause it to malfunction and is strongly discouraged.**
 1. Add tasks and modules, then exit
     1. Test case: `add -t task 1`, `add -m CS1010`, `bye`  
     Expected: `user_task_data.json` and `user_mod_data.json` should be created in `<ROOT>/data/` with a JSON

@@ -5,19 +5,23 @@ import seedu.duke.command.IncorrectCommand;
 import seedu.duke.command.timetable.TimeTableAddCommand;
 import seedu.duke.command.timetable.TimeTableCommand;
 import seedu.duke.command.timetable.TimeTableDeleteCommand;
+import seedu.duke.command.timetable.TimeTableFilterCommand;
 import seedu.duke.command.timetable.TimeTableViewCommand;
 import seedu.duke.data.Lesson;
+import seedu.duke.data.LessonFilter;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.exception.InvalidMatchException;
 import seedu.duke.exception.LessonInvalidTimeException;
 
 import java.time.DayOfWeek;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static seedu.duke.command.timetable.TimeTableCommand.TIMETABLE_LESSON_DELETE_USER_FORMAT;
 import static seedu.duke.command.timetable.TimeTableCommand.TIMETABLE_LESSON_ADD_USER_FORMAT;
+import static seedu.duke.command.timetable.TimeTableCommand.TIMETABLE_LESSON_FILTER_USER_FORMAT;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_DATE_TIME_UNKNOWN;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_LESSON_INVALID_TIME;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_MODULE_NOT_FOUND;
@@ -42,7 +46,10 @@ public abstract class TimeTableCommandParser {
             + "(?<timeTableParams>.*)");
     private static final Pattern TIMETABLE_LESSON_PARAMETER_FORMAT =
             Pattern.compile("(?<module>[a-zA-Z0-9]+\\s+)(?<day>[a-zA-Z]+\\s+)(?<start>[0-9]+\\s+)(?<end>[0-9]+\\s+)"
-            + "(?<type>[a-zA-Z]+\\s+)(?<repeat>[0-9]+\\s*)");
+                    + "(?<type>[a-zA-Z]+\\s+)(?<repeat>[0-9]+\\s*)");
+    private static final Pattern TIMETABLE_LESSON_FILTER_PARAMETER_FORMAT =
+            Pattern.compile("(?<module>[-a-zA-Z0-9]+\\s+)(?<day>[-a-zA-Z]+\\s+)(?<start>[-0-9]+\\s+)(?<end>[-0-9]+\\s+)"
+                    + "(?<type>[-a-zA-Z]+\\s*)");
     private static final Pattern TIMETABLE_DELETE_PARAMETER_FORMAT =
             Pattern.compile("(?<day>[a-zA-Z]+\\s+)(?<index>[0-9]+\\s*)");
 
@@ -163,7 +170,13 @@ public abstract class TimeTableCommandParser {
         return new TimeTableDeleteCommand(dayOfWeek, indexToBeDeleted);
     }
 
-    private static Command parseTimeTableFilterCommand(String filterParams) {
-        return null;
+    public static Command parseTimeTableFilterCommand(String filterParams) throws
+            InvalidMatchException, ModuleManager.ModuleNotFoundException {
+        Matcher filterMatcher = TIMETABLE_LESSON_FILTER_PARAMETER_FORMAT.matcher(filterParams);
+        Parser.matcherMatches(filterMatcher, filterParams, TIMETABLE_LESSON_FILTER_USER_FORMAT,
+                TimeTableCommand.PROMPT_HELP);
+        ArrayList<LessonFilter> filterList = LessonParser.parseFilterLesson(filterMatcher);
+
+        return new TimeTableFilterCommand(filterList);
     }
 }
