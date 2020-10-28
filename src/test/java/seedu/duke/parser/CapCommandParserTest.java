@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CapCommandParserTest {
     static final String PROPER_CAP_INPUT = "45 4.24";
-    static final String BAD_CAP_INPUT_CAP_IS_STRING = "20 FIVE";
+    static final String BAD_CAP_INPUT_CAP = "20 FIVE";
 
     @Test
     void prepareCapCommand_returnsCapCommand() throws InvalidMatchException {
@@ -18,8 +18,8 @@ class CapCommandParserTest {
     }
 
     @Test
-    void prepareCapCommand_NumberFormatException_isThrown() {
-        assertThrows(NumberFormatException.class,
-            () -> new CapCommandParser().prepareCapCommand(BAD_CAP_INPUT_CAP_IS_STRING));
+    void prepareCapCommand_InvalidMatchException_isThrown() {
+        assertThrows(InvalidMatchException.class,
+            () -> new CapCommandParser().prepareCapCommand(BAD_CAP_INPUT_CAP));
     }
 }
