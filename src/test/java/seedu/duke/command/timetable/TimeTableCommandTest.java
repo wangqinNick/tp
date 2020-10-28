@@ -85,7 +85,7 @@ public class TimeTableCommandTest {
 
     @Test
     void viewTimeTable_badViewFormat_IncorrectCommand_isReturned() {
-        Command timeTableviewCommand = TimeTableCommandParser.parseTimeTableViewCommand(BAD_VIEW_FORMAT, "");
-        assertTrue(timeTableviewCommand instanceof IncorrectCommand);
+        Command timeTableViewCommand = TimeTableCommandParser.parseTimeTableViewCommand(BAD_VIEW_FORMAT, "");
+        assertTrue(timeTableViewCommand instanceof IncorrectCommand);
     }
 }
