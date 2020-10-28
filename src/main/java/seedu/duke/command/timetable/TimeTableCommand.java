@@ -8,8 +8,8 @@ public abstract class TimeTableCommand extends Command {
     public static final String TIMETABLE_DAY_VIEW_FORMAT = COMMAND_WORD + " -day";
     public static final String TIMETABLE_WEEK_VIEW_FORMAT = COMMAND_WORD + " -week";
     public static final String TIMETABLE_LESSON_ADD_USER_FORMAT  = COMMAND_WORD
-            + " -add <module_code> <day> <start_time> "
-            + "<end_time> <lesson_type> <repeat>";
+            + " -add <module_code> <day> <start_time> ..."
+            + "\n\t\t... <end_time> <lesson_type> <repeat>";
     public static final String TIMETABLE_LESSON_DELETE_USER_FORMAT  = COMMAND_WORD + " -del <day> <lesson_index>";
     public static final String FORMAT = TIMETABLE_LESSON_ADD_USER_FORMAT
             + "\n" + TIMETABLE_LESSON_DELETE_USER_FORMAT
