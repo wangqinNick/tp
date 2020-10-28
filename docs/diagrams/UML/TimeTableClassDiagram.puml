@@ -6,53 +6,63 @@ skinparam classAttributeIconSize 0
 class TimeTableAddCommand
 class TimeTableDeleteCommand
 class TimeTableViewCommand
-class Lesson
+class Lesson {
+    - moduleCode: String
+    - lessonType: LessonType
+    - day: DayOfWeek
+    - startTime: LocalTime
+    - endTime: LocalTime
+    - hiddenId: String
+}
 
 abstract class "{abstract} \n TimeTableCommandParser" {
-    {static} parseTimeTableCommand()
-    {static} parseTimeTableAddCommand()
-    {static} parseTimeTableDeleteCommand()
-    {static} parseTimeTableViewCommand()
+    + {static} parseTimeTableCommand()
+    - {static} parseTimeTableAddCommand()
+    - {static} parseTimeTableDeleteCommand()
+    - {static} parseTimeTableViewCommand()
 }
 
 abstract class "{abstract} \n TimeTableCommand" {
-    execute()
+    + execute()
 }
 
 abstract class "{abstract} \n Command" {
-    execute()
+    + execute()
 }
 
 class TimeTable {
-    HashMap<Integer, LessonManager> semesterMap
+    - semesterMap: HashMap<Integer, LessonManager>
 }
 
 class TimeTableAddCommand {
-    execute()
+    + execute()
 }
 
 class TimeTableViewCommand {
-    execute()
+    + execute()
 }
 
 class TimeTableDeleteCommand {
-    execute()
+    + execute()
 }
 
 class IncorrectCommand {
-    execute()
+    + execute()
 }
 
 class LessonManager {
-    HashMap<DayOfWeek, ArrayList<Lesson>> lessonMap
+    - lessonMap: HashMap<DayOfWeek, ArrayList<Lesson>>
+    + addLesson()
+    + deleteLessonById()
+    + getDayLessonList(): ArrayList<Lesson>
 }
 
 class TimeTableManager {
-    {static} initialise()
-    {static} addLesson()
-    {static} removeLesson()
-    {static} getSpecificDayLessons()
-    {static} getSpecifiedWeekLessons()
+    + {static} initialise()
+    + {static} addLesson()
+    + {static} deleteLesson()
+    + {static} getSpecificDayLessons(): ArrayList<Lesson>
+    + {static} getSpecifiedWeekLessons(): ArrayList<ArrayList<Lesson>>
 }
 
 "{abstract} \n TimeTableCommand" --|> "{abstract} \n Command"
@@ -68,7 +78,6 @@ TimeTableManager *-- "1" TimeTable
 TimeTable o-- "1..13" LessonManager
 LessonManager o-- "*" Lesson
 
-TimeTableManager ...> TimeTableCommand
-
+TimeTableManager ...> "{abstract} \n TimeTableCommand"
 
 @enduml
