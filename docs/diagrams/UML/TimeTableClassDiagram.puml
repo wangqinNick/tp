@@ -1,21 +1,25 @@
 @startuml
+
+hide circle
+skinparam classAttributeIconSize 0
+
 class TimeTableAddCommand
 class TimeTableDeleteCommand
 class TimeTableViewCommand
 class Lesson
 
-abstract class TimeTableCommandParser {
+abstract class "{abstract} \n TimeTableCommandParser" {
     {static} parseTimeTableCommand()
     {static} parseTimeTableAddCommand()
     {static} parseTimeTableDeleteCommand()
     {static} parseTimeTableViewCommand()
 }
 
-abstract class TimeTableCommand {
+abstract class "{abstract} \n TimeTableCommand" {
     execute()
 }
 
-abstract class Command {
+abstract class "{abstract} \n Command" {
     execute()
 }
 
@@ -51,15 +55,15 @@ class TimeTableManager {
     {static} getSpecifiedWeekLessons()
 }
 
-TimeTableCommand --|> Command
-IncorrectCommand --|> Command
+"{abstract} \n TimeTableCommand" --|> "{abstract} \n Command"
+IncorrectCommand --|> "{abstract} \n Command"
 
-TimeTableCommandParser -- "0..1" TimeTableCommand
-TimeTableCommandParser -- "0..1" IncorrectCommand
+"{abstract} \n TimeTableCommandParser" -- "0..1" "{abstract} \n TimeTableCommand"
+"{abstract} \n TimeTableCommandParser" -- "0..1" IncorrectCommand
 
-TimeTableAddCommand -|> TimeTableCommand
-TimeTableDeleteCommand --|> TimeTableCommand
-TimeTableViewCommand --|> TimeTableCommand
+TimeTableAddCommand -|> "{abstract} \n TimeTableCommand"
+TimeTableDeleteCommand --|> "{abstract} \n TimeTableCommand"
+TimeTableViewCommand --|> "{abstract} \n TimeTableCommand"
 TimeTableManager *-- "1" TimeTable
 TimeTable o-- "1..13" LessonManager
 LessonManager o-- "*" Lesson
