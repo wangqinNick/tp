@@ -1,5 +1,8 @@
 @startuml
 
+hide circle
+skinparam classAttributeIconSize 0
+
     package data {
     package storage {
         class InputOutputManager
@@ -62,8 +65,8 @@
     class LessonManager {
         HashMap<DayOfWeek, ArrayList<Lesson>> lessonMap
     }
-    interface LessonFilter
-    enum LessonType {
+    interface "<<interface>> \n LessonFilter"
+    enum "<<Enumeration>> \n LessonType" {
         TUTORIAL,
         LECTURE,
         SEMINAR,
@@ -72,8 +75,8 @@
         SESSION
     }
     LessonManager *-- "*"  Lesson
-    LessonManager ..> LessonType
-    LessonManager ..> LessonFilter
+    LessonManager ..> "<<Enumeration>> \n LessonType"
+    LessonManager ..> "<<interface>> \n LessonFilter"
     InputOutputManager ..> TimeTableManager
 }
 package command{

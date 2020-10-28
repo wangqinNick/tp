@@ -12,8 +12,7 @@ import seedu.duke.data.TimeTableManager;
 import seedu.duke.data.storage.InputOutputManager;
 import seedu.duke.exception.InvalidMatchException;
 import seedu.duke.exception.TimeTableInitialiseException;
-
-import java.time.format.DateTimeParseException;
+import seedu.duke.util.ExceptionMessage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -37,12 +36,14 @@ public class TimeTableCommandParserTest {
     static final String DAY_OF_WEEK_2 = "MONDAY";
     static final String LESSON_TYPE = "LECTURE";
 
-    static final String WRONG_MOD_TIMETABLE_ADD_COMMAND_FORMAT = MOD_CODE_2 + " " + DAY_OF_WEEK_1 + " "
-            + LESSON_START_TIME_3 + " " + LESSON_END_TIME_1 + " " + LESSON_TYPE + " " + REPEAT_FREQ;
-    static final String WRONG_LESSON_TIME_1_TIMETABLE_ADD_COMMAND_FORMAT = MOD_CODE_1 + " " + DAY_OF_WEEK_1 + " "
-            + LESSON_START_TIME_1 + " " + LESSON_END_TIME_1 + " " + LESSON_TYPE + " " + REPEAT_FREQ;
-    static final String WRONG_LESSON_TIME_2_TIMETABLE_ADD_COMMAND_FORMAT = MOD_CODE_1 + " " + DAY_OF_WEEK_2 + " "
-            + LESSON_START_TIME_2 + " " + LESSON_END_TIME_1 + " " + LESSON_TYPE + " " + REPEAT_FREQ;
+    static final String WRONG_MOD_TIMETABLE_ADD_COMMAND_FORMAT = ADD_FORMAT + " " + MOD_CODE_2 + " " + DAY_OF_WEEK_1
+            + " " + LESSON_START_TIME_3 + " " + LESSON_END_TIME_1 + " " + LESSON_TYPE + " " + REPEAT_FREQ;
+    static final String WRONG_LESSON_TIME_1_TIMETABLE_ADD_COMMAND_FORMAT = ADD_FORMAT + " " + MOD_CODE_1 + " "
+            + DAY_OF_WEEK_1 + " " + LESSON_START_TIME_1 + " " + LESSON_END_TIME_1 + " " + LESSON_TYPE + " "
+            + REPEAT_FREQ;
+    static final String WRONG_LESSON_TIME_2_TIMETABLE_ADD_COMMAND_FORMAT = ADD_FORMAT + " " + MOD_CODE_1 + " "
+            + DAY_OF_WEEK_2 + " " + LESSON_START_TIME_2 + " " + LESSON_END_TIME_1 + " " + LESSON_TYPE + " "
+            + REPEAT_FREQ;
     static final String WRONG_DAY_TIMETABLE_ADD_COMMAND_FORMAT = ADD_FORMAT + " " + MOD_CODE_1 + " " + DAY_OF_WEEK_1
             + " " + LESSON_START_TIME_3 + " " + LESSON_END_TIME_1 + " " + LESSON_TYPE + " " + REPEAT_FREQ;
     static final String WRONG_DAY_TIMETABLE_DELETE_COMMAND_FORMAT = DELETE_FORMAT + " " + DAY_OF_WEEK_1 + " "
@@ -70,21 +71,27 @@ public class TimeTableCommandParserTest {
     }
 
     @Test
-    void bad_Module_TimeTableAddCommand_ModuleNotFoundException_isThrown() {
-        assertThrows(ModuleManager.ModuleNotFoundException.class,
-            () -> TimeTableCommandParser.parseTimeTableAddCommand(WRONG_MOD_TIMETABLE_ADD_COMMAND_FORMAT));
+    void bad_Module_TimeTableAddCommand_Message_Module_Not_Found_isShown() throws InvalidMatchException {
+        Command command = TimeTableCommandParser.parseTimeTableCommand(WRONG_MOD_TIMETABLE_ADD_COMMAND_FORMAT);
+        CommandResult expectedCommandResult = new IncorrectCommand(ExceptionMessage.MESSAGE_MODULE_NOT_FOUND).execute();
+        CommandResult actualCommandResult = command.execute();
+        assertEquals(expectedCommandResult.feedbackToUser, actualCommandResult.feedbackToUser);
     }
 
     @Test
     void bad_Lesson_Time_1_TimeTableAddCommand_InvalidMatchException_isThrown() {
         assertThrows(InvalidMatchException.class,
-            () -> TimeTableCommandParser.parseTimeTableAddCommand(WRONG_LESSON_TIME_1_TIMETABLE_ADD_COMMAND_FORMAT));
+            () -> TimeTableCommandParser.parseTimeTableCommand(WRONG_LESSON_TIME_1_TIMETABLE_ADD_COMMAND_FORMAT));
     }
 
     @Test
-    void bad_Lesson_Time_2_TimeTableAddCommand_DateTimeParseException_isThrown() {
-        assertThrows(DateTimeParseException.class,
-            () -> TimeTableCommandParser.parseTimeTableAddCommand(WRONG_LESSON_TIME_2_TIMETABLE_ADD_COMMAND_FORMAT));
+    void bad_Lesson_Time_2_TimeTableAddCommand_Message_Date_Time_Unknown_isShown() throws InvalidMatchException {
+        Command command =
+                TimeTableCommandParser.parseTimeTableCommand(WRONG_LESSON_TIME_2_TIMETABLE_ADD_COMMAND_FORMAT);
+        CommandResult expectedCommandResult =
+                new IncorrectCommand(ExceptionMessage.MESSAGE_DATE_TIME_UNKNOWN).execute();
+        CommandResult actualCommandResult = command.execute();
+        assertEquals(expectedCommandResult.feedbackToUser, actualCommandResult.feedbackToUser);
     }
 
     @Test
