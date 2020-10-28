@@ -54,7 +54,7 @@ public class Duke {
         start(args);
         runCommandLoopUntilExitCommand();
         InputOutputManager.save();
-        InputOutputManager.saveNusMods();
+        //InputOutputManager.saveNusMods();
         logger.getLogger().info("PROGRAM TERMINATED SUCCESSFULLY");
     }
 

@@ -1,14 +1,17 @@
 package seedu.duke.data.storage;
 
+import seedu.duke.data.Module;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.data.TimeTableManager;
 import seedu.duke.util.FileName;
 import seedu.duke.data.TaskManager;
 import seedu.duke.DukeLogger;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 
+import java.util.HashMap;
 import java.util.logging.Level;
 
 /**
@@ -34,8 +37,7 @@ public class InputOutputManager {
             java.nio.file.Paths.get(String.valueOf(dirPath), userTaskFileName);
     static final java.nio.file.Path timetableFile =
             java.nio.file.Paths.get(String.valueOf(dirPath), timetableFileName);
-    static final java.nio.file.Path nusModuleFile =
-            java.nio.file.Paths.get(String.valueOf(resourceDirPath), nusModuleFileName);
+    static final String nusModuleFile = "/" + nusModuleFileName;
 
     private static final DukeLogger logger = new DukeLogger(InputOutputManager.class.getName());
 
@@ -79,12 +81,24 @@ public class InputOutputManager {
      * Loads NUS Modules from the given file.
      */
     public static void loadNusModSave() {
-        logger.getLogger().info("Loading NUS modules from " + nusModuleFileName);
-        if (!Files.exists(nusModuleFile)) {
-            ModuleManager.loadNusMods(Decoder.generateNusModsList());
-        } else {
-            ModuleManager.loadNusMods(Decoder.loadModules(nusModuleFile.toString()));
+        try {
+            logger.getLogger().info("Loading NUS modules from JAR file resources folder " + nusModuleFileName);
+            ModuleManager.loadNusMods(Decoder.loadNusModsFromJar());
+            logger.getLogger().info("Successfully loaded from JAR!");
+        } catch (IOException | NullPointerException e) {
+            try {
+                logger.getLogger().warning("Couldn't load NUSMods from JAR directory, trying normal directory...");
+                ModuleManager.loadNusMods(Decoder.loadModules(nusModuleFile.toString()));
+                logger.getLogger().info("Successfully loaded from normal directory!");
+            } catch (Exception e2) {
+                logger.getLogger().warning("Can't load from normal location! " + e2.getMessage());
+                logger.getLogger().warning("Loading from NUSMods API...");
+                ModuleManager.loadNusMods(Decoder.generateNusModsList());
+                logger.getLogger().info("Successfully loaded from NUSMods API!");
+            }
+
         }
+//        }
     }
 
     /**
