@@ -1,17 +1,14 @@
 package seedu.duke.data.storage;
 
-import seedu.duke.data.Module;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.data.TimeTableManager;
 import seedu.duke.util.FileName;
 import seedu.duke.data.TaskManager;
 import seedu.duke.DukeLogger;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 
-import java.util.HashMap;
 import java.util.logging.Level;
 
 /**
@@ -37,7 +34,9 @@ public class InputOutputManager {
             java.nio.file.Paths.get(String.valueOf(dirPath), userTaskFileName);
     static final java.nio.file.Path timetableFile =
             java.nio.file.Paths.get(String.valueOf(dirPath), timetableFileName);
-    static final String nusModuleFile = "/" + nusModuleFileName;
+    static final java.nio.file.Path nusModuleFile =
+            java.nio.file.Paths.get(String.valueOf(resourceDirPath), nusModuleFileName);
+    static final String jarNusModuleFile = "/" + nusModuleFileName;
 
     private static final DukeLogger logger = new DukeLogger(InputOutputManager.class.getName());
 
@@ -96,9 +95,7 @@ public class InputOutputManager {
                 ModuleManager.loadNusMods(Decoder.generateNusModsList());
                 logger.getLogger().info("Successfully loaded from NUSMods API!");
             }
-
         }
-//        }
     }
 
     /**

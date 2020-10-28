@@ -25,7 +25,7 @@ public class Module extends Directory {
     }
 
     public String getModuleGrade() {
-        if (grade == null){
+        if (grade == null) {
             return "No grade yet";
         }
         return grade;
