@@ -235,6 +235,38 @@ public class TimeTableManager {
         }
     }
 
+    /**
+     * Returns an ArrayList with lessons by filtering all lessons in lessonList through the given LessonFilter.
+     *
+     * @param lessonList
+     *  The ArrayList of lessons to be filtered
+     * @param currentFilter
+     *  The current LessonFilter in use
+     * @return
+     *  The filtered ArrayList of lessons generated from lessonMap
+     */
+    public static ArrayList<Lesson> filterLessonList(ArrayList<Lesson> lessonList, LessonFilter currentFilter) {
+        ArrayList<Lesson> outputList = new ArrayList<>();
+        for (Lesson eachLesson : lessonList) {
+            if (currentFilter.filter(eachLesson)) {
+                outputList.add(eachLesson);
+            }
+        }
+        return outputList;
+    }
+
+    public static ArrayList<ArrayList<Lesson>> filterWeekWithFilterList(ArrayList<LessonFilter> currentFilter) {
+        ArrayList<ArrayList<Lesson>> outputList = new ArrayList<>();
+        for (DayOfWeek day : DayOfWeek.values()) {
+            ArrayList<Lesson> lessonList = timetable.getLessonManagerOfWeek(getCurrWeekNum()).getDayLessonList(day);
+            for (LessonFilter eachFilter : currentFilter) {
+                lessonList = filterLessonList(lessonList, eachFilter);
+            }
+            outputList.add(lessonList);
+        }
+        return outputList;
+    }
+
     public static int getWeekLessonCount(int week) {
         return timetable.countWeekLessons(week);
     }

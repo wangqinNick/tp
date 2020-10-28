@@ -126,28 +126,6 @@ public class LessonManager {
         return lessonMap.get(day).size();
     }
 
-    /**
-     * Returns an ArrayList with lessons by filtering all lessons in lessonMap through the given LessonFilter.
-     *
-     * @param currentFilter
-     *  The current LessonFilter in use
-     * @return
-     *  The filtered ArrayList of lessons generated from lessonMap
-     */
-    public ArrayList<Lesson> filterLessons(LessonFilter currentFilter) {
-        ArrayList<Lesson> outputList = new ArrayList<>();
-
-        for (DayOfWeek eachDay : DayOfWeek.values()) {
-            ArrayList<Lesson> currentDay = lessonMap.get(eachDay);
-            for (Lesson eachLesson : currentDay) {
-                if (currentFilter.filter(eachLesson)) {
-                    outputList.add(eachLesson);
-                }
-            }
-        }
-        return outputList;
-    }
-
     public int countTotalLessons() {
         int numLessons = 0;
         for (ArrayList<Lesson> eachDay : lessonMap.values()) {
