@@ -3,13 +3,13 @@
 activate ":ListCommandParser"
 alt MODULE_PREFIX
     create ":ListCommand"
-    ":ListCommandParser" -> ":ListCommand": <<construct>>
+    ":ListCommandParser" -> ":ListCommand": ListCommand(1)
         activate ":ListCommand"
         ":ListCommandParser" <-- ":ListCommand":
         deactivate ":ListCommand"
 else TASK_PREFIX
     create ":ListCommand"
-        ":ListCommandParser" -> ":ListCommand": <<construct>>
+        ":ListCommandParser" -> ":ListCommand": ListCommand(0)
             activate ":ListCommand"
             ":ListCommandParser" <-- ":ListCommand":
             deactivate ":ListCommand"
@@ -32,11 +32,11 @@ activate ":ListCommand"
         ":ListCommand" <-- ":TaskManager": output
         deactivate ":TaskManager"
     else MODULE
-    create ":TaskManager"
-            ":ListCommand" -> ":TaskManager": list()
-            activate ":TaskManager"
-            ":ListCommand" <-- ":TaskManager": output
-            deactivate ":TaskManager"
+    create ":ModuleManager"
+            ":ListCommand" -> ":ModuleManager": list()
+            activate ":ModuleManager"
+            ":ListCommand" <-- ":ModuleManager": output
+            deactivate ":ModuleManager"
     end
 
     alt output null
