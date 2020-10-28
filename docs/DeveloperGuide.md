@@ -24,7 +24,7 @@
 
 ### Configure coding style
 
-raVI's code is strictly styled using the Gradle Checkstyle plugin.
+raVI's code uses the Gradle Checkstyle plugin.
 It is advised to change [IntelliJ's built-in code style
 options](https://se-education.org/guides/tutorials/intellijCodeStyle.html) to match the requirements.
 
@@ -37,11 +37,11 @@ This section describes some noteworthy details on how certain features are imple
 
 ### Top level classes
 
-This is a class diagram of the top level of raVi.  
+This is a class diagram of the top-level of raVi.  
 The classes depicted here are those which are direct dependencies of the main class Duke.  
 The various dependencies of the classes depicted here are not shown to avoid cluttering, and are described in later sections.  
 
-The main class is called Duke (carried over from legacy codebase). The main loop is held within the main class.  
+Duke calls the main class (carried over from the legacy codebase). The main class holds main the loop.  
 Most classes used by the main class are static in nature and do not need to be instantiated.  
 
 The Command and CommandResult objects are dependencies of Executor in addition to Duke. Executor can be
@@ -71,7 +71,7 @@ in charge of saving and loading like InputOutputManager are in the storage subpa
 
 Lesson, Task, and Module are the base level abstractions, with their respective Managers containing the logic to store
 and manipulate instances of these objects in a meaningful way. InputOutputManager reads and writes information from the
-various Managers in order to save and load. State and StateManager are specifically for the undo and redo functionality.
+various Managers in order to save and load. State and StateManager are specifically for undo and redo functionality.
 They do not interact directly with the rest of the Data family.
 
 LessonFilter is the only interface in the data package. It allows for flexible creation of filters for powerful user
@@ -91,7 +91,7 @@ subclass, then Parser delegates the remaining work to the subclass due to the co
 handles the logic itself.
 
 It will create a Command object, no matter whether the user command is valid or not (if it is not, then an
-IncorrectCommand object is created). This Command object is then passed back to the main class Duke for execution.
+IncorrectCommand object is created). This Command object passes back to the main class Duke for execution.
 
 ![UML class diagram for Parser Family Classes](/docs/diagrams/ParserClassDiagram.png?raw=true)
 
@@ -145,8 +145,8 @@ Given below is an example usage scenario and how the add feature behaves at each
 
 Step 1. The user launches the application for the first time.
 
-Step 2. The user inputs `add -m CS2101` into Ravi, as the user wants to note down a module named ‘CS2101’ and add it to their module list.\
-This input is received by the Ui as a string. This string is parsed by the Parser, and thereafter the AddCommandParser, before creating an AddModuleCommand. 
+Step 2. The user inputs `add -m CS2101` into raVI, as the user wants to note down a module named ‘CS2101’ and add it to their module list.\
+The Ui receives the input as a string. Parser parses the string, and thereafter the AddCommandParser, before creating an AddModuleCommand. 
 
 Step 3. The AddModuleCommand is executed, returning a `CommandResult` containing a success message if the module has been successfully added.\
 Otherwise, an exception message will be shown explaining the exception to the user.\
@@ -170,13 +170,13 @@ It extends `Command` and runs through the `ModuleManager`, checking every `grade
 
 As seen from the sequence diagram above, this is the flow of a Cap command.
 The CapCommandParser parses the user's input and assigns the relevant attributes in the Cap Command constructor, such as `totalMcTaken` and `currentCap`.
-When Cap Command is being executed , a CommandResult object is created that calculates the user's current cap after taking into account the current `ModuleManager` modules and the past semester's total mc taken and current cap.
+When Cap Command executes, a CommandResult object is created that calculates the user's current cap after taking into account the current `ModuleManager` modules and the past semester's total mc taken and current cap.
 
 Given below is an example usage scenario and how the cap feature behaves at each step. 
 
 Step 1. The user launches the application for the first time. 
 
-Step 2. The user inputs `add -m CS2101` into Ravi, as the user adds a module he's taking into the `ModuleManager`. The user keys in as many modules into Ravi as they are taking. 
+Step 2. The user inputs `add -m CS2101` into raVI, as the user adds a module he's taking into the `ModuleManager`. The user keys in as many modules into raVI as they are taking. 
 
 Step 3. Once the user attains a grade for the modules keyed in, he inputs `grade CS2101 4 A-` and grades all the other modules he has taken.
 
@@ -293,6 +293,7 @@ e.g. `timetable -del TUESDAY 5` but the timetable does not contain a lesson/s on
 {Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
 
 Given below are instructions to test the app manually.
+
 1. Download the latest version of `ra.VI` from [here](https://github.com/AY2021S1-CS2113T-T09-2/tp/releases/tag/v1.0) and copy it into an empty folder.
 2. Open a new terminal window and navigate to the same directory where duke.jar is located. 
 3. Enter the command `java -jar duke.jar` into the terminal window to launch the application. The application should now be running.
