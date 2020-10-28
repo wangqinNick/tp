@@ -1,4 +1,6 @@
-# Developer Guide for raVI
+#Developer Guide for ra.VI
+
+## Table of Contents
 
 ## Setting up
 
@@ -24,7 +26,7 @@
 
 ### Configure coding style
 
-raVI's code uses the Gradle Checkstyle plugin.
+ra.VI's code uses the Gradle Checkstyle plugin.
 It is advised to change [IntelliJ's built-in code style
 options](https://se-education.org/guides/tutorials/intellijCodeStyle.html) to match the requirements.
 
@@ -37,7 +39,7 @@ This section describes some noteworthy details on how certain features are imple
 
 ### Top level classes
 
-This is a class diagram of the top-level of raVi.  
+This is a class diagram of the top-level of ra.Vi.  
 The classes depicted here are those which are direct dependencies of the main class Duke.  
 The various dependencies of the classes depicted here are not shown to avoid cluttering, and are described in later sections.  
 
@@ -98,7 +100,7 @@ IncorrectCommand object is created). This Command object passes back to the main
 ## Product scope
 ### Target user profile
 
-The target user profile for raVI is described by the following:
+The target user profile for ra.VI is described by the following:
 * A student of NUS (a freshman in particular)
 * Has a need to manage their school related tasks, classes and notes
 * Prefers desktop apps over other types
@@ -113,14 +115,14 @@ NUS places a focus on taking responsibility for your own learning, so it might b
 A lot of students miss lessons, assignments, and even exams, just because they're struggling to adapt to the new
 environment.
 
-raVI helps students to manage their school-related information in a compact, stripped-down interface that does not bombard them with too much information.  
-When you receive your modules and lessons, simply enter them into raVI as they arrive. raVI will keep track of all of it
+ra.VI helps students to manage their school-related information in a compact, stripped-down interface that does not bombard them with too much information.  
+When you receive your modules and lessons, simply enter them into ra.VI as they arrive. ra.VI will keep track of all of it
 for you.  
 You can create tasks, give them deadlines, and tag them to certain modules. You can see all of your tasks and deadlines at a glance.  
-You can even write and save your notes in raVI, uncluttering your work environment even further.
+You can even write and save your notes in ra.VI, uncluttering your work environment even further.
 
-raVI is even integrated with NUSMods, bringing its comprehensive library of information to your fingertips.  
-All of the above features are wrapped in a compact, no-frills command-line interface. No confusing menus and dropdowns
+ra.VI is even integrated with NUSMods, bringing its comprehensive library of information to your fingertips.  
+All the above features are wrapped in a compact, no-frills command-line interface. No confusing menus and dropdowns
 to distract you; only simple commands to give you what you want.
 
 ## Implementation
@@ -145,7 +147,7 @@ Given below is an example usage scenario and how the add feature behaves at each
 
 Step 1. The user launches the application for the first time.
 
-Step 2. The user inputs `add -m CS2101` into raVI, as the user wants to note down a module named ‘CS2101’ and add it to their module list.\
+Step 2. The user inputs `add -m CS2101` into ra.VI, as the user wants to note down a module named ‘CS2101’ and add it to their module list.\
 The Ui receives the input as a string. Parser parses the string, and thereafter the AddCommandParser, before creating an AddModuleCommand. 
 
 Step 3. The AddModuleCommand is executed, returning a `CommandResult` containing a success message if the module has been successfully added.\
@@ -176,7 +178,7 @@ Given below is an example usage scenario and how the cap feature behaves at each
 
 Step 1. The user launches the application for the first time. 
 
-Step 2. The user inputs `add -m CS2101` into raVI, as the user adds a module he's taking into the `ModuleManager`. The user keys in as many modules into raVI as they are taking. 
+Step 2. The user inputs `add -m CS2101` into ra.VI, as the user adds a module he's taking into the `ModuleManager`. The user keys in as many modules into ra.VI as they are taking. 
 
 Step 3. Once the user attains a grade for the modules keyed in, he inputs `grade CS2101 4 A-` and grades all the other modules he has taken.
 
@@ -194,18 +196,18 @@ It extends `Command` and is stored internally inside `Module` as an `grade` and 
 
 As seen from the sequence diagram above, this is the flow of a Grade command.
 The GradeCommandParser parses the user's input, and assigns the relevant attributes in the Grade Command constructor, such as `moduleCredit` and `grade`
-When Grade Command is being executed,a CommandResult object is created that shows the user the result of the command through TextUi, using `showOutputToUser()`
+When Grade Command executes,a CommandResult object is created that shows the user the result of the command through TextUi, using `showOutputToUser()`
 
 Given below is an example usage scenario and how the grade feature behaves at each step.
 
-Step 1. The user launches the application. The user inputs `add -m CS2101` into ra.VI, as the user wants to note down a module named ‘CS2101’ and add it to their module list. This input is received by the Ui ,which processes it into a string. The string is parsed by the parser and allocates it to the AddCommand where it is added to the list of modules. 
+Step 1. The user launches the application. The user inputs `add -m CS2101` into ra.VI, as the user wants to note down a module named ‘CS2101’ and add it to their module list. This input is received by the Ui ,which processes it into a string. The parser parses the string and allocates it to the AddCommand where it is added to the list of modules. 
 
-Step 2. The user inputs `grade CS2101 4 A+`. Where the user input is parsed and allocated to by the parser to GradeCommand. `GradeCommand#execute()` is called and moduleManager checks if such a module exists in the user’s module list, then checks if the input grade is valid according to the NUS grading schematic and finally assigns the specific module , the grade and module credits.
+Step 2. The user inputs `grade CS2101 4 A+`. The parser parses and allocates the user input to GradeCommand. `GradeCommand#execute()` is called and moduleManager checks if such a module exists in the user’s module list, then checks if the input grade is valid according to the NUS grading schematic and finally assigns the specific module , the grade and module credits.
 
 Step 3. The `CommandResult` returns the success message to show the user that their module has successfully been graded. Otherwise, an exception message will be shown regarding the exception caught.
 
 ### Timetable Feature 
-This feature is faciliatated by TimeTableManager and TimeTableCommand classes.
+TimeTableManager and TimeTableCommand classes facilitates this feature. 
 Extending from the abstract TimeTableCommand class are the TimeTableAddCommand, TimeTableDeleteCommand and TimeTableViewCommand classes. This feature implements the following operations:
 * AddLesson - Add a Lesson to the timetable through `TimeTableManager.addLesson()`
 * DeleteLesson - Delete all associated Lessons from the timetable through `TaskManager.deleteLesson()`
@@ -377,5 +379,5 @@ Given below are instructions to test the app manually.
     Expected: `user_task_data.json` and `user_mod_data.json` should be created in `<ROOT>/data/` with a JSON
     representation of the task and module.
 2. Loading tasks and modules
-    1. Test case: Run raVI again after the first test case, then run `list -t` and `list -m`  
+    1. Test case: Run ra.VI again after the first test case, then run `list -t` and `list -m`  
     Expected: `task 1` should be shown in the task list, and `CS1010` should be shown in the module list.
