@@ -9,8 +9,8 @@ import static seedu.duke.util.ExceptionMessage.MESSAGE_LESSON_NOT_FOUND;
 import static seedu.duke.util.Message.MESSAGE_DELETE_LESSON_SUCCESS;
 
 public class TimeTableDeleteCommand extends TimeTableCommand {
-    private DayOfWeek dayOfWeek;
-    private int lessonIndexToDelete;
+    private final DayOfWeek dayOfWeek;
+    private final int lessonIndexToDelete;
 
     public TimeTableDeleteCommand(DayOfWeek dayOfWeek, int lessonIndexToDelete) {
         this.dayOfWeek = dayOfWeek;
@@ -29,7 +29,7 @@ public class TimeTableDeleteCommand extends TimeTableCommand {
 
     @Override
     public CommandResult execute() {
-        String message = "";
+        String message;
         try {
             removeLessonFromTimeTable();
             message = MESSAGE_DELETE_LESSON_SUCCESS;

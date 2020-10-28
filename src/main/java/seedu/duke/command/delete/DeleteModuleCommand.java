@@ -8,7 +8,7 @@ import static seedu.duke.util.ExceptionMessage.MESSAGE_MODULE_NOT_FOUND;
 import static seedu.duke.util.Message.MESSAGE_DELETE_MODULE_SUCCESS;
 
 public class DeleteModuleCommand extends DeleteCommand {
-    private String moduleCode;
+    private final String moduleCode;
     public static final String FORMAT = DeleteCommand.COMMAND_WORD + " -m" + " <module_code>";
     public static final String HELP =   "Delete a module from the scheduler."
                                         + "\n\tFormat: " + FORMAT
@@ -41,7 +41,7 @@ public class DeleteModuleCommand extends DeleteCommand {
      */
     @Override
     public CommandResult execute() {
-        String message = "";
+        String message;
         try {
             deleteModule(moduleCode);
             message = MESSAGE_DELETE_MODULE_SUCCESS;

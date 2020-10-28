@@ -13,8 +13,8 @@ import static seedu.duke.util.ExceptionMessage.MESSAGE_MODULE_NOT_FOUND;
 import static seedu.duke.util.Message.MESSAGE_ADD_LESSON_SUCCESS;
 
 public class TimeTableAddCommand extends TimeTableCommand {
-    private Lesson newLesson;
-    private int repeatFreq;
+    private final Lesson newLesson;
+    private final int repeatFreq;
 
     public TimeTableAddCommand(Lesson newLesson, int repeatFreq) {
         this.newLesson = newLesson;
@@ -41,7 +41,7 @@ public class TimeTableAddCommand extends TimeTableCommand {
 
     @Override
     public CommandResult execute() {
-        String message = "";
+        String message;
         try {
             addLessonToTimeTable();
             message = MESSAGE_ADD_LESSON_SUCCESS;

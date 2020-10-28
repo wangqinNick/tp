@@ -15,7 +15,7 @@ import seedu.duke.command.timetable.TimeTableCommand;
 import seedu.duke.ui.TextUi;
 
 public class HelpCommand extends Command {
-    private String commandType;
+    private final String commandType;
     public static final String COMMAND_WORD = "help";
     public static final String FORMAT = COMMAND_WORD + " [<command_word>]";
     public static final String HELP =   "View command information."
@@ -34,7 +34,7 @@ public class HelpCommand extends Command {
      */
     @Override
     public CommandResult execute() {
-        String output = "";
+        String output;
         switch (commandType) {
         case AddCommand.COMMAND_WORD:
             output = AddCommand.HELP;

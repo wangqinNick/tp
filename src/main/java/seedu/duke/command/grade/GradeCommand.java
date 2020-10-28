@@ -13,9 +13,9 @@ import static seedu.duke.util.Message.MESSAGE_GRADE_MODULE_SUCCESS;
 
 
 public class GradeCommand extends Command {
-    private String moduleGraded;
-    private int moduleCredit;
-    private String grade;
+    private final String moduleGraded;
+    private final int moduleCredit;
+    private final String grade;
     public static final String COMMAND_WORD = "grade";
     public static final String FORMAT = COMMAND_WORD + " <module_code> <modular_credit> <grade>";
     public static final String PROMPT_HELP = TextUi.getCommandHelpMessage(COMMAND_WORD);
