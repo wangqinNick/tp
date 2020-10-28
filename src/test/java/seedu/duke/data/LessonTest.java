@@ -80,20 +80,4 @@ public class LessonTest {
         assertThrows(LessonInvalidTimeException.class,
             () -> new Lesson(MOD_CODE_1, LessonType.LAB, DayOfWeek.TUESDAY, time_12, time_12));
     }
-
-    @Test
-    void verifyLessonFilter_isWorking() {
-        LessonFilter filterTuesday = (l) -> l.getDay().equals(DayOfWeek.TUESDAY);
-        assertEquals(0, manager.filterLessons(filterTuesday).size());
-
-        LessonFilter filterMonday = (l) -> l.getDay().equals(DayOfWeek.MONDAY);
-        assertEquals(2, manager.filterLessons(filterMonday).size());
-
-        LessonFilter filterMonBefore2 = (l) -> l.getDay().equals(DayOfWeek.MONDAY) && l.getEndTime().isBefore(time_14);
-        assertEquals(1, manager.filterLessons(filterMonBefore2).size());
-
-        String testCode = MOD_CODE_1;
-        LessonFilter filterVariableModCode = (l) -> l.getModuleCode().equalsIgnoreCase(testCode);
-        assertEquals(1, manager.filterLessons(filterVariableModCode).size());
-    }
 }
