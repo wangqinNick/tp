@@ -98,7 +98,7 @@ public abstract class TimeTableCommandParser {
      * @param timeTableParams Remaining user input.
      * @return TimeTableViewCommand or IncorrectCommand.
      */
-    public static Command parseTimeTableViewCommand(String commandFlag, String timeTableParams) {
+    private static Command parseTimeTableViewCommand(String commandFlag, String timeTableParams) {
         int daysToView;
         if (!timeTableParams.isEmpty()) {
             commandFlag = "";
@@ -128,7 +128,7 @@ public abstract class TimeTableCommandParser {
      * @throws DateTimeParseException When the time of either the start or end is in the wrong format.
      * @throws InvalidMatchException When the lessonParams do not match the TimeTableAddCommand regex.
      */
-    public static Command parseTimeTableAddCommand(String lessonParams)
+    private static Command parseTimeTableAddCommand(String lessonParams)
             throws ModuleManager.ModuleNotFoundException, LessonInvalidTimeException,
             DateTimeParseException, InvalidMatchException {
         Matcher lessonMatcher = TIMETABLE_LESSON_PARAMETER_FORMAT.matcher(lessonParams);
@@ -152,7 +152,7 @@ public abstract class TimeTableCommandParser {
      * @return TimeTableDeleteCommand or IncorrectCommand
      * @throws InvalidMatchException When the lessonParams do not match the TimeTableDeleteCommand regex.
      */
-    public static Command parseTimeTableDeleteCommand(String deleteParams) throws InvalidMatchException {
+    private static Command parseTimeTableDeleteCommand(String deleteParams) throws InvalidMatchException {
         Matcher lessonMatcher = TIMETABLE_DELETE_PARAMETER_FORMAT.matcher(deleteParams);
         Parser.matcherMatches(lessonMatcher, deleteParams, TIMETABLE_LESSON_DELETE_USER_FORMAT,
                 TimeTableCommand.PROMPT_HELP);
@@ -163,7 +163,7 @@ public abstract class TimeTableCommandParser {
         return new TimeTableDeleteCommand(dayOfWeek, indexToBeDeleted);
     }
 
-    public static Command parseTimeTableFilterCommand(String filterParams) {
+    private static Command parseTimeTableFilterCommand(String filterParams) {
         return null;
     }
 }
