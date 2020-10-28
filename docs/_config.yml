@@ -1,1 +1,8 @@
+title: "ra.VI"
+description: "Repository Assistant with a Versatile Interface"
 theme: jekyll-theme-hacker
+
+markdown: kramdown
+
+plugins:
+  - jemoji
