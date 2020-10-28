@@ -14,11 +14,11 @@ public class Message {
 
     public static final String MESSAGE_EMPTY_INPUT = "Please enter a command for me.\n";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT =
-            "Sorry, the command entered contains some unrecognised parameters starting from here:\n";
+            "The command entered contains some unrecognised parameters starting from here:\n";
     public static final String MESSAGE_CHECK_COMMAND_FORMAT =
             "Please check to make sure to follow the command format:\n";
     public static final String MESSAGE_GOODBYE = "Goodbye, hope to see you soon!";
-    public static final String MESSAGE_WELCOME = "Repository Assistant with a Versatile Interface (ra.VI)";
+    public static final String MESSAGE_WELCOME = "\u26A1 Welcome to ra.VI v2.0 \u26A1";
     public static final String MESSAGE_DONE_TASK_SUCCESS = "The task has been successfully marked as complete.\n";
     public static final String ICON_DONE = "\u221A";
     public static final String ICON_NOT_DONE = "\u0078";
@@ -27,17 +27,17 @@ public class Message {
     public static final String MESSAGE_UNDO_AT_BEGINNING = "There is nothing to undo.";
     public static final String MESSAGE_GRADE_MODULE_SUCCESS = "Module graded successfully.\n";
     public static final String MESSAGE_CAP_DISPLAY = "Your current CAP is \n";
-    public static final String MESSAGE_COMPLETED_TASKLIST = "\n▻ Completed tasks:";
-    public static final String MESSAGE_INCOMPLETE_UNDATED_TASKLIST = "\n▻ Incomplete undated tasks:";
-    public static final String MESSAGE_INCOMPLETE_DATED_TASKLIST = "\n▻ Incomplete dated tasks:";
-    public static final String MESSAGE_SUMMARY_PRINTED = "Your latest task summary \n";
+    public static final String MESSAGE_COMPLETED_TASKLIST = "\n\uD83D\uDC4C Completed tasks:";
+    public static final String MESSAGE_INCOMPLETE_UNDATED_TASKLIST = "\n\u2757 Incomplete tasks with no deadline:";
+    public static final String MESSAGE_INCOMPLETE_DATED_TASKLIST = "\n\u23F0 Incomplete tasks with deadlines:";
+    public static final String MESSAGE_SUMMARY_PRINTED = "Here's a summary of your latest tasks...\n";
     public static final String MESSAGE_GENERAL_HELP =
             "Hello! I'm ra.VI, your personal NUS assistant.\n"
             + "I'm here to help you manage your tasks, modules, and lessons.\n"
             + "This help message appears when you type 'help', or an unrecognised command.\n"
             + "To find out more about any of my commands, type 'help <command>'.\n"
             + "Here's a list of my commands to help you out:\n\n"
-            + "  Action commands:\n"
+            + "\uD83C\uDFC3 Action commands:\n"
             + "\t▻ add       → Add a task or module\n"
             + "\t▻ del       → Delete a task or module\n"
             + "\t▻ edit      → Edit a task or module\n"
@@ -45,11 +45,11 @@ public class Message {
             + "\t▻ grade     → Grades and allocates MCs to a Module\n"
             + "\t▻ undo      → Undo the previous action (if you made changes)\n"
             + "\t▻ timetable → Manage your timetable\n"
-            + "  Viewing commands:\n"
+            + "\uD83D\uDCD6 Viewing commands:\n"
             + "\t▻ list      → Lists all tasks or modules\n"
             + "\t▻ summary   → See a neat summary of your tasks\n"
             + "\t▻ timetable → View your timetable, by day or by week\n"
-            + "  Utility commands:\n"
+            + "\uD83D\uDEE0 Utility commands:\n"
             + "\t▻ help      → Get detailed help for each command\n"
             + "\t▻ bye       → Exit ra.VI (saves all changes!)";
     public static final String MESSAGE_TIMETABLE_INIT =

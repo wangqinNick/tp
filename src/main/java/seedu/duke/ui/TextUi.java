@@ -6,11 +6,9 @@ import seedu.duke.data.Module;
 import seedu.duke.data.Task;
 import seedu.duke.util.Message;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -31,9 +29,9 @@ public class TextUi {
     //Offset required to convert between 1-indexing and 0-indexing
     public static final int DISPLAY_INDEX_OFFSET = 1;
 
-    public static final String TOP_DIV_LINE = "════════════════════════════════════════════════════════════";
-    public static final String PREFIX_ARROW = "⤍\t";
-    public static final String BOT_DIV_LINE = "════════════════════════════════════════════════════════════";
+    public static final String DIV_LINE =
+            "════════════════════════════════════════════════════════════════════════════════";
+    public static final int MAX_WIDTH = DIV_LINE.length();
 
     //%1$ catches the furthest left arg, %2$ catches the 2nd arg
     private static final String MESSAGE_INDEX_LIST_FORMAT = "\n%1$d. %2$s";
@@ -45,25 +43,18 @@ public class TextUi {
         TextUi.in = in;
     }
 
-    public static void showGoodByeMessage() {
-        outputToUser(
-                TOP_DIV_LINE,
-                PREFIX_ARROW + Message.MESSAGE_GOODBYE,
-                BOT_DIV_LINE);
-    }
-
     public static void showWelcomeMessage()     {
         outputToUser(
-                TOP_DIV_LINE,
-                PREFIX_ARROW + Message.MESSAGE_WELCOME,
-                BOT_DIV_LINE);
+                DIV_LINE,
+                centerString(MAX_WIDTH, Message.MESSAGE_WELCOME),
+                DIV_LINE);
     }
 
     public void showTimeTableInitialisationMessage() {
         outputToUser(
-                TOP_DIV_LINE,
-                PREFIX_ARROW + MESSAGE_TIMETABLE_INIT,
-                BOT_DIV_LINE);
+                DIV_LINE,
+                MESSAGE_TIMETABLE_INIT,
+                DIV_LINE);
     }
 
     /**
@@ -73,9 +64,9 @@ public class TextUi {
      */
     public void showResultToUser(CommandResult result) {
         outputToUser(
-                TOP_DIV_LINE,
+                DIV_LINE,
                 result.feedbackToUser,
-                BOT_DIV_LINE);
+                DIV_LINE);
     }
 
     public static void outputToUser(String... output) {

@@ -1,7 +1,7 @@
 package seedu.duke.util;
 
 public class ExceptionMessage {
-
+    public static final String EXCEPTION_HEADER = "\uD83D\uDEAB Error! \uD83D\uDEAB"; // 'No entry sign' emoji
 
     public static final String MESSAGE_MODULE_NOT_FOUND =
             "Sorry, the module is not in your module list.\n"
@@ -34,7 +34,7 @@ public class ExceptionMessage {
             + "You can't use the task index from the summary command!\n";
 
     public static final String MESSAGE_INVALID_PARAMETERS =
-            "Oh no! It seems that some invalid or missing parameters were found!";
+            "Some invalid or missing parameters were found!";
     public static final String MESSAGE_LIST_EMPTY =
             "\nYour list is empty.\n";
     public static final String MESSAGE_STRING_IN_NUMBER =
@@ -49,11 +49,11 @@ public class ExceptionMessage {
     public static final String MESSAGE_LESSON_INVALID_TIME =
             "Sorry, the lesson you have attempted to add "
             + "either overlaps with other lessons or has an invalid start time.\n"
-            + "Try using timetable -day or timetable -week to look at your current lessons first,\n"
-            + "or review your new lesson's start/end time.\n";
+            + "Try using timetable -day or timetable -week to look at your\n"
+            + "current lessons first, or review your new lesson's start/end time.\n";
     public static final String MESSAGE_LESSON_NOT_FOUND =
             "Sorry, the lesson you have attempted to delete does not exist.\n"
-            + "Use timetable -week or timetable -day to look at your lessons, and their index (ID).\n";
+            + "Use timetable (-week/-day) to look at your lessons and their index (ID).\n";
     public static final String MESSAGE_REPEAT_FREQUENCY_UNKNOWN =
             "Sorry, the lesson you have attempted to add does "
             + "not have the correct repeatability.\n"
