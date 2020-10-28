@@ -12,8 +12,8 @@ import java.util.HashMap;
 import static seedu.duke.util.Message.MESSAGE_CAP_DISPLAY;
 
 public class CapCommand extends Command {
-    private int totalMcTaken;
-    private double currentCap;
+    private final int totalMcTaken;
+    private final double currentCap;
     public static final String COMMAND_WORD = "cap";
     public static final String FORMAT = COMMAND_WORD + " <total_mc> <current_cap>";
     public static final String PROMPT_HELP = TextUi.getCommandHelpMessage(COMMAND_WORD);
@@ -41,7 +41,7 @@ public class CapCommand extends Command {
         D("D",1.0),
         F("F",0.0);
 
-        private String symbol;
+        private final String symbol;
         private final double value;
 
         GradeSchematic(String symbol, double value) {

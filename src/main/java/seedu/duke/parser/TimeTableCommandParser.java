@@ -17,7 +17,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static seedu.duke.command.timetable.TimeTableCommand.TIMETABLE_LESSON_DELETE_USER_FORMAT;
-import static seedu.duke.command.timetable.TimeTableCommand.TIMETABLE_LESSON_PARAMETER_USER_FORMAT;
+import static seedu.duke.command.timetable.TimeTableCommand.TIMETABLE_LESSON_ADD_USER_FORMAT;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_DATE_TIME_UNKNOWN;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_LESSON_INVALID_TIME;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_MODULE_NOT_FOUND;
@@ -133,7 +133,7 @@ public abstract class TimeTableCommandParser {
             DateTimeParseException, InvalidMatchException {
         Matcher lessonMatcher = TIMETABLE_LESSON_PARAMETER_FORMAT.matcher(lessonParams);
 
-        Parser.matcherMatches(lessonMatcher, lessonParams, TIMETABLE_LESSON_PARAMETER_USER_FORMAT,
+        Parser.matcherMatches(lessonMatcher, lessonParams, TIMETABLE_LESSON_ADD_USER_FORMAT,
                 TimeTableCommand.PROMPT_HELP);
 
         Lesson newLesson = LessonParser.parseLesson(lessonMatcher);

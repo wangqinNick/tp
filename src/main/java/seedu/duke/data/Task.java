@@ -3,6 +3,7 @@ package seedu.duke.data;
 import seedu.duke.util.Message;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Task {
     private String name;
@@ -62,10 +63,11 @@ public class Task {
     }
 
     public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mma, EEEE, dd MMM yy ");
         if (getDeadline() == null) {
             return getName() + " [" + getStatusIcon() + "]";
         } else {
-            return getName() + " by " + getDeadline().toString() + " [" + getStatusIcon() + "]";
+            return getName() + " [" + getStatusIcon() + "]," + " by " + getDeadline().format(formatter);
         }
     }
 }

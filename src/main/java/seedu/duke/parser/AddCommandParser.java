@@ -8,13 +8,15 @@ import seedu.duke.command.add.AddTaskCommand;
 import seedu.duke.exception.InvalidMatchException;
 
 import java.security.InvalidParameterException;
+import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static seedu.duke.util.ExceptionMessage.MESSAGE_DATE_TIME_UNKNOWN;
+import static seedu.duke.util.ExceptionMessage.MESSAGE_NO_ADD_MODULE;
+import static seedu.duke.util.ExceptionMessage.MESSAGE_NO_ADD_TASK;
 import static seedu.duke.util.Message.MESSAGE_CHECK_COMMAND_FORMAT;
 import static seedu.duke.util.Message.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.duke.util.Message.MESSAGE_NO_ADD_MODULE;
-import static seedu.duke.util.Message.MESSAGE_NO_ADD_TASK;
 
 public class AddCommandParser {
     public static final String MODULE_PREFIX = "-m";
@@ -67,7 +69,11 @@ public class AddCommandParser {
                     ? new IncorrectCommand(MESSAGE_NO_ADD_MODULE)
                     : new IncorrectCommand(MESSAGE_NO_ADD_TASK);
         }
-        return getAddCommand(commandFlag, addedTask, taskDeadline);
+        try {
+            return getAddCommand(commandFlag, addedTask, taskDeadline);
+        } catch (DateTimeParseException e) {
+            return new IncorrectCommand(MESSAGE_DATE_TIME_UNKNOWN);
+        }
     }
 
     /**

@@ -98,7 +98,8 @@ public class TimeTableManager {
         // add for every week, or alternate weeks
         for (; currWeek < timetable.getSemEndWeekNum(); currWeek++) { // don't add for reading week
             lessonManager = timetable.getLessonManagerOfWeek(currWeek);
-            if (currWeek == timetable.getSemRecessWeekNum()) { // don't add for recess week
+            if (currWeek == timetable.getSemRecessWeekNum()) {
+                // don't add for recess week
             } else if (repeat == 1) { // if repeat every week
                 lessonManager.addLesson(lesson);
             } else if (isEvenWeek(currWeek) && repeat == 2) { // if repeat every even week
@@ -178,6 +179,22 @@ public class TimeTableManager {
     public static int getCurrWeekNum() {
         LocalDateTime now = LocalDateTime.now();
         return now.get(ChronoField.ALIGNED_WEEK_OF_YEAR);
+    }
+
+    /**
+     * Get the current week number (of NUS calendar).
+     *
+     * @return
+     *  The current week number.
+     */
+    public static String getCurrNusWeekStr() {
+        if (getCurrWeekNum() == timetable.getSemRecessWeekNum()) {
+            return "Recess week";
+        } else if (getCurrWeekNum() == timetable.getSemEndWeekNum()) {
+            return "Reading week";
+        } else {
+            return Integer.toString(getCurrWeekNum() - timetable.getSemStartWeekNum() + 1);
+        }
     }
 
     /**
