@@ -22,6 +22,8 @@ import java.util.List;
 import com.alibaba.fastjson.JSON;
 import seedu.duke.data.TimeTable;
 
+import static seedu.duke.data.storage.InputOutputManager.nusModuleFile;
+
 /**
  * Manages all outputs from files, and the conversion from String in file to Object in memory.
  * Throws exceptions to InputOutputManager and handles none.
@@ -82,6 +84,31 @@ public class Decoder {
         }
         List<Task> tasksList = JSON.parseArray(jsonStr, Task.class);// extractModules(jsonStr);
         return new ArrayList<>(tasksList);
+    }
+
+    /**
+     * Loads NUSMods list from the JAR file's resources folder.
+     *
+     * @return
+     *  The HashMap of Module objects (from NUSMods)
+     */
+    public static HashMap<String, Module> loadNusModsFromJar() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(
+                Decoder.class.getResourceAsStream(nusModuleFile)));
+        String jsonStr = "";
+        while (br.ready()) {
+            jsonStr += br.readLine();
+        }
+        if (jsonStr != null) {
+            jsonStr = "[" + jsonStr + "]";
+        }
+        System.out.println(jsonStr);
+        List<Module> modulesList = JSON.parseArray(jsonStr, Module.class);
+        HashMap<String, Module> retrievedNusModsList = new HashMap<>();
+        for (Module eachModule : modulesList) {
+            retrievedNusModsList.put(eachModule.getModuleCode(), eachModule);
+        }
+        return retrievedNusModsList;
     }
 
     /**
