@@ -1,4 +1,4 @@
-#Developer Guide for ra.VI
+# Developer Guide for ra.VI
 
 ## Table of Contents
 
@@ -161,6 +161,47 @@ e.g. `add -m Fake Mod`\
 e.g. `add -t task -by 2nd Jan`
 * Module already exists in module list\
 e.g. `add -m CS1010` but the module list already contains `CS1010`
+
+### List Feature
+This feature is facilitated by the TaskManager and ModuleManager classes.  
+It extends from the abstract `Command` class.  
+This feature implements the following operations:
+* List tasks - List all tasks in the task list through `TaskManager.list()`
+* List modules - List all modules in module map through `ModuleManager.list()`
+
+![Sequence diagram for List Feature in Command class](/docs/diagrams/ListCommandSequenceDiagram.png?raw=true)
+
+As seen from the sequence diagram above, this is the flow of `ListCommand`.  
+`ListCommandParser` class calls ListCommand(1), ListCommand(0), or InvalidParameterException() methods based on the user input.
+
+`ListCommand` has an execute method. Depending on the type of entry, `ListCommand` calls list() method of `TaskManager` if it is TASK, or list() method of `ModuleManager` if it is MODULE. Both objects return output.
+
+If output is null, `ListCommand` calls CommandResult(MESSAGE_LIST_EMPTY), creating a `CommandResult` object. Else, `ListCommand` calls CommandResult(MESSAGE_LIST_PRINTED + output), creating a `CommandResult` object.
+
+`ListCommand` returns `CommandResult`. 
+
+Given below is an example usage scenario and how the cap feature behaves at each step.  
+Step 1. The user launches the application for the first time.  
+Step 2. The user inputs `add -t Read book` into ra.VI, adding the task to the task list in TaskManager. The user keys in multiple other tasks of the following:
+* `add -t Return book -by 2-10-2020 1400`
+* `add -t Meeting`  
+
+Step 3. The user inputs `add -m CS2113T` into ra.VI, adding the module to the module map in ModuleManager. The user keys in multiple other modules of the following:
+* `add -m CS2101`
+* `add -m CG2271`
+
+Step 4. The user inputs `list -t`. The CommandResult returns  
+```
+1. Read book [x]
+2. Return book [x], by 02:00PM, Friday, 02 Oct 20 
+3. Meeting [x]
+```
+Step 5. The user inputs `list -m`. The CommandResult returns  
+```
+1. CS2113T: Software Engineering & Object-Oriented Programming: null
+2. CG2271: Real-Time Operating Systems: null
+3. CS2101: Effective Communication for Computing Professionals: null
+```
 
 ### Cap Feature 
 This feature is faciliatated by ModuleManager and Module classes.

@@ -1,0 +1,57 @@
+@startuml
+-> ":ListCommandParser": getListCommand()
+activate ":ListCommandParser"
+alt MODULE_PREFIX
+    create ":ListCommand"
+    ":ListCommandParser" -> ":ListCommand": ListCommand(1)
+        activate ":ListCommand"
+        ":ListCommandParser" <-- ":ListCommand":
+        deactivate ":ListCommand"
+else TASK_PREFIX
+    create ":ListCommand"
+        ":ListCommandParser" -> ":ListCommand": ListCommand(0)
+            activate ":ListCommand"
+            ":ListCommandParser" <-- ":ListCommand":
+            deactivate ":ListCommand"
+else else
+    create ":InvalidParameterException"
+    ":ListCommandParser" -> ":InvalidParameterException": InvalidParameterException()
+    activate ":InvalidParameterException"
+    ":ListCommandParser" <-- ":InvalidParameterException"
+    deactivate ":InvalidParameterException"
+end
+<-- ":ListCommandParser": ListCommand
+destroy ":ListCommandParser"
+
+-> ":ListCommand": execute()
+activate ":ListCommand"
+    alt TASK
+        create ":TaskManager"
+        ":ListCommand" -> ":TaskManager": list()
+        activate ":TaskManager"
+        ":ListCommand" <-- ":TaskManager": output
+        deactivate ":TaskManager"
+    else MODULE
+    create ":ModuleManager"
+            ":ListCommand" -> ":ModuleManager": list()
+            activate ":ModuleManager"
+            ":ListCommand" <-- ":ModuleManager": output
+            deactivate ":ModuleManager"
+    end
+
+    alt output null
+        create ":CommandResult"
+        ":ListCommand" -> ":CommandResult": CommandResult(MESSAGE_LIST_EMPTY)
+        activate ":CommandResult"
+        ":ListCommand" <-- ":CommandResult": CommandResult
+        deactivate ":CommandResult"
+    else else
+        create ":CommandResult"
+        ":ListCommand" -> ":CommandResult": CommandResult(MESSAGE_LIST_PRINTED + output)
+        activate ":CommandResult"
+        ":ListCommand" <-- ":CommandResult": CommandResult
+        deactivate ":CommandResult"
+    end
+<-- ":ListCommand": CommandResult
+destroy ":ListCommand"
+@enduml
