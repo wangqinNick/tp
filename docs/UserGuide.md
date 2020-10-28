@@ -38,7 +38,7 @@ Welcome to the ra.VI User Guide! Choose a section or sub-section from the table 
 4.11 Exit  
 
 ### 1.1 About
-This user guide provides in-depth documentation on the ra.VI installation process, system configuration and management. In addition, the quick start guide prvoides and end-to-end setup process to begin tracking your tasks and timetable with ra.VI.
+This user guide provides in-depth documentation on the ra.VI installation process, system configuration and management. In addition, the quick start guide provides and end-to-end setup process to begin tracking your tasks and timetable with ra.VI.
 
 ### 1.2 Introduction
 Repository Assistant with a Versatile Interface (ra.VI) is a desktop app for managing tasks, deadlines, and notes, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ra.VI can manage your tasks faster than traditional GUI apps.\
@@ -58,13 +58,12 @@ A task can be marked as done. This will signify completion of the task so that y
 The timetable is specific to you. It allows you to add lessons to your timetable with respect to the modules that you are taking. After setting the timetable up the first time, you do not need to go through the set up again.
 
 ### 1.3 Product Overview
-ra.VI is targeted at the NUS freshman. As freshman, there are many documents and new procedures that you must get familiar with. This may be daunting for you but ra.VI will provide you with the assistance you need. 
+ra.VI is targeted at the NUS freshman. As a freshman, there are many documents and new procedures that you must get familiar with. This may be daunting for you but ra.VI will provide you with the assistance you need. 
 By helping you keep track of your tasks and deadlines, you will be able to keep on top of deadlines. 
 Moreover, the timetable feature helps you to schedule your lessons, allowing you to be more prepared for lessons.
 Adding on, ra.VI also allows you to keep track of your CAP, so that you can keep tabs on how well you are doing, motivating you towards that elusive CAP 5.0.
 
 ### 1.4 Quick Start
-{Give steps to get started quickly}
 
 1. Ensure that you have Java 11 or above installed.
 2. Download the latest version of `ra.VI` from [here](https://github.com/AY2021S1-CS2113T-T09-2/tp/releases/tag/v1.0).
@@ -78,7 +77,6 @@ Some example commands you can try:
 
 ## Features 
 
-{Give detailed description of each feature}
 ### Viewing help: `help`
 Shows a message with the list of available commands and functions.
 
@@ -99,7 +97,7 @@ Example of usage:
 * `add -m CS1231`
 
 ### Editing an item: `edit <opt> <args>`
-#### Editing a task description: `edit -t <task_index> <task_name>`
+#### Editing a task description: `edit -t`
 Edit a task description in the scheduler.  
 Format: `edit -t <task_index> <task_name>`
 
@@ -108,7 +106,7 @@ Example of usage:
 
 Note: You can find the task indexes with `list -t`  
 
-#### Editing a module: `edit -m <module_code> <new_module_code>`
+#### Editing a module: `edit -m`
 Edit a module code in the scheduler.  
 Format: `edit -m <module_code> <new_module_code>`
 
@@ -116,14 +114,14 @@ Example of usage:
 * `edit -m CS2113 CS2113T`
 
 ### Deleting an item: `del <opt> <args>`
-#### Deleting a task: `del -t <task_index>`
+#### Deleting a task: `del -t`
 Remove a task from the scheduler.  
 Format: `del -t <task_index>`
 
 Example of usage: 
 * `del -t 1`
 
-#### Deleting a module: `del -m <module_code>`
+#### Deleting a module: `del -m`
 Remove a module from the scheduler.  
 Format: `del -m <module_code>`
 
@@ -141,14 +139,14 @@ Format: `list -t`
 List all modules in the scheduler.  
 Format: `list -m`
 
-#### Grade a existing module: `grade <module code> <grade>`
+#### Grade a existing module: `grade`
 Assign a grade to a module in the Scheduler.
 Format: `grade <moduleCode> <grade>`
 
 Example of usage:
 * `grade CS2101 B+`
 
-#### Calculate your cap after the semester: `cap <total module credit taken> <current cap>`
+#### Calculate your cap after the semester: `cap`
 Calculate your new updated cap, accumulated from past semesters.
 Format: `cap <total module credit taken> <current cap>`
 
@@ -187,8 +185,9 @@ Example of usage:
 * `timetable -day`
 * `timetable -week`
 
-#### Add a lesson: `timetable -add <module> <day> <start time> <end time> <lesson type> <repeat>`
+#### Add a lesson: `timetable -add`
 Adds a lesson to the timetable.\
+Format: `timetable -add <module> <day> <start time> <end time> <lesson type> <repeat>`  
 `<module>` : Must be added to the module list. See module list with `list -m`.\
 `<day>` : Must be one of the following : `MONDAY`, `TUESDAY`, `WEDNESDAY`, `THURSDAY`, `FRIDAY`, `SATURDAY`, `SUNDAY`
 `<start time>` : Must be in 24h format
@@ -200,8 +199,9 @@ Example of usage:
 * `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 0`
 * `timetable -add CS2113T MONDAY 1300 1500 LAB 1`
 
-#### Delete a lesson: `timetable -del <day> <lesson index>`
+#### Delete a lesson: `timetable -del`
 Deletes a lesson from the timetable.\
+Format: `timetable -del <day> <lesson index>`  
 `<day>` : Must be one of the following : `MONDAY`, `TUESDAY`, `WEDNESDAY`, `THURSDAY`, `FRIDAY`, `SATURDAY`, `SUNDAY`
 `<lesson index>` : Index of the lesson to be deleted. See timetable and the indexes with `timetable -day` or `timetable -week`
 
@@ -219,9 +219,25 @@ Format: `bye`
 **A**: {your answer here}
 
 ## Command Summary
-
-{Give a 'cheat sheet' of commands here}
-
-* Add task `add -t TASK_NAME DEADLINE`
-* Add module `add -m MODULE_NAME`
-
+| Function | Command |
+|--------|---------------------------------------|
+| Add a task | `add -t <task_name> [-by <deadline>]`|
+| Add a module | `add -m <module_code>` |
+| Delete a task | `del -t <task_index>` |
+| Delete a module | `del -m <module_code>` |
+| Edit a task | `edit -t <task_index> <task_name>` |
+| Edit a module | `edit -m <module_code> <new_module_code>` |
+| Mark task as Done | `done <task_index>` |
+| Grade and allocated MCs to a module | `grade <module_code> <grade>` | 
+| Undo previous action | `undo` | 
+| Add lesson to timetable | `timetable -add <module> <day> <start time> <end time> <lesson type> <repeat>` |
+| Delete lesson from timetable | `timetable -del <day> <lesson index>` |   
+| List all tasks | `list -t` |
+| List all modules | `list -m` |
+| View task summary | `summary` |
+| View day's timetable | `timetable -day` |
+| View week's timetable | `timetable -week` |
+| Get list of commands | `help` |
+| Get detailed help message for each command | `help <command_word>` |
+| Exit ra.VI | `bye` |
+  
