@@ -2,7 +2,7 @@
 -> ":GradeCommandParser": prepareGradeCommand()
 activate ":GradeCommandParser"
 create ":GradeCommand"
-":GradeCommandParser" -> ":GradeCommand": <<construct>> GradeCommand()
+":GradeCommandParser" -> ":GradeCommand": <<construct>> GradeCommand(module,moduleCredit,grade)
 activate ":GradeCommand"
 ":GradeCommandParser" <-- ":GradeCommand" : GradeCommand
 deactivate ":GradeCommand"
@@ -16,10 +16,10 @@ deactivate ":GradeCommandParser"
 activate ":ModuleManager"
 ":GradeCommand" <-- ":ModuleManager" :moduleToBeGraded
 deactivate ":ModuleManager"
-":GradeCommand" -> ":GradeCommand" : grade()
+":GradeCommand" -> ":GradeCommand" : grade(moduleToBeGraded)
 alt testGrade(grade)
     activate ":GradeCommand"
-    ":GradeCommand" -> ":ModuleManager" :grade()
+    ":GradeCommand" -> ":ModuleManager" :grade(module,grade,moduleCredit)
     activate ":ModuleManager"
     ":GradeCommand" <-- ":ModuleManager"
     deactivate ":ModuleManager"
