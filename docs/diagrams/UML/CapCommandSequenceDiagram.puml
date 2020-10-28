@@ -2,7 +2,7 @@
 -> ":CapCommandParser" : prepareCapCommand()
 activate ":CapCommandParser"
 create ":CapCommand"
-":CapCommandParser" -> ":CapCommand" : <<construct>> CapCommand()
+":CapCommandParser" -> ":CapCommand" : <<construct>> CapCommand(totalMcTaken,currentCap)
 activate ":CapCommand"
 ":CapCommandParser" <-- ":CapCommand" : CapCommand
 deactivate ":CapCommand"
@@ -17,7 +17,7 @@ activate ":CapCommand"
 activate ":ModuleManager"
 ":CapCommand" <-- ":ModuleManager" : moduleList
 deactivate ":ModuleManager"
-":CapCommand" -> ":CapCommand" : gradeConvert()
+":CapCommand" -> ":CapCommand" : gradeConvert(moduleList)
 activate ":CapCommand"
 ":CapCommand" <-- ":CapCommand" : mcGrade
 deactivate ":CapCommand"

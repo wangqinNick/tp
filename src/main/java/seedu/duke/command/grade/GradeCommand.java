@@ -44,7 +44,7 @@ public class GradeCommand extends Command {
      * grade input by user
      */
     private boolean testGrade(String grade) {
-        String[] validGrades = {"A+","A","A-","B+","B-","B","C+","C","D+","D","F","SU"};
+        String[] validGrades = {"A+","A","A-","B+","B-","B","C+","C","D+","D","F"};
         for (String i: validGrades) {
             if (grade.equals(i)) {
                 return true;

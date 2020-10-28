@@ -11,6 +11,7 @@ import seedu.duke.data.LessonType;
 import seedu.duke.data.Module;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.data.TimeTableManager;
+import seedu.duke.exception.InvalidMatchException;
 import seedu.duke.exception.LessonInvalidTimeException;
 import seedu.duke.exception.TimeTableInitialiseException;
 import seedu.duke.parser.TimeTableCommandParser;
@@ -84,8 +85,8 @@ public class TimeTableCommandTest {
     }
 
     @Test
-    void viewTimeTable_badViewFormat_IncorrectCommand_isReturned() {
-        Command timeTableViewCommand = TimeTableCommandParser.parseTimeTableViewCommand(BAD_VIEW_FORMAT, "");
-        assertTrue(timeTableViewCommand instanceof IncorrectCommand);
+    void viewTimeTable_badViewFormat_IncorrectCommand_isReturned() throws InvalidMatchException {
+        Command timeTableviewCommand = TimeTableCommandParser.parseTimeTableCommand(BAD_VIEW_FORMAT);
+        assertTrue(timeTableviewCommand instanceof IncorrectCommand);
     }
 }
