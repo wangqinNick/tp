@@ -21,6 +21,7 @@ import java.util.logging.Level;
 public class InputOutputManager {
     static final String root = System.getProperty("user.dir");
     static final java.nio.file.Path dirPath = java.nio.file.Paths.get(root, "data");
+    static final java.nio.file.Path resourceDirPath = java.nio.file.Paths.get(root, "src/main/resources");
 
     static final String userModuleFileName = FileName.MOD_SAVE_FILE_NAME + FileName.FILE_EXT;
     static final String userTaskFileName = FileName.TASK_SAVE_FILE_NAME + FileName.FILE_EXT;
@@ -31,10 +32,10 @@ public class InputOutputManager {
             java.nio.file.Paths.get(String.valueOf(dirPath),userModuleFileName);
     static final java.nio.file.Path userTaskFile =
             java.nio.file.Paths.get(String.valueOf(dirPath), userTaskFileName);
-    static final java.nio.file.Path nusModuleFile =
-            java.nio.file.Paths.get(String.valueOf(dirPath), nusModuleFileName);
     static final java.nio.file.Path timetableFile =
             java.nio.file.Paths.get(String.valueOf(dirPath), timetableFileName);
+    static final java.nio.file.Path nusModuleFile =
+            java.nio.file.Paths.get(String.valueOf(resourceDirPath), nusModuleFileName);
 
     private static final DukeLogger logger = new DukeLogger(InputOutputManager.class.getName());
 
