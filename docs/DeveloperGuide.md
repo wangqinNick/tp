@@ -51,7 +51,7 @@ The Command and CommandResult objects are dependencies of Executor in addition t
 viewed as a simple layer of abstraction on top of Command and CommandResult to facilitate the execution of user
 commands. Command is a dependency of Parser as Parser creates Command objects to return to the main loop.
 
-![UML class diagram for Main Class](/docs/diagrams/MainClassDiagram.png?raw=true)
+![UML class diagram for Main Class](/diagrams/MainClassDiagram.png?raw=true)
 
 ### Command Family
 
@@ -64,7 +64,7 @@ The `execute()` function of the Command class generates a CommandResult, which h
 PromptType indicates the functionality of the Command object. The most useful type is EDIT, which indicates to
 StateManager that there has been a change in state.
 
-![UML class diagram for Command Family Classes](/docs/diagrams/CommandClassDiagram.png?raw=true)
+![UML class diagram for Command Family Classes](/diagrams/CommandClassDiagram.png?raw=true)
 
 ### Data Family
 
@@ -84,7 +84,7 @@ Since there is no command to save or load, InputOutputManager is not a dependenc
 however, are dependencies of Command as there are commands for using/manipulating each one of them. InputOutputManager
 and Command are then dependencies of the main class Duke.
 
-![UML class diagram for Data Family Classes](/docs/diagrams/DataClassDiagram.png?raw=true)
+![UML class diagram for Data Family Classes](/diagrams/DataClassDiagram.png?raw=true)
 
 ### Parser Family
 
@@ -96,7 +96,7 @@ handles the logic itself.
 It will create a Command object, no matter whether the user command is valid or not (if it is not, then an
 IncorrectCommand object is created). This Command object passes back to the main class Duke for execution.
 
-![UML class diagram for Parser Family Classes](/docs/diagrams/ParserClassDiagram.png?raw=true)
+![UML class diagram for Parser Family Classes](/diagrams/ParserClassDiagram.png?raw=true)
 
 ## Product scope
 ### Target user profile
@@ -137,7 +137,7 @@ Extending from the abstract Command class are the AddModule, AddTask Command cla
 * DeleteTask - Deletes a task from the task list through `TaskManager.delete()`
 * DeleteModule - Deletes a module from the module list through `ModuleManager.delete()`
 
-![Sequence diagram for AddCommand Family Classes](/docs/diagrams/AddCommandSequenceDiagram.png?raw=true)
+![Sequence diagram for AddCommand Family Classes](/diagrams/AddCommandSequenceDiagram.png?raw=true)
 
 As seen from the sequence diagram above, this is the flow of an add command.\
 AddCommand is an abstract class, inheriting from it are AddTaskCommand and AddModuleComand.\
@@ -170,7 +170,7 @@ This feature implements the following operations:
 * List tasks - List all tasks in the task list through `TaskManager.list()`
 * List modules - List all modules in module map through `ModuleManager.list()`
 
-![Sequence diagram for List Feature in Command class](/docs/diagrams/ListCommandSequenceDiagram.png?raw=true)
+![Sequence diagram for List Feature in Command class](/diagrams/ListCommandSequenceDiagram.png?raw=true)
 
 As seen from the sequence diagram above, this is the flow of `ListCommand`.  
 `ListCommandParser` class calls ListCommand(1), ListCommand(0), or InvalidParameterException() methods based on the user input.
@@ -210,7 +210,7 @@ It extends `Command` and runs through the `ModuleManager`, checking every `grade
 * `CapCommand.gradeConvert` - Takes the grade of a module and assigns it a value according to the NUS grading schematic
 * `CapCommand.calculateCap` - Uses a formula to calculate the user's current cap, with the user's total Module Credit taken and current cap.
 
-![Sequence diagram for Cap Feature in Command class](/docs/diagrams/CapCommandSequenceDiagram.png?raw=true)
+![Sequence diagram for Cap Feature in Command class](/diagrams/CapCommandSequenceDiagram.png?raw=true)
 
 As seen from the sequence diagram above, this is the flow of a Cap command.
 The CapCommandParser parses the user's input and assigns the relevant attributes in the Cap Command constructor, such as `totalMcTaken` and `currentCap`.
@@ -234,7 +234,7 @@ It extends `Command` and is stored internally inside `Module` as an `grade` and 
 * `GradeCommand.testgrade(stringGrade)` - checks if the input grade is valid according to NUS grading schematic 
 * `GradeCommand.grade(moduleModule)` - assigns the specific module present in the module list, the grade and moduleCredit attributes.
 
-![Sequence diagram for Grade Feature in Command class](/docs/diagrams/GradeCommandSequenceDiagram.png?raw=true)
+![Sequence diagram for Grade Feature in Command class](/diagrams/GradeCommandSequenceDiagram.png?raw=true)
 
 As seen from the sequence diagram above, this is the flow of a Grade command.
 The GradeCommandParser parses the user's input, and assigns the relevant attributes in the Grade Command constructor, such as `moduleCredit` and `grade`
@@ -255,7 +255,7 @@ Extending from the abstract TimeTableCommand class are the TimeTableAddCommand, 
 * DeleteLesson - Delete all associated Lessons from the timetable through `TaskManager.deleteLesson()`
 * ViewTimeTable - List all Lessons in the timetable through `TaskManager.getSpecificDayLessons()` or `TaskManager.getSpecifiedWeekLessons()`
 
-![Class diagram for TimeTable Family Classes](/docs/diagrams/TimeTableClassDiagram.png?raw=true)
+![Class diagram for TimeTable Family Classes](/diagrams/TimeTableClassDiagram.png?raw=true)
 
 As seen from the class diagram above, these are the classes that are required for this feature.\
 Upon the first start up of ra.VI, `TimeTableManager.initialise()` will be run. This will no longer run again as long as the user does not tamper with / delete the files in the created data folder.\
