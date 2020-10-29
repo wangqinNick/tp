@@ -184,7 +184,7 @@
             <property name="braceAdjustment" value="0"/>
             <property name="caseIndent" value="0"/>
             <property name="throwsIndent" value="4"/>
-            <property name="lineWrappingIndentation" value="4"/>
+            <property name="lineWrappingIndentation" value="8"/>
             <property name="arrayInitIndent" value="4"/>
         </module>
         <module name="AbbreviationAsWordInName">
@@ -230,12 +230,13 @@
         </module>
         <module name="JavadocMethod">
             <property name="scope" value="public"/>
-            <property name="allowMissingParamTags" value="true"/>
-            <property name="allowMissingThrowsTags" value="true"/>
-            <property name="allowMissingReturnTag" value="true"/>
+            <property name="allowMissingParamTags" value="false"/>
+            <property name="allowMissingThrowsTags" value="false"/>
+            <property name="allowMissingReturnTag" value="false"/>
             <property name="allowedAnnotations" value="Override, Test"/>
             <property name="allowThrowsTagsForSubclasses" value="true"/>
         </module>
+        <module name="JavadocStyle"/>
         <module name="MethodName">
             <property name="format" value="^[a-z][a-z0-9][a-zA-Z0-9_]*$"/>
             <message key="name.invalidPattern"
