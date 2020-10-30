@@ -111,9 +111,7 @@ public class InputOutputManager {
             if (TaskManager.getTaskCount() != 0) {
                 Encoder.saveTasks(userTaskFile.toString());
             }
-            if (TimeTableManager.getTimetableLessonCount() != 0) {
-                Encoder.saveTimetable(timetableFile.toString());
-            }
+            Encoder.saveTimetable(timetableFile.toString()); // always save, even if there's no lessons
         } catch (ModuleManager.ModuleNotFoundException | TaskManager.TaskNotFoundException | IOException e) {
             logger.getLogger().log(Level.WARNING, e.getLocalizedMessage(), e);
         }
