@@ -1,7 +1,9 @@
 # ra.VI User Guide
+
 Welcome to the ra.VI User Guide! Choose a section or sub-section from the table of contents below, get step-by-step instructions, and plan your day.
 
 ## Table of contents
+
 1. **About-Introduction-Product Overview-Quick Start**  
 1.1 About  
 1.2 Introduction  
@@ -38,9 +40,11 @@ Welcome to the ra.VI User Guide! Choose a section or sub-section from the table 
 4.11 Exit  
 
 ### 1.1 About
+
 This user guide provides in-depth documentation on the ra.VI installation process, system configuration and management. In addition, the quick start guide provides and end-to-end setup process to begin tracking your tasks and timetable with ra.VI.
 
 ### 1.2 Introduction
+
 Repository Assistant with a Versatile Interface (ra.VI) is a desktop app for managing tasks, deadlines, and notes, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ra.VI can manage your tasks faster than traditional GUI apps.\
 ra.VI helps you to manage your tasks, and their corresponding deadlines with ease. It can also help you plan your timetable and being organised keeps you ahead of the curve.
 
@@ -58,6 +62,7 @@ A task can be marked as done. This will signify completion of the task so that y
 The timetable is specific to you. It allows you to add lessons to your timetable with respect to the modules that you are taking. After setting the timetable up the first time, you do not need to go through the set up again.
 
 ### 1.3 Product Overview
+
 ra.VI is targeted at the NUS freshman. As a freshman, there are many documents and new procedures that you must get familiar with. This may be daunting for you but ra.VI will provide you with the assistance you need. 
 By helping you keep track of your tasks and deadlines, you will be able to keep on top of deadlines. 
 Moreover, the timetable feature helps you to schedule your lessons, allowing you to be more prepared for lessons.
@@ -78,10 +83,13 @@ Some example commands you can try:
 ## Features 
 
 ### Viewing help: `help`
+
 Shows a message with the list of available commands and functions.
 
 ### Adding an item: `add <opt> <args>`
+
 #### Adding a task: `add -t [-by]`
+
 Add a task to the scheduler.  
 Format: `add -t <task_name> [-by <deadline>]`
 
@@ -90,6 +98,7 @@ Example of usage:
 * `add -t read chapter 1 -by 30-12-2020 1800`
 
 #### Adding a module: `add -m`
+
 Add a module to the scheduler.  
 Format: `add -m <module_code>`
 
@@ -97,7 +106,9 @@ Example of usage:
 * `add -m CS1231`
 
 ### Editing an item: `edit <opt> <args>`
+
 #### Editing a task description: `edit -t`
+
 Edit a task description in the scheduler.  
 Format: `edit -t <task_index> <task_name>`
 
@@ -107,6 +118,7 @@ Example of usage:
 Note: You can find the task indexes with `list -t`  
 
 #### Editing a module: `edit -m`
+
 Edit a module code in the scheduler.  
 Format: `edit -m <module_code> <new_module_code>`
 
@@ -114,7 +126,9 @@ Example of usage:
 * `edit -m CS2113 CS2113T`
 
 ### Deleting an item: `del <opt> <args>`
+
 #### Deleting a task: `del -t`
+
 Remove a task from the scheduler.  
 Format: `del -t <task_index>`
 
@@ -122,6 +136,7 @@ Example of usage:
 * `del -t 1`
 
 #### Deleting a module: `del -m`
+
 Remove a module from the scheduler.  
 Format: `del -m <module_code>`
 
@@ -131,15 +146,19 @@ Example of usage:
 Note: You can find the task indexes with `list -t`  
 
 ### Listing all items: `list <opt> <args>`
+
 #### Listing all tasks: `list -t`
+
 List all tasks in the scheduler.   
 Format: `list -t`
 
 #### Listing all modules: `list -m`
+
 List all modules in the scheduler.  
 Format: `list -m`
 
 #### Grade a existing module: `grade`
+
 Assign a grade to a module in the Scheduler.
 Format: `grade <module Code> <module credit> <grade>`
 
@@ -147,6 +166,7 @@ Example of usage:
 * `grade CS2101 4 B+`
 
 #### Calculate your cap after the semester: `cap`
+
 Calculate your new updated cap, accumulated from past semesters.
 Format: `cap <total module credit taken> <current cap>`
 
@@ -154,6 +174,7 @@ Example of usage:
 * `cap 46 4.24`
 
 ### Mark as done: `done <task_index>`
+
 Mark a task in the scheduler as done.  
 Format: `done <task_index>`
 
@@ -161,6 +182,7 @@ Example of usage:
 * `done 1`
 
 ### Undo a command: `undo`
+
 Takes the previous command and revert its changes.\
 Requires the previous command to be undone, a command that affects the storage. e.g. add, del, edit, done
 Format: `undo`
@@ -170,6 +192,7 @@ Example of usage:
 2. `undo`
 
 ### Summary: `summary`
+
 Gets an overall view of the tasks.
 Format: `summary`
 
@@ -177,7 +200,9 @@ Example of usage:
 * `summary`
 
 ### TimeTable: `timetable <opt> <args>`
+
 #### View the timetable: `timetable <args>`
+
 View the timetable for the day or for the week.\
 `<args>` : Must be one of the following : `-day` or `-week`
 
@@ -186,6 +211,7 @@ Example of usage:
 * `timetable -week`
 
 #### Add a lesson: `timetable -add`
+
 Adds a lesson to the timetable.\
 Format: `timetable -add <module> <day> <start time> <end time> <lesson type> <repeat>`  
 `<module>` : Must be added to the module list. See module list with `list -m`.\
@@ -200,6 +226,7 @@ Example of usage:
 * `timetable -add CS2113T MONDAY 1300 1500 LAB 1`
 
 #### Delete a lesson: `timetable -del`
+
 Deletes a lesson from the timetable.\
 Format: `timetable -del <day> <lesson index>`  
 `<day>` : Must be one of the following : `MONDAY`, `TUESDAY`, `WEDNESDAY`, `THURSDAY`, `FRIDAY`, `SATURDAY`, `SUNDAY`
@@ -209,6 +236,7 @@ Example of usage:
 * `timetable -del CS2101 1`
 
 ### Exiting the program: `bye`
+
 Exits ra.VI.\
 Format: `bye`
 
@@ -219,6 +247,7 @@ Format: `bye`
 **A**: {your answer here}
 
 ## Command Summary
+
 | Function | Command |
 |--------|---------------------------------------|
 | Add a task | `add -t <task_name> [-by <deadline>]`|
@@ -237,7 +266,17 @@ Format: `bye`
 | View task summary | `summary` |
 | View day's timetable | `timetable -day` |
 | View week's timetable | `timetable -week` |
+| View week's timetable | `timetable -filter <module> <day> <start time> <end time> <lesson type>` |
 | Get list of commands | `help` |
 | Get detailed help message for each command | `help <command_word>` |
 | Exit ra.VI | `bye` |
-  
+
+### To note:
+
+* List of possible `<day>` values:\
+`MONDAY`, `TUESDAY`, `WEDNESDAY`, `THURSDAY`, `FRIDAY`, `SATURDAY`, `SUNDAY`
+
+* List of possible `<lesson type>` values:\
+`TUTORIAL`, `LECTURE`, `SEMINAR`, `LAB`, `RECITATION`, `SESSION`
+
+* `<time>` must be in the 24h format, e.g. `1200`, `1415`
