@@ -1,5 +1,6 @@
 package seedu.duke.data.storage;
 
+import com.alibaba.fastjson.JSONException;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.data.TimeTableManager;
 import seedu.duke.util.FileName;
@@ -25,8 +26,8 @@ public class InputOutputManager {
 
     static final String userModuleFileName = FileName.MOD_SAVE_FILE_NAME + FileName.FILE_EXT;
     static final String userTaskFileName = FileName.TASK_SAVE_FILE_NAME + FileName.FILE_EXT;
-    static final String nusModuleFileName = FileName.NUSMOD_SAVE_FILE_NAME + FileName.FILE_EXT;
     static final String timetableFileName = FileName.TIMETABLE_SAVE_FILE_NAME + FileName.FILE_EXT;
+    static final String nusModuleFileName = FileName.NUSMOD_SAVE_FILE_NAME + FileName.FILE_EXT;
 
     static final java.nio.file.Path userModuleFile =
             java.nio.file.Paths.get(String.valueOf(dirPath),userModuleFileName);
@@ -44,36 +45,46 @@ public class InputOutputManager {
      * Creates the save directory if it has not been created.
      * Loads the user's module and task saves into memory.
      */
-    public static void start() {
+    public static int start() {
+        int status = 1; // 'Skipped load' status by default
         logger.getLogger().info("Starting InputOutputManager");
         java.io.File saveFolder = dirPath.toFile();
         if (!saveFolder.exists()) {
             logger.getLogger().info("Save folder does not exist, creating now");
             saveFolder.mkdir();
         } else {
+            try {
+                if (Files.exists(userModuleFile)) {
+                    logger.getLogger().info("Loading user module saves from " + userModuleFileName);
+                    ModuleManager.loadMods(Decoder.loadModules(userModuleFile.toString()));
+                    status = 0; // 'Success' status
+                } else {
+                    logger.getLogger().info("Skipping user module save; file does not exist: " + userModuleFileName);
+                }
 
-            if (Files.exists(userModuleFile)) {
-                logger.getLogger().info("Loading user module saves from " + userModuleFileName);
-                ModuleManager.loadMods(Decoder.loadModules(userModuleFile.toString()));
-            } else {
-                logger.getLogger().info("Skipping user module save; file does not exist: " + userModuleFileName);
-            }
+                if (Files.exists(userTaskFile)) {
+                    logger.getLogger().info("Loading user task saves from " + userTaskFileName);
+                    TaskManager.loadTasks(Decoder.loadTasks(userTaskFile.toString()));
+                    status = 0; // 'Success' status
+                } else {
+                    logger.getLogger().info("Skipping user task save; file does not exist: " + userTaskFileName);
+                }
 
-            if (Files.exists(userTaskFile)) {
-                logger.getLogger().info("Loading user task saves from " + userTaskFileName);
-                TaskManager.loadTasks(Decoder.loadTasks(userTaskFile.toString()));
-            } else {
-                logger.getLogger().info("Skipping user task save; file does not exist: " + userTaskFileName);
-            }
-
-            if (Files.exists(timetableFile)) {
-                logger.getLogger().info("Loading timetable save from " + timetableFile);
-                TimeTableManager.loadTimeTable(Decoder.loadTimeTable(timetableFile.toString()));
-            } else {
-                logger.getLogger().info("Skipping timetable save; file does not exist: " + timetableFile);
+                if (Files.exists(timetableFile)) {
+                    logger.getLogger().info("Loading timetable save from " + timetableFile);
+                    TimeTableManager.loadTimeTable(Decoder.loadTimeTable(timetableFile.toString()));
+                    status = 0; // 'Success' status
+                } else {
+                    logger.getLogger().info("Skipping timetable save; file does not exist: " + timetableFile);
+                }
+            } catch (JSONException e) {
+                logger.getLogger().severe("JSON string can't be parsed! Is it corrupted?");
+                renameCorruptedFiles();
+                status = 2; // 'Corrupted' status
             }
         }
         loadNusModSave(); // will load from NUSMods API if file not found
+        return status;
     }
 
     /**
@@ -127,6 +138,33 @@ public class InputOutputManager {
             Encoder.saveNusModules(nusModuleFile.toString());
         } catch (ModuleManager.ModuleNotFoundException | IOException e) {
             logger.getLogger().log(Level.WARNING, e.getLocalizedMessage(), e);
+        }
+    }
+
+    /**
+     * Renames the corrupted files (if any) by adding a ".bak" behind the file name.
+     */
+    public static void renameCorruptedFiles() {
+        String backup = ".bak";
+
+        String modBackup = FileName.MOD_SAVE_FILE_NAME + FileName.FILE_EXT + backup;
+        String taskBackup = FileName.TASK_SAVE_FILE_NAME + FileName.FILE_EXT + backup;
+        String timetableBackup = FileName.TIMETABLE_SAVE_FILE_NAME + FileName.FILE_EXT + backup;
+
+        try {
+            Files.move(userModuleFile, userModuleFile.resolveSibling(modBackup));
+            Files.move(userTaskFile, userTaskFile.resolveSibling(taskBackup));
+            Files.move(timetableFile, timetableFile.resolveSibling(timetableBackup));
+            logger.getLogger().info("Corrupted files are renamed successfully.");
+        } catch (IOException e) {
+            logger.getLogger().severe("Could not rename corrupted files!");
+            try {
+                Files.deleteIfExists(userModuleFile);
+                Files.deleteIfExists(userTaskFile);
+                Files.deleteIfExists(timetableFile);
+            } catch (IOException e2) {
+                logger.getLogger().warning("Could not delete corrupted files!");
+            }
         }
     }
 }

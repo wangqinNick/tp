@@ -1,5 +1,6 @@
 package seedu.duke.data.storage;
 
+import com.alibaba.fastjson.JSONException;
 import seedu.duke.data.Task;
 import seedu.duke.data.Module;
 
@@ -33,7 +34,7 @@ import static seedu.duke.data.storage.InputOutputManager.jarNusModuleFile;
  */
 
 public class Decoder {
-    public static TimeTable loadTimeTable(String dataFileName) {
+    public static TimeTable loadTimeTable(String dataFileName) throws JSONException {
         String jsonStr;
         jsonStr = loadJsonStringFromFile(dataFileName);
         TimeTable timetable = JSON.parseObject(jsonStr, TimeTable.class);
@@ -48,7 +49,7 @@ public class Decoder {
      * @return
      *  The HashMap of Module objects
      */
-    public static HashMap<String, Module> loadModules(String dataFileName) {
+    public static HashMap<String, Module> loadModules(String dataFileName) throws JSONException {
         String jsonStr;
         jsonStr = loadJsonStringFromFile(dataFileName);
         // FastJSON doesn't write the square brackets for some reason when we save, so we add it in here
@@ -74,7 +75,7 @@ public class Decoder {
      * @return
      *  The ArrayList tasksList
      */
-    public static ArrayList<Task> loadTasks(String dataFileName) {
+    public static ArrayList<Task> loadTasks(String dataFileName) throws JSONException {
         String jsonStr;
         jsonStr = loadJsonStringFromFile(dataFileName);
         // FastJSON doesn't write the square brackets for some reason when we save, so we add it in here
@@ -92,7 +93,7 @@ public class Decoder {
      * @return
      *  The HashMap of Module objects (from NUSMods)
      */
-    public static HashMap<String, Module> loadNusModsFromJar() throws IOException {
+    public static HashMap<String, Module> loadNusModsFromJar() throws IOException, JSONException {
         BufferedReader br = new BufferedReader(new InputStreamReader(
                 Decoder.class.getResourceAsStream(jarNusModuleFile)));
         String jsonStr = "";
