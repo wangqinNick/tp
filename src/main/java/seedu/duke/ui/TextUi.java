@@ -17,6 +17,9 @@ import static seedu.duke.util.Message.MESSAGE_GENERAL_HELP;
 import static seedu.duke.util.Message.MESSAGE_COMPLETED_TASKLIST;
 import static seedu.duke.util.Message.MESSAGE_INCOMPLETE_DATED_TASKLIST;
 import static seedu.duke.util.Message.MESSAGE_INCOMPLETE_UNDATED_TASKLIST;
+import static seedu.duke.util.Message.MESSAGE_LOADING_FAILURE;
+import static seedu.duke.util.Message.MESSAGE_LOADING_SKIPPED;
+import static seedu.duke.util.Message.MESSAGE_LOADING_SUCCESS;
 import static seedu.duke.util.Message.MESSAGE_NO_LESSONS;
 import static seedu.duke.util.Message.MESSAGE_TIMETABLE_HEADER;
 import static seedu.duke.util.Message.MESSAGE_TIMETABLE_INIT;
@@ -43,10 +46,36 @@ public class TextUi {
         TextUi.in = in;
     }
 
-    public static void showWelcomeMessage()     {
+    /**
+     * Prints welcome message, and shows file loading status according to the status parameter.
+     * Enum not used because it's only used by InputOutputManager.start() and this function.
+     * 0 - Files exist, loading success
+     * 1 - Files do not exist, skipping
+     * 2 - Files exist, error parsing JSON
+     * @param status
+     *  The status code as shown above
+     */
+    public static void showWelcomeMessage(int status) {
+        String message;
+        switch(status) {
+        case 0:
+            message = MESSAGE_LOADING_SUCCESS;
+            break;
+        case 1:
+            message = MESSAGE_LOADING_SKIPPED;
+            break;
+        case 2:
+            message = MESSAGE_LOADING_FAILURE;
+            break;
+        default:
+            message = MESSAGE_LOADING_SUCCESS;
+            break;
+        }
         outputToUser(
                 DIV_LINE,
                 centerString(MAX_WIDTH, Message.MESSAGE_WELCOME),
+                "",
+                centerString(MAX_WIDTH, message),
                 DIV_LINE);
     }
 
