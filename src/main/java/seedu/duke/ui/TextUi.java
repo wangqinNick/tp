@@ -57,7 +57,7 @@ public class TextUi {
      */
     public static void showWelcomeMessage(int status) {
         String message;
-        switch(status) {
+        switch (status) {
         case 0:
             message = MESSAGE_LOADING_SUCCESS;
             break;
