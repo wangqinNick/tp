@@ -266,7 +266,17 @@ Format: `bye`
 | View task summary | `summary` |
 | View day's timetable | `timetable -day` |
 | View week's timetable | `timetable -week` |
+| View week's timetable | `timetable -filter <module> <day> <start time> <end time> <lesson type>` |
 | Get list of commands | `help` |
 | Get detailed help message for each command | `help <command_word>` |
 | Exit ra.VI | `bye` |
-  
+
+### To note:
+
+* List of possible `<day>` values:\
+`MONDAY`, `TUESDAY`, `WEDNESDAY`, `THURSDAY`, `FRIDAY`, `SATURDAY`, `SUNDAY`
+
+* List of possible `<lesson type>` values:\
+`TUTORIAL`, `LECTURE`, `SEMINAR`, `LAB`, `RECITATION`, `SESSION`
+
+* `<time>` must be in the 24h format, e.g. `1200`, `1415`
