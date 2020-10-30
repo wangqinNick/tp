@@ -337,10 +337,14 @@ e.g. `timetable -filter`
 |v1.0|user|add modules to the application|keep track of them during the school term|
 |v1.0|user|delete tasks from the application|keep track of new tasks|
 |v1.0|user|delete modules from the application|keep track of new modules|
+|v2.0|user|add lessons to my timetable|view my timetable with a simple command|
+|v2.0|user|delete lessons from my timetable|view my accurate timetable with a simple command|
 |v2.0|user|view my timetable quickly|be aware of my classes and prepare for them quickly|
+|v2.0|user|filter the lessons in my timetable |be aware of specific classes and prepare for them quickly|
 |v2.0|user|view a summary of my tasks|be aware of my tasks and work on them as needed|
 |v2.0|user|grade my modules|keep track of my grades for respective modules|
 |v2.0|user|calculate my accumulative cap|keep track of my progress in university|
+|v2.0|user|undo unintended commands|make amends quickly|
 
 ## Non-Functional Requirements
 
@@ -359,7 +363,7 @@ e.g. `timetable -filter`
 
 Given below are instructions to test the app manually.
 
-1. Download the latest version of `ra.VI` from [here](https://github.com/AY2021S1-CS2113T-T09-2/tp/releases/tag/v1.0) and copy it into an empty folder.
+1. Download the latest version of `ra.VI` from [here](https://github.com/AY2021S1-CS2113T-T09-2/tp/releases/tag/v2.0) and copy it into an empty folder.
 2. Open a new terminal window and navigate to the same directory where duke.jar is located. 
 3. Enter the command `java -jar duke.jar` into the terminal window to launch the application. The application should now be running.
 4. Enter the command `help` to get a list of all available commands and its usages.
@@ -417,7 +421,7 @@ Given below are instructions to test the app manually.
     Expected: If there are no lessons for today, this information is shown to the user. Otherwise, the lessons for today are explicitly shown to the user.
 2. Timetable for the week
     1. Test case: `timetable -week`
-    Expected: The lessons from today up to 6 days ahead from today are explicitly shown to the user.
+    Expected: The lessons for Monday to Sunday of this week are explicitly shown to the user.
 
 ### Filtering the timetable
 1. Filter all lessons
