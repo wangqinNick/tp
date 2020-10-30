@@ -2,6 +2,7 @@ package seedu.duke.command.done;
 
 import seedu.duke.command.Command;
 import seedu.duke.command.CommandResult;
+import seedu.duke.command.PromptType;
 import seedu.duke.data.TaskManager;
 import seedu.duke.ui.TextUi;
 
@@ -19,6 +20,7 @@ public class DoneCommand extends Command {
 
     public DoneCommand(int taskId) {
         this.taskId = taskId;
+        this.promptType = PromptType.EDIT;
     }
 
     /**
