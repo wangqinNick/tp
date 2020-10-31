@@ -2,6 +2,7 @@ package seedu.duke.command.grade;
 
 import seedu.duke.command.Command;
 import seedu.duke.command.CommandResult;
+import seedu.duke.command.PromptType;
 import seedu.duke.data.Module;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.exception.InvalidGradeException;
@@ -35,6 +36,7 @@ public class GradeCommand extends Command {
         this.moduleGraded = moduleGraded;
         this.moduleCredit = moduleCredit;
         this.grade = grade;
+        setPromptType(PromptType.EDIT);
     }
 
     /**

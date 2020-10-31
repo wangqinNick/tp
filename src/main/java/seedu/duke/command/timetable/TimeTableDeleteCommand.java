@@ -1,6 +1,7 @@
 package seedu.duke.command.timetable;
 
 import seedu.duke.command.CommandResult;
+import seedu.duke.command.PromptType;
 import seedu.duke.data.TimeTableManager;
 
 import java.time.DayOfWeek;
@@ -15,6 +16,7 @@ public class TimeTableDeleteCommand extends TimeTableCommand {
     public TimeTableDeleteCommand(DayOfWeek dayOfWeek, int lessonIndexToDelete) {
         this.dayOfWeek = dayOfWeek;
         this.lessonIndexToDelete = lessonIndexToDelete;
+        setPromptType(PromptType.EDIT);
     }
 
     /**
