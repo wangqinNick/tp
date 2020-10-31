@@ -13,6 +13,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -71,7 +72,11 @@ public class ModuleLoader {
         try {
             URL url = new URL(filePath); // create URL
             URLConnection urlConn = url.openConnection(); // try to connect and get the status code
-            urlConn.connect();
+            try {
+                urlConn.connect();
+            } catch (UnknownHostException e) {
+                return "";
+            }
             HttpURLConnection httpConn = (HttpURLConnection) urlConn;
             httpResult = httpConn.getResponseCode();
             if (httpResult != HttpURLConnection.HTTP_OK) {
@@ -88,8 +93,9 @@ public class ModuleLoader {
                     buffer.append(" "); // add new line
                     line = reader.readLine(); // read the next line
                 }
-                //System.out.print(buffer.toString());
                 content = buffer.toString();
+
+                //saveModuleListToDisk();
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

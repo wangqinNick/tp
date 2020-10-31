@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.TextFlow?>
+
+<VBox prefHeight="750.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.duke.gui.MainStage">
+   <children>
+      <MenuBar>
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <HBox VBox.vgrow="ALWAYS">
+         <children>
+            <Pane prefHeight="200.0" prefWidth="75.0" style="-fx-background-color: #2c3b63#2c3b63;">
+               <children>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="22.0" layoutY="24.0" onMouseClicked="#showDirectoryTree" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/module.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="22.0" layoutY="81.0"  onMouseExited="#hideDailyTask" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/daily.png" />
+                     </image>
+                  </ImageView>
+                  <VBox fx:id="dailyTaskPlaceHolder" layoutX="2.0" layoutY="125.0" prefHeight="571.0" prefWidth="75.0" />
+               </children>
+            </Pane>
+            <VBox HBox.hgrow="ALWAYS">
+               <children>
+                  <ScrollPane fx:id="consoleScreenScrollPane" hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                     <content>
+                        <TextFlow fx:id="consoleScreen" prefHeight="343.0" />
+                     </content>
+                  </ScrollPane>
+                  <TextField fx:id="console" prefHeight="10.0" prefWidth="503.0" VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</VBox>

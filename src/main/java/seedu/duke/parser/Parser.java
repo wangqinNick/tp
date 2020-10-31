@@ -69,7 +69,7 @@ public class Parser {
      * @return The <b>corresponding</b> command to be executed
      * @see Command
      */
-    public Command parseCommand(String input) {
+    public static Command parseCommand(String input) {
         if (input.isBlank()) {
             return new IncorrectCommand(MESSAGE_EMPTY_INPUT);
         }
@@ -123,7 +123,7 @@ public class Parser {
      * @throws InvalidParameterException exception is thrown when parameter is invalid.
      * @throws DuplicatePrefixException exception is thrown when duplicated prefix is provided.
      */
-    private Command prepareGenericAddCommand(String parameters)
+    private static Command prepareGenericAddCommand(String parameters)
             throws InvalidParameterException, DuplicatePrefixException {
         switch (DirectoryTraverser.getCurrentDirectoryLevel()) {
         case ROOT:
@@ -141,7 +141,7 @@ public class Parser {
      * @return The command to change the current directory
      * @throws InvalidParameterException exception is thrown when parameter is invalid.
      */
-    private Command prepareGenericDeleteCommand(String parameters)
+    private static Command prepareGenericDeleteCommand(String parameters)
             throws InvalidParameterException {
         switch (DirectoryTraverser.getCurrentDirectoryLevel()) {
         case ROOT:
@@ -161,7 +161,7 @@ public class Parser {
      * @return
      *  The command to add a module
      */
-    private Command prepareAddModuleCommand(String parameters)
+    private static Command prepareAddModuleCommand(String parameters)
             throws InvalidParameterException, DuplicatePrefixException {
         Matcher matcher = AddModuleCommand.REGEX_FORMAT.matcher(parameters);
         validateParameters(parameters, matcher);
@@ -188,7 +188,7 @@ public class Parser {
      * @return
      *  The command to add a task
      */
-    private Command prepareAddTaskCommand(String parameters)
+    private static Command prepareAddTaskCommand(String parameters)
             throws InvalidParameterException {
         Matcher matcher = AddTaskCommand.REGEX_FORMAT.matcher(parameters);
         validateParameters(parameters, matcher);
@@ -198,14 +198,22 @@ public class Parser {
             return new IncorrectCommand(MESSAGE_MISSING_TASK_DESCRIPTION);
         }
 
+        String deadline = matcher.group(DEADLINE_GROUP).replace(DEADLINE_PREFIX, NONE).trim();
+        DateTime deadlineToSet;
         try {
-            return new AddTaskCommand(taskDescription);
+            deadlineToSet = DateTimeFormat.stringToDateTime(deadline);
+        } catch (DateTimeFormat.InvalidDateTimeException e) {
+            return new IncorrectCommand(MESSAGE_INVALID_DATETIME_FORMAT);
+        }
+
+        try {
+            return new AddTaskCommand(taskDescription, deadlineToSet);
         } catch (NumberFormatException e) {
             return new IncorrectCommand(MESSAGE_INVALID_PRIORITY);
         }
     }
 
-    private Command prepareDeleteTaskCommand(String parameters)
+    private static Command prepareDeleteTaskCommand(String parameters)
             throws InvalidParameterException {
         if (DirectoryTraverser.getCurrentDirectoryLevel() != DirectoryLevel.MODULE){
             return new IncorrectCommand(MESSAGE_INCORRECT_DIRECTORY_LEVEL_GENERIC);
@@ -229,7 +237,7 @@ public class Parser {
      * @return
      *  The command to delete modules or show filtered modules
      */
-    private Command prepareListModuleCommand(String parameters)
+    private static Command prepareListModuleCommand(String parameters)
             throws InvalidParameterException {
         return new ListModuleCommand(parameters, false);
     }
@@ -275,7 +283,7 @@ public class Parser {
      * @return
      *  The command to change the current directory
      */
-    private Command prepareChangeDirectoryCommand(String parameters) {
+    private static Command prepareChangeDirectoryCommand(String parameters) {
         if (parameters.isBlank()) {
             return new IncorrectCommand(MESSAGE_MISSING_DIRECTORY_NAME);
         } else if (parameters.trim().equals("..")) {
@@ -297,7 +305,7 @@ public class Parser {
      * @throws InvalidParameterException
      *  If an invalid parameter is found in the parameters or the parameters do not match the expected format
      */
-    private void validateParameters(String parameters, Matcher matcher, String... parameterPrefixes)
+    private static void validateParameters(String parameters, Matcher matcher, String... parameterPrefixes)
             throws InvalidParameterException {
 
         if (!matcher.matches()) {

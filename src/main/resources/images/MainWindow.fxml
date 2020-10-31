@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.TextFlow?>
+<?import javafx.stage.Stage?>
+
+<Stage minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="Address App" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <icons>
+      <Image url="@/images/address_book_32.png" />
+   </icons>
+   <scene>
+      <Scene>
+         <VBox>
+            <children>
+               <MenuBar>
+                 <menus>
+                   <Menu mnemonicParsing="false" text="File">
+                     <items>
+                       <MenuItem mnemonicParsing="false" text="Close" />
+                     </items>
+                   </Menu>
+                   <Menu mnemonicParsing="false" text="Help">
+                     <items>
+                       <MenuItem fx:id="aboutMenuItem" mnemonicParsing="false" onAction="#handleAbout" text="About" />
+                     </items>
+                   </Menu>
+                 </menus>
+               </MenuBar>
+               <HBox prefHeight="700.0" prefWidth="1250.0">
+                  <children>
+                     <StackPane fx:id="directoryTreePlaceHolder" prefHeight="700.0" prefWidth="100.0" />
+                     <VBox prefHeight="700.0" prefWidth="1000.0">
+                        <children>
+                           <StackPane fx:id="commandBoxPlaceHolder" />
+                           <StackPane fx:id="statusBarPlaceHolder" />
+                           <ScrollPane fx:id="resultDisplayPlaceHolder">
+                              <content>
+                                 <TextFlow fx:id="consoleScreen" lineSpacing="1.0" prefHeight="450.0" prefWidth="900.0" style="-fx-border-color: lightgrey; -fx-border-radius: 3; -fx-background-color: #fafeff; -fx-background-radius: 10;">
+                                    <padding>
+                                       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                    </padding>
+                                    <effect>
+                                       <InnerShadow color="#ababab" height="15.0" radius="7.0" width="15.0" />
+                                    </effect>
+                                 </TextFlow>
+                              </content>
+                           </ScrollPane>
+                        </children>
+                     </VBox>
+                     <VBox fx:id="daysPlaceHolder" prefHeight="700.0" prefWidth="150.0" />
+                  </children>
+               </HBox>
+            </children>
+         </VBox>
+      </Scene>
+   </scene>
+</Stage>

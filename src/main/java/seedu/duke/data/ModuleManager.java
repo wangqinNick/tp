@@ -1,6 +1,7 @@
 package seedu.duke.data;
 
 import seedu.duke.directory.Module;
+import seedu.duke.directory.Task;
 import seedu.duke.exception.DataNotFoundException;
 import seedu.duke.exception.DuplicateDataException;
 import seedu.duke.exception.ModuleNotProvidedException;
@@ -168,6 +169,32 @@ public class ModuleManager {
 
     public static ArrayList<Module> getModuleList() {
         return moduleList;
+    }
+
+    public static ArrayList<Task> getAllTasks() {
+        return filter(NO_KEYWORD, NO_KEYWORD);
+    }
+
+    /**
+     * Filter for modules in the Module List with module code that contains the specified module keyword,
+     * then for categories in the Category List of the filtered modules with name that contains the specified
+     * category keyword, then for tasks in the Task List of the filtered categories with description that
+     * contains the specified task keyword.
+     * Filtering is done in a case-insensitive manner.
+     *
+     * @param moduleKeyword
+     *  The keyword to filter the modules
+     * @param taskKeyword
+     * The keyword to filter the tasks
+     * @return
+     *  The list of filtered tasks
+     */
+    public static ArrayList<Task> filter(String moduleKeyword, String taskKeyword) {
+        ArrayList<Task> filteredTaskList = new ArrayList<>();
+        for (Module module : filter(moduleKeyword)) {
+            filteredTaskList.addAll(module.getTasks().filter(taskKeyword));
+        }
+        return filteredTaskList;
     }
 
     public static class ModuleNotFoundException extends DataNotFoundException {

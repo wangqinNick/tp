@@ -17,7 +17,7 @@ public class DeleteTaskCommand extends DeleteCommand {
     private final int taskIndex;
 
     public DeleteTaskCommand(int taskIndex) {
-        this.taskIndex = taskIndex;
+        this.taskIndex = taskIndex - 2;
     }
 
     @Override
