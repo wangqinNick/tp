@@ -3,9 +3,9 @@ package seedu.duke.command.timetable;
 import seedu.duke.command.CommandResult;
 import seedu.duke.command.PromptType;
 import seedu.duke.data.Lesson;
-import seedu.duke.data.ModuleManager;
 import seedu.duke.data.TimeTableManager;
 import seedu.duke.exception.LessonInvalidTimeException;
+import seedu.duke.exception.ModuleNotFoundException;
 import seedu.duke.exception.RepeatFrequencyInvalidException;
 
 import static seedu.duke.util.ExceptionMessage.MESSAGE_LESSON_INVALID_TIME;
@@ -30,11 +30,11 @@ public class TimeTableAddCommand extends TimeTableCommand {
      *  When the lesson overlaps with an existing lesson.
      * @throws RepeatFrequencyInvalidException
      *  When the repeat parameter given by the user is not from 0 - 3.
-     * @throws ModuleManager.ModuleNotFoundException
+     * @throws ModuleNotFoundException
      *  When the module to be added to the timetable is not in the module list.
      */
     public void addLessonToTimeTable() throws LessonInvalidTimeException, RepeatFrequencyInvalidException,
-            ModuleManager.ModuleNotFoundException {
+            ModuleNotFoundException {
         if (repeatFreq < 0 || repeatFreq > 3) {
             throw new RepeatFrequencyInvalidException();
         }
@@ -51,7 +51,7 @@ public class TimeTableAddCommand extends TimeTableCommand {
             message = MESSAGE_LESSON_INVALID_TIME;
         } catch (RepeatFrequencyInvalidException e) {
             message = MESSAGE_REPEAT_FREQUENCY_UNKNOWN;
-        } catch (ModuleManager.ModuleNotFoundException e) {
+        } catch (ModuleNotFoundException e) {
             message = MESSAGE_MODULE_NOT_FOUND;
         }
         return new CommandResult(message);

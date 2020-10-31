@@ -4,17 +4,16 @@ import org.junit.jupiter.api.Test;
 import seedu.duke.Executor;
 import seedu.duke.command.CommandResult;
 import seedu.duke.data.Module;
-import seedu.duke.data.ModuleManager;
 import seedu.duke.data.storage.Decoder;
+import seedu.duke.exception.DuplicateModuleException;
 
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.duke.util.Message.MESSAGE_EDIT_TASK_SUCCESS;
 
 class EditModuleCommandTest {
     @Test
-    void execute() throws ModuleManager.DuplicateModuleException {
+    void execute() throws DuplicateModuleException {
         HashMap<String, Module> modulesMap = Decoder.loadModules("data/" + "moduleList.json");
         //ModuleManager.add(new Module("CS1231", "AAA"));
 

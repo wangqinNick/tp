@@ -2,7 +2,7 @@ package seedu.duke.data;
 
 import seedu.duke.exception.LessonInvalidTimeException;
 import seedu.duke.exception.TimeTableInitialiseException;
-import seedu.duke.data.ModuleManager.ModuleNotFoundException;
+import seedu.duke.exception.ModuleNotFoundException;
 import seedu.duke.DukeLogger;
 
 import java.time.DayOfWeek;

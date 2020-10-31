@@ -9,9 +9,9 @@ import seedu.duke.command.timetable.TimeTableFilterCommand;
 import seedu.duke.command.timetable.TimeTableViewCommand;
 import seedu.duke.data.Lesson;
 import seedu.duke.data.LessonFilter;
-import seedu.duke.data.ModuleManager;
 import seedu.duke.exception.InvalidMatchException;
 import seedu.duke.exception.LessonInvalidTimeException;
+import seedu.duke.exception.ModuleNotFoundException;
 
 import java.time.DayOfWeek;
 import java.time.format.DateTimeParseException;
@@ -85,7 +85,7 @@ public abstract class TimeTableCommandParser {
                 command = parseTimeTableViewCommand(commandFlag, timeTableParams);
                 break;
             }
-        } catch (ModuleManager.ModuleNotFoundException e) {
+        } catch (ModuleNotFoundException e) {
             return new IncorrectCommand(MESSAGE_MODULE_NOT_FOUND);
         } catch (LessonInvalidTimeException e) {
             return new IncorrectCommand(MESSAGE_LESSON_INVALID_TIME);
@@ -130,13 +130,13 @@ public abstract class TimeTableCommandParser {
      * e.g. timetable -add CS2101 FRIDAY 1400 1600 LECTURE 1
      *
      * @return TimeTableAddCommand or IncorrectCommand
-     * @throws ModuleManager.ModuleNotFoundException When the module is not found in the module list.
+     * @throws ModuleNotFoundException When the module is not found in the module list.
      * @throws LessonInvalidTimeException When the start is greater than or equal to end time of the Lesson.
      * @throws DateTimeParseException When the time of either the start or end is in the wrong format.
      * @throws InvalidMatchException When the lessonParams do not match the TimeTableAddCommand regex.
      */
     private static Command parseTimeTableAddCommand(String lessonParams)
-            throws ModuleManager.ModuleNotFoundException, LessonInvalidTimeException,
+            throws ModuleNotFoundException, LessonInvalidTimeException,
             DateTimeParseException, InvalidMatchException {
         Matcher lessonMatcher = TIMETABLE_LESSON_PARAMETER_FORMAT.matcher(lessonParams);
 
@@ -171,7 +171,7 @@ public abstract class TimeTableCommandParser {
     }
 
     public static Command parseTimeTableFilterCommand(String filterParams) throws
-            InvalidMatchException, ModuleManager.ModuleNotFoundException {
+            InvalidMatchException, ModuleNotFoundException {
         Matcher filterMatcher = TIMETABLE_LESSON_FILTER_PARAMETER_FORMAT.matcher(filterParams);
         Parser.matcherMatches(filterMatcher, filterParams, TIMETABLE_LESSON_FILTER_USER_FORMAT,
                 TimeTableCommand.PROMPT_HELP);

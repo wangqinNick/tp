@@ -4,6 +4,8 @@ import seedu.duke.command.CommandResult;
 import seedu.duke.command.PromptType;
 import seedu.duke.data.Module;
 import seedu.duke.data.ModuleManager;
+import seedu.duke.exception.DuplicateModuleException;
+import seedu.duke.exception.ModuleNotFoundException;
 import seedu.duke.exception.ModuleNotProvidedException;
 
 import java.util.regex.Pattern;
@@ -40,22 +42,6 @@ public class EditModuleCommand extends EditCommand {
     }
 
     /**
-     * Edits the module.
-     *
-     * @param toEdit
-     *  The module to edit
-     * @throws ModuleManager.DuplicateModuleException
-     *  If the new module code is duplicated
-     * @throws ModuleNotProvidedException
-     *  If the new module code is not a recognised NUS module
-     */
-
-    protected void edit(Module toEdit) throws ModuleManager.DuplicateModuleException, ModuleNotProvidedException {
-        toEdit.setModuleCode(newModuleCode);
-        ModuleManager.edit(toEdit, oldModuleCode);
-    }
-
-    /**
      * Executes the <b>Edit Module Command</b> to edit a <b>Module</b> with the <code>module code</code>
      * from the <b>Module List</b>.
      *
@@ -67,15 +53,14 @@ public class EditModuleCommand extends EditCommand {
     @Override
     public CommandResult execute() {
         try {
-            Module toEdit = ModuleManager.getModule(oldModuleCode);
-            edit(toEdit);
+            ModuleManager.edit(newModuleCode, oldModuleCode);
             return new CommandResult(MESSAGE_EDIT_MODULE_SUCCESS);
-        }  catch (ModuleNotProvidedException e) {
+        } catch (ModuleNotProvidedException e) {
             return new CommandResult(MESSAGE_MODULE_NOT_PROVIDED);
-        } catch (ModuleManager.ModuleNotFoundException e) {
-            return new CommandResult(MESSAGE_MODULE_NOT_FOUND);
-        } catch (ModuleManager.DuplicateModuleException e) {
+        } catch (DuplicateModuleException e) {
             return new CommandResult(MESSAGE_DUPLICATE_MODULE);
+        } catch (ModuleNotFoundException e) {
+            return new CommandResult(MESSAGE_MODULE_NOT_FOUND);
         }
     }
 }

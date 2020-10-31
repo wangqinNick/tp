@@ -4,7 +4,10 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.duke.data.storage.InputOutputManager;
+import seedu.duke.exception.DuplicateModuleException;
 import seedu.duke.exception.LessonInvalidTimeException;
+import seedu.duke.exception.ModuleNotFoundException;
+import seedu.duke.exception.ModuleNotProvidedException;
 import seedu.duke.exception.TimeTableInitialiseException;
 
 import java.time.DayOfWeek;
@@ -32,12 +35,12 @@ public class TimeTableTest {
     static final int CURR_WEEK = now.get(ChronoField.ALIGNED_WEEK_OF_YEAR);
 
     @BeforeAll
-    static void setupUserMods() throws ModuleManager.DuplicateModuleException, ModuleManager.ModuleNotFoundException {
+    static void setupUserMods() throws DuplicateModuleException, ModuleNotProvidedException {
         InputOutputManager.loadNusModSave();
         ModuleManager.clearModules();
-        ModuleManager.add(new Module(MOD_CODE_1));
-        ModuleManager.add(new Module(MOD_CODE_2));
-        ModuleManager.add(new Module(MOD_CODE_3));
+        ModuleManager.add(MOD_CODE_1);
+        ModuleManager.add(MOD_CODE_2);
+        ModuleManager.add(MOD_CODE_3);
     }
 
     @BeforeEach
@@ -50,7 +53,7 @@ public class TimeTableTest {
     }
 
     @Test
-    void verify_addLesson_repeat1() throws LessonInvalidTimeException, ModuleManager.ModuleNotFoundException {
+    void verify_addLesson_repeat1() throws LessonInvalidTimeException, ModuleNotFoundException {
         TimeTableManager.addLesson(lesson1, 1);
 
         for (int i = CURR_WEEK; i < CURR_WEEK + 14; i++) {
@@ -65,7 +68,7 @@ public class TimeTableTest {
     }
 
     @Test
-    void verify_addLesson_repeat2() throws LessonInvalidTimeException, ModuleManager.ModuleNotFoundException {
+    void verify_addLesson_repeat2() throws LessonInvalidTimeException, ModuleNotFoundException {
         TimeTableManager.addLesson(lesson1, 2);
 
         for (int i = CURR_WEEK; i < CURR_WEEK + 14; i++) {
@@ -80,7 +83,7 @@ public class TimeTableTest {
     }
 
     @Test
-    void verify_addLesson_repeat3() throws LessonInvalidTimeException, ModuleManager.ModuleNotFoundException {
+    void verify_addLesson_repeat3() throws LessonInvalidTimeException, ModuleNotFoundException {
         TimeTableManager.addLesson(lesson1, 3);
 
         for (int i = CURR_WEEK; i < CURR_WEEK + 14; i++) {
@@ -95,7 +98,7 @@ public class TimeTableTest {
     }
 
     @Test
-    void verify_removeLesson_inSingleWeek() throws LessonInvalidTimeException, ModuleManager.ModuleNotFoundException {
+    void verify_removeLesson_inSingleWeek() throws LessonInvalidTimeException, ModuleNotFoundException {
         TimeTableManager.addLesson(lesson1, 1);
         TimeTableManager.addLesson(lesson2, 1);
         TimeTableManager.addLesson(lesson3, 1);
@@ -113,8 +116,7 @@ public class TimeTableTest {
     }
 
     @Test
-    void verify_removeLesson_overMultipleWeeks() throws LessonInvalidTimeException,
-            ModuleManager.ModuleNotFoundException {
+    void verify_removeLesson_overMultipleWeeks() throws LessonInvalidTimeException, ModuleNotFoundException {
         TimeTableManager.addLesson(lesson1, 1);
         TimeTableManager.addLesson(lesson2, 2);
         TimeTableManager.addLesson(lesson3, 3);
