@@ -20,6 +20,7 @@ import static seedu.duke.util.Message.MESSAGE_INCOMPLETE_UNDATED_TASKLIST;
 import static seedu.duke.util.Message.MESSAGE_LOADING_FAILURE;
 import static seedu.duke.util.Message.MESSAGE_LOADING_SKIPPED;
 import static seedu.duke.util.Message.MESSAGE_LOADING_SUCCESS;
+import static seedu.duke.util.Message.MESSAGE_LOADING_TEMPLATE;
 import static seedu.duke.util.Message.MESSAGE_NO_LESSONS;
 import static seedu.duke.util.Message.MESSAGE_TIMETABLE_HEADER;
 import static seedu.duke.util.Message.MESSAGE_TIMETABLE_INIT;
@@ -49,33 +50,47 @@ public class TextUi {
     /**
      * Prints welcome message, and shows file loading status according to the status parameter.
      * Enum not used because it's only used by InputOutputManager.start() and this function.
-     * 0 - Files exist, loading success
-     * 1 - Files do not exist, skipping
+     * Status parameter is a 3 digit number. Hundreds: Timetable, Tens: Tasks, Ones: Modules.
+     * 0 - Files do not exist, skipping
+     * 1 - Files exist, loading success
      * 2 - Files exist, error parsing JSON
      * @param status
      *  The status code as shown above
      */
     public static void showWelcomeMessage(int status) {
-        String message;
-        switch (status) {
-        case 0:
-            message = MESSAGE_LOADING_SUCCESS;
-            break;
-        case 1:
-            message = MESSAGE_LOADING_SKIPPED;
-            break;
-        case 2:
-            message = MESSAGE_LOADING_FAILURE;
-            break;
-        default:
-            message = MESSAGE_LOADING_SUCCESS;
-            break;
+        String[] items = {"Modules", "Tasks", "Timetable"};
+        String loadingOutcomes = "";
+
+        int latestCode; // first - mods, second - tasks, third - timetable
+        String statusMsg = "";
+        String eachItem;
+
+        for (int i = 0; i < 3; i++) {
+            eachItem = items[i];
+            latestCode = status % 10; // find ones digit of status
+            status /= 10; // remove ones digit
+            switch (latestCode) {
+            case 0:
+                statusMsg = "Skipped (file not found!)";
+                break;
+            case 1:
+                statusMsg = "Success!";
+                break;
+            case 2:
+                statusMsg = "Failed (corrupted file auto-renamed)";
+                break;
+            default:
+                statusMsg = "You shouldn't be here";
+                break;
+            }
+            loadingOutcomes += centerString(MAX_WIDTH,
+                    String.format(MESSAGE_LOADING_TEMPLATE, eachItem, statusMsg)) + "\n";
         }
         outputToUser(
                 DIV_LINE,
                 centerString(MAX_WIDTH, Message.MESSAGE_WELCOME),
                 "",
-                centerString(MAX_WIDTH, message),
+                loadingOutcomes,
                 DIV_LINE);
     }
 

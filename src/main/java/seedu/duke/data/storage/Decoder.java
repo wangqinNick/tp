@@ -23,7 +23,7 @@ import java.util.List;
 import com.alibaba.fastjson.JSON;
 import seedu.duke.data.TimeTable;
 
-import static seedu.duke.data.storage.InputOutputManager.jarNusModuleFile;
+import static seedu.duke.data.storage.InputOutputManager.JAR_NUS_MODULE_FILE;
 
 /**
  * Manages all outputs from files, and the conversion from String in file to Object in memory.
@@ -78,13 +78,17 @@ public class Decoder {
     public static ArrayList<Task> loadTasks(String dataFileName) throws JSONException {
         String jsonStr;
         jsonStr = loadJsonStringFromFile(dataFileName);
-        // FastJSON doesn't write the square brackets for some reason when we save, so we add it in here
-        // so that parseArray works as it should
+
         if (jsonStr != null) {
-            jsonStr = "[" + jsonStr + "]";
+            String[] lines = jsonStr.split("\\r?\\n");
+            ArrayList<Task> tasksList = new ArrayList<Task>();
+            for (String eachTaskStr : lines) {
+                tasksList.add(JSON.parseObject(eachTaskStr, Task.class));
+            }
+            return tasksList;
+        } else {
+            return new ArrayList<Task>();
         }
-        List<Task> tasksList = JSON.parseArray(jsonStr, Task.class);// extractModules(jsonStr);
-        return new ArrayList<>(tasksList);
     }
 
     /**
@@ -95,7 +99,7 @@ public class Decoder {
      */
     public static HashMap<String, Module> loadNusModsFromJar() throws IOException, JSONException {
         BufferedReader br = new BufferedReader(new InputStreamReader(
-                Decoder.class.getResourceAsStream(jarNusModuleFile)));
+                Decoder.class.getResourceAsStream(JAR_NUS_MODULE_FILE)));
         String jsonStr = "";
         while (br.ready()) {
             jsonStr += br.readLine();

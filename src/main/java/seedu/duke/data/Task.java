@@ -38,23 +38,37 @@ public class Task {
         this.name = name;
     }
 
-    public LocalDateTime getDeadline() {
-        return deadline;
-    }
-
-    public void setDeadline(LocalDateTime deadline) {
-        this.deadline = deadline;
-    }
-
     public boolean getStatus() {
         return isDone;
     }
 
-    public void setStatus() {
-        this.isDone = true;
+    public void setStatus(boolean status) {
+        this.isDone = status;
     }
 
-    public String getStatusIcon() {
+    // For use within codebase
+    public LocalDateTime retrieveDeadline() {
+        return deadline;
+    }
+
+    // For FastJSON use
+    public LocalDateTime getDeadline() {
+        if (deadline == null) {
+            return LocalDateTime.of(1,1,1,0,0);
+        }
+        return deadline;
+    }
+
+    // For FastJSON use
+    public void setDeadline(LocalDateTime deadline) {
+        if (deadline.isEqual(LocalDateTime.of(1,1,1,0,0))) {
+            this.deadline = null;
+        } else {
+            this.deadline = deadline;
+        }
+    }
+
+    public String generateStatusIcon() {
         if (this.isDone) {
             return Message.ICON_DONE;
         } else {
@@ -64,10 +78,10 @@ public class Task {
 
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mma, EEEE, dd MMM yy ");
-        if (getDeadline() == null) {
-            return getName() + " [" + getStatusIcon() + "]";
+        if (retrieveDeadline() == null) {
+            return getName() + " [" + generateStatusIcon() + "]";
         } else {
-            return getName() + " [" + getStatusIcon() + "]," + " by " + getDeadline().format(formatter);
+            return getName() + " [" + generateStatusIcon() + "]," + " by " + retrieveDeadline().format(formatter);
         }
     }
 }

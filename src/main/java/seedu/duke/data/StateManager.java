@@ -125,7 +125,7 @@ public class StateManager {
     public static ArrayList<Task> getDecodedTaskList(Task[] readList) {
         ArrayList<Task> tempTaskList = new ArrayList<>();
         for (Task task : readList) {
-            tempTaskList.add(new Task(task.getName(), task.getDeadline(), task.getStatus()));
+            tempTaskList.add(new Task(task.getName(), task.retrieveDeadline(), task.getStatus()));
         }
         return tempTaskList;
     }
