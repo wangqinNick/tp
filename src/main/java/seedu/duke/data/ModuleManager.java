@@ -75,6 +75,7 @@ public class ModuleManager {
      * @param grade
      * the grade to be assigned
      * @param moduleCredit
+     * the modules assigned module credit 
      * @throws ModuleNotFoundException
      * if there is no such module in the module list input by the user
      */
