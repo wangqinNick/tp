@@ -1,7 +1,8 @@
 package seedu.duke.util;
 
 public class Message {
-    public static final String MESSAGE_LOADING_SUCCESS = "All your tasks have been loaded successfully!\n";
+    public static final String MESSAGE_LOADING_TEMPLATE = "Loading %s: %s";
+    public static final String MESSAGE_LOADING_SUCCESS = "Loaded files; launching ra.VI...";
     public static final String MESSAGE_LOADING_FAILURE = "User save is corrupted! "
             + "ra.VI will rename the files, check the data folder.\n";
     public static final String MESSAGE_LOADING_SKIPPED = "No saves found - starting ra.VI anew!\n";
