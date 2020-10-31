@@ -3,6 +3,7 @@ package seedu.duke.command.cap;
 import seedu.duke.command.Command;
 import seedu.duke.command.CommandResult;
 
+import seedu.duke.command.PromptType;
 import seedu.duke.data.Module;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.ui.TextUi;
@@ -26,6 +27,7 @@ public class CapCommand extends Command {
     public CapCommand(int totalMcTaken,double currentCap) {
         this.totalMcTaken = totalMcTaken;
         this.currentCap = currentCap;
+        setPromptType(PromptType.EDIT);
     }
 
     private enum GradeSchematic {

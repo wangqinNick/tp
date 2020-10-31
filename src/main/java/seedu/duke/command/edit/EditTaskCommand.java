@@ -28,7 +28,7 @@ public class EditTaskCommand extends EditCommand {
     public EditTaskCommand(int taskID, String newTaskDescription) {
         this.taskID = taskID;
         this.newTaskDescription = newTaskDescription;
-        this.promptType = PromptType.EDIT;
+        setPromptType(PromptType.EDIT);
     }
 
     protected void edit() throws IndexOutOfBoundsException {

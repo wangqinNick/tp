@@ -29,7 +29,7 @@ public class AddTaskCommand extends AddCommand {
      */
     public AddTaskCommand(String desc) {
         this.desc = desc;
-        this.promptType = PromptType.EDIT;
+        setPromptType(PromptType.EDIT);
     }
 
     /**
