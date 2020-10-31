@@ -25,7 +25,7 @@ public class Duke {
      * @param args arguments passed to the program.
      * @throws FileNotFoundException exception is thrown if the file is not found.
      */
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
         new Duke().run(args);
     }
 
@@ -33,8 +33,9 @@ public class Duke {
     private void start(String[] args) {
         Scanner in = new Scanner(System.in);
         this.ui = new TextUi(in);
-        InputOutputManager.start();
+        int loadStatus = InputOutputManager.start();
         StateManager.initialise();
+        ui.showWelcomeMessage(loadStatus);
         while (!TimeTableManager.isInitialised()) {
             try {
                 ui.showTimeTableInitialisationMessage();
@@ -44,12 +45,11 @@ public class Duke {
                 ui.outputToUser(TIMETABLE_NOT_INITIALISED);
             }
         }
-        ui.showWelcomeMessage();
         logger.getLogger().info("Initialised scanner, UI, and IO");
     }
 
     /** Runs the program until termination.  */
-    public void run(String[] args) throws FileNotFoundException {
+    public void run(String[] args) {
         logger.getLogger().info("STARTING PROGRAM...");
         start(args);
         runCommandLoopUntilExitCommand();
