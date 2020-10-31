@@ -45,7 +45,7 @@ public class ExceptionMessage {
             + "Please use help to see our list of commands.\n";
     public static final String MESSAGE_INVALID_GRADE =
             "Your grade input isn't part of the NUS grading scheme. \n"
-            + "For your reference: A+, A, A-, B+, B, B-, C+, C, D+, D+, F.\n";
+            + "For your reference: A+, A, A-, B+, B, B-, C+, C, C-, D+, F.\n";
     public static final String MESSAGE_LESSON_INVALID_TIME =
             "Sorry, the lesson you have attempted to add "
             + "either overlaps with other lessons or has an invalid start time.\n"
