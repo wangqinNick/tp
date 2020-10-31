@@ -79,6 +79,9 @@ public class TextUi {
             case 2:
                 statusMsg = "Failed (corrupted file auto-renamed)";
                 break;
+            default:
+                statusMsg = "You shouldn't be here";
+                break;
             }
             loadingOutcomes += centerString(MAX_WIDTH,
                     String.format(MESSAGE_LOADING_TEMPLATE, eachItem, statusMsg)) + "\n";
