@@ -1,5 +1,9 @@
 package seedu.duke.command;
 
+import static seedu.duke.ui.TextUi.MAX_WIDTH;
+import static seedu.duke.ui.TextUi.centerString;
+import static seedu.duke.util.ExceptionMessage.EXCEPTION_HEADER;
+
 /**
  * <h3>Invalid Command</h3>
  * A <b>Command</b> that is determined to be invalid.
@@ -9,7 +13,7 @@ public class IncorrectCommand extends Command {
     private final String feedbackToUser; // Message to be shown to the user
 
     public IncorrectCommand(String message) {
-        this.feedbackToUser = message;
+        this.feedbackToUser = centerString(MAX_WIDTH, EXCEPTION_HEADER) + "\n" + message;
     }
 
     /**

@@ -8,7 +8,11 @@ import static seedu.duke.util.ExceptionMessage.MESSAGE_MODULE_NOT_FOUND;
 import static seedu.duke.util.Message.MESSAGE_DELETE_MODULE_SUCCESS;
 
 public class DeleteModuleCommand extends DeleteCommand {
-    private String moduleCode;
+    private final String moduleCode;
+    public static final String FORMAT = DeleteCommand.COMMAND_WORD + " -m" + " <module_code>";
+    public static final String HELP =   "Delete a module from the scheduler."
+                                        + "\n\tFormat: " + FORMAT
+                                        + "\n\tExample usage: del -m CS2113T";
 
     /**
      * Constructor to delete module from module list.
@@ -31,18 +35,18 @@ public class DeleteModuleCommand extends DeleteCommand {
     }
 
     /**
-     * Deletes the module from the module list.
+     * Executes the DeleteModuleCommand to delete the module from the module list.
      *
      * @return CommandResult containing acknowledgement of the delete or errors.
      */
     @Override
     public CommandResult execute() {
-        String message = "";
+        String message;
         try {
             deleteModule(moduleCode);
             message = MESSAGE_DELETE_MODULE_SUCCESS;
         } catch (ModuleManager.ModuleNotFoundException e) {
-            return new CommandResult(MESSAGE_MODULE_NOT_FOUND);
+            message = MESSAGE_MODULE_NOT_FOUND;
         }
         return new CommandResult(message);
     }

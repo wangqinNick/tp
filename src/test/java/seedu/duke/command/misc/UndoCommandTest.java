@@ -1,5 +1,6 @@
 package seedu.duke.command.misc;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.duke.Executor;
@@ -22,12 +23,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.duke.util.Message.MESSAGE_UNDO_AT_BEGINNING;
 
 class UndoCommandTest {
+
     @BeforeEach
     void setupModObjects() {
-        InputOutputManager.start();
-        StateManager.initialise();
         ModuleManager.clearModules();
         TaskManager.clear();
+        InputOutputManager.loadNusModSave();
+        StateManager.initialise();
     }
 
     @Test

@@ -5,6 +5,7 @@ import seedu.duke.command.IncorrectCommand;
 import seedu.duke.command.delete.DeleteCommand;
 import seedu.duke.command.delete.DeleteModuleCommand;
 import seedu.duke.command.delete.DeleteTaskCommand;
+import seedu.duke.exception.InvalidMatchException;
 
 import java.security.InvalidParameterException;
 import java.util.regex.Matcher;
@@ -22,13 +23,22 @@ public class DeleteCommandParser {
             Pattern.compile("((?<commandFlag>.*-\\S+)?)"
                     + "(?<taskModule>\\s\\S+)" + "((?<invalid>.*)?)");
 
-    protected static Command getDeleteCommand(String parameters) throws NumberFormatException {
+    /**
+     * Takes the user's input and parses it into the respective arguments for Delete Command.
+     *
+     * @param parameters
+     * the user's input without the command word
+     * @return
+     * Delete command with relevant arguments
+     * @throws NumberFormatException
+     * When a string is parsed as an integer/double
+     * @throws InvalidMatchException
+     * When the user input doesn't match the REGEX format for the Delete Command
+     */
+    protected static Command getDeleteCommand(String parameters) throws NumberFormatException, InvalidMatchException {
         Matcher matcher = DELETE_FORMAT.matcher(parameters);
 
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
-                    MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT, DeleteCommand.FORMAT));
-        }
+        Parser.matcherMatches(matcher, parameters, DeleteCommand.FORMAT, DeleteCommand.PROMPT_HELP);
 
         String commandFlag = Parser.isMatcherNull(matcher.group(Parser.COMMAND_FLAG_GROUP))
                 ? null : matcher.group(Parser.COMMAND_FLAG_GROUP).toLowerCase().trim();
@@ -38,8 +48,9 @@ public class DeleteCommandParser {
         // Checks for any string after the module or index given
         String invalid = matcher.group(INVALID_GROUP).trim();
         if (!invalid.isEmpty()) {
-            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
-                    MESSAGE_INVALID_COMMAND_FORMAT, invalid, MESSAGE_CHECK_COMMAND_FORMAT, DeleteCommand.FORMAT));
+            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n\n%s\n",
+                    MESSAGE_INVALID_COMMAND_FORMAT, invalid, MESSAGE_CHECK_COMMAND_FORMAT,
+                    DeleteCommand.FORMAT, DeleteCommand.PROMPT_HELP));
         }
 
         if (commandFlag.equals(MODULE_PREFIX)) {

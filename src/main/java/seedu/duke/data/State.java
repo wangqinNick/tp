@@ -1,12 +1,8 @@
 package seedu.duke.data;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
-
 public class State {
-    private String encodedSavedList;
-    private String encodedSavedMap;
+    private final String encodedSavedList;
+    private final String encodedSavedMap;
 
     public State(String encodedSavedList, String encodedSavedMap) {
         this.encodedSavedList = encodedSavedList;

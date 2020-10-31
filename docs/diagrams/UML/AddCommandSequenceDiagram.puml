@@ -1,0 +1,59 @@
+@startuml
+-> ":AddCommandParser": prepareAddCommand()
+activate ":AddCommandParser"
+alt MODULE_PREFIX
+    create ":AddModuleCommand"
+    ":AddCommandParser" -> ":AddModuleCommand": <<construct>> getAddCommand()
+    activate ":AddModuleCommand"
+    ":AddCommandParser" <-- ":AddModuleCommand": AddModuleCommand
+    deactivate ":AddModuleCommand"
+else TASK_PREFIX
+    create ":AddTaskCommand"
+    ":AddCommandParser" -> ":AddTaskCommand": <<construct>> getAddCommand()
+    activate ":AddTaskCommand"
+    ":AddCommandParser" <-- ":AddTaskCommand": AddTaskCommand
+    deactivate ":AddTaskCommand"
+else UNKNOWN_PREFIX
+    create ":IncorrectCommand"
+    ":AddCommandParser" -> ":IncorrectCommand": <<construct>>
+    activate ":IncorrectCommand"
+    ":AddCommandParser" <-- ":IncorrectCommand"
+    deactivate ":IncorrectCommand"
+end
+<-- ":AddCommandParser": AddCommand
+destroy ":AddCommandParser"
+
+-> ":AddModuleCommand": execute()
+activate ":AddModuleCommand"
+create ":CommandResult"
+":AddModuleCommand" -> ":CommandResult": <<construct>>
+activate ":CommandResult"
+":AddModuleCommand" <-- ":CommandResult": CommandResult
+deactivate ":CommandResult"
+<-- ":AddModuleCommand": CommandResult
+deactivate ":AddModuleCommand"
+destroy ":AddModuleCommand"
+
+-> ":AddTaskCommand": execute()
+activate ":AddTaskCommand"
+create ":CommandResult"
+":AddTaskCommand" -> ":CommandResult": <<construct>>
+activate ":CommandResult"
+":AddTaskCommand" <-- ":CommandResult": CommandResult
+deactivate ":CommandResult"
+<-- ":AddTaskCommand": CommandResult
+deactivate ":AddTaskCommand"
+destroy ":AddTaskCommand"
+
+-> ":IncorrectCommand": execute()
+activate ":IncorrectCommand"
+create ":CommandResult"
+":IncorrectCommand" -> ":CommandResult": <<construct>>
+activate ":CommandResult"
+":IncorrectCommand" <-- ":CommandResult": CommandResult
+deactivate ":CommandResult"
+<-- ":IncorrectCommand": CommandResult
+deactivate ":IncorrectCommand"
+destroy ":IncorrectCommand"
+
+@enduml

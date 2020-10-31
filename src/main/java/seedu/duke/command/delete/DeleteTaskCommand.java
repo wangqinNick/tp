@@ -8,7 +8,11 @@ import static seedu.duke.util.ExceptionMessage.MESSAGE_TASK_NOT_FOUND;
 import static seedu.duke.util.Message.MESSAGE_DELETE_TASK_SUCCESS;
 
 public class DeleteTaskCommand extends DeleteCommand {
-    private int taskId;
+    private final int taskId;
+    public static final String FORMAT = DeleteCommand.COMMAND_WORD + " -t" + " <task_index>";
+    public static final String HELP =   "Delete a task from the scheduler."
+                                       + "\n\tFormat: " + FORMAT 
+                                       + "\n\tExample usage: del -t 1\n\n";
 
     /**
      * Constructor to delete task from task list.
@@ -31,18 +35,18 @@ public class DeleteTaskCommand extends DeleteCommand {
     }
 
     /**
-     * Deletes the task from the task list.
+     * Executes the DeleteTaskCommand to delete the task from the task list.
      *
      * @return CommandResult containing acknowledgement of the delete or errors.
      */
     @Override
     public CommandResult execute() {
-        String message = "";
+        String message;
         try {
             deleteTask(taskId);
             message = MESSAGE_DELETE_TASK_SUCCESS;
         } catch (TaskManager.TaskNotFoundException e) {
-            return new CommandResult(MESSAGE_TASK_NOT_FOUND);
+            message = MESSAGE_TASK_NOT_FOUND;
         }
         return new CommandResult(message);
     }

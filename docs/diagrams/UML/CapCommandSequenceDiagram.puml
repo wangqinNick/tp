@@ -1,0 +1,34 @@
+@startuml
+-> ":CapCommandParser" : prepareCapCommand()
+activate ":CapCommandParser"
+create ":CapCommand"
+":CapCommandParser" -> ":CapCommand" : <<construct>> CapCommand(totalMcTaken,currentCap)
+activate ":CapCommand"
+":CapCommandParser" <-- ":CapCommand" : CapCommand
+deactivate ":CapCommand"
+<-- ":CapCommandParser" : CapCommand
+destroy ":CapCommandParser"
+deactivate ":CapCommandParser"
+-> ":CapCommand" : execute()
+activate ":CapCommand"
+":CapCommand" -> ":CapCommand" : calculateCap()
+activate ":CapCommand"
+":CapCommand" -> ":ModuleManager" : getModuleMap()
+activate ":ModuleManager"
+":CapCommand" <-- ":ModuleManager" : moduleList
+deactivate ":ModuleManager"
+":CapCommand" -> ":CapCommand" : gradeConvert(moduleList)
+activate ":CapCommand"
+":CapCommand" <-- ":CapCommand" : mcGrade
+deactivate ":CapCommand"
+":CapCommand" <-- ":CapCommand" : Cap
+deactivate ":CapCommand"
+create ":CommandResult"
+":CapCommand" -> ":CommandResult" : <<construct>>
+activate ":CommandResult"
+":CapCommand" <-- ":CommandResult" : CommandResult
+deactivate ":CommandResult"
+<-- ":CapCommand" : CommandResult
+deactivate ":CapCommand"
+destroy ":CapCommand"
+@enduml

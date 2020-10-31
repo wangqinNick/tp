@@ -4,7 +4,6 @@ import seedu.duke.command.CommandResult;
 import seedu.duke.command.PromptType;
 import seedu.duke.data.Task;
 import seedu.duke.data.TaskManager;
-import seedu.duke.parser.Parser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -13,10 +12,14 @@ import java.time.format.DateTimeParseException;
 import static seedu.duke.util.Message.MESSAGE_ADD_TASK_SUCCESS;
 
 public class AddTaskCommand extends AddCommand {
-    private Parser.TypeOfEntries typeOfEntry;
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-yyyy HHmm");
-    private String desc;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-yyyy HHmm");
+    private final String desc;
     private LocalDateTime dateTimeOfDeadline;
+    public static final String FORMAT = COMMAND_WORD + " -t <task_name> [-by <deadline>]";
+    public static final String HELP =   "Add a task to the scheduler."
+                                        + "\n\tFormat: " + FORMAT
+                                        + "\n\tExample usage: add -t Read Book"
+                                        + "\n\t               add -t Return Book -by 30-12-2020 1800\n\n";
 
     /**
      * Constructs AddTaskCommand without the deadline.
@@ -25,7 +28,6 @@ public class AddTaskCommand extends AddCommand {
      * @throws DateTimeParseException If the deadline does not follow the DateTime format.
      */
     public AddTaskCommand(String desc) {
-        this.typeOfEntry = typeOfEntry;
         this.desc = desc;
         this.promptType = PromptType.EDIT;
     }
@@ -38,7 +40,6 @@ public class AddTaskCommand extends AddCommand {
      * @throws DateTimeParseException If the deadline does not follow the DateTime format.
      */
     public AddTaskCommand(String desc, String deadline) throws DateTimeParseException {
-        this.typeOfEntry = typeOfEntry;
         this.desc = desc;
         if (deadline != null) {
             dateTimeOfDeadline = testDeadline(deadline);
@@ -76,13 +77,13 @@ public class AddTaskCommand extends AddCommand {
     }
 
     /**
-     * Adds the task to the task list.
+     * Executes the AddTaskCommand to add the task to the task list.
      *
      * @return CommandResult containing acknowledgement of the add task or messages from exceptions.
      */
     @Override
     public CommandResult execute() {
-        String message = "";
+        String message;
         addTask(desc, dateTimeOfDeadline);
         message = MESSAGE_ADD_TASK_SUCCESS;
         return new CommandResult(message);

@@ -6,13 +6,22 @@ import seedu.duke.command.PromptType;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.data.TaskManager;
 import seedu.duke.parser.Parser;
+import seedu.duke.ui.TextUi;
+
 import static seedu.duke.util.ExceptionMessage.MESSAGE_LIST_EMPTY;
 import static seedu.duke.util.Message.MESSAGE_LIST_PRINTED;
 
 public class ListCommand extends Command {
-    private Parser.TypeOfEntries typeOfEntry;
+    private final Parser.TypeOfEntries typeOfEntry;
     public static final String COMMAND_WORD = "list";
-    public static final String FORMAT = COMMAND_WORD + " <opt> <args>";
+    public static final String FORMAT_TASK = COMMAND_WORD + " -t";
+    public static final String FORMAT_MODULE = COMMAND_WORD + " -m";
+    public static final String FORMAT = FORMAT_TASK + "\n" + FORMAT_MODULE;
+    public static final String HELP =   "List all tasks in the task list."
+                                        + "\n\tFormat: " + FORMAT_TASK
+                                        + "\n\nList all modules in the module list."
+                                        + "\n\tFormat: " + FORMAT_MODULE;
+    public static final String PROMPT_HELP = TextUi.getCommandHelpMessage(COMMAND_WORD);
 
     public ListCommand(Parser.TypeOfEntries typeOfEntry) {
         this.typeOfEntry = typeOfEntry;
@@ -39,7 +48,8 @@ public class ListCommand extends Command {
         }
         if (output == null) {
             return new CommandResult(MESSAGE_LIST_EMPTY);
+        } else {
+            return new CommandResult(MESSAGE_LIST_PRINTED + output);
         }
-        return new CommandResult(MESSAGE_LIST_PRINTED + output);
     }
 }

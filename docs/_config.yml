@@ -1,1 +1,8 @@
-theme: jekyll-theme-architect
+title: "ra.VI"
+description: "Repository Assistant with a Versatile Interface"
+theme: jekyll-theme-midnight
+
+markdown: kramdown
+
+plugins:
+  - jemoji

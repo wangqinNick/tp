@@ -1,12 +1,12 @@
 package seedu.duke.data.storage;
 
+import com.alibaba.fastjson.JSONException;
 import seedu.duke.data.Task;
 import seedu.duke.data.Module;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.io.IOException;
@@ -15,12 +15,15 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import com.alibaba.fastjson.JSON;
-import seedu.duke.ui.TextUi;
+import seedu.duke.data.TimeTable;
+
+import static seedu.duke.data.storage.InputOutputManager.jarNusModuleFile;
 
 /**
  * Manages all outputs from files, and the conversion from String in file to Object in memory.
@@ -31,6 +34,13 @@ import seedu.duke.ui.TextUi;
  */
 
 public class Decoder {
+    public static TimeTable loadTimeTable(String dataFileName) throws JSONException {
+        String jsonStr;
+        jsonStr = loadJsonStringFromFile(dataFileName);
+        TimeTable timetable = JSON.parseObject(jsonStr, TimeTable.class);
+        return timetable;
+    }
+
     /**
      * Loads a HashMap of Module objects from the specified file. Used for both user and NUS modules.
      *
@@ -39,7 +49,7 @@ public class Decoder {
      * @return
      *  The HashMap of Module objects
      */
-    public static HashMap<String, Module> loadModules(String dataFileName) {
+    public static HashMap<String, Module> loadModules(String dataFileName) throws JSONException {
         String jsonStr;
         jsonStr = loadJsonStringFromFile(dataFileName);
         // FastJSON doesn't write the square brackets for some reason when we save, so we add it in here
@@ -64,10 +74,8 @@ public class Decoder {
      *  The name of the file to read from
      * @return
      *  The ArrayList tasksList
-     * @throws FileNotFoundException
-     *  When the file does not exist
      */
-    public static ArrayList<Task> loadTasks(String dataFileName) {
+    public static ArrayList<Task> loadTasks(String dataFileName) throws JSONException {
         String jsonStr;
         jsonStr = loadJsonStringFromFile(dataFileName);
         // FastJSON doesn't write the square brackets for some reason when we save, so we add it in here
@@ -77,6 +85,30 @@ public class Decoder {
         }
         List<Task> tasksList = JSON.parseArray(jsonStr, Task.class);// extractModules(jsonStr);
         return new ArrayList<>(tasksList);
+    }
+
+    /**
+     * Loads NUSMods list from the JAR file's resources folder.
+     *
+     * @return
+     *  The HashMap of Module objects (from NUSMods)
+     */
+    public static HashMap<String, Module> loadNusModsFromJar() throws IOException, JSONException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(
+                Decoder.class.getResourceAsStream(jarNusModuleFile)));
+        String jsonStr = "";
+        while (br.ready()) {
+            jsonStr += br.readLine();
+        }
+        if (jsonStr != null) {
+            jsonStr = "[" + jsonStr + "]";
+        }
+        List<Module> modulesList = JSON.parseArray(jsonStr, Module.class);
+        HashMap<String, Module> retrievedNusModsList = new HashMap<>();
+        for (Module eachModule : modulesList) {
+            retrievedNusModsList.put(eachModule.getModuleCode(), eachModule);
+        }
+        return retrievedNusModsList;
     }
 
     /**
@@ -151,7 +183,7 @@ public class Decoder {
                 System.out.print("cannot connect!");
             } else {
                 int fileSize = urlConn.getContentLength(); // get the length of the data
-                InputStreamReader isReader = new InputStreamReader(urlConn.getInputStream(), "UTF-8");
+                InputStreamReader isReader = new InputStreamReader(urlConn.getInputStream(), StandardCharsets.UTF_8);
                 BufferedReader reader = new BufferedReader(isReader);
                 StringBuffer buffer = new StringBuffer();
                 String line; // to save the content of every line
@@ -164,8 +196,6 @@ public class Decoder {
                 //System.out.print(buffer.toString());
                 content = buffer.toString();
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

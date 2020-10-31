@@ -4,10 +4,14 @@ import seedu.duke.exception.DataNotFoundException;
 import seedu.duke.exception.DuplicateDataException;
 import seedu.duke.exception.ModuleNotProvidedException;
 import seedu.duke.ui.TextUi;
+import seedu.duke.DukeLogger;
 
 import java.util.HashMap;
 
+
 public class ModuleManager {
+    private static final DukeLogger logger = new DukeLogger(ModuleManager.class.getName());
+
     private static HashMap<String, Module> modulesMap = new HashMap<>();
     // modulesMap is the main module list. Maps module code to module object.
     private static HashMap<String, Module> nusModsMap = new HashMap<>();
@@ -24,11 +28,13 @@ public class ModuleManager {
      *  If the module is not found in the Module List
      */
     public static Module getModule(String moduleCode) throws ModuleNotFoundException {
+        logger.getLogger().info("Retrieving module with code: " + moduleCode);
         for (Module module : modulesMap.values()) {
             if (module.getModuleCode().equalsIgnoreCase(moduleCode)) {
                 return module;
             }
         }
+        logger.getLogger().warning("Can't retrieve module because it doesn't exist!");
         throw new ModuleNotFoundException();
     }
 
@@ -46,16 +52,40 @@ public class ModuleManager {
      */
     public static void edit(Module newModule, String oldModuleCode)
             throws ModuleNotProvidedException, DuplicateModuleException {
+        logger.getLogger().info("Editing module at old module code: " + oldModuleCode);
         //modulesMap.get(module.getCode()).setTitle(moduleDescription);
         Module oldModule = modulesMap.get(oldModuleCode);
-        if (!nusModsMap.containsKey(oldModuleCode)) {
+
+        if (!modulesMap.containsKey(oldModuleCode)) {
+            logger.getLogger().warning("Old module code not found!");
             throw new ModuleNotProvidedException();
         }
         if (oldModule.isSameModule(newModule)) {
+            logger.getLogger().warning("Can't edit to new mod code because it exists!");
             throw new DuplicateModuleException();
         }
         modulesMap.remove(oldModuleCode);
         modulesMap.put(newModule.getModuleCode(), newModule);
+    }
+
+    /**
+     * Checks if the module to be graded is in the moduleMap and assigns the grade to the module.
+     *
+     * @param module
+     * module to be graded
+     * @param grade
+     * the grade to be assigned
+     * @throws ModuleNotFoundException
+     * if there is no such module in the module list input by the user
+     */
+    public static void grade(Module module, String grade, int moduleCredit) throws ModuleNotFoundException {
+        String moduleCode = module.getModuleCode();
+        if (contains(moduleCode)) {
+            modulesMap.get(moduleCode).setModuleGrade(grade);
+            modulesMap.get(moduleCode).setModuleCredit(moduleCredit);
+        } else {
+            throw new ModuleNotFoundException();
+        }
     }
 
     /**
@@ -79,10 +109,14 @@ public class ModuleManager {
      * @param newModule
      *  The module object to add to the module list
      */
-    public static void add(Module newModule) throws DuplicateModuleException {
+    public static void add(Module newModule) throws DuplicateModuleException, ModuleNotFoundException {
+        logger.getLogger().info("Adding module with code: " + newModule.getModuleCode());
         if (contains(newModule.getModuleCode())) {
+            logger.getLogger().warning("Can't add module because it already exists!");
             throw new DuplicateModuleException();
         }
+        Module verifiedNusMod = getNusModule(newModule.getModuleCode());
+        newModule.setTitle(verifiedNusMod.getTitle());
         modulesMap.put(newModule.getModuleCode(), newModule);
     }
 
@@ -91,24 +125,13 @@ public class ModuleManager {
      * @param moduleCode
      *  The module code of the module to remove from the module list
      */
-    public static boolean delete(String moduleCode) throws ModuleNotFoundException {
+    public static void delete(String moduleCode) throws ModuleNotFoundException {
+        logger.getLogger().info("Deleting module with code: " + moduleCode);
         if (!contains(moduleCode)) {
+            logger.getLogger().warning("Can't delete module because it doesn't exist!");
             throw new ModuleNotFoundException();
         }
         modulesMap.remove(moduleCode);
-        return false;
-    }
-
-    /**
-     * Adds a module to the NUSMods Module List.
-     * @param newModule
-     *  The module object to add to the module list
-     */
-    public static void addNusMod(Module newModule) throws DuplicateModuleException {
-        if (contains(newModule.getModuleCode())) {
-            throw new DuplicateModuleException();
-        }
-        nusModsMap.put(newModule.getModuleCode(), newModule);
     }
 
     /**
@@ -131,13 +154,11 @@ public class ModuleManager {
     }
 
     public static String[] getModCodeList() {
-        String[] outputArray = modulesMap.keySet().toArray(new String[0]);
-        return outputArray;
+        return modulesMap.keySet().toArray(new String[0]);
     }
 
     public static String[] getNusModCodeList() {
-        String[] outputArray = nusModsMap.keySet().toArray(new String[0]);
-        return outputArray;
+        return nusModsMap.keySet().toArray(new String[0]);
     }
 
     /**
@@ -176,7 +197,7 @@ public class ModuleManager {
      * Clears all modules in modulesMap.
      */
     public static void clearModules() {
-        modulesMap = new HashMap<String, Module>();
+        modulesMap = new HashMap<>();
     }
 
     /**

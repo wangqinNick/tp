@@ -1,7 +1,10 @@
 @startuml
 
+hide circle
+skinparam classAttributeIconSize 0
+
 class Duke
-abstract class Command
+abstract class "{abstract} \n Command"
 package parser {
     class Parser
     class AddCommandParser
@@ -11,11 +14,11 @@ package parser {
     class ListCommandParser
 }
 Duke <.. Parser
-Parser <.. Command
-Parser <.. AddCommandParser
+Parser <. "{abstract} \n Command"
+Parser <... AddCommandParser
 Parser <.. DeleteCommandParser
-Parser <.. DoneCommandParser
+Parser <... DoneCommandParser
 Parser <.. EditCommandParser
-Parser <.. ListCommandParser
+Parser <... ListCommandParser
 
 @enduml

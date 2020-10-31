@@ -1,7 +1,9 @@
 @startuml
 
+hide circle
+skinparam classAttributeIconSize 0
 
-abstract class Command {
+abstract class "{abstract} \n Command" {
     PromptType promptType
     PromptType getPromptType()
     void setPromptType()
@@ -12,19 +14,22 @@ class CommandResult {
     String feedbackToUser
 }
 
-abstract class FilterCommand
-
-abstract class AddCommand
+abstract class "{abstract} \n AddCommand"
 class AddModuleCommand
 class AddTaskCommand
 
-abstract class DeleteCommand
+abstract class "{abstract} \n DeleteCommand"
 class DeleteModuleCommand
 class DeleteTaskCommand
 
-abstract class EditCommand
+abstract class "{abstract} \n EditCommand"
 class EditModuleCommand
 class EditTaskCommand
+
+abstract class "{abstract} \n TimeTableCommand"
+class TimeTableAddCommand
+class TimeTableDeleteCommand
+class TimeTableViewCommand
 
 class DoneCommand
 class UndoCommand
@@ -32,33 +37,39 @@ class HelpCommand
 class ListCommand
 class ExitCommand
 class IncorrectCommand
-enum PromptType {
+enum "<<Enumeration>> \n PromptType" {
     WARNING,
     INFORMATIVE,
     NONE,
     EDIT
 }
 
-AddCommand <|-- AddModuleCommand
-AddCommand <|-- AddTaskCommand
-DeleteCommand <|-- DeleteModuleCommand
-DeleteCommand <|-- DeleteTaskCommand
-EditCommand <|-- EditModuleCommand
-EditCommand <|-- EditTaskCommand
+"{abstract} \n Command" <|- HelpCommand
+"{abstract} \n Command" <|- ListCommand
+"{abstract} \n Command" <|- ExitCommand
+"{abstract} \n Command" <|-- "{abstract} \n DeleteCommand"
+"{abstract} \n Command" <|-- "{abstract} \n AddCommand"
+"{abstract} \n EditCommand" ---|> "{abstract} \n Command"
+DoneCommand -|> "{abstract} \n Command"
+UndoCommand -|> "{abstract} \n Command"
+IncorrectCommand -|> "{abstract} \n Command"
+"{abstract} \n TimeTableCommand" ---|> "{abstract} \n Command"
 
-Command <|-- AddCommand
-Command <|-- DeleteCommand
-Command <|-- EditCommand
-Command <|-- FilterCommand
-Command <|-- DoneCommand
-Command <|-- HelpCommand
-Command <|-- ListCommand
-Command <|-- UndoCommand
-Command <|-- ExitCommand
-Command <|-- IncorrectCommand
+"<<Enumeration>> \n PromptType" -* "{abstract} \n Command"
 
-Command *-- PromptType
-Command <.. CommandResult
+"{abstract} \n Command" <. CommandResult
 
+"{abstract} \n AddCommand" <|-- AddModuleCommand
+"{abstract} \n AddCommand" <|-- AddTaskCommand
+
+"{abstract} \n DeleteCommand" <|-- DeleteModuleCommand
+"{abstract} \n DeleteCommand" <|-- DeleteTaskCommand
+
+EditModuleCommand --|> "{abstract} \n EditCommand"
+EditTaskCommand --|> "{abstract} \n EditCommand"
+
+TimeTableAddCommand --|> "{abstract} \n TimeTableCommand"
+TimeTableDeleteCommand --|> "{abstract} \n TimeTableCommand"
+TimeTableViewCommand --|> "{abstract} \n TimeTableCommand"
 
 @enduml

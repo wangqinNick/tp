@@ -1,16 +1,12 @@
 package seedu.duke.parser;
 
 import seedu.duke.command.Command;
-import seedu.duke.command.IncorrectCommand;
-import seedu.duke.command.add.AddCommand;
 import seedu.duke.command.list.ListCommand;
+import seedu.duke.exception.InvalidMatchException;
 
 import java.security.InvalidParameterException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static seedu.duke.util.Message.MESSAGE_CHECK_COMMAND_FORMAT;
-import static seedu.duke.util.Message.MESSAGE_INVALID_COMMAND_FORMAT;
 
 public class ListCommandParser {
     public static final String MODULE_PREFIX = "-m";
@@ -18,12 +14,20 @@ public class ListCommandParser {
     protected static final Pattern LIST_FORMAT =
             Pattern.compile("(?<commandFlag>.*-\\S+)");
 
-    protected static Command getListCommand(String parameters) {
+    /**
+     * Takes the user's input and parses it into the respective arguments for List Command.
+     *
+     * @param parameters
+     * the user's input without the command word
+     * @return
+     * List Command with relevant arguments
+     * @throws InvalidMatchException
+     * When the user input doesn't match the REGEX format for the List Command
+     */
+    protected static Command getListCommand(String parameters) throws InvalidMatchException {
         Matcher matcher = LIST_FORMAT.matcher(parameters);
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n",
-                    MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT, ListCommand.FORMAT));
-        }
+
+        Parser.matcherMatches(matcher, parameters, ListCommand.FORMAT, ListCommand.PROMPT_HELP);
 
         String commandFlag = Parser.isMatcherNull(matcher.group(Parser.COMMAND_FLAG_GROUP))
                 ? null : matcher.group(Parser.COMMAND_FLAG_GROUP).toLowerCase().trim();
