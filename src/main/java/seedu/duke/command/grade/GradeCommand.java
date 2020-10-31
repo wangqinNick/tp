@@ -14,7 +14,7 @@ import static seedu.duke.util.Message.MESSAGE_GRADE_MODULE_SUCCESS;
 
 public class GradeCommand extends Command {
     private final String moduleGraded;
-    private final int moduleCredit;
+    private final double moduleCredit;
     private final String grade;
     public static final String COMMAND_WORD = "grade";
     public static final String FORMAT = COMMAND_WORD + " <module_code> <modular_credit> <grade>";
@@ -31,7 +31,7 @@ public class GradeCommand extends Command {
      * @param grade
      * Grade attained by user for the specific module.
      */
-    public GradeCommand(String moduleGraded, int moduleCredit, String grade) {
+    public GradeCommand(String moduleGraded, double moduleCredit, String grade) {
         this.moduleGraded = moduleGraded;
         this.moduleCredit = moduleCredit;
         this.grade = grade;

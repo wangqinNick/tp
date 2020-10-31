@@ -74,10 +74,11 @@ public class ModuleManager {
      * module to be graded
      * @param grade
      * the grade to be assigned
+     * @param moduleCredit
      * @throws ModuleNotFoundException
      * if there is no such module in the module list input by the user
      */
-    public static void grade(Module module, String grade, int moduleCredit) throws ModuleNotFoundException {
+    public static void grade(Module module, String grade, double moduleCredit) throws ModuleNotFoundException {
         String moduleCode = module.getModuleCode();
         if (contains(moduleCode)) {
             modulesMap.get(moduleCode).setModuleGrade(grade);

@@ -39,7 +39,7 @@ public class GradeCommandParser {
         String grade = Parser.isMatcherNull(matcher.group(GRADE_GROUP))
                 ? null : matcher.group(GRADE_GROUP).trim();
 
-        int intMc = Integer.parseInt(mc);
+        double intMc = Double.parseDouble(mc);
 
         return new GradeCommand(module,intMc,grade);
     }
