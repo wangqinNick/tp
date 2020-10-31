@@ -386,6 +386,37 @@ Given below is an example scenario to filter the timetable for CS2101 LECTURE.
 * Wrong command format\
 e.g. `timetable -filter`
 
+### Undo Feature 
+This feature is facilitated by State and StateManager classes. 
+It extends the abstract Command class and override the execute command.
+
+* `GradeCommand.testgrade(stringGrade)` - checks if the input grade is valid according to NUS grading schematic 
+* `GradeCommand.grade(moduleModule)` - assigns the specific module present in the module list, the grade and moduleCredit attributes.
+
+![Sequence diagram for Undo Feature](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/UndoCommandSequenceDiagram.png?raw=true)
+
+As seen from the sequence diagram above, this is the flow of an Undo command.
+The Parser parses the user's input, and construct the default UndoCommand.
+When an Undo Command object executes, the `undo()` method in the StateManager class will be called.
+In the StateManager, the previous copies of the data are encoded as Json and stored in a stack.
+When the `undo()` is called, the StateManager will pops the top copy in the stack. 
+After that, the StateManager class will notify TaskManager and Module Manager to load from the encoded saved copies. To do that, it will facilitate the load methods, `loadMods()` `loadTasks()` from TaskManager and ModuleManager to set the data.
+
+Given below is an example usage scenario and how the undo feature behaves at each step.
+
+1. The user launches the application. The user inputs `add -m CS2101` into ra.VI, as the user wants to note down 
+a module named ‘CS2101’ and add it to their module list. This input is received by the Ui ,which processes it into 
+a string. The parser parses the string and allocates it to the AddCommand where it is added to the list of modules. 
+
+2. The user finds the module just added is wrong. Thus, he wants to undo the previous `add -m CS2101` command.
+
+3. The user inputs `undo` into ra.VI. The input is received by the Ui, which then passes the input to Parser and parsed to an Undo command.
+
+4. Then the execution process of the Undo command will makes the method calls demonstrate above in the diagram. 
+
+5. More importantly, the Undo command only works for those 'data-changed' operations. Those operations refer to 'add', 'delete', 'edit' commands.
+
+
 ## User Stories
 
 |Version| As a ... | I want to ... | So that I can ...|
