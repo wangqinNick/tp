@@ -23,7 +23,7 @@ public class AddModuleCommand extends AddCommand {
      */
     public AddModuleCommand(String module) {
         this.module = module;
-        this.promptType = PromptType.EDIT;
+        setPromptType(PromptType.EDIT);
     }
 
     /**

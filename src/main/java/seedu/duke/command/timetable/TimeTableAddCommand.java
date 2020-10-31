@@ -1,6 +1,7 @@
 package seedu.duke.command.timetable;
 
 import seedu.duke.command.CommandResult;
+import seedu.duke.command.PromptType;
 import seedu.duke.data.Lesson;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.data.TimeTableManager;
@@ -19,6 +20,7 @@ public class TimeTableAddCommand extends TimeTableCommand {
     public TimeTableAddCommand(Lesson newLesson, int repeatFreq) {
         this.newLesson = newLesson;
         this.repeatFreq = repeatFreq;
+        setPromptType(PromptType.EDIT);
     }
 
     /**

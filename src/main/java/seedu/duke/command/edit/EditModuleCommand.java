@@ -1,6 +1,7 @@
 package seedu.duke.command.edit;
 
 import seedu.duke.command.CommandResult;
+import seedu.duke.command.PromptType;
 import seedu.duke.data.Module;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.exception.ModuleNotProvidedException;
@@ -35,6 +36,7 @@ public class EditModuleCommand extends EditCommand {
     public EditModuleCommand(String oldModuleCode, String newModuleCode) {
         this.oldModuleCode = oldModuleCode;
         this.newModuleCode = newModuleCode.toUpperCase();
+        setPromptType(PromptType.EDIT);
     }
 
     /**

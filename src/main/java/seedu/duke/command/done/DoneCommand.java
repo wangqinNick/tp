@@ -20,7 +20,7 @@ public class DoneCommand extends Command {
 
     public DoneCommand(int taskId) {
         this.taskId = taskId;
-        this.promptType = PromptType.EDIT;
+        setPromptType(PromptType.EDIT);
     }
 
     /**
