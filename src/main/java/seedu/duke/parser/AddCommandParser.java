@@ -90,7 +90,7 @@ public class AddCommandParser {
      */
     private static AddCommand getAddCommand(String commandFlag, String addedTask, String taskDeadline) {
         if (commandFlag.equals(MODULE_PREFIX)) {
-            return new AddModuleCommand(addedTask);
+            return new AddModuleCommand(addedTask.toUpperCase());
         } else if (commandFlag.equals(TASK_PREFIX)) {
             return new AddTaskCommand(addedTask, taskDeadline);
         } else {
