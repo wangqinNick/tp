@@ -20,24 +20,24 @@ Welcome to the ra.VI User Guide! Choose a section or sub-section from the table 
 ... 4.2.1 Add a task  
 ... 4.2.2 Add a module  
 4.3 Edit an item  
-... 4.2.1 Edit a task description  
-... 4.2.2 Editing a module  
+... 4.3.1 Edit a task description  
+... 4.3.2 Editing a module  
 4.4 Delete an item  
-... 4.2.1 Delete a task  
-... 4.2.2 Delete a module  
+... 4.4.1 Delete a task  
+... 4.4.2 Delete a module  
 4.4 List items  
-... 4.2.1 List tasks  
-... 4.2.2 List modules  
-4.5 Grade a module  
-4.6 Calculate CAP  
-4.7 Mark task as done  
-4.8 Undo previous command  
-4.9 Summary  
-4.10 Timetable  
-... 4.10.1 View timetable  
-... 4.10.2 Add a lesson  
-... 4.10.3 Delete a lesson  
-4.11 Exit  
+... 4.5.1 List tasks  
+... 4.5.2 List modules  
+4.6 Grade a module  
+4.7 Calculate CAP  
+4.8 Mark task as done  
+4.9 Undo previous command  
+4.10 Summary  
+4.11 Timetable  
+... 4.11.1 View timetable  
+... 4.11.2 Add a lesson  
+... 4.11.3 Delete a lesson  
+4.12 Exit  
 
 ### 1.1 About
 
