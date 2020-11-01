@@ -9,7 +9,7 @@ import static seedu.duke.util.Message.MESSAGE_TIMETABLE_RESET;
 public class TimeTableResetCommand extends Command {
     @Override
     public CommandResult execute() {
-        if (TimeTableManager.isInitialised()){
+        if (TimeTableManager.isInitialised()) {
             TimeTableManager.clearTimeTable();
         }
         TimeTableManager.initialiseTimetable();
