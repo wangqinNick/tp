@@ -13,8 +13,6 @@ import seedu.duke.ui.TextUi;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import static seedu.duke.util.ExceptionMessage.TIMETABLE_NOT_INITIALISED;
-
 public class Duke {
     private TextUi ui;
     private static final DukeLogger logger = new DukeLogger(Duke.class.getName());
@@ -37,13 +35,7 @@ public class Duke {
         StateManager.initialise();
         ui.showWelcomeMessage(loadStatus);
         while (!TimeTableManager.isInitialised()) {
-            try {
-                ui.showTimeTableInitialisationMessage();
-                int currWeekNum = TextUi.getCurrentWeekNum();
-                TimeTableManager.initialise(currWeekNum);
-            } catch (Exception e) {
-                ui.outputToUser(TIMETABLE_NOT_INITIALISED);
-            }
+            TimeTableManager.initialiseTimetable();
         }
         logger.getLogger().info("Initialised scanner, UI, and IO");
     }
