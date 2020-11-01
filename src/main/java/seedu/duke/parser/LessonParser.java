@@ -5,6 +5,7 @@ import seedu.duke.data.LessonFilter;
 import seedu.duke.data.LessonType;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.exception.LessonInvalidTimeException;
+import seedu.duke.exception.ModuleNotFoundException;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
@@ -27,12 +28,12 @@ public class LessonParser {
      *
      * @param lessonMatcher Matcher for the parameters.
      * @return Lesson created from the Lesson parameters.
-     * @throws ModuleManager.ModuleNotFoundException When the module is not found in the module list.
+     * @throws ModuleNotFoundException When the module is not found in the module list.
      * @throws LessonInvalidTimeException When the start is greater than or equal to end time of the Lesson.
      * @throws DateTimeParseException When the time of either the start or end is in the wrong format.
      */
     public static Lesson parseLesson(Matcher lessonMatcher) throws
-            ModuleManager.ModuleNotFoundException, LessonInvalidTimeException, DateTimeParseException,
+            ModuleNotFoundException, LessonInvalidTimeException, DateTimeParseException,
             IllegalArgumentException {
         String modString = lessonMatcher.group(MODULE_GROUP).toUpperCase().trim();
         String dayString = lessonMatcher.group(DAY_GROUP).toUpperCase().trim();
@@ -40,8 +41,8 @@ public class LessonParser {
         String endTimeString = lessonMatcher.group(END_TIME_GROUP).trim();
         String lessonTypeString = lessonMatcher.group(LESSON_TYPE_GROUP).toUpperCase().trim();
         // Check if modString is in module list
-        if (!ModuleManager.contains(modString)) {
-            throw new ModuleManager.ModuleNotFoundException();
+        if (!ModuleManager.doesContainMod(modString)) {
+            throw new ModuleNotFoundException();
         }
         // Convert dayString to DayOfWeek
         DayOfWeek dayOfWeek = DayOfWeek.valueOf(dayString);
@@ -58,7 +59,7 @@ public class LessonParser {
 
 
     public static ArrayList<LessonFilter> parseFilterLesson(Matcher filterMatcher) throws
-            ModuleManager.ModuleNotFoundException, DateTimeParseException,
+            ModuleNotFoundException, DateTimeParseException,
             IllegalArgumentException {
         final String modString = filterMatcher.group(MODULE_GROUP).toUpperCase().trim();
         final String dayString = filterMatcher.group(DAY_GROUP).toUpperCase().trim();
@@ -70,8 +71,8 @@ public class LessonParser {
 
         if (!modString.equals(SKIP_PARAMETER_CHAR)) {
             // Check if modString is in module list
-            if (!ModuleManager.contains(modString)) {
-                throw new ModuleManager.ModuleNotFoundException();
+            if (!ModuleManager.doesContainMod(modString)) {
+                throw new ModuleNotFoundException();
             } else {
                 LessonFilter modFilter = (l) -> l.getModuleCode().equals(modString);
                 filterList.add(modFilter);

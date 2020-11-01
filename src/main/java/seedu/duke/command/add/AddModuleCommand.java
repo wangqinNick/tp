@@ -2,8 +2,9 @@ package seedu.duke.command.add;
 
 import seedu.duke.command.CommandResult;
 import seedu.duke.command.PromptType;
-import seedu.duke.data.Module;
 import seedu.duke.data.ModuleManager;
+import seedu.duke.exception.DuplicateModuleException;
+import seedu.duke.exception.ModuleNotProvidedException;
 
 import static seedu.duke.util.ExceptionMessage.MESSAGE_DUPLICATE_MODULE;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_MODULE_NOT_PROVIDED;
@@ -22,7 +23,7 @@ public class AddModuleCommand extends AddCommand {
      * @param module Module code to be added.
      */
     public AddModuleCommand(String module) {
-        this.module = module;
+        this.module = module.toUpperCase();
         setPromptType(PromptType.EDIT);
     }
 
@@ -30,12 +31,10 @@ public class AddModuleCommand extends AddCommand {
      * Add the Module to the module list.
      *
      * @param module Module code to be added.
-     * @throws ModuleManager.DuplicateModuleException if the module is already in the list
+     * @throws DuplicateModuleException if the module is already in the list
      */
-    private void addModule(String module) throws ModuleManager.DuplicateModuleException,
-            ModuleManager.ModuleNotFoundException {
-        Module newModule = new Module(module);
-        ModuleManager.add(newModule);
+    private void addModule(String module) throws DuplicateModuleException, ModuleNotProvidedException {
+        ModuleManager.add(module);
     }
 
     /**
@@ -49,9 +48,9 @@ public class AddModuleCommand extends AddCommand {
         try {
             addModule(module);
             message = MESSAGE_ADD_MODULE_SUCCESS;
-        } catch (ModuleManager.DuplicateModuleException e) {
+        } catch (DuplicateModuleException e) {
             message = MESSAGE_DUPLICATE_MODULE;
-        } catch (ModuleManager.ModuleNotFoundException e) {
+        } catch (ModuleNotProvidedException e) {
             message = MESSAGE_MODULE_NOT_PROVIDED;
         }
         return new CommandResult(message);

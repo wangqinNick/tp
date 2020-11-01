@@ -3,6 +3,8 @@ package seedu.duke.data.storage;
 import com.alibaba.fastjson.JSONException;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.data.TimeTableManager;
+import seedu.duke.exception.ModuleNotFoundException;
+import seedu.duke.exception.ModuleNotProvidedException;
 import seedu.duke.util.FileName;
 import seedu.duke.data.TaskManager;
 import seedu.duke.DukeLogger;
@@ -11,6 +13,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 import java.util.logging.Level;
+
 
 /**
  * Manages all inputs and outputs (to and from files).
@@ -155,7 +158,7 @@ public class InputOutputManager {
                 Encoder.saveTasks(USER_TASK_FILE.toString());
             }
             Encoder.saveTimetable(TIMETABLE_FILE.toString()); // always save, even if there's no lessons
-        } catch (ModuleManager.ModuleNotFoundException | TaskManager.TaskNotFoundException | IOException e) {
+        } catch (ModuleNotFoundException | TaskManager.TaskNotFoundException | IOException e) {
             logger.getLogger().log(Level.WARNING, e.getLocalizedMessage(), e);
         }
 
@@ -168,7 +171,7 @@ public class InputOutputManager {
         logger.getLogger().info("Saving NUS modules into " + NUS_MOD_F_NAME);
         try {
             Encoder.saveNusModules(NUS_MODULE_FILE.toString());
-        } catch (ModuleManager.ModuleNotFoundException | IOException e) {
+        } catch (ModuleNotProvidedException | IOException e) {
             logger.getLogger().log(Level.WARNING, e.getLocalizedMessage(), e);
         }
     }
