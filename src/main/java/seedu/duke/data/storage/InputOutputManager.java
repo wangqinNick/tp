@@ -14,6 +14,7 @@ import java.nio.file.Files;
 
 import java.util.logging.Level;
 
+
 /**
  * Manages all inputs and outputs (to and from files).
  * Encoder and Decoder are only used by InputOutputManager.
@@ -170,7 +171,7 @@ public class InputOutputManager {
         logger.getLogger().info("Saving NUS modules into " + NUS_MOD_F_NAME);
         try {
             Encoder.saveNusModules(NUS_MODULE_FILE.toString());
-        } catch (ModuleNotFoundException | IOException e) {
+        } catch (ModuleNotProvidedException | IOException e) {
             logger.getLogger().log(Level.WARNING, e.getLocalizedMessage(), e);
         }
     }
