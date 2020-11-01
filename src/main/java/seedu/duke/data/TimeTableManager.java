@@ -4,11 +4,14 @@ import seedu.duke.exception.LessonInvalidTimeException;
 import seedu.duke.exception.TimeTableInitialiseException;
 import seedu.duke.exception.ModuleNotFoundException;
 import seedu.duke.DukeLogger;
+import seedu.duke.ui.TextUi;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
+
+import static seedu.duke.util.ExceptionMessage.TIMETABLE_NOT_INITIALISED;
 
 public class TimeTableManager {
     private static TimeTable timetable = new TimeTable();
@@ -265,6 +268,16 @@ public class TimeTableManager {
             outputList.add(lessonList);
         }
         return outputList;
+    }
+
+    public static void initialiseTimetable() {
+        try {
+            TextUi.showTimeTableInitialisationMessage();
+            int currWeekNum = TextUi.getCurrentWeekNum();
+            TimeTableManager.initialise(currWeekNum);
+        } catch (Exception e) {
+            TextUi.outputToUser(TIMETABLE_NOT_INITIALISED);
+        }
     }
 
     public static int getWeekLessonCount(int week) {

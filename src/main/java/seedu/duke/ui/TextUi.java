@@ -13,18 +13,15 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 import static seedu.duke.util.ExceptionMessage.MESSAGE_LIST_EMPTY;
-import static seedu.duke.util.Message.MESSAGE_GENERAL_HELP;
 import static seedu.duke.util.Message.MESSAGE_COMPLETED_TASKLIST;
+import static seedu.duke.util.Message.MESSAGE_GENERAL_HELP;
 import static seedu.duke.util.Message.MESSAGE_INCOMPLETE_DATED_TASKLIST;
 import static seedu.duke.util.Message.MESSAGE_INCOMPLETE_UNDATED_TASKLIST;
-import static seedu.duke.util.Message.MESSAGE_LOADING_FAILURE;
-import static seedu.duke.util.Message.MESSAGE_LOADING_SKIPPED;
-import static seedu.duke.util.Message.MESSAGE_LOADING_SUCCESS;
 import static seedu.duke.util.Message.MESSAGE_LOADING_TEMPLATE;
 import static seedu.duke.util.Message.MESSAGE_NO_LESSONS;
+import static seedu.duke.util.Message.MESSAGE_TIMETABLE_FOOTER;
 import static seedu.duke.util.Message.MESSAGE_TIMETABLE_HEADER;
 import static seedu.duke.util.Message.MESSAGE_TIMETABLE_INIT;
-import static seedu.duke.util.Message.MESSAGE_TIMETABLE_FOOTER;
 import static seedu.duke.util.Message.MESSAGE_TIMETABLE_MIDDLE;
 
 public class TextUi {
@@ -94,7 +91,7 @@ public class TextUi {
                 DIV_LINE);
     }
 
-    public void showTimeTableInitialisationMessage() {
+    public static void showTimeTableInitialisationMessage() {
         outputToUser(
                 DIV_LINE,
                 MESSAGE_TIMETABLE_INIT,

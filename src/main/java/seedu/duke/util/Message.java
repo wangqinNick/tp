@@ -71,4 +71,5 @@ public class Message {
     public static final String MESSAGE_TIMETABLE_MIDDLE = "\n ├───────────┼────┼────────────────────┤\n";
     public static final String MESSAGE_TIMETABLE_FOOTER = "\n └───────────┴────┴────────────────────┘\n";
     public static final String MESSAGE_NO_LESSONS = "\nNo lessons on ";
+    public static final String MESSAGE_TIMETABLE_RESET = "Timetable reset successful.";
 }

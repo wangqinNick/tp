@@ -6,6 +6,7 @@ import seedu.duke.command.timetable.TimeTableAddCommand;
 import seedu.duke.command.timetable.TimeTableCommand;
 import seedu.duke.command.timetable.TimeTableDeleteCommand;
 import seedu.duke.command.timetable.TimeTableFilterCommand;
+import seedu.duke.command.timetable.TimeTableResetCommand;
 import seedu.duke.command.timetable.TimeTableViewCommand;
 import seedu.duke.data.Lesson;
 import seedu.duke.data.LessonFilter;
@@ -42,6 +43,7 @@ public abstract class TimeTableCommandParser {
     public static final String FILTER_FORMAT = "-filter";
     public static final String VIEW_DAY_FORMAT = "-day";
     public static final String VIEW_WEEK_FORMAT = "-week";
+    public static final String RESET_FORMAT = "-reset";
     private static final Pattern TIMETABLE_FORMAT = Pattern.compile("(?<commandFlag>-[a-zA-Z]+)"
             + "(?<timeTableParams>.*)");
     private static final Pattern TIMETABLE_LESSON_PARAMETER_FORMAT =
@@ -80,6 +82,9 @@ public abstract class TimeTableCommandParser {
                 break;
             case FILTER_FORMAT:
                 command = parseTimeTableFilterCommand(timeTableParams);
+                break;
+            case RESET_FORMAT:
+                command = parseTimeTableResetCommand(timeTableParams);
                 break;
             default: // Check if it is a view command
                 command = parseTimeTableViewCommand(commandFlag, timeTableParams);
@@ -178,5 +183,21 @@ public abstract class TimeTableCommandParser {
         ArrayList<LessonFilter> filterList = LessonParser.parseFilterLesson(filterMatcher);
 
         return new TimeTableFilterCommand(filterList);
+    }
+
+    /**
+     * Parses the timetable reset command.
+     * Accepted command will be:
+     * timetable -reset
+     *
+     * @param resetParams Remaining user input.
+     * @return TimeTableResetCommand or IncorrectCommand.
+     */
+    public static Command parseTimeTableResetCommand(String resetParams) {
+        if (!resetParams.isEmpty()) {
+            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n", MESSAGE_INVALID_COMMAND_FORMAT, resetParams,
+                    MESSAGE_CHECK_COMMAND_FORMAT, TimeTableCommand.FORMAT));
+        }
+        return new TimeTableResetCommand();
     }
 }
