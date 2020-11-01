@@ -36,7 +36,7 @@ public class EditModuleCommand extends EditCommand {
      *  The new module code for the module if any
      */
     public EditModuleCommand(String oldModuleCode, String newModuleCode) {
-        this.oldModuleCode = oldModuleCode;
+        this.oldModuleCode = oldModuleCode.toUpperCase();
         this.newModuleCode = newModuleCode.toUpperCase();
         setPromptType(PromptType.EDIT);
     }

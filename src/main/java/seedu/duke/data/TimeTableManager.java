@@ -79,7 +79,7 @@ public class TimeTableManager {
      */
     public static void addLesson(Lesson lesson, int repeat) throws LessonInvalidTimeException, ModuleNotFoundException {
         logger.getLogger().info("Adding lesson: " + lesson.toString() + " with repeat: " + repeat);
-        if (!ModuleManager.contains(lesson.getModuleCode())) {
+        if (!ModuleManager.doesContainMod(lesson.getModuleCode())) {
             logger.getLogger().warning("Could not add lesson as module not in user module list!");
             throw new ModuleNotFoundException();
         }

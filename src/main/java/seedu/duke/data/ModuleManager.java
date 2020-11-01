@@ -55,12 +55,12 @@ public class ModuleManager {
     public static void edit(String newModuleCode, String oldModuleCode)
             throws ModuleNotProvidedException, DuplicateModuleException, ModuleNotFoundException {
         logger.getLogger().info("Editing module at old module code: " + oldModuleCode);
-        if (!modulesMap.containsKey(oldModuleCode)) {
+        if (!doesContainMod(oldModuleCode)) {
             logger.getLogger().warning("Old module code not found!");
             throw new ModuleNotFoundException();
         }
         add(newModuleCode);
-        modulesMap.remove(oldModuleCode);
+        delete(oldModuleCode);
     }
 
     /**
@@ -76,7 +76,7 @@ public class ModuleManager {
      * If there is no such module in the user's module list
      */
     public static void grade(String moduleCode, String grade, double moduleCredit) throws ModuleNotFoundException {
-        if (contains(moduleCode)) {
+        if (doesContainMod(moduleCode)) {
             getModule(moduleCode).setModuleGrade(grade);
             getModule(moduleCode).setModuleCredit(moduleCredit);
         } else {
@@ -91,7 +91,7 @@ public class ModuleManager {
      * @return
      *  <code>TRUE</code> if there exists a duplicate, and <code>FALSE</code> otherwise
      */
-    public static boolean contains(String moduleCode) {
+    public static boolean doesContainMod(String moduleCode) {
         for (String eachCode : modulesMap.keySet()) {
             if (eachCode.equalsIgnoreCase(moduleCode)) {
                 return true;
@@ -107,7 +107,7 @@ public class ModuleManager {
      */
     public static void add(String moduleCode) throws DuplicateModuleException, ModuleNotProvidedException {
         logger.getLogger().info("Adding module with code: " + moduleCode);
-        if (contains(moduleCode)) {
+        if (doesContainMod(moduleCode)) {
             logger.getLogger().warning("Can't add module because it already exists!");
             throw new DuplicateModuleException();
         }
@@ -122,7 +122,7 @@ public class ModuleManager {
      */
     public static void delete(String moduleCode) throws ModuleNotFoundException {
         logger.getLogger().info("Deleting module with code: " + moduleCode);
-        if (!contains(moduleCode)) {
+        if (!doesContainMod(moduleCode)) {
             logger.getLogger().warning("Can't delete module because it doesn't exist!");
             throw new ModuleNotFoundException();
         }

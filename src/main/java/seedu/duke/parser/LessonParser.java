@@ -41,7 +41,7 @@ public class LessonParser {
         String endTimeString = lessonMatcher.group(END_TIME_GROUP).trim();
         String lessonTypeString = lessonMatcher.group(LESSON_TYPE_GROUP).toUpperCase().trim();
         // Check if modString is in module list
-        if (!ModuleManager.contains(modString)) {
+        if (!ModuleManager.doesContainMod(modString)) {
             throw new ModuleNotFoundException();
         }
         // Convert dayString to DayOfWeek
@@ -71,7 +71,7 @@ public class LessonParser {
 
         if (!modString.equals(SKIP_PARAMETER_CHAR)) {
             // Check if modString is in module list
-            if (!ModuleManager.contains(modString)) {
+            if (!ModuleManager.doesContainMod(modString)) {
                 throw new ModuleNotFoundException();
             } else {
                 LessonFilter modFilter = (l) -> l.getModuleCode().equals(modString);
