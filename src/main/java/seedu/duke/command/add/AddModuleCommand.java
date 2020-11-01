@@ -23,7 +23,7 @@ public class AddModuleCommand extends AddCommand {
      * @param module Module code to be added.
      */
     public AddModuleCommand(String module) {
-        this.module = module;
+        this.module = module.toUpperCase();
         setPromptType(PromptType.EDIT);
     }
 

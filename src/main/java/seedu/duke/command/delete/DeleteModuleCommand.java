@@ -21,7 +21,7 @@ public class DeleteModuleCommand extends DeleteCommand {
      * @param moduleCode Module code to be deleted.
      */
     public DeleteModuleCommand(String moduleCode) {
-        this.moduleCode = moduleCode;
+        this.moduleCode = moduleCode.toUpperCase();
         setPromptType(PromptType.EDIT);
     }
 
