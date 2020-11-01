@@ -3,6 +3,7 @@ package seedu.duke.parser;
 import org.junit.jupiter.api.Test;
 import seedu.duke.command.grade.GradeCommand;
 import seedu.duke.exception.InvalidMatchException;
+import seedu.duke.exception.InvalidModuleCreditException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -14,7 +15,7 @@ class GradeCommandParserTest {
     static final String INVALID_GRADE_INPUT_EXCESS = "CG2271 4 A+ or B+ anything tbh";
 
     @Test
-    void prepareGradeCommand_returnsGradeCommand() throws InvalidMatchException {
+    void prepareGradeCommand_returnsGradeCommand() throws InvalidMatchException, InvalidModuleCreditException {
         assertTrue(GradeCommandParser.prepareGradeCommand(VALID_GRADE_INPUT)
             instanceof GradeCommand);
     }

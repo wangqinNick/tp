@@ -39,13 +39,15 @@ public class ExceptionMessage {
             "\nYour list is empty.\n";
     public static final String MESSAGE_STRING_IN_NUMBER =
             "There seems to be a string in the place of a number \n"
+            + "Or the number you have entered is too long... \n"
             + "Please check your command! Use help <command> for assistance.\n";
     public static final String MESSAGE_INVALID_COMMAND_WORD =
             "I don't recognise that command...\n"
             + "Please use help to see our list of commands.\n";
     public static final String MESSAGE_INVALID_GRADE =
             "Your grade input isn't part of the NUS grading scheme. \n"
-            + "For your reference: A+, A, A-, B+, B, B-, C+, C, C-, D+, F.\n";
+            + "For your reference: A+, A, A-, B+, B, B-, C+, C, C-, D+, F. \n"
+            + "Grades CS,CU,S,U are not accepted. \n";
     public static final String MESSAGE_LESSON_INVALID_TIME =
             "Sorry, the lesson you have attempted to add "
             + "either overlaps with other lessons or has an invalid start time.\n"
@@ -67,7 +69,12 @@ public class ExceptionMessage {
     public static final String MESSAGE_DATE_TIME_UNKNOWN =
             "Please enter a valid date and time.\n"
             + "You can use help <command> to find the required date time format.\n";
-
+    public static final String MESSAGE_INVALID_CAP =
+            "Amazing you have entered an invalid cap, Good try. \n";
+    public static final String MESSAGE_INVALID_CAP_ATTAINED =
+            "Amazing you have attained an Invalid cap, on purpose or not? \n";
+    public static final String MESSAGE_INVALID_MC =
+            "Amazing you have entered an invalid number of module credits taken, Nice try. \n";
 
     public static final String MESSAGE_MISSING_DIRECTORY_NAME =
             "Please include the name of the directory you want to move to.\n"

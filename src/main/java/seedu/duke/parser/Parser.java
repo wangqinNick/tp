@@ -1,10 +1,11 @@
 package seedu.duke.parser;
 
-import seedu.duke.command.cap.CapCommand;
+import seedu.duke.DukeLogger;
 import seedu.duke.command.Command;
 import seedu.duke.command.ExitCommand;
 import seedu.duke.command.IncorrectCommand;
 import seedu.duke.command.add.AddCommand;
+import seedu.duke.command.cap.CapCommand;
 import seedu.duke.command.delete.DeleteCommand;
 import seedu.duke.command.done.DoneCommand;
 import seedu.duke.command.edit.EditCommand;
@@ -14,14 +15,16 @@ import seedu.duke.command.list.ListCommand;
 import seedu.duke.command.misc.UndoCommand;
 import seedu.duke.command.summary.SummaryCommand;
 import seedu.duke.command.timetable.TimeTableCommand;
+import seedu.duke.exception.InvalidCapException;
 import seedu.duke.exception.InvalidMatchException;
-
-import seedu.duke.DukeLogger;
+import seedu.duke.exception.InvalidModuleCreditException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static seedu.duke.util.ExceptionMessage.MESSAGE_INVALID_CAP;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_INVALID_COMMAND_WORD;
+import static seedu.duke.util.ExceptionMessage.MESSAGE_INVALID_MC;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_INVALID_PARAMETERS;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_STRING_IN_NUMBER;
 import static seedu.duke.util.Message.MESSAGE_EMPTY_INPUT;
@@ -115,6 +118,12 @@ public class Parser {
         } catch (InvalidMatchException e) {
             logger.getLogger().warning(e.getMessage());
             return new IncorrectCommand(e.getMessage());
+        } catch (InvalidModuleCreditException e) {
+            logger.getLogger().warning("Invalid Module Credit input");
+            return new IncorrectCommand(MESSAGE_INVALID_MC);
+        } catch (InvalidCapException e) {
+            logger.getLogger().warning("Invalid Cap detected");
+            return new IncorrectCommand(MESSAGE_INVALID_CAP);
         }
     }
 

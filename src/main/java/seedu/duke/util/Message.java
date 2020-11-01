@@ -60,7 +60,8 @@ public class Message {
             + "\t▻ bye       → Exit ra.VI (saves all changes!)";
     public static final String MESSAGE_TIMETABLE_INIT =
             "Please enter the current week num e.g. 1 - 14"
-                    + " where 7 is recess week.\n" + "In here, NUS week 7 onwards is week 8 onwards.";
+                    + " where 7 is recess week.\n" + "In RaVi, NUS week 7 onwards is week 8 onwards. \n"
+                    + "For example, in Academic week 9, please input the current weak num to be 10";
     public static final String MESSAGE_TIMETABLE_HEADER =
             " ┌───────────┬────┬────────────────────┐\n"
             + " │   Time    │ ID │       Lesson       │\n"

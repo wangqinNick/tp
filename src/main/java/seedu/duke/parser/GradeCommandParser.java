@@ -3,6 +3,7 @@ package seedu.duke.parser;
 import seedu.duke.command.Command;
 import seedu.duke.command.grade.GradeCommand;
 import seedu.duke.exception.InvalidMatchException;
+import seedu.duke.exception.InvalidModuleCreditException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -27,7 +28,7 @@ public class GradeCommandParser {
      * When the user input doesn't match the REGEX format for the Grade Command
      */
     protected static Command prepareGradeCommand(String parameters)
-            throws NumberFormatException, InvalidMatchException {
+            throws NumberFormatException, InvalidMatchException, InvalidModuleCreditException {
         Matcher matcher = GRADE_FORMAT.matcher(parameters);
 
         Parser.matcherMatches(matcher, parameters, GradeCommand.FORMAT, GradeCommand.PROMPT_HELP);
@@ -41,7 +42,15 @@ public class GradeCommandParser {
 
         double intMc = Double.parseDouble(mc);
 
+        isValidMc(intMc);
+
         return new GradeCommand(module,intMc,grade);
+    }
+
+    private static void isValidMc(double intMc) throws InvalidModuleCreditException {
+        if (intMc < 0 || intMc > 20) {
+            throw new InvalidModuleCreditException();
+        }
     }
 
 }
