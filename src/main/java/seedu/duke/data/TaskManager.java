@@ -3,6 +3,7 @@ package seedu.duke.data;
 import seedu.duke.exception.DataNotFoundException;
 import seedu.duke.ui.TextUi;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -29,18 +30,38 @@ public class TaskManager {
     /**
      * Edits a task in the Task List.
      *
-     * @param editedTask
-     *  The edited task
      * @param taskId
      *  The index of the task in the Task List.
+     * @param editedTaskDesc
+     *  The edited task description string
      * @throws TaskNotFoundException
-     *  If
+     *  If there is no task found with that ID
      */
-    public static void edit(Task editedTask, int taskId) throws TaskNotFoundException {
+    public static void edit(int taskId, String editedTaskDesc) throws TaskNotFoundException {
         if (taskId < 0 || taskId > tasksList.size() - 1) {
             throw new TaskNotFoundException();
         }
-        tasksList.set(taskId, editedTask);
+        tasksList.get(taskId).setName(editedTaskDesc);
+    }
+
+    /**
+     * Edits a task in the Task List.
+     *
+     * @param taskId
+     *  The index of the task in the Task List.
+     * @param editedTaskDesc
+     *  The edited task description string
+     * @param deadline
+     *  The edited deadline
+     * @throws TaskNotFoundException
+     *  If there is no task found with that ID
+     */
+    public static void edit(int taskId, String editedTaskDesc, LocalDateTime deadline) throws TaskNotFoundException {
+        if (taskId < 0 || taskId > tasksList.size() - 1) {
+            throw new TaskNotFoundException();
+        }
+        tasksList.get(taskId).setName(editedTaskDesc);
+        tasksList.get(taskId).setDeadline(deadline);
     }
 
     /**
