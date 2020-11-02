@@ -48,17 +48,28 @@ This user guide provides in-depth documentation on the ra.VI installation proces
 Repository Assistant with a Versatile Interface (ra.VI) is a desktop app for managing tasks, deadlines, and notes, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ra.VI can manage your tasks faster than traditional GUI apps.\
 ra.VI helps you to manage your tasks, and their corresponding deadlines with ease. It can also help you plan your timetable and being organised keeps you ahead of the curve.
 
-**1.2.1 Tasks**\
+**1.2.1 Tasks**
+
 &nbsp;&nbsp;A task refers to something that you would like to get done. This refers to reading a book or doing an assignment. Tasks can be created with or without a deadline. <br>
-**1.2.2 Deadline**\
+
+**1.2.2 Deadline**
+
 &nbsp;&nbsp;A deadline refers to a date and time associated with a task. This is in the format: DAY-MONTH-YEAR TIME_24H, e.g. `23-12-2020 1400` or `1-2-2000 0800` <br>
-**1.2.3 Modules**\
+
+**1.2.3 Modules**
+
 &nbsp;&nbsp;A module refers to a module taken under NUS. Entered modules will be checked against the list of NUS modules. <br>
-**1.2.4 CAP**\
+
+**1.2.4 CAP**
+
 &nbsp;&nbsp;CAP refers to Cumulative Average Point, which is the grading system used by NUS. CAP will be calculated based on your modules. <br>
-**1.2.5 Done**\
+
+**1.2.5 Done**
+
 &nbsp;&nbsp;A task can be marked as done. This will signify completion of the task so that you can get an easy view of any remaining tasks. <br>
-**1.2.6 Timetable**\
+
+**1.2.6 Timetable**
+
 &nbsp;&nbsp;The timetable is specific to you. It allows you to add lessons to your timetable with respect to the modules that you are taking. After setting the timetable up the first time, you do not need to go through the set up again. <br>
 
 ### 1.3 Product Overview
@@ -71,14 +82,16 @@ Adding on, ra.VI also allows you to keep track of your CAP, so that you can keep
 ### 1.4 Quick Start
 
 1. Ensure that you have Java 11 or above installed.
-2. Download the latest version of `ra.VI` from [here](https://github.com/AY2021S1-CS2113T-T09-2/tp/releases/tag/v1.0).
-3. Copy the file to the folder you want to use as the home folder for your scheduler. Double-click the file to start the app. 
-4. Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter will open the help window.  
+2. Download the latest version of `ra.VI` from [here](https://github.com/AY2021S1-CS2113T-T09-2/tp/releases/tag/v2.0).
+3. Copy the file to the folder you want to use as the home folder for `ra.VI`.
+4. Open a command prompt in the folder from step 3 and enter `java -jar ravi.jar`.
+5. Enter the current NUS week number as prompted.
+5. Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter will show the help message.  
 Some example commands you can try:
 * `add -t`: Add a task
 * `list -t`: List all tasks
-* `bye`: Exit the program read chapter 1`
-5. Refer to the Features below for details of each command
+* `bye`: Exit the program
+6. Refer to the Features below for details of each command, or refer to the command summary for a quick look at all possible commands.
 
 ## 4 Features 
 
