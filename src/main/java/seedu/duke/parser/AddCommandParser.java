@@ -26,7 +26,8 @@ public class AddCommandParser {
     protected static final String DEADLINE_GROUP = "deadline";
     protected static final String BY_GROUP = "by";
     protected static final Pattern ADD_FORMAT =
-            Pattern.compile("(?<commandFlag>-\\S+)" + "(?<desc>(?:(?!-by).)*)" + "((?<by>-by)?)" + "((?<deadline>.*)?)");
+            Pattern.compile("(?<commandFlag>-\\S+)" + "(?<desc>(?:(?!-by).)*)"
+                    + "((?<by>-by)?)" + "((?<deadline>.*)?)");
 
     /**
      * Takes the user's input and parses it into the respective arguments for AddCommand.
