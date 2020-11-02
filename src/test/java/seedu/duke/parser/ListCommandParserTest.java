@@ -1,7 +1,6 @@
 package seedu.duke.parser;
 
 import org.junit.jupiter.api.Test;
-import seedu.duke.command.help.HelpCommand;
 import seedu.duke.command.list.ListCommand;
 import seedu.duke.exception.InvalidMatchException;
 
@@ -27,12 +26,12 @@ class ListCommandParserTest {
     @Test
     void getListCommand_InvalidMatcherException_isThrown() throws InvalidMatchException {
         assertThrows(InvalidMatchException.class,
-            () -> ListCommandParser.getListCommand(INVALID_LIST_TASK_INPUT_EXCESS));
+                () -> ListCommandParser.getListCommand(INVALID_LIST_TASK_INPUT_EXCESS));
     }
 
     @Test
     void getListCommand_InvalidParameterException_isThrown() throws InvalidMatchException {
         assertThrows(InvalidParameterException.class,
-            () -> ListCommandParser.getListCommand(INVALID_LIST_PREFIX));
+                () -> ListCommandParser.getListCommand(INVALID_LIST_PREFIX));
     }
 }

@@ -20,6 +20,6 @@ class CapCommandParserTest {
     @Test
     void prepareCapCommand_InvalidMatchException_isThrown() {
         assertThrows(InvalidMatchException.class,
-            () -> new CapCommandParser().prepareCapCommand(BAD_CAP_INPUT_CAP));
+                () -> new CapCommandParser().prepareCapCommand(BAD_CAP_INPUT_CAP));
     }
 }

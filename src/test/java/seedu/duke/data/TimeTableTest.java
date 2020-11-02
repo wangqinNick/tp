@@ -26,12 +26,12 @@ public class TimeTableTest {
     static final String MOD_CODE_1 = "CS2113T";
     static final String MOD_CODE_2 = "CG2271";
     static final String MOD_CODE_3 = "MA1511";
-    static final LocalTime time_12 = LocalTime.of(12,0);
-    static final LocalTime time_13 = LocalTime.of(13,0);
-    static final LocalTime time_14 = LocalTime.of(14,0);
-    static final LocalTime time_15 = LocalTime.of(15,0);
-    static final LocalTime time_16 = LocalTime.of(16,0);
-    static final LocalTime time_17 = LocalTime.of(17,0);
+    static final LocalTime time_12 = LocalTime.of(12, 0);
+    static final LocalTime time_13 = LocalTime.of(13, 0);
+    static final LocalTime time_14 = LocalTime.of(14, 0);
+    static final LocalTime time_15 = LocalTime.of(15, 0);
+    static final LocalTime time_16 = LocalTime.of(16, 0);
+    static final LocalTime time_17 = LocalTime.of(17, 0);
     static final LocalDateTime now = LocalDateTime.now();
     static final int CURR_WEEK = now.get(ChronoField.ALIGNED_WEEK_OF_YEAR);
 
@@ -142,7 +142,7 @@ public class TimeTableTest {
     @Test
     void verify_removeLesson_throwsOutOfBounds() {
         assertThrows(IndexOutOfBoundsException.class,
-            () -> TimeTableManager.deleteLesson(DayOfWeek.MONDAY, 1));
+                () -> TimeTableManager.deleteLesson(DayOfWeek.MONDAY, 1));
     }
 
     @Test
@@ -150,17 +150,17 @@ public class TimeTableTest {
             LessonOverlapException, LessonInvalidTimeException, ModuleNotFoundException {
         TimeTableManager.addLesson(lesson1, 1);
         assertThrows(LessonOverlapException.class,
-            () -> TimeTableManager.addLesson(lesson1, 0));
+                () -> TimeTableManager.addLesson(lesson1, 0));
         assertThrows(LessonOverlapException.class,
-            () -> TimeTableManager.addLesson(lesson1, 2));
+                () -> TimeTableManager.addLesson(lesson1, 2));
         assertThrows(LessonOverlapException.class,
-            () -> TimeTableManager.addLesson(lesson1, 3));
+                () -> TimeTableManager.addLesson(lesson1, 3));
 
         TimeTableManager.addLesson(lesson2, 2);
         assertThrows(LessonOverlapException.class,
-            () -> TimeTableManager.addLesson(lesson2, 1));
+                () -> TimeTableManager.addLesson(lesson2, 1));
         assertThrows(LessonOverlapException.class,
-            () -> TimeTableManager.addLesson(lesson2, 2));
+                () -> TimeTableManager.addLesson(lesson2, 2));
 
         TimeTableManager.addLesson(lesson2, 3); // testing whether repeat 2 and 3 clashes (should not)
     }

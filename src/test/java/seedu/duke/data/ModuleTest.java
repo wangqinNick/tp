@@ -34,7 +34,7 @@ public class ModuleTest {
     @Test
     void check_moduleNotFoundException_isThrown() {
         assertThrows(ModuleNotFoundException.class,
-            () -> ModuleManager.getModule("WHAT1010"));
+                () -> ModuleManager.getModule("WHAT1010"));
     }
 
     @Test

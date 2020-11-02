@@ -31,7 +31,7 @@ class GradeCommandTest {
 
     @Test
     void gradeCommand_MessageGradeSuccessful_isShown() {
-        GradeCommand gradeCommand = new GradeCommand(MODULE_CODE,4,"A+");
+        GradeCommand gradeCommand = new GradeCommand(MODULE_CODE, 4, "A+");
         CommandResult commandResult = gradeCommand.execute();
         assertEquals(Message.MESSAGE_GRADE_MODULE_SUCCESS, commandResult.feedbackToUser);
     }

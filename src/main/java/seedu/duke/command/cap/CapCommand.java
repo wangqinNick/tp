@@ -24,24 +24,24 @@ public class CapCommand extends Command {
 
     public static double Cap = 0.0;
 
-    public CapCommand(int totalMcTaken,double currentCap) {
+    public CapCommand(int totalMcTaken, double currentCap) {
         this.totalMcTaken = totalMcTaken;
         this.currentCap = currentCap;
         setPromptType(PromptType.EDIT);
     }
 
     private enum GradeSchematic {
-        A_PLUS("A+",5.0),
-        A("A",5.0),
-        A_MINUS("A-",4.5),
-        B_PLUS("B+",4.0),
-        B("B",3.5),
-        B_MINUS("B-",3.0),
-        C_PLUS("C+",2.5),
-        C("C",2.0),
-        D_PLUS("D+",1.5),
-        D("D",1.0),
-        F("F",0.0);
+        A_PLUS("A+", 5.0),
+        A("A", 5.0),
+        A_MINUS("A-", 4.5),
+        B_PLUS("B+", 4.0),
+        B("B", 3.5),
+        B_MINUS("B-", 3.0),
+        C_PLUS("C+", 2.5),
+        C("C", 2.0),
+        D_PLUS("D+", 1.5),
+        D("D", 1.0),
+        F("F", 0.0);
 
         private final String symbol;
         private final double value;
@@ -79,6 +79,6 @@ public class CapCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        return new CommandResult(String.format("%s%.2f\n",MESSAGE_CAP_DISPLAY,calculateCap()));
+        return new CommandResult(String.format("%s%.2f\n", MESSAGE_CAP_DISPLAY, calculateCap()));
     }
 }

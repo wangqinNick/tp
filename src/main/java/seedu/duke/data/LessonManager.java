@@ -26,6 +26,8 @@ public class LessonManager {
      *
      * @param newLesson
      *  The new Lesson object
+     * @throws LessonInvalidTimeException
+     *  When the new lesson overlaps with an existing lesson
      */
     public void addLesson(Lesson newLesson) throws LessonInvalidTimeException {
         DayOfWeek lessonDay = newLesson.getDay();
@@ -75,6 +77,8 @@ public class LessonManager {
      *  The specified day
      * @param lessonIndex
      *  The index of the lesson to be removed
+     * @throws LessonNotFoundException
+     *  When the lesson to be removed does not exist in the lesson map
      */
     public void removeLesson(DayOfWeek day, int lessonIndex) throws LessonNotFoundException {
         if (!lessonMap.containsKey(day)) {

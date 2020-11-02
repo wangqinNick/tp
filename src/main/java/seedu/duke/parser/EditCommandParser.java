@@ -101,7 +101,7 @@ public class EditCommandParser {
         if (Parser.isEmptyParse(newTaskDescription)) {
             return new IncorrectCommand(MESSAGE_NO_EDIT_TASK);
         } else {
-            return new EditTaskCommand(taskIndex,newTaskDescription);
+            return new EditTaskCommand(taskIndex, newTaskDescription);
         }
     }
 }
