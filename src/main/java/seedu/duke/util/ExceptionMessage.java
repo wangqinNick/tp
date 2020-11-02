@@ -1,5 +1,7 @@
 package seedu.duke.util;
 
+import javax.print.DocFlavor;
+
 public class ExceptionMessage {
     public static final String EXCEPTION_HEADER = "\uD83D\uDEAB Error! \uD83D\uDEAB"; // 'No entry sign' emoji
 
@@ -47,13 +49,15 @@ public class ExceptionMessage {
             "Your grade input isn't part of the NUS grading scheme. \n"
             + "For your reference: A+, A, A-, B+, B, B-, C+, C, C-, D+, F.\n";
     public static final String MESSAGE_LESSON_INVALID_TIME =
-            "Sorry, the lesson you have attempted to add "
-            + "either overlaps with other lessons or has an invalid start time.\n"
+            "Sorry, the lesson you have attempted to add has an invalid start time.\n"
             + "Try using timetable -day or timetable -week to look at your\n"
             + "current lessons first, or review your new lesson's start/end time.\n";
     public static final String MESSAGE_LESSON_NOT_FOUND =
             "Sorry, the lesson you have attempted to delete does not exist.\n"
             + "Use timetable (-week/-day) to look at your lessons and their index (ID).\n";
+    public static final String MESSAGE_LESSON_OVERLAP =
+            "Sorry, the lesson you have attempted to add overlaps with other lessons.\n"
+            + "This is the lesson you're overlapping with: %s\n";
     public static final String MESSAGE_REPEAT_FREQUENCY_UNKNOWN =
             "Sorry, the lesson you have attempted to add does "
             + "not have the correct repeatability.\n"
