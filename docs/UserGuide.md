@@ -47,10 +47,10 @@ This user guide provides in-depth documentation on the ra.VI installation proces
 Repository Assistant with a Versatile Interface (ra.VI) is a desktop app for managing tasks, deadlines, and notes, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ra.VI can manage your tasks faster than traditional GUI apps.\
 ra.VI helps you to manage your tasks, and their corresponding deadlines with ease. It can also help you plan your timetable and being organised keeps you ahead of the curve.
 
-**1.2.1 Tasks**
+**1.2.1 Tasks**\
 &nbsp;&nbsp;A task refers to something that you would like to get done. This refers to reading a book or doing an assignment. Tasks can be created with or without a deadline. <br>
 **1.2.2 Deadline**\
-&nbsp;&nbsp;A deadline refers to a date and time associated with a task. This is in the format d-M-YYYY Hmm, e.g. 23-12-2020 1400 <br>
+&nbsp;&nbsp;A deadline refers to a date and time associated with a task. This is in the format: DAY-MONTH-YEAR TIME_24H, e.g. `23-12-2020 1400` or `1-2-2000 0800` <br>
 **1.2.3 Modules**\
 &nbsp;&nbsp;A module refers to a module taken under NUS. Entered modules will be checked against the list of NUS modules. <br>
 **1.2.4 CAP**\
