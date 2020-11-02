@@ -12,6 +12,7 @@ import static seedu.duke.util.ExceptionMessage.MESSAGE_LESSON_INVALID_TIME;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_REPEAT_FREQUENCY_UNKNOWN;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_MODULE_NOT_FOUND;
 import static seedu.duke.util.Message.MESSAGE_ADD_LESSON_SUCCESS;
+import static seedu.duke.util.Message.MESSAGE_ADD_TASK_SUCCESS;
 
 public class TimeTableAddCommand extends TimeTableCommand {
     private final Lesson newLesson;
@@ -46,7 +47,7 @@ public class TimeTableAddCommand extends TimeTableCommand {
         String message;
         try {
             addLessonToTimeTable();
-            message = MESSAGE_ADD_LESSON_SUCCESS;
+            message = String.format(MESSAGE_ADD_LESSON_SUCCESS, newLesson.toString());
         } catch (LessonInvalidTimeException e) {
             message = MESSAGE_LESSON_INVALID_TIME;
         } catch (RepeatFrequencyInvalidException e) {

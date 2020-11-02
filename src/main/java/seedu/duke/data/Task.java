@@ -77,7 +77,7 @@ public class Task {
     }
 
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mma, EEEE, dd MMM yy ");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mma, EEEE, dd MMM yy");
         if (retrieveDeadline() == null) {
             return getName() + " [" + generateStatusIcon() + "]";
         } else {
