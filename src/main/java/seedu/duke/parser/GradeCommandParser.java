@@ -41,7 +41,7 @@ public class GradeCommandParser {
 
         double intMc = Double.parseDouble(mc);
 
-        return new GradeCommand(module,intMc,grade);
+        return new GradeCommand(module, intMc, grade);
     }
 
 }

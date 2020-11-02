@@ -3,14 +3,13 @@ package seedu.duke.command.grade;
 import seedu.duke.command.Command;
 import seedu.duke.command.CommandResult;
 import seedu.duke.command.PromptType;
-import seedu.duke.data.Module;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.exception.InvalidGradeException;
 import seedu.duke.exception.ModuleNotFoundException;
 import seedu.duke.ui.TextUi;
 
-import static seedu.duke.util.ExceptionMessage.MESSAGE_MODULE_NOT_FOUND;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_INVALID_GRADE;
+import static seedu.duke.util.ExceptionMessage.MESSAGE_MODULE_NOT_FOUND;
 import static seedu.duke.util.Message.MESSAGE_GRADE_MODULE_SUCCESS;
 
 
@@ -30,6 +29,8 @@ public class GradeCommand extends Command {
      *
      * @param moduleGraded
      * Module to be graded.
+     * @param moduleCredit
+     * Modular credits of the module to be graded.
      * @param grade
      * Grade attained by user for the specific module.
      */
@@ -47,7 +48,7 @@ public class GradeCommand extends Command {
      * grade input by user
      */
     private boolean testGrade(String grade) {
-        String[] validGrades = {"A+","A","A-","B+","B-","B","C+","C","D+","D","F"};
+        String[] validGrades = {"A+", "A", "A-", "B+", "B-", "B", "C+", "C", "D+", "D", "F"};
         for (String i: validGrades) {
             if (grade.equals(i)) {
                 return true;
@@ -65,7 +66,7 @@ public class GradeCommand extends Command {
      */
     private void grade() throws InvalidGradeException, ModuleNotFoundException {
         if (testGrade(grade)) {
-            ModuleManager.grade(moduleGraded,grade,moduleCredit);
+            ModuleManager.grade(moduleGraded, grade, moduleCredit);
         } else {
             throw new InvalidGradeException();
         }

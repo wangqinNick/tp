@@ -152,7 +152,7 @@ public class Parser {
     protected static void matcherMatches(Matcher matcher, String parameters, String format, String helpPrompt)
             throws InvalidMatchException {
         if (!matcher.matches()) {
-            throw new InvalidMatchException(parameters,format,helpPrompt);
+            throw new InvalidMatchException(parameters, format, helpPrompt);
         }
     }
 }

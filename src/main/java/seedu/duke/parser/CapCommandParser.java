@@ -31,7 +31,7 @@ public class CapCommandParser {
             throws NumberFormatException, NullPointerException, InvalidMatchException {
         Matcher matcher = CUMULATIVE_CAP_FORMAT.matcher(parameters);
 
-        Parser.matcherMatches(matcher,parameters, CapCommand.FORMAT, CapCommand.PROMPT_HELP);
+        Parser.matcherMatches(matcher, parameters, CapCommand.FORMAT, CapCommand.PROMPT_HELP);
 
         String mc = Parser.isMatcherNull(matcher.group(TOTAL_MC_GROUP))
                 ? null : matcher.group(TOTAL_MC_GROUP).trim();
@@ -41,6 +41,6 @@ public class CapCommandParser {
         int totalMcTaken = Integer.parseInt(mc);
         double currentCap = Double.parseDouble(cap);
 
-        return new CapCommand(totalMcTaken,currentCap);
+        return new CapCommand(totalMcTaken, currentCap);
     }
 }

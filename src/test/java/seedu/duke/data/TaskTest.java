@@ -38,10 +38,8 @@ class TaskTest {
     void editTask_getName_equalsNewName() throws TaskManager.TaskNotFoundException {
         String newName1 = "NEW";
         String newName2 = "NAME";
-        normalTask.setName(newName1);
-        datedTask.setName(newName2);
-        TaskManager.edit(normalTask, 0);
-        TaskManager.edit(datedTask, 1);
+        TaskManager.edit(0, newName1);
+        TaskManager.edit(1, newName2);
 
         assertEquals(newName1, TaskManager.getTask(0).getName());
         assertEquals(newName2, TaskManager.getTask(1).getName());
