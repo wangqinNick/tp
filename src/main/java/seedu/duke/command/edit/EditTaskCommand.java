@@ -5,14 +5,19 @@ import seedu.duke.command.PromptType;
 import seedu.duke.data.TaskManager;
 import seedu.duke.util.ExceptionMessage;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import static seedu.duke.util.Message.MESSAGE_EDIT_TASK_SUCCESS;
 
 
 public class EditTaskCommand extends EditCommand {
-
-    private final int taskID;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private final int taskId;
     private final String newTaskDescription;
-    public static final String FORMAT = EditCommand.COMMAND_WORD + " -t" + " <task_index> <task_name>";
+    private LocalDateTime dateTimeOfDeadline;
+    public static final String FORMAT = EditCommand.COMMAND_WORD + " -t <task_index> <task_name> [-by <deadline>]";
     public static final String HELP =   "Edit a task description from the task list."
                                         + "\n\tFormat: " + FORMAT
                                         + "\n\tExample usage: edit -t 1 Project meeting\n\n";
@@ -20,19 +25,57 @@ public class EditTaskCommand extends EditCommand {
     /**
      * Constructs the command to edit a task.
      *
-     * @param taskID
+     * @param taskId
      *  The ID of the task to be edited
      * @param newTaskDescription
      *  The new description of the task if any
      */
-    public EditTaskCommand(int taskID, String newTaskDescription) {
-        this.taskID = taskID;
+    public EditTaskCommand(int taskId, String newTaskDescription) {
+        this.taskId = taskId;
         this.newTaskDescription = newTaskDescription;
+        this.dateTimeOfDeadline = null;
         setPromptType(PromptType.EDIT);
     }
 
-    protected void edit() throws IndexOutOfBoundsException {
-        TaskManager.getTaskList().get(taskID).setName(newTaskDescription);
+    /**
+     * Constructs AddTaskCommand and tests the format of the deadline.
+     *
+     * @param taskId
+     *  The ID of the task to be edited
+     * @param newTaskDescription
+     *  The new description of the task if any
+     * @param deadline
+     *  The new deadline of the task if any
+     * @throws DateTimeParseException
+     *  If the deadline does not follow the DateTime format.
+     */
+    public EditTaskCommand(int taskId, String newTaskDescription, String deadline) throws DateTimeParseException {
+        this.taskId = taskId;
+        this.newTaskDescription = newTaskDescription;
+        if (deadline != null) {
+            dateTimeOfDeadline = testDeadline(deadline);
+        }
+        setPromptType(PromptType.EDIT);
+    }
+
+    /**
+     * Test if the deadline of the task follows the DateTimeFormatter.
+     *
+     * @param deadline LocalDateTime deadline.
+     * @throws DateTimeParseException if the deadline does not follow format.
+     */
+    private LocalDateTime testDeadline(String deadline) throws DateTimeParseException {
+        LocalDateTime dateTimeOfDeadline;
+        dateTimeOfDeadline = LocalDateTime.parse(deadline, formatter);
+        return dateTimeOfDeadline;
+    }
+
+    protected void edit() throws TaskManager.TaskNotFoundException {
+        if (dateTimeOfDeadline == null) {
+            TaskManager.edit(taskId, newTaskDescription);
+        } else {
+            TaskManager.edit(taskId, newTaskDescription, dateTimeOfDeadline);
+        }
     }
 
     @Override
@@ -40,7 +83,7 @@ public class EditTaskCommand extends EditCommand {
         try {
             edit();
             return new CommandResult(MESSAGE_EDIT_TASK_SUCCESS);
-        } catch (IndexOutOfBoundsException e) {
+        } catch (TaskManager.TaskNotFoundException e) {
             return new CommandResult(ExceptionMessage.MESSAGE_NO_EDIT_TASK);
         }
     }
