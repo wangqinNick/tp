@@ -40,11 +40,9 @@ public class DoneCommand extends Command {
      */
     @Override
     public CommandResult execute() {
-        String message;
         try {
             doneTask(taskId);
-            message = MESSAGE_DONE_TASK_SUCCESS;
-            return new CommandResult(message);
+            return new CommandResult(MESSAGE_DONE_TASK_SUCCESS);
         } catch (TaskManager.TaskNotFoundException e) {
             return new CommandResult(MESSAGE_TASK_NOT_FOUND);
         }

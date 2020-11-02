@@ -70,11 +70,10 @@ public class TaskManager {
      *  The index of the task to be marked done
      */
     public static void done(int taskId) throws TaskNotFoundException {
-        Task task;
         if (taskId < 0 || taskId > tasksList.size() - 1) {
             throw new TaskNotFoundException();
         }
-        task = getTask(taskId);
+        Task task = getTask(taskId);
         task.setStatus(true);
     }
 
@@ -121,8 +120,7 @@ public class TaskManager {
      */
     public static String getSummary() {
         ArrayList<ArrayList<Task>> summaryLists = summary();
-        String message = TextUi.getSummaryList(summaryLists);
-        return message;
+        return TextUi.getSummaryList(summaryLists);
     }
 
     /**

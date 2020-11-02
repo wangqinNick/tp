@@ -46,10 +46,10 @@ public class ListCommand extends Command {
         default:
             break;
         }
-        if (output == null) {
-            return new CommandResult(MESSAGE_LIST_EMPTY);
-        } else {
+        if (output != null) {
             return new CommandResult(MESSAGE_LIST_PRINTED + output);
+        } else {
+            return new CommandResult(MESSAGE_LIST_EMPTY);
         }
     }
 }

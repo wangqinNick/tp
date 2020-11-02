@@ -19,8 +19,7 @@ public class SummaryCommand extends Command {
      */
     @Override
     public CommandResult execute() {
-        String output;
-        output = TaskManager.getSummary();
+        String output = TaskManager.getSummary();
         if (output.equals("")) {
             return new CommandResult(MESSAGE_LIST_EMPTY);
         } else {
