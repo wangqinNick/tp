@@ -1,9 +1,18 @@
 package seedu.duke.util;
 
 public class Message {
-    public static final String MESSAGE_ADD_TASK_SUCCESS = "Your task has been added successfully.\n";
-    public static final String MESSAGE_ADD_MODULE_SUCCESS = "Your module has been added successfully.\n";
-    public static final String MESSAGE_ADD_LESSON_SUCCESS = "Your lesson has been added successfully.\n";
+    public static final String MESSAGE_LOADING_TEMPLATE = "Loading %s: %s";
+    public static final String MESSAGE_LOADING_SUCCESS = "Loaded files; launching ra.VI...";
+    public static final String MESSAGE_LOADING_FAILURE = "User save is corrupted! "
+            + "ra.VI will rename the files, check the data folder.\n";
+    public static final String MESSAGE_LOADING_SKIPPED = "No saves found - starting ra.VI anew!\n";
+
+    public static final String MESSAGE_ADD_TASK_SUCCESS = "Your task has been added successfully.\n"
+            + "Your new task - '%s'\n";
+    public static final String MESSAGE_ADD_MODULE_SUCCESS = "Your module has been added successfully.\n"
+            + "Your new module - '%s'\n";
+    public static final String MESSAGE_ADD_LESSON_SUCCESS = "Your lesson has been added successfully.\n"
+            + "Your new lesson - '%s'\n";
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Your task has been deleted successfully.\n";
     public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Your module has been deleted successfully.\n";
@@ -62,4 +71,5 @@ public class Message {
     public static final String MESSAGE_TIMETABLE_MIDDLE = "\n ├───────────┼────┼────────────────────┤\n";
     public static final String MESSAGE_TIMETABLE_FOOTER = "\n └───────────┴────┴────────────────────┘\n";
     public static final String MESSAGE_NO_LESSONS = "\nNo lessons on ";
+    public static final String MESSAGE_TIMETABLE_RESET = "Timetable reset successful.";
 }

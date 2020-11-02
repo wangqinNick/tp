@@ -6,12 +6,13 @@ import seedu.duke.command.timetable.TimeTableAddCommand;
 import seedu.duke.command.timetable.TimeTableCommand;
 import seedu.duke.command.timetable.TimeTableDeleteCommand;
 import seedu.duke.command.timetable.TimeTableFilterCommand;
+import seedu.duke.command.timetable.TimeTableResetCommand;
 import seedu.duke.command.timetable.TimeTableViewCommand;
 import seedu.duke.data.Lesson;
 import seedu.duke.data.LessonFilter;
-import seedu.duke.data.ModuleManager;
 import seedu.duke.exception.InvalidMatchException;
 import seedu.duke.exception.LessonInvalidTimeException;
+import seedu.duke.exception.ModuleNotFoundException;
 
 import java.time.DayOfWeek;
 import java.time.format.DateTimeParseException;
@@ -42,6 +43,7 @@ public abstract class TimeTableCommandParser {
     public static final String FILTER_FORMAT = "-filter";
     public static final String VIEW_DAY_FORMAT = "-day";
     public static final String VIEW_WEEK_FORMAT = "-week";
+    public static final String RESET_FORMAT = "-reset";
     private static final Pattern TIMETABLE_FORMAT = Pattern.compile("(?<commandFlag>-[a-zA-Z]+)"
             + "(?<timeTableParams>.*)");
     private static final Pattern TIMETABLE_LESSON_PARAMETER_FORMAT =
@@ -81,11 +83,14 @@ public abstract class TimeTableCommandParser {
             case FILTER_FORMAT:
                 command = parseTimeTableFilterCommand(timeTableParams);
                 break;
+            case RESET_FORMAT:
+                command = parseTimeTableResetCommand(timeTableParams);
+                break;
             default: // Check if it is a view command
                 command = parseTimeTableViewCommand(commandFlag, timeTableParams);
                 break;
             }
-        } catch (ModuleManager.ModuleNotFoundException e) {
+        } catch (ModuleNotFoundException e) {
             return new IncorrectCommand(MESSAGE_MODULE_NOT_FOUND);
         } catch (LessonInvalidTimeException e) {
             return new IncorrectCommand(MESSAGE_LESSON_INVALID_TIME);
@@ -130,13 +135,13 @@ public abstract class TimeTableCommandParser {
      * e.g. timetable -add CS2101 FRIDAY 1400 1600 LECTURE 1
      *
      * @return TimeTableAddCommand or IncorrectCommand
-     * @throws ModuleManager.ModuleNotFoundException When the module is not found in the module list.
+     * @throws ModuleNotFoundException When the module is not found in the module list.
      * @throws LessonInvalidTimeException When the start is greater than or equal to end time of the Lesson.
      * @throws DateTimeParseException When the time of either the start or end is in the wrong format.
      * @throws InvalidMatchException When the lessonParams do not match the TimeTableAddCommand regex.
      */
     private static Command parseTimeTableAddCommand(String lessonParams)
-            throws ModuleManager.ModuleNotFoundException, LessonInvalidTimeException,
+            throws ModuleNotFoundException, LessonInvalidTimeException,
             DateTimeParseException, InvalidMatchException {
         Matcher lessonMatcher = TIMETABLE_LESSON_PARAMETER_FORMAT.matcher(lessonParams);
 
@@ -171,12 +176,28 @@ public abstract class TimeTableCommandParser {
     }
 
     public static Command parseTimeTableFilterCommand(String filterParams) throws
-            InvalidMatchException, ModuleManager.ModuleNotFoundException {
+            InvalidMatchException, ModuleNotFoundException {
         Matcher filterMatcher = TIMETABLE_LESSON_FILTER_PARAMETER_FORMAT.matcher(filterParams);
         Parser.matcherMatches(filterMatcher, filterParams, TIMETABLE_LESSON_FILTER_USER_FORMAT,
                 TimeTableCommand.PROMPT_HELP);
         ArrayList<LessonFilter> filterList = LessonParser.parseFilterLesson(filterMatcher);
 
         return new TimeTableFilterCommand(filterList);
+    }
+
+    /**
+     * Parses the timetable reset command.
+     * Accepted command will be:
+     * timetable -reset
+     *
+     * @param resetParams Remaining user input.
+     * @return TimeTableResetCommand or IncorrectCommand.
+     */
+    public static Command parseTimeTableResetCommand(String resetParams) {
+        if (!resetParams.isEmpty()) {
+            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n", MESSAGE_INVALID_COMMAND_FORMAT, resetParams,
+                    MESSAGE_CHECK_COMMAND_FORMAT, TimeTableCommand.FORMAT));
+        }
+        return new TimeTableResetCommand();
     }
 }

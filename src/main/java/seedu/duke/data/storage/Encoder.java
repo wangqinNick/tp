@@ -11,6 +11,8 @@ import java.io.IOException;
 
 import com.alibaba.fastjson.JSON;
 import seedu.duke.data.TimeTableManager;
+import seedu.duke.exception.ModuleNotFoundException;
+import seedu.duke.exception.ModuleNotProvidedException;
 
 /**
  * Manages all inputs to files, and the conversion from Object in memory to String in file.
@@ -61,10 +63,10 @@ public class Encoder {
      *  The name of the file to save to
      * @throws IOException
      *  When there is an error preparing the save file
-     * @throws ModuleManager.ModuleNotFoundException
+     * @throws ModuleNotFoundException
      *  If module not found (should never happen)
      */
-    public static void saveModules(String dataFileName) throws IOException, ModuleManager.ModuleNotFoundException {
+    public static void saveModules(String dataFileName) throws IOException, ModuleNotFoundException {
         File mySaveFile = new File(dataFileName);
         prepareSaveFile(mySaveFile);
 
@@ -82,10 +84,10 @@ public class Encoder {
      *  The name of the file to save to
      * @throws IOException
      *  When there is an error preparing the save file
-     * @throws ModuleManager.ModuleNotFoundException
+     * @throws ModuleNotFoundException
      *  If module not found (should never happen)
      */
-    public static void saveNusModules(String dataFileName) throws IOException, ModuleManager.ModuleNotFoundException {
+    public static void saveNusModules(String dataFileName) throws IOException, ModuleNotProvidedException {
         File mySaveFile = new File(dataFileName);
         prepareSaveFile(mySaveFile);
         Module currentModule;

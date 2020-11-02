@@ -1,14 +1,18 @@
 package seedu.duke.data;
 
 import seedu.duke.exception.LessonInvalidTimeException;
+import seedu.duke.exception.LessonOverlapException;
 import seedu.duke.exception.TimeTableInitialiseException;
-import seedu.duke.data.ModuleManager.ModuleNotFoundException;
+import seedu.duke.exception.ModuleNotFoundException;
 import seedu.duke.DukeLogger;
+import seedu.duke.ui.TextUi;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
+
+import static seedu.duke.util.ExceptionMessage.TIMETABLE_NOT_INITIALISED;
 
 public class TimeTableManager {
     private static TimeTable timetable = new TimeTable();
@@ -77,25 +81,34 @@ public class TimeTableManager {
      * @throws LessonInvalidTimeException
      *  when the lesson to be added overlaps with an existing lesson
      */
-    public static void addLesson(Lesson lesson, int repeat) throws LessonInvalidTimeException, ModuleNotFoundException {
+    public static void addLesson(Lesson lesson, int repeat) throws
+            LessonInvalidTimeException, ModuleNotFoundException, LessonOverlapException {
+        // Check for errors and throw exceptions accordingly
         logger.getLogger().info("Adding lesson: " + lesson.toString() + " with repeat: " + repeat);
-        if (!ModuleManager.contains(lesson.getModuleCode())) {
+        if (!ModuleManager.doesContainMod(lesson.getModuleCode())) {
             logger.getLogger().warning("Could not add lesson as module not in user module list!");
             throw new ModuleNotFoundException();
         }
+        Lesson overlapLesson = doesOverlap(lesson, repeat);
+        if (overlapLesson != null) {
+            logger.getLogger().warning("Lesson overlaps with other lesson! " + overlapLesson.toString());
+            throw new LessonOverlapException(overlapLesson.toString());
+        }
+
+        // Get current week number and generate lesson's hidden ID
         int currWeek = getCurrWeekNum();
         logger.getLogger().info("Current week num is: " + currWeek);
         LessonManager lessonManager = timetable.getLessonManagerOfWeek(currWeek);
         lesson.generateHiddenId(); // tag lesson with unique ID for identifying when removing
         logger.getLogger().info("The lesson's hiddenId is: " + lesson.getHiddenId());
 
-        // add for current week
+        // If repeat is 0, add for current week only
         if (repeat == 0) {
             lessonManager.addLesson(lesson);
             return;
         }
 
-        // add for every week, or alternate weeks
+        // Otherwise, use for loop to add to the right weeks
         for (; currWeek < timetable.getSemEndWeekNum(); currWeek++) { // don't add for reading week
             lessonManager = timetable.getLessonManagerOfWeek(currWeek);
             if (currWeek == timetable.getSemRecessWeekNum()) {
@@ -149,6 +162,37 @@ public class TimeTableManager {
         int currWeek = getCurrWeekNum();
         LessonManager lessonManager = timetable.getLessonManagerOfWeek(currWeek);
         return lessonManager.getDayLessonList(dayOfWeek);
+    }
+
+    /**
+     * Checks if the given lesson overlaps with any lesson already in timetable with the given repeat.
+     *
+     * @param lesson
+     *  The specified lesson
+     * @return
+     *  The lesson in timetable that the given lesson overlaps with, or null if no overlap
+     */
+    public static Lesson doesOverlap(Lesson lesson, int repeat) {
+        LessonManager lessonManager;
+        for (int i = getCurrWeekNum(); i < timetable.getSemEndWeekNum(); i++) {
+            if (repeat == 2 && !isEvenWeek(i)) {         // Handle even repeat
+                continue;
+            } else if (repeat == 3 && !isOddWeek(i)) {   // Handle odd repeat
+                continue;
+            }
+
+            lessonManager = timetable.getLessonManagerOfWeek(i);
+            for (Lesson eachLesson : lessonManager.getDayLessonList(lesson.getDay())) {
+                if (eachLesson.checkOverlap(lesson)) {
+                    return eachLesson;
+                }
+            }
+
+            if (repeat == 0) {  // Handle no repeat
+                return null;
+            }
+        }
+        return null;
     }
 
     /**
@@ -265,6 +309,16 @@ public class TimeTableManager {
             outputList.add(lessonList);
         }
         return outputList;
+    }
+
+    public static void initialiseTimetable() {
+        try {
+            TextUi.showTimeTableInitialisationMessage();
+            int currWeekNum = TextUi.getCurrentWeekNum();
+            TimeTableManager.initialise(currWeekNum);
+        } catch (Exception e) {
+            TextUi.outputToUser(TIMETABLE_NOT_INITIALISED);
+        }
     }
 
     public static int getWeekLessonCount(int week) {

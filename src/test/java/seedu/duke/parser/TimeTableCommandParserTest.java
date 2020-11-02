@@ -10,7 +10,10 @@ import seedu.duke.data.Module;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.data.TimeTableManager;
 import seedu.duke.data.storage.InputOutputManager;
+import seedu.duke.exception.DuplicateModuleException;
 import seedu.duke.exception.InvalidMatchException;
+import seedu.duke.exception.ModuleNotFoundException;
+import seedu.duke.exception.ModuleNotProvidedException;
 import seedu.duke.exception.TimeTableInitialiseException;
 import seedu.duke.util.ExceptionMessage;
 
@@ -52,10 +55,10 @@ public class TimeTableCommandParserTest {
             + DELETE_INDEX_2;
 
     @BeforeAll
-    static void setupUserMods() throws ModuleManager.DuplicateModuleException, ModuleManager.ModuleNotFoundException {
+    static void setupUserMods() throws DuplicateModuleException, ModuleNotProvidedException {
         InputOutputManager.loadNusModSave();
         ModuleManager.clearModules();
-        ModuleManager.add(new Module(MOD_CODE_1));
+        ModuleManager.add(MOD_CODE_1);
     }
 
     @BeforeEach

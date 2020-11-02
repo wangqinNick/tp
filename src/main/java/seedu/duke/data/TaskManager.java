@@ -70,7 +70,7 @@ public class TaskManager {
             throw new TaskNotFoundException();
         }
         task = getTask(taskId);
-        task.setStatus();
+        task.setStatus(true);
     }
 
     /**
@@ -91,14 +91,14 @@ public class TaskManager {
         for (Task eachTask : tasksList) {
             if (eachTask.getStatus()) {
                 completedTasks.add(eachTask);
-            } else if (eachTask.getDeadline() == null) {
+            } else if (eachTask.retrieveDeadline() == null) {
                 incompleteTasksUndated.add(eachTask);
             } else {
                 incompleteTasksDated.add(eachTask);
             }
         }
 
-        Comparator<Task> compareByDeadline = Comparator.comparing(Task::getDeadline);
+        Comparator<Task> compareByDeadline = Comparator.comparing(Task::retrieveDeadline);
         incompleteTasksDated.sort(compareByDeadline);
 
         // Do not change the adding order!

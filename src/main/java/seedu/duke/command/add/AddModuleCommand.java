@@ -2,12 +2,16 @@ package seedu.duke.command.add;
 
 import seedu.duke.command.CommandResult;
 import seedu.duke.command.PromptType;
-import seedu.duke.data.Module;
 import seedu.duke.data.ModuleManager;
+import seedu.duke.data.Module;
+import seedu.duke.exception.DuplicateModuleException;
+import seedu.duke.exception.ModuleNotFoundException;
+import seedu.duke.exception.ModuleNotProvidedException;
 
 import static seedu.duke.util.ExceptionMessage.MESSAGE_DUPLICATE_MODULE;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_MODULE_NOT_PROVIDED;
 import static seedu.duke.util.Message.MESSAGE_ADD_MODULE_SUCCESS;
+import static seedu.duke.util.Message.MESSAGE_ADD_TASK_SUCCESS;
 
 public class AddModuleCommand extends AddCommand {
     private final String module;
@@ -22,20 +26,20 @@ public class AddModuleCommand extends AddCommand {
      * @param module Module code to be added.
      */
     public AddModuleCommand(String module) {
-        this.module = module;
-        this.promptType = PromptType.EDIT;
+        this.module = module.toUpperCase();
+        setPromptType(PromptType.EDIT);
     }
 
     /**
      * Add the Module to the module list.
      *
      * @param module Module code to be added.
-     * @throws ModuleManager.DuplicateModuleException if the module is already in the list
+     * @throws DuplicateModuleException if the module is already in the list
      */
-    private void addModule(String module) throws ModuleManager.DuplicateModuleException,
-            ModuleManager.ModuleNotFoundException {
-        Module newModule = new Module(module);
-        ModuleManager.add(newModule);
+    private Module addModule(String module) throws
+            DuplicateModuleException, ModuleNotProvidedException, ModuleNotFoundException {
+        ModuleManager.add(module);
+        return ModuleManager.getModule(module);
     }
 
     /**
@@ -45,14 +49,16 @@ public class AddModuleCommand extends AddCommand {
      */
     @Override
     public CommandResult execute() {
-        String message;
+        String message = "";
         try {
-            addModule(module);
-            message = MESSAGE_ADD_MODULE_SUCCESS;
-        } catch (ModuleManager.DuplicateModuleException e) {
+            Module newModule = addModule(module);
+            message = String.format(MESSAGE_ADD_MODULE_SUCCESS, newModule.toString());
+        } catch (DuplicateModuleException e) {
             message = MESSAGE_DUPLICATE_MODULE;
-        } catch (ModuleManager.ModuleNotFoundException e) {
+        } catch (ModuleNotProvidedException e) {
             message = MESSAGE_MODULE_NOT_PROVIDED;
+        } catch (ModuleNotFoundException e) {
+            // should not happen
         }
         return new CommandResult(message);
     }

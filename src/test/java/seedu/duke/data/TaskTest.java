@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Comparator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -67,7 +66,7 @@ class TaskTest {
         Task earlierTask = sortedTaskWithDeadlines.get(0);
         Task laterTask = sortedTaskWithDeadlines.get(1);
         // Assert that laterTask actually has a later deadline than earlierTask
-        assertTrue(laterTask.getDeadline().compareTo(earlierTask.getDeadline()) > 0);
+        assertTrue(laterTask.retrieveDeadline().compareTo(earlierTask.retrieveDeadline()) > 0);
         assertEquals(2, sortedTaskWithDeadlines.size());
     }
 
@@ -75,7 +74,7 @@ class TaskTest {
     void summary_checkNoDeadlineList_isCorrect() {
         ArrayList<Task> sortedTasksWithoutDeadlines = TaskManager.summary().get(1);
         Task taskWithoutDeadline = sortedTasksWithoutDeadlines.get(0);
-        assertTrue(taskWithoutDeadline.getDeadline() == null);
+        assertTrue(taskWithoutDeadline.retrieveDeadline() == null);
         assertEquals(1, sortedTasksWithoutDeadlines.size());
     }
 

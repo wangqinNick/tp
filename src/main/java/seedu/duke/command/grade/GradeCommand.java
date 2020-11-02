@@ -2,9 +2,11 @@ package seedu.duke.command.grade;
 
 import seedu.duke.command.Command;
 import seedu.duke.command.CommandResult;
+import seedu.duke.command.PromptType;
 import seedu.duke.data.Module;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.exception.InvalidGradeException;
+import seedu.duke.exception.ModuleNotFoundException;
 import seedu.duke.ui.TextUi;
 
 import static seedu.duke.util.ExceptionMessage.MESSAGE_MODULE_NOT_FOUND;
@@ -14,7 +16,7 @@ import static seedu.duke.util.Message.MESSAGE_GRADE_MODULE_SUCCESS;
 
 public class GradeCommand extends Command {
     private final String moduleGraded;
-    private final int moduleCredit;
+    private final double moduleCredit;
     private final String grade;
     public static final String COMMAND_WORD = "grade";
     public static final String FORMAT = COMMAND_WORD + " <module_code> <modular_credit> <grade>";
@@ -31,10 +33,11 @@ public class GradeCommand extends Command {
      * @param grade
      * Grade attained by user for the specific module.
      */
-    public GradeCommand(String moduleGraded, int moduleCredit, String grade) {
-        this.moduleGraded = moduleGraded;
+    public GradeCommand(String moduleGraded, double moduleCredit, String grade) {
+        this.moduleGraded = moduleGraded.toUpperCase();
         this.moduleCredit = moduleCredit;
         this.grade = grade;
+        setPromptType(PromptType.EDIT);
     }
 
     /**
@@ -57,14 +60,12 @@ public class GradeCommand extends Command {
     /**
      * Grades and allocates the Module Credit to the Module.
      *
-     * @param moduleToBeGraded
-     * The module to be graded by user.
      * @throws InvalidGradeException
      * If the grade isn't recognised by the NUS grading schematic
      */
-    private void grade(Module moduleToBeGraded) throws InvalidGradeException, ModuleManager.ModuleNotFoundException {
+    private void grade() throws InvalidGradeException, ModuleNotFoundException {
         if (testGrade(grade)) {
-            ModuleManager.grade(moduleToBeGraded,grade,moduleCredit);
+            ModuleManager.grade(moduleGraded,grade,moduleCredit);
         } else {
             throw new InvalidGradeException();
         }
@@ -79,12 +80,11 @@ public class GradeCommand extends Command {
     @Override
     public CommandResult execute() {
         try {
-            Module moduleToBeGraded = ModuleManager.getModule(moduleGraded);
-            grade(moduleToBeGraded);
+            grade();
             return new CommandResult(MESSAGE_GRADE_MODULE_SUCCESS);
         } catch (InvalidGradeException e) {
             return new CommandResult(MESSAGE_INVALID_GRADE);
-        } catch (ModuleManager.ModuleNotFoundException e) {
+        } catch (ModuleNotFoundException e) {
             return new CommandResult(MESSAGE_MODULE_NOT_FOUND);
         }
     }

@@ -29,7 +29,7 @@ public class AddTaskCommand extends AddCommand {
      */
     public AddTaskCommand(String desc) {
         this.desc = desc;
-        this.promptType = PromptType.EDIT;
+        setPromptType(PromptType.EDIT);
     }
 
     /**
@@ -64,8 +64,9 @@ public class AddTaskCommand extends AddCommand {
      *
      * @param desc Description of the task to be added.
      * @param dateTimeOfDeadline LocalDateTime of the deadline.
+     * @return newTask The new task object that was added.
      */
-    private void addTask(String desc, LocalDateTime dateTimeOfDeadline) {
+    private Task addTask(String desc, LocalDateTime dateTimeOfDeadline) {
         Task newTask;
         // Option for user to input a deadline
         if (dateTimeOfDeadline == null) {
@@ -74,6 +75,7 @@ public class AddTaskCommand extends AddCommand {
             newTask = new Task(desc, dateTimeOfDeadline);
         }
         TaskManager.add(newTask);
+        return newTask;
     }
 
     /**
@@ -84,8 +86,9 @@ public class AddTaskCommand extends AddCommand {
     @Override
     public CommandResult execute() {
         String message;
-        addTask(desc, dateTimeOfDeadline);
-        message = MESSAGE_ADD_TASK_SUCCESS;
+        Task addedTask = addTask(desc, dateTimeOfDeadline);
+
+        message = String.format(MESSAGE_ADD_TASK_SUCCESS, addedTask.toString());
         return new CommandResult(message);
     }
 }
