@@ -37,7 +37,8 @@ public class ExceptionMessage {
     public static final String MESSAGE_LIST_EMPTY =
             "\nYour list is empty.\n";
     public static final String MESSAGE_STRING_IN_NUMBER =
-            "There seems to be a string in the place of a number \n"
+            "The task index has to be an integer!\n"
+            + "Use `list -t` to look at your tasks, and their index.\n"
             + "Please check your command! Use help <command> for assistance.\n";
     public static final String MESSAGE_INVALID_COMMAND_WORD =
             "I don't recognise that command...\n"
