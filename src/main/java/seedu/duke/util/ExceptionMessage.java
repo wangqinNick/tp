@@ -12,7 +12,6 @@ public class ExceptionMessage {
     public static final String MESSAGE_DUPLICATE_MODULE =
             "Sorry, the module already exists in your list, so I can't add it again.\n"
             + "Perhaps you meant a different module?\n";
-
     public static final String MESSAGE_TASK_NOT_FOUND =
             "Sorry, that task index is not valid.\n"
             + "Use list -t to look at your tasks, and their index.\n"
@@ -21,6 +20,7 @@ public class ExceptionMessage {
     public static final String MESSAGE_NO_EDIT_MODULE =
             "Please enter a proper module code to edit.\n"
             + "It should be a module code of an actual NUS mod. E.g. CS1010.\n";
+
     public static final String MESSAGE_NO_EDIT_TASK =
             "Please enter a proper task index to edit.\n"
             + "Use list -t to look at your tasks, and their index.\n"
@@ -32,7 +32,6 @@ public class ExceptionMessage {
             "Please enter a new task to add.\n"
             + "Use list -t to look at your tasks, and their index.\n"
             + "You can't use the task index from the summary command!\n";
-
     public static final String MESSAGE_INVALID_PARAMETERS =
             "Some invalid or missing parameters were found!";
     public static final String MESSAGE_LIST_EMPTY =
@@ -64,10 +63,14 @@ public class ExceptionMessage {
             + "3 - Every odd week\n";
     public static final String TIMETABLE_NOT_INITIALISED =
             "Please enter a proper week number as instructed.\n";
-    public static final String MESSAGE_DATE_TIME_UNKNOWN =
+    public static final String MESSAGE_ADD_TASK_DATE_TIME_UNKNOWN =
             "Please enter a valid date and time.\n"
-            + "You can use help <command> to find the required date time format.\n";
-
+            + "\tRequired date time format: dd-MM-yyyy HHmm\n"
+            + "\tExample: 30-12-2020 1600";
+    public static final String MESSAGE_ADD_LESSON_DATE_TIME_UNKNOWN =
+            "Please enter a valid date and time.\n"
+            + "\tRequired date time format: HHmm HHmm\n"
+            + "\tExample: 1800 2000";
 
     public static final String MESSAGE_MISSING_DIRECTORY_NAME =
             "Please include the name of the directory you want to move to.\n"

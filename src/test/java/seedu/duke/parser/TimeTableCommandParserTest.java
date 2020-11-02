@@ -6,13 +6,11 @@ import org.junit.jupiter.api.Test;
 import seedu.duke.command.Command;
 import seedu.duke.command.CommandResult;
 import seedu.duke.command.IncorrectCommand;
-import seedu.duke.data.Module;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.data.TimeTableManager;
 import seedu.duke.data.storage.InputOutputManager;
 import seedu.duke.exception.DuplicateModuleException;
 import seedu.duke.exception.InvalidMatchException;
-import seedu.duke.exception.ModuleNotFoundException;
 import seedu.duke.exception.ModuleNotProvidedException;
 import seedu.duke.exception.TimeTableInitialiseException;
 import seedu.duke.util.ExceptionMessage;
@@ -92,7 +90,7 @@ public class TimeTableCommandParserTest {
         Command command =
                 TimeTableCommandParser.parseTimeTableCommand(WRONG_LESSON_TIME_2_TIMETABLE_ADD_COMMAND_FORMAT);
         CommandResult expectedCommandResult =
-                new IncorrectCommand(ExceptionMessage.MESSAGE_DATE_TIME_UNKNOWN).execute();
+                new IncorrectCommand(ExceptionMessage.MESSAGE_ADD_LESSON_DATE_TIME_UNKNOWN).execute();
         CommandResult actualCommandResult = command.execute();
         assertEquals(expectedCommandResult.feedbackToUser, actualCommandResult.feedbackToUser);
     }
