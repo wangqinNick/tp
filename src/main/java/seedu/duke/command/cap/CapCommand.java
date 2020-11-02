@@ -3,17 +3,16 @@ package seedu.duke.command.cap;
 import seedu.duke.command.Command;
 import seedu.duke.command.CommandResult;
 import seedu.duke.command.PromptType;
-import seedu.duke.data.Module;
 import seedu.duke.data.ModuleManager;
-import seedu.duke.exception.InvalidCapAttained;
+import seedu.duke.exception.InvalidCapCalculatedException;
+import seedu.duke.exception.ModuleNotFoundException;
 import seedu.duke.ui.TextUi;
-
-import java.util.HashMap;
 
 import static seedu.duke.ui.TextUi.MAX_WIDTH;
 import static seedu.duke.ui.TextUi.centerString;
 import static seedu.duke.util.ExceptionMessage.EXCEPTION_HEADER;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_INVALID_CAP_ATTAINED;
+import static seedu.duke.util.ExceptionMessage.MESSAGE_MODULE_NOT_FOUND;
 import static seedu.duke.util.Message.MESSAGE_CAP_DISPLAY;
 
 public class CapCommand extends Command {
@@ -93,28 +92,28 @@ public class CapCommand extends Command {
      *
      * @return
      * cap of the user
-     * @throws InvalidCapAttained
+     * @throws InvalidCapCalculatedException
      * When the attained cap is unimaginable
      */
-    private double calculateCap() throws InvalidCapAttained {
-        HashMap<String, Module> moduleList = ModuleManager.getModulesMap();
+    private double calculateCap() throws InvalidCapCalculatedException, ModuleNotFoundException {
+        String[] moduleList = ModuleManager.getModCodeList();
         double mcGrade;
         double sumMcGrade = 0;
         double sumMc = 0;
-        double gradeValue = 0;
-        for (String i : moduleList.keySet()) {
-            gradeValue = gradeConvert(moduleList.get(i).getModuleGrade());
+        double gradeValue;
+        for (String i : moduleList) {
+            gradeValue = gradeConvert(ModuleManager.getModule(i).getModuleGrade());
             if (gradeValue == 0) {
-                throw new InvalidCapAttained();
+                throw new InvalidCapCalculatedException();
             }
-            sumMc += moduleList.get(i).getModuleCredit();
-            mcGrade = moduleList.get(i).getModuleCredit()
+            sumMc += ModuleManager.getModule(i).getModuleCredit();
+            mcGrade = ModuleManager.getModule(i).getModuleCredit()
                     * gradeValue;
             sumMcGrade += mcGrade;
         }
         cap = ((currentCap * totalMcTaken) + sumMcGrade) / (sumMc + totalMcTaken);
         if (cap < 0 || cap > 5.0 || isNan(cap)) {
-            throw new InvalidCapAttained();
+            throw new InvalidCapCalculatedException();
         }
         return cap;
     }
@@ -127,8 +126,10 @@ public class CapCommand extends Command {
     public CommandResult execute() {
         try {
             return new CommandResult(String.format("%s%.2f\n", MESSAGE_CAP_DISPLAY, calculateCap()));
-        } catch (InvalidCapAttained e) {
+        } catch (InvalidCapCalculatedException e) {
             return new CommandResult(centerString(MAX_WIDTH, EXCEPTION_HEADER) + "\n" + MESSAGE_INVALID_CAP_ATTAINED);
+        } catch (ModuleNotFoundException e) {
+            return new CommandResult(centerString(MAX_WIDTH, EXCEPTION_HEADER) + "\n" + MESSAGE_MODULE_NOT_FOUND);
         }
     }
 }

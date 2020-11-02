@@ -50,7 +50,7 @@ class GradeCommandTest {
 
     @Test
     void gradeCommand_MessageInvalidGrade_isShown() throws InvalidModuleCreditException {
-        GradeCommand gradeCommand = new GradeCommand(MODULE_CODE, 4, "SU bah");
+        GradeCommand gradeCommand = new GradeCommand(MODULE_CODE, 4, "SU");
         CommandResult commandResult = gradeCommand.execute();
         assertEquals(centerString(MAX_WIDTH, EXCEPTION_HEADER) + "\n" + ExceptionMessage.MESSAGE_INVALID_GRADE,
                 commandResult.feedbackToUser);
