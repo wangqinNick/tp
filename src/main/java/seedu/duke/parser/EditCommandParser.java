@@ -24,7 +24,7 @@ public class EditCommandParser {
     protected static final String COMMAND_FLAG_GROUP = "commandFlag";
     protected static final String ARGUMENT_IDENTIFIER_GROUP = "argument";
     protected static final String TASK_INDEX_IDENTIFIER_GROUP = "taskIndex";
-    protected static final String TASK_DESC_IDENTIFIER_GROUP = "taskDesc";
+    protected static final String TASK_DESC_IDENTIFIER_GROUP = "desc";
     protected static final String BY_FLAG_IDENTIFIER_GROUP = "by";
     protected static final String DEADLINE_IDENTIFIER_GROUP = "deadline";
 
@@ -32,7 +32,7 @@ public class EditCommandParser {
             Pattern.compile("(?<commandFlag>-\\S+)" + "(?<argument>.*)");
 
     protected static final Pattern EDIT_FORMAT =
-            Pattern.compile("(?<taskIndex>\\S+)" + "(?<taskDesc>[^-]*)" + "((?<by>-by)?)" + "((?<deadline>.*)?)");
+            Pattern.compile("(?<taskIndex>\\S+)" + "(?<desc>(?:(?!-by).)*)" + "((?<by>-by)?)" + "((?<deadline>.*)?)");
 
     /**
      * Splits the user's input, based on the prefix and parse it into the respective prepare methods.

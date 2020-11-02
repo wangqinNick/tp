@@ -38,7 +38,7 @@ public class EditTaskCommandTest {
         TaskManager.add(newTask);
 
         //base case
-        CommandResult result1 = Executor.executeCommand("edit -t 1 return a book -by 30/12/2020 1200");
+        CommandResult result1 = Executor.executeCommand("edit -t 1 return a book -by 30-12-2020 1200");
         assertEquals(MESSAGE_EDIT_TASK_SUCCESS, result1.feedbackToUser);
 
         //invalid parameters

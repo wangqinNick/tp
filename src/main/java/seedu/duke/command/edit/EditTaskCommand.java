@@ -13,7 +13,7 @@ import static seedu.duke.util.Message.MESSAGE_EDIT_TASK_SUCCESS;
 
 
 public class EditTaskCommand extends EditCommand {
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-yyyy HHmm");
     private final int taskId;
     private final String newTaskDescription;
     private LocalDateTime dateTimeOfDeadline;
