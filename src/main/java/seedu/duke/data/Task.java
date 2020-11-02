@@ -54,14 +54,14 @@ public class Task {
     // For FastJSON use
     public LocalDateTime getDeadline() {
         if (deadline == null) {
-            return LocalDateTime.of(1,1,1,0,0);
+            return LocalDateTime.of(1, 1, 1, 0, 0);
         }
         return deadline;
     }
 
     // For FastJSON use
     public void setDeadline(LocalDateTime deadline) {
-        if (deadline.isEqual(LocalDateTime.of(1,1,1,0,0))) {
+        if (deadline.isEqual(LocalDateTime.of(1, 1, 1, 0, 0))) {
             this.deadline = null;
         } else {
             this.deadline = deadline;

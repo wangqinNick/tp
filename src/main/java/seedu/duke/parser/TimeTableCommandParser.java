@@ -62,6 +62,7 @@ public abstract class TimeTableCommandParser {
      * @param parameters User input after determining it is a timetable related command.
      * @return IncorrectCommand or any of the timetable commands.
      * @throws NumberFormatException When the timetable view command is not given DAY, WEEK or a number.
+     * @throws InvalidMatchException When the command entered does not match the regex pattern.
      */
     public static Command parseTimeTableCommand(String parameters)
             throws NumberFormatException, InvalidMatchException {

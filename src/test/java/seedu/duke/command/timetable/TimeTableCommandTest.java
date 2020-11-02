@@ -40,10 +40,10 @@ public class TimeTableCommandTest {
     static final String BAD_VIEW_FORMAT = "-no";
 
     static final DayOfWeek DAY_OF_WEEK = DayOfWeek.MONDAY;
-    static final LocalTime LESSON_1_START_TIME = LocalTime.of(14,0);
-    static final LocalTime LESSON_1_END_TIME = LocalTime.of(16,0);
-    static final LocalTime OTHER_LESSON_START = LocalTime.of(9,0);
-    static final LocalTime OTHER_LESSON_END = LocalTime.of(10,0);
+    static final LocalTime LESSON_1_START_TIME = LocalTime.of(14, 0);
+    static final LocalTime LESSON_1_END_TIME = LocalTime.of(16, 0);
+    static final LocalTime OTHER_LESSON_START = LocalTime.of(9, 0);
+    static final LocalTime OTHER_LESSON_END = LocalTime.of(10, 0);
     static final LessonType LESSON_TYPE = LessonType.LECTURE;
 
     @BeforeAll

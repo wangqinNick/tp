@@ -53,6 +53,9 @@ public class InputOutputManager {
     /**
      * Creates the save directory if it has not been created.
      * Loads the user's module and task saves into memory.
+     *
+     * @return
+     *  the integer containing the status of loading of the modules, task and timetable.
      */
     public static int start() {
         int status = 0; // 'Skipped load' status for all 3 files by default
@@ -122,9 +125,7 @@ public class InputOutputManager {
         }
     }
 
-    /**
-     * Loads NUS Modules from the given file.
-     */
+    /** Loads NUS Modules from the given file. */
     public static void loadNusModSave() {
         try {
             logger.getLogger().info("Loading NUS modules from JAR file resources folder " + NUS_MOD_F_NAME);

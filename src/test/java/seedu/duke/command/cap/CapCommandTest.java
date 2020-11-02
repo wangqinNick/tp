@@ -20,14 +20,14 @@ public class CapCommandTest {
         ModuleManager.clearModules();
         AddCommand addModule = new AddModuleCommand(MODULE_CODE);
         addModule.execute();
-        GradeCommand gradeCommand = new GradeCommand(MODULE_CODE,4,"A+");
+        GradeCommand gradeCommand = new GradeCommand(MODULE_CODE, 4, "A+");
         gradeCommand.execute();
     }
 
     @Test
     void capCommand_MessageCapDisplayWithCap_isShown() {
-        CapCommand capCommand = new CapCommand(20,4.24);
+        CapCommand capCommand = new CapCommand(20, 4.24);
         CommandResult commandResult = capCommand.execute();
-        assertEquals(String.format("%s%.2f\n",MESSAGE_CAP_DISPLAY,CAP), commandResult.feedbackToUser);
+        assertEquals(String.format("%s%.2f\n", MESSAGE_CAP_DISPLAY, CAP), commandResult.feedbackToUser);
     }
 }

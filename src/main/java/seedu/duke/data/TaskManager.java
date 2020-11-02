@@ -56,6 +56,8 @@ public class TaskManager {
      * Removes a task from the Task List using the task index (id).
      * @param taskId
      *  The index of the task to be deleted
+     * @throws TaskNotFoundException
+     *  When the task to be removed is not in the task list
      */
     public static void delete(int taskId) throws TaskNotFoundException {
         if (taskId < 0 || taskId > tasksList.size() - 1) {

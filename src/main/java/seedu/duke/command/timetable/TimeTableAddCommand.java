@@ -33,7 +33,9 @@ public class TimeTableAddCommand extends TimeTableCommand {
      * @throws RepeatFrequencyInvalidException
      *  When the repeat parameter given by the user is not from 0 - 3.
      * @throws ModuleNotFoundException
-     *  When the module to be added to the timetable is not in the module list.
+     *  When the module associated with the Lesson to be added is not in the module list.
+     * @throws LessonOverlapException
+     *  When the Lesson to be added overlaps with an existing lesson.
      */
     public void addLessonToTimeTable() throws LessonInvalidTimeException, RepeatFrequencyInvalidException,
             ModuleNotFoundException, LessonOverlapException {

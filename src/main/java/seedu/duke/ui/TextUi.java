@@ -120,6 +120,7 @@ public class TextUi {
      * Formats an Arraylist of type Task with their Index.
      *
      * @param taskList the list to be formatted
+     * @return stringFormat as a string, containing the index task list
      */
     public static String getIndexTaskList(ArrayList<Task> taskList) {
         final StringBuilder stringFormat = new StringBuilder();
@@ -136,6 +137,7 @@ public class TextUi {
      * Formats the HashMap to string with their index.
      *
      * @param modulesMap the HashMap to be formatted
+     * @return stringFormat as a string, containing the index module list
      */
     public static String getIndexModuleList(HashMap<String, Module> modulesMap) {
         final StringBuilder stringFormat = new StringBuilder();
@@ -151,6 +153,7 @@ public class TextUi {
      * Formats the lists in summaryLists to string with their index.
      *
      * @param summaryLists the list of ArrayLists to be formatted
+     * @return message as a string, containing the summary list
      */
     public static String getSummaryList(ArrayList<ArrayList<Task>> summaryLists) {
         final StringBuilder message = new StringBuilder();
@@ -187,6 +190,7 @@ public class TextUi {
      *
      * @param listIndex task/module index
      * @param listItem task/module name or description
+     * @return String containing the index list in the intended format
      */
     public static String getIndexListFormat(int listIndex, String listItem) {
         return String.format(MESSAGE_INDEX_LIST_FORMAT, listIndex, listItem);
@@ -236,6 +240,7 @@ public class TextUi {
     /**
      * Gets Help Message prompt.
      *
+     * @param commandWord the command word entered by the user
      * @return the list of available commands
      */
     public static String getCommandHelpMessage(String commandWord) {
@@ -245,6 +250,8 @@ public class TextUi {
     /**
      * Prints day timetable.
      *
+     * @param now the LocalDate object for the current day
+     * @param lessonList the lesson list for the day
      * @return the String of the day's timetable
      */
     public static String printDayTimetable(LocalDate now, ArrayList<Lesson> lessonList) {
@@ -273,6 +280,8 @@ public class TextUi {
     /**
      * Prints a timetable block for a particular lesson.
      *
+     * @param lesson the Lesson to be printed
+     * @param lessonIndex the index of the Lesson to be printed
      * @return the timetable block containing lesson time, number and name
      */
     public static String printLessonBlock(Lesson lesson, int lessonIndex) {

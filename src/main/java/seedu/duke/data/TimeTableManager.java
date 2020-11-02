@@ -79,7 +79,11 @@ public class TimeTableManager {
      * @param lesson The lesson object
      * @param repeat The repeat parameter
      * @throws LessonInvalidTimeException
-     *  when the lesson to be added overlaps with an existing lesson
+     *  When the lesson to be added overlaps with an existing lesson
+     * @throws ModuleNotFoundException
+     *  When the lesson to be added is not in the module list
+     * @throws LessonOverlapException
+     *  When the lesson to be added overlaps with an existing lesson
      */
     public static void addLesson(Lesson lesson, int repeat) throws
             LessonInvalidTimeException, ModuleNotFoundException, LessonOverlapException {
@@ -169,6 +173,9 @@ public class TimeTableManager {
      *
      * @param lesson
      *  The specified lesson
+     * @param repeat
+     *  The repeat interval for the lesson.
+     *
      * @return
      *  The lesson in timetable that the given lesson overlaps with, or null if no overlap
      */
@@ -264,6 +271,8 @@ public class TimeTableManager {
     /**
      * Checks whether the current NUS week is even.
      *
+     * @param week
+     *  The week number to check.
      * @return
      *  Whether current NUS week is even.
      */

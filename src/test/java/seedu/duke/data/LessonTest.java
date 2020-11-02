@@ -18,10 +18,10 @@ public class LessonTest {
     static final String MOD_CODE_1 = "CS2113T";
     static final String MOD_CODE_2 = "CG2271";
     static final String MOD_CODE_3 = "MA1511";
-    static final LocalTime time_12 = LocalTime.of(12,0);
-    static final LocalTime time_13 = LocalTime.of(13,0);
-    static final LocalTime time_14 = LocalTime.of(14,0);
-    static final LocalTime time_15 = LocalTime.of(15,0);
+    static final LocalTime time_12 = LocalTime.of(12, 0);
+    static final LocalTime time_13 = LocalTime.of(13, 0);
+    static final LocalTime time_14 = LocalTime.of(14, 0);
+    static final LocalTime time_15 = LocalTime.of(15, 0);
 
     @BeforeEach
     void setupLessonObjects() throws LessonInvalidTimeException {
@@ -76,8 +76,8 @@ public class LessonTest {
     @Test
     void verifyException_lessonConstruction_withInvalidTime() {
         assertThrows(LessonInvalidTimeException.class,
-            () -> new Lesson(MOD_CODE_1, LessonType.LAB, DayOfWeek.TUESDAY, time_13, time_12));
+                () -> new Lesson(MOD_CODE_1, LessonType.LAB, DayOfWeek.TUESDAY, time_13, time_12));
         assertThrows(LessonInvalidTimeException.class,
-            () -> new Lesson(MOD_CODE_1, LessonType.LAB, DayOfWeek.TUESDAY, time_12, time_12));
+                () -> new Lesson(MOD_CODE_1, LessonType.LAB, DayOfWeek.TUESDAY, time_12, time_12));
     }
 }
