@@ -150,17 +150,17 @@ public class TimeTableTest {
             LessonOverlapException, LessonInvalidTimeException, ModuleNotFoundException {
         TimeTableManager.addLesson(lesson1, 1);
         assertThrows(LessonOverlapException.class,
-                () -> TimeTableManager.addLesson(lesson1, 0));
+            () -> TimeTableManager.addLesson(lesson1, 0));
         assertThrows(LessonOverlapException.class,
-                () -> TimeTableManager.addLesson(lesson1, 2));
+            () -> TimeTableManager.addLesson(lesson1, 2));
         assertThrows(LessonOverlapException.class,
-                () -> TimeTableManager.addLesson(lesson1, 3));
+            () -> TimeTableManager.addLesson(lesson1, 3));
 
         TimeTableManager.addLesson(lesson2, 2);
         assertThrows(LessonOverlapException.class,
-                () -> TimeTableManager.addLesson(lesson2, 1));
+            () -> TimeTableManager.addLesson(lesson2, 1));
         assertThrows(LessonOverlapException.class,
-                () -> TimeTableManager.addLesson(lesson2, 2));
+            () -> TimeTableManager.addLesson(lesson2, 2));
 
         TimeTableManager.addLesson(lesson2, 3); // testing whether repeat 2 and 3 clashes (should not)
     }
