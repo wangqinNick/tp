@@ -241,9 +241,20 @@ Format: `bye`
 
 ## FAQ
 
-**Q**: How do I transfer my data to another computer? 
+**Q**: Can I use ra.VI on operating system other than Windows?\
+**A**: Yes. ra.VI is compatible with Windows, macOS and Linux.
 
-**A**: {your answer here}
+**Q**: Can I use ra.VI throughout my time in NUS?\
+**A**: Yes! In fact, we strongly encourage using ra.VI for your stint at NUS. ra.VI is robust enough to handle the trials of time.
+
+**Q**: How do I transfer my data to another computer?\
+**A**: Zip the folder where you have installed ra.VI on and transfer the zip file to the other computer. Unzip the folder on the new computer, and you are good to go!
+
+**Q**: Can I edit the files created by ra.VI?\
+**A**: It is not advised to edit the files created by ra.VI with any other software.
+
+**Q**: Can I force close ra.VI?\
+**A**: It is not advised to force close ra.VI. To close ra.VI, please enter `bye`
 
 ## Command Summary
 
@@ -278,4 +289,4 @@ Format: `bye`
 * List of possible `<lesson type>` values:\
 `TUTORIAL`, `LECTURE`, `SEMINAR`, `LAB`, `RECITATION`, `SESSION`
 
-* `<time>` must be in the 24h format, e.g. `1200`, `1415`
+* `<time>` must be in the 24h format, e.g. `0900`, `1415`
