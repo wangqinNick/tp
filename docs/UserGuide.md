@@ -15,6 +15,7 @@ Welcome to the ra.VI User Guide! Choose a section or sub-section from the table 
 &nbsp;&nbsp;3.2 Getting started <br>
 [4. **Features**](#4-features)  <br>
 &nbsp;&nbsp;[4.1 Viewing help](#41-viewing-help-help) <br>
+&nbsp;&nbsp;[4.1.1 Viewing help for a specific command](#411-viewing-help-for-a-specific-command-help-command_word) <br>
 &nbsp;&nbsp;[4.2 Add an item](#42-adding-an-item-add-opt-args) <br>
 &nbsp;&nbsp;&nbsp;&nbsp;[4.2.1 Add a task](#421-adding-a-task-add--t--by) <br>
 &nbsp;&nbsp;&nbsp;&nbsp;[4.2.2 Add a module](#422-adding-a-module-add--m) <br>
@@ -84,6 +85,15 @@ Some example commands you can try:
 ### 4.1 Viewing help: `help`
 
 Shows a message with the list of available commands and functions.
+
+#### 4.1.1 Viewing help for a specific command: `help <command_word>`
+
+Example of usage: 
+* `help add`
+* `help timetable`
+* `help help`
+
+Get detailed help message for each command
 
 ### 4.2 Adding an item: `add <opt> <args>`
 
