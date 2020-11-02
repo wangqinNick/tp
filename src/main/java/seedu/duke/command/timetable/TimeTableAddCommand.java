@@ -5,10 +5,12 @@ import seedu.duke.command.PromptType;
 import seedu.duke.data.Lesson;
 import seedu.duke.data.TimeTableManager;
 import seedu.duke.exception.LessonInvalidTimeException;
+import seedu.duke.exception.LessonOverlapException;
 import seedu.duke.exception.ModuleNotFoundException;
 import seedu.duke.exception.RepeatFrequencyInvalidException;
 
 import static seedu.duke.util.ExceptionMessage.MESSAGE_LESSON_INVALID_TIME;
+import static seedu.duke.util.ExceptionMessage.MESSAGE_LESSON_OVERLAP;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_REPEAT_FREQUENCY_UNKNOWN;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_MODULE_NOT_FOUND;
 import static seedu.duke.util.Message.MESSAGE_ADD_LESSON_SUCCESS;
@@ -34,7 +36,7 @@ public class TimeTableAddCommand extends TimeTableCommand {
      *  When the module to be added to the timetable is not in the module list.
      */
     public void addLessonToTimeTable() throws LessonInvalidTimeException, RepeatFrequencyInvalidException,
-            ModuleNotFoundException {
+            ModuleNotFoundException, LessonOverlapException {
         if (repeatFreq < 0 || repeatFreq > 3) {
             throw new RepeatFrequencyInvalidException();
         }
@@ -46,13 +48,15 @@ public class TimeTableAddCommand extends TimeTableCommand {
         String message;
         try {
             addLessonToTimeTable();
-            message = MESSAGE_ADD_LESSON_SUCCESS;
+            message = String.format(MESSAGE_ADD_LESSON_SUCCESS, newLesson.toString());
         } catch (LessonInvalidTimeException e) {
             message = MESSAGE_LESSON_INVALID_TIME;
         } catch (RepeatFrequencyInvalidException e) {
             message = MESSAGE_REPEAT_FREQUENCY_UNKNOWN;
         } catch (ModuleNotFoundException e) {
             message = MESSAGE_MODULE_NOT_FOUND;
+        } catch (LessonOverlapException e) {
+            message = String.format(MESSAGE_LESSON_OVERLAP, e.overlapLessonStr);
         }
         return new CommandResult(message);
     }
