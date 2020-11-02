@@ -27,6 +27,7 @@ public class CapCommand extends Command {
 
     public static double cap = 0.0;
 
+
     /**
      * Constructor for CapCommand which checks if the totalMcTaken and currentCap is valid also.
      *
@@ -35,7 +36,7 @@ public class CapCommand extends Command {
      * @param currentCap
      * users current cap score
      */
-    public CapCommand(int totalMcTaken,double currentCap) {
+    public CapCommand(int totalMcTaken, double currentCap) {
         this.totalMcTaken = totalMcTaken;
         this.currentCap = currentCap;
         setPromptType(PromptType.EDIT);
@@ -45,17 +46,17 @@ public class CapCommand extends Command {
      * Enum for the grading schematic of NUS.
      */
     private enum GradeSchematic {
-        A_PLUS("A+",5.0),
-        A("A",5.0),
-        A_MINUS("A-",4.5),
-        B_PLUS("B+",4.0),
-        B("B",3.5),
-        B_MINUS("B-",3.0),
-        C_PLUS("C+",2.5),
-        C("C",2.0),
-        D_PLUS("D+",1.5),
-        D("D",1.0),
-        F("F",0.0);
+        A_PLUS("A+", 5.0),
+        A("A", 5.0),
+        A_MINUS("A-", 4.5),
+        B_PLUS("B+", 4.0),
+        B("B", 3.5),
+        B_MINUS("B-", 3.0),
+        C_PLUS("C+", 2.5),
+        C("C", 2.0),
+        D_PLUS("D+", 1.5),
+        D("D", 1.0),
+        F("F", 0.0);
 
         private final String symbol;
         private final double value;

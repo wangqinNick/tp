@@ -32,6 +32,6 @@ class ParserTest {
         String userInput = "this mod is time consuming";
         Matcher matcher = TEST_FORMAT.matcher(userInput);
         assertThrows(InvalidMatchException.class,
-            () -> Parser.matcherMatches(matcher,userInput,"",""));
+                () -> Parser.matcherMatches(matcher, userInput, "", ""));
     }
 }

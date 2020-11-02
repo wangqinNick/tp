@@ -44,7 +44,7 @@ public class AddTaskCommand extends AddCommand {
         if (deadline != null) {
             dateTimeOfDeadline = testDeadline(deadline);
         }
-        this.promptType = PromptType.EDIT;
+        setPromptType(PromptType.EDIT);
     }
 
     /**

@@ -44,7 +44,7 @@ public class GradeCommandParser {
 
         isValidMc(intMc);
 
-        return new GradeCommand(module,intMc,grade);
+        return new GradeCommand(module, intMc, grade);
     }
 
     private static void isValidMc(double intMc) throws InvalidModuleCreditException {

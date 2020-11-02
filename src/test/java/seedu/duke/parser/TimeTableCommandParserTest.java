@@ -6,13 +6,11 @@ import org.junit.jupiter.api.Test;
 import seedu.duke.command.Command;
 import seedu.duke.command.CommandResult;
 import seedu.duke.command.IncorrectCommand;
-import seedu.duke.data.Module;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.data.TimeTableManager;
 import seedu.duke.data.storage.InputOutputManager;
 import seedu.duke.exception.DuplicateModuleException;
 import seedu.duke.exception.InvalidMatchException;
-import seedu.duke.exception.ModuleNotFoundException;
 import seedu.duke.exception.ModuleNotProvidedException;
 import seedu.duke.exception.TimeTableInitialiseException;
 import seedu.duke.util.ExceptionMessage;
@@ -84,7 +82,7 @@ public class TimeTableCommandParserTest {
     @Test
     void bad_Lesson_Time_1_TimeTableAddCommand_InvalidMatchException_isThrown() {
         assertThrows(InvalidMatchException.class,
-            () -> TimeTableCommandParser.parseTimeTableCommand(WRONG_LESSON_TIME_1_TIMETABLE_ADD_COMMAND_FORMAT));
+                () -> TimeTableCommandParser.parseTimeTableCommand(WRONG_LESSON_TIME_1_TIMETABLE_ADD_COMMAND_FORMAT));
     }
 
     @Test
@@ -100,13 +98,13 @@ public class TimeTableCommandParserTest {
     @Test
     void bad_DateTime_TimeTableAddCommand_IllegalArgumentException_isThrown() {
         assertThrows(IllegalArgumentException.class,
-            () -> TimeTableCommandParser.parseTimeTableCommand(WRONG_DAY_TIMETABLE_ADD_COMMAND_FORMAT));
+                () -> TimeTableCommandParser.parseTimeTableCommand(WRONG_DAY_TIMETABLE_ADD_COMMAND_FORMAT));
     }
 
     @Test
     void bad_DateTime_TimeTableDeleteCommand_IllegalArgumentException_isThrown() {
         assertThrows(IllegalArgumentException.class,
-            () -> TimeTableCommandParser.parseTimeTableCommand(WRONG_DAY_TIMETABLE_DELETE_COMMAND_FORMAT));
+                () -> TimeTableCommandParser.parseTimeTableCommand(WRONG_DAY_TIMETABLE_DELETE_COMMAND_FORMAT));
     }
 
     @Test

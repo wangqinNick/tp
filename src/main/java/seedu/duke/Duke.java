@@ -40,7 +40,11 @@ public class Duke {
         logger.getLogger().info("Initialised scanner, UI, and IO");
     }
 
-    /** Runs the program until termination.  */
+    /**
+     * Runs the program until termination.
+     *
+     * @param args arguments passed to the program.
+     */
     public void run(String[] args) {
         logger.getLogger().info("STARTING PROGRAM...");
         start(args);

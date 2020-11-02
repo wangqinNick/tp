@@ -31,10 +31,10 @@ public class LessonParser {
      * @throws ModuleNotFoundException When the module is not found in the module list.
      * @throws LessonInvalidTimeException When the start is greater than or equal to end time of the Lesson.
      * @throws DateTimeParseException When the time of either the start or end is in the wrong format.
+     * @throws IllegalArgumentException When the Lesson to be created has illegal arguments.
      */
     public static Lesson parseLesson(Matcher lessonMatcher) throws
-            ModuleNotFoundException, LessonInvalidTimeException, DateTimeParseException,
-            IllegalArgumentException {
+            ModuleNotFoundException, LessonInvalidTimeException, DateTimeParseException {
         String modString = lessonMatcher.group(MODULE_GROUP).toUpperCase().trim();
         String dayString = lessonMatcher.group(DAY_GROUP).toUpperCase().trim();
         String startTimeString = lessonMatcher.group(START_TIME_GROUP).trim();
@@ -93,7 +93,7 @@ public class LessonParser {
         if (!startTimeString.equals(SKIP_PARAMETER_CHAR)) {
             LocalTime startTime = LocalTime.parse(startTimeString, time);
             LessonFilter startFilter = (l) ->
-                (l.getStartTime().isAfter(startTime) || l.getStartTime().equals(startTime));
+                    (l.getStartTime().isAfter(startTime) || l.getStartTime().equals(startTime));
             filterList.add(startFilter);
         }
 
@@ -101,7 +101,7 @@ public class LessonParser {
         if (!endTimeString.equals(SKIP_PARAMETER_CHAR)) {
             LocalTime endTime = LocalTime.parse(endTimeString, time);
             LessonFilter endFilter = (l) ->
-                (l.getEndTime().isBefore(endTime) || l.getEndTime().equals(endTime));
+                    (l.getEndTime().isBefore(endTime) || l.getEndTime().equals(endTime));
             filterList.add(endFilter);
         }
 
