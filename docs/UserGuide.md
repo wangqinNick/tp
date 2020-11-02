@@ -8,7 +8,7 @@ Welcome to the ra.VI User Guide! Choose a section or sub-section from the table 
 &nbsp;&nbsp;[1.2 Introduction](#12-introduction)  <br>
 &nbsp;&nbsp;[1.3 Product Overview](#13-product-overview) <br>
 &nbsp;&nbsp;[1.4 Quick Start](#14-quick-start)<br>
-2. **Key Features** <br>  
+2. **Key Features** <br>
 &nbsp;&nbsp;2.1 Key features <br>
 3. **Installation-Getting Started** <br>
 &nbsp;&nbsp;3.1 Installation <br>
@@ -232,7 +232,7 @@ Format: `timetable -del <day> <lesson index>`
 `<lesson index>` : Index of the lesson to be deleted. See timetable and the indexes with `timetable -day` or `timetable -week`
 
 Example of usage: 
-* `timetable -del CS2101 1`
+* `timetable -del MONDAY 1`
 
 ### 4.12 Exiting the program: `bye`
 
