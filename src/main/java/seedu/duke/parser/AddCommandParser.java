@@ -12,7 +12,7 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static seedu.duke.util.ExceptionMessage.MESSAGE_DATE_TIME_UNKNOWN;
+import static seedu.duke.util.ExceptionMessage.MESSAGE_ADD_TASK_DATE_TIME_UNKNOWN;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_NO_ADD_MODULE;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_NO_ADD_TASK;
 import static seedu.duke.util.Message.MESSAGE_CHECK_COMMAND_FORMAT;
@@ -73,7 +73,7 @@ public class AddCommandParser {
         try {
             return getAddCommand(commandFlag, addedTask, taskDeadline);
         } catch (DateTimeParseException e) {
-            return new IncorrectCommand(MESSAGE_DATE_TIME_UNKNOWN);
+            return new IncorrectCommand(MESSAGE_ADD_TASK_DATE_TIME_UNKNOWN);
         }
     }
 
