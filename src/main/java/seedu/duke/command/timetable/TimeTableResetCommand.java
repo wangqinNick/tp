@@ -1,12 +1,11 @@
 package seedu.duke.command.timetable;
 
-import seedu.duke.command.Command;
 import seedu.duke.command.CommandResult;
 import seedu.duke.data.TimeTableManager;
 
 import static seedu.duke.util.Message.MESSAGE_TIMETABLE_RESET;
 
-public class TimeTableResetCommand extends Command {
+public class TimeTableResetCommand extends TimeTableCommand {
     @Override
     public CommandResult execute() {
         if (TimeTableManager.isInitialised()) {
