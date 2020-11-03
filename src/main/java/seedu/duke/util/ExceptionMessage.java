@@ -16,11 +16,9 @@ public class ExceptionMessage {
             "Sorry, that task index is not valid.\n"
             + "Use list -t to look at your tasks, and their index.\n"
             + "You can't use the task index from the summary command!\n";
-
     public static final String MESSAGE_NO_EDIT_MODULE =
             "Please enter a proper module code to edit.\n"
             + "It should be a module code of an actual NUS mod. E.g. CS1010.\n";
-
     public static final String MESSAGE_NO_EDIT_TASK =
             "Please enter a proper task index to edit.\n"
             + "Use list -t to look at your tasks, and their index.\n"
@@ -76,11 +74,12 @@ public class ExceptionMessage {
             + "\tRequired date time format: HHmm HHmm\n"
             + "\tExample: 1800 2000";
     public static final String MESSAGE_INVALID_CAP =
-            "Amazing, you have entered an invalid cap, Good try. \n";
+            "The CAP you entered is invalid.\n";
     public static final String MESSAGE_INVALID_CAP_ATTAINED =
-            "Amazing, you have attained an Invalid cap, hopefully not on purpose? \n";
+            "The CAP calculated from your input is invalid.\n";
     public static final String MESSAGE_INVALID_MC =
-            "Amazing, you have entered an invalid number of module credits taken, Nice try. \n";
+            "The number of MCs you entered is invalid.\n";
+    
     public static final String MESSAGE_MISSING_DIRECTORY_NAME =
             "Please include the name of the directory you want to move to.\n"
                     + "Alternatively, enter .. to move to the parent directory instead.\n";
