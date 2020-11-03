@@ -156,7 +156,7 @@ Format: `list -t`
 List all modules in the scheduler.  
 Format: `list -m`
 
-#### 4.6 Grade a existing module: `grade`
+### 4.6 Grade a existing module: `grade`
 
 Assign a grade to a module in the Scheduler.
 Format: `grade <module Code> <module credit> <grade>`
@@ -167,7 +167,7 @@ Format: `grade <module Code> <module credit> <grade>`
 Example of usage:
 * `grade CS2101 4 B+`
 
-#### 4.7 Calculate your cap after the semester: `cap`
+### 4.7 Calculate your cap after the semester: `cap`
 
 Calculate your new updated cap, accumulated from past semesters.
 Format: `cap <total module credit taken> <current cap>`
