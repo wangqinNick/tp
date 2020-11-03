@@ -10,17 +10,30 @@ ra.VI helps you to manage your tasks, and their corresponding deadlines with eas
 Given below are my contributions to the project.
 
 #### Features
-* **List Command**: Added the ability to list all added tasks and modules in ra.VI.
-  * What it does: allows the user to view the list of tasks or modules. 
-  * Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-  * Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+* **List Feature**: Added the ability to list all added tasks and modules in ra.VI.
+  * What it does: Allows the user to view the list of tasks or modules. 
+  * Justification: This feature is integral to the product so that the user can view all the tasks and modules that has been added at a quick glance. 
+  * Highlights: This enhancement affects existing commands as the task index from `list` is required as a parameter for `done` and `edit` commands.
+  . It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 
-* **Done Command**: Added the ability to list all added tasks and modules in ra.VI.
+* **Done Feature**: Added the ability to mark a task as done in ra.VI.
+  * What it does: Allows the user to mark a task in the task list as done.
+  * Justification: This feature is integral to the product so that the user can update the statuses of tasks.
+  * Highlights: This enhancement affects existing commands as the task index from `list` is required as a parameter for `done` and `edit` commands.
+  . It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 
-* **Help Command**: Added the ability to list all added tasks and modules in ra.VI.
+* **Help Feature**: Added the ability to view help messages  
+  * What it does: Allows the user to view the list of tasks or modules. 
+  * Justification: This feature is integral to the product so that the user can view all the tasks and modules that has been added at a quick glance. 
+  * Highlights: This enhancement affects existing commands as the task index from `list` is required as a parameter for `done` and `edit` commands.
+  . It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 
 * **Summary Command**: Added the ability to list all added tasks and modules in ra.VI.
-
+  * What it does: Provides seamless assistance for the usage of ra.VI. 
+  * Justification: This feature is integral to the product so that the user can view all the tasks and modules that has been added at a quick glance. 
+  * Highlights: This enhancement affects existing commands as the task index from `list` is required as a parameter for `done` and `edit` commands.
+  . It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+  
 * **View Timetable Command**: Added the ability to list all added tasks and modules in ra.VI.
 
 * **Reset Timetable Command**: Added the ability to list all added tasks and modules in ra.VI.
