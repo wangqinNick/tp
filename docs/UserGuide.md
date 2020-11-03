@@ -241,9 +241,6 @@ Example of usage:
 Gets an overall view of the tasks.
 Format: `summary`
 
-Example of usage: 
-* `summary`
-
 ### 3.11 TimeTable: `timetable <opt> <args>`
 
 #### 3.11.1 View the timetable: `timetable <args>`
@@ -284,9 +281,6 @@ Example of usage:
 
 Resets the timetable.\
 Format: `timetable -reset`
-
-Example of usage:
-* `timetable -reset`
 
 ### 3.12 Exiting the program: `bye`
 
