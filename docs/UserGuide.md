@@ -116,11 +116,55 @@ Shows a message with the list of available commands and functions.
 #### 3.1.1 Viewing help for a specific command: `help <command_word>`
 
 Example of usage: 
-* `help add`
+* `help`
 * `help timetable`
-* `help help`
+* `help add`
 
 Get detailed help message for each command
+
+Example of output:
+```
+Command: 
+⋗	help
+════════════════════════════════════════════════════════════════════════════════
+Hello! I'm ra.VI, your personal NUS assistant.
+I'm here to help you manage your tasks, modules, and lessons.
+This help message appears when you type 'help', or an unrecognised command.
+To find out more about any of my commands, type 'help <command>'.
+Here's a list of my commands to help you out:
+
+🏃 Action commands:
+	▻ add       → Add a task or module
+	▻ del       → Delete a task or module
+	▻ edit      → Edit a task or module
+	▻ done      → Mark a task as complete
+	▻ grade     → Grades and allocates MCs to a Module
+	▻ undo      → Undo the previous action (if you made changes)
+	▻ timetable → Manage your timetable
+📖 Viewing commands:
+	▻ list      → Lists all tasks or modules
+	▻ summary   → See a neat summary of your tasks
+	▻ timetable → View your timetable, by day or by week
+🛠 Utility commands:
+	▻ help      → Get detailed help for each command
+	▻ bye       → Exit ra.VI (saves all changes!)
+════════════════════════════════════════════════════════════════════════════════
+```
+
+```
+Command: 
+⋗	help add
+════════════════════════════════════════════════════════════════════════════════
+Add a task to the scheduler.
+	Format: add -t <task_name> [-by <deadline>]
+	Example usage: add -t Read Book
+	               add -t Return Book -by 30-12-2020 1800
+
+Add a module from NUSMods to the scheduler.
+	Format: add -m <module_code>
+	Example usage: add -m CS2113T
+════════════════════════════════════════════════════════════════════════════════
+```
 
 ### 3.2 Adding an item: `add <opt> <args>`
 
@@ -133,6 +177,27 @@ Example of usage:
 * `add -t read chapter 1`
 * `add -t read chapter 1 -by 30-12-2020 1800`
 
+Example of output:
+```
+Command: 
+⋗	add -t read a book
+════════════════════════════════════════════════════════════════════════════════
+Your task has been added successfully.
+Your new task - 'read a book [x]'
+
+════════════════════════════════════════════════════════════════════════════════
+```
+
+```
+Command: 
+⋗	add -t read a book -by 02-02-2020 1900
+════════════════════════════════════════════════════════════════════════════════
+Your task has been added successfully.
+Your new task - 'read a book [x], by 07:00PM, Sunday, 02 Feb 20'
+
+════════════════════════════════════════════════════════════════════════════════
+```
+
 #### 3.2.2 Adding a module: `add -m`
 
 Add a module to the scheduler.  
@@ -140,6 +205,17 @@ Format: `add -m <module_code>`
 
 Example of usage: 
 * `add -m CS1231`
+
+Example of output:
+```
+Command: 
+⋗	add -m CG1111
+════════════════════════════════════════════════════════════════════════════════
+Your module has been added successfully.
+Your new module - 'CG1111: Engineering Principles and Practice I: No grade yet'
+
+════════════════════════════════════════════════════════════════════════════════
+```
 
 ### 3.3 Editing an item: `edit <opt> <args>`
 
@@ -153,6 +229,16 @@ Example of usage:
 
 Note: You can find the task indexes with `list -t`  
 
+Example of output:
+```
+Command: 
+⋗	edit -t 1 buy stuff
+════════════════════════════════════════════════════════════════════════════════
+Your task has been edited successfully.
+
+════════════════════════════════════════════════════════════════════════════════
+```
+
 #### 3.3.2 Editing a module: `edit -m`
 
 Edit a module code in the scheduler.  
@@ -160,6 +246,16 @@ Format: `edit -m <module_code> <new_module_code>`
 
 Example of usage: 
 * `edit -m CS2113 CS2113T`
+
+Example of output:
+```
+Command: 
+⋗	edit -m cg1111 cg1112
+════════════════════════════════════════════════════════════════════════════════
+Your module has been edited successfully.
+
+════════════════════════════════════════════════════════════════════════════════
+```
 
 ### 3.4 Deleting an item: `del <opt> <args>`
 
@@ -171,6 +267,16 @@ Format: `del -t <task_index>`
 Example of usage: 
 * `del -t 1`
 
+Example of output:
+```
+Command: 
+⋗	del -t 1
+════════════════════════════════════════════════════════════════════════════════
+Your task has been deleted successfully.
+
+════════════════════════════════════════════════════════════════════════════════
+```
+
 #### 3.4.2 Deleting a module: `del -m`
 
 Remove a module from the scheduler.  
@@ -181,6 +287,17 @@ Example of usage:
 
 Note: You can find the task indexes with `list -t`  
 
+Example of output:
+```
+Command: 
+⋗	del -m cg1112
+════════════════════════════════════════════════════════════════════════════════
+Your module has been deleted successfully.
+
+════════════════════════════════════════════════════════════════════════════════
+```
+
+
 ### 3.5 Listing all items: `list <opt> <args>`
 
 #### 3.5.1 Listing all tasks: `list -t`
@@ -188,16 +305,37 @@ Note: You can find the task indexes with `list -t`
 List all tasks in the scheduler.   
 Format: `list -t`
 
+Example of output:
+```
+Command: 
+⋗	list -t
+════════════════════════════════════════════════════════════════════════════════
+Here's your list:
+
+1. go running [x]
+2. buy something [x], by 07:00PM, Sunday, 02 Feb 20
+
+════════════════════════════════════════════════════════════════════════════════
+```
+
 #### 3.5.2 Listing all modules: `list -m`
 
 List all modules in the scheduler.  
 Format: `list -m`
 
-<<<<<<< HEAD
-### 4.6 Grade a existing module: `grade`
-=======
+Example of output:
+```
+Command: 
+⋗	list -m
+════════════════════════════════════════════════════════════════════════════════
+Here's your list:
+
+1. CG1111: Engineering Principles and Practice I: A+
+2. CS2101: Effective Communication for Computing Professionals: No grade yet
+════════════════════════════════════════════════════════════════════════════════
+```
+
 #### 3.6 Grade a existing module: `grade`
->>>>>>> master
 
 Assign a grade to a module in the Scheduler.
 Format: `grade <module Code> <module credit> <grade>`
@@ -208,11 +346,17 @@ Format: `grade <module Code> <module credit> <grade>`
 Example of usage:
 * `grade CS2101 4 B+`
 
-<<<<<<< HEAD
-### 4.7 Calculate your cap after the semester: `cap`
-=======
+Example of output:
+```
+Command: 
+⋗	grade cg1111 4 A+
+════════════════════════════════════════════════════════════════════════════════
+Module graded successfully.
+
+════════════════════════════════════════════════════════════════════════════════
+```
+
 #### 3.7 Calculate your cap after the semester: `cap`
->>>>>>> master
 
 Calculate your new updated cap, accumulated from past semesters.
 Format: `cap <total module credit taken> <current cap>`
@@ -225,6 +369,17 @@ To get the current semester's CAP.
 Example of usage:
 * `cap 46 4.24`
 
+Example of output:
+```
+Command: 
+⋗	cap 20 4.24
+════════════════════════════════════════════════════════════════════════════════
+Your current CAP is 
+4.31
+
+════════════════════════════════════════════════════════════════════════════════
+```
+
 ### 3.8 Mark as done: `done <task_index>`
 
 Mark a task in the scheduler as done.  
@@ -232,6 +387,16 @@ Format: `done <task_index>`
 
 Example of usage: 
 * `done 1`
+
+Example of output:
+```
+Command: 
+⋗	done 1
+════════════════════════════════════════════════════════════════════════════════
+The task has been successfully marked as complete.
+
+════════════════════════════════════════════════════════════════════════════════
+```
 
 ### 3.9 Undo a command: `undo`
 
@@ -243,6 +408,15 @@ Example of usage:
 1. `add -m CS2113T`
 2. `undo`
 
+Example of output:
+```
+Command: 
+⋗	undo
+════════════════════════════════════════════════════════════════════════════════
+Undo successful.
+════════════════════════════════════════════════════════════════════════════════
+```
+
 ### 3.10 Summary: `summary`
 
 Gets an overall view of the tasks.
@@ -250,6 +424,25 @@ Format: `summary`
 
 Example of usage: 
 * `summary`
+
+Example of output:
+```
+Command: 
+⋗	summary
+════════════════════════════════════════════════════════════════════════════════
+Here's a summary of your latest tasks...
+
+⏰ Incomplete tasks with deadlines:
+1. buy something [x], by 07:00PM, Sunday, 02 Feb 20
+
+❗ Incomplete tasks with no deadline:
+1. go running [x]
+
+👌 Completed tasks:
+Your list is empty.
+
+════════════════════════════════════════════════════════════════════════════════
+```
 
 ### 3.11 TimeTable: `timetable <opt> <args>`
 
@@ -261,6 +454,56 @@ View the timetable for the day or for the week.\
 Example of usage: 
 * `timetable -day`
 * `timetable -week`
+
+Example of output:
+```
+Command: 
+⋗	timetable -day
+════════════════════════════════════════════════════════════════════════════════
+Current NUS Week: 1
+
+TUESDAY, 03-11-20:
+ ┌───────────┬────┬────────────────────┐
+ │   Time    │ ID │       Lesson       │
+ ├───────────┼────┼────────────────────┤
+ │ 1300-1400 │ 01 │  CS2101 Tutorial   │
+ └───────────┴────┴────────────────────┘
+
+════════════════════════════════════════════════════════════════════════════════
+```
+
+```
+Command: 
+⋗	timetable -week
+════════════════════════════════════════════════════════════════════════════════
+Current NUS Week: 1
+
+No lessons on MONDAY, 02-11-20.
+
+TUESDAY, 03-11-20:
+ ┌───────────┬────┬────────────────────┐
+ │   Time    │ ID │       Lesson       │
+ ├───────────┼────┼────────────────────┤
+ │ 1300-1400 │ 01 │  CS2101 Tutorial   │
+ └───────────┴────┴────────────────────┘
+
+No lessons on WEDNESDAY, 04-11-20.
+
+THURSDAY, 05-11-20:
+ ┌───────────┬────┬────────────────────┐
+ │   Time    │ ID │       Lesson       │
+ ├───────────┼────┼────────────────────┤
+ │ 0900-1200 │ 01 │     CG1111 Lab     │
+ └───────────┴────┴────────────────────┘
+
+No lessons on FRIDAY, 06-11-20.
+
+No lessons on SATURDAY, 07-11-20.
+
+No lessons on SUNDAY, 08-11-20.
+
+════════════════════════════════════════════════════════════════════════════════
+```
 
 #### 3.11.2 Add a lesson: `timetable -add`
 
@@ -277,6 +520,17 @@ Example of usage:
 * `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 0`
 * `timetable -add CS2113T MONDAY 1300 1500 LAB 1`
 
+Example of output:
+```
+Command: 
+⋗	timetable -add cg1111 MONDAY 0900 1200 LAB 1
+════════════════════════════════════════════════════════════════════════════════
+Your lesson has been added successfully.
+Your new lesson - 'CG1111 Lab: MONDAY 900-1200'
+
+════════════════════════════════════════════════════════════════════════════════
+```
+
 #### 3.11.3 Delete a lesson: `timetable -del`
 
 Deletes a lesson from the timetable.\
@@ -287,10 +541,29 @@ Format: `timetable -del <day> <lesson index>`
 Example of usage: 
 * `timetable -del MONDAY 1`
 
+Example of output:
+```
+Command: 
+⋗	timetable -del MONDAY 1
+════════════════════════════════════════════════════════════════════════════════
+Your lesson has been deleted successfully.
+
+════════════════════════════════════════════════════════════════════════════════
+```
+
 ### 3.12 Exiting the program: `bye`
 
 Exits ra.VI.\
 Format: `bye`
+
+Example of output:
+```
+Command: 
+⋗	bye
+════════════════════════════════════════════════════════════════════════════════
+Goodbye, hope to see you soon!
+════════════════════════════════════════════════════════════════════════════════
+```
 
 ## 4 FAQ
 
