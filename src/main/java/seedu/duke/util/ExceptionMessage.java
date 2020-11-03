@@ -12,12 +12,10 @@ public class ExceptionMessage {
     public static final String MESSAGE_DUPLICATE_MODULE =
             "Sorry, the module already exists in your list, so I can't add it again.\n"
             + "Perhaps you meant a different module?\n";
-
     public static final String MESSAGE_TASK_NOT_FOUND =
             "Sorry, that task index is not valid.\n"
             + "Use list -t to look at your tasks, and their index.\n"
             + "You can't use the task index from the summary command!\n";
-
     public static final String MESSAGE_NO_EDIT_MODULE =
             "Please enter a proper module code to edit.\n"
             + "It should be a module code of an actual NUS mod. E.g. CS1010.\n";
@@ -32,14 +30,13 @@ public class ExceptionMessage {
             "Please enter a new task to add.\n"
             + "Use list -t to look at your tasks, and their index.\n"
             + "You can't use the task index from the summary command!\n";
-
     public static final String MESSAGE_INVALID_PARAMETERS =
             "Some invalid or missing parameters were found!";
     public static final String MESSAGE_LIST_EMPTY =
             "\nYour list is empty.\n";
     public static final String MESSAGE_STRING_IN_NUMBER =
-            "There seems to be a string in the place of a number \n"
-            + "Or the number you have entered is too long... \n"
+            "The task index you have entered is either not an integer or is too long!\n"
+            + "Use `list -t` to look at your tasks, and their index.\n"
             + "Please check your command! Use help <command> for assistance.\n";
     public static final String MESSAGE_INVALID_COMMAND_WORD =
             "I don't recognise that command...\n"
@@ -68,16 +65,21 @@ public class ExceptionMessage {
             + "3 - Every odd week\n";
     public static final String TIMETABLE_NOT_INITIALISED =
             "Please enter a proper week number as instructed.\n";
-    public static final String MESSAGE_DATE_TIME_UNKNOWN =
+    public static final String MESSAGE_ADD_TASK_DATE_TIME_UNKNOWN =
             "Please enter a valid date and time.\n"
-            + "You can use help <command> to find the required date time format.\n";
+            + "\tRequired date time format: dd-MM-yyyy HHmm\n"
+            + "\tExample: 30-12-2020 1600";
+    public static final String MESSAGE_ADD_LESSON_DATE_TIME_UNKNOWN =
+            "Please enter a valid date and time.\n"
+            + "\tRequired date time format: HHmm HHmm\n"
+            + "\tExample: 1800 2000";
     public static final String MESSAGE_INVALID_CAP =
-            "Amazing, you have entered an invalid cap, Good try. \n";
+            "The CAP you entered is invalid.\n";
     public static final String MESSAGE_INVALID_CAP_ATTAINED =
-            "Amazing, you have attained an Invalid cap, hopefully not on purpose? \n";
+            "The CAP calculated from your input is invalid.\n";
     public static final String MESSAGE_INVALID_MC =
-            "Amazing, you have entered an invalid number of module credits taken, Nice try. \n";
-
+            "The number of MCs you entered is invalid.\n";
+    
     public static final String MESSAGE_MISSING_DIRECTORY_NAME =
             "Please include the name of the directory you want to move to.\n"
                     + "Alternatively, enter .. to move to the parent directory instead.\n";
