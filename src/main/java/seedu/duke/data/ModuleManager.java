@@ -104,6 +104,10 @@ public class ModuleManager {
      * Adds a module to the Module List. Uses the module code to grab the module object from the NUSMods list.
      * @param moduleCode
      *  The module code string of the module to add to the module list
+     * @throws DuplicateModuleException
+     *  When the module to be added already exists in the module list
+     * @throws ModuleNotProvidedException
+     *  When the module to be added is not a valid NUS module
      */
     public static void add(String moduleCode) throws DuplicateModuleException, ModuleNotProvidedException {
         logger.getLogger().info("Adding module with code: " + moduleCode);
@@ -119,6 +123,8 @@ public class ModuleManager {
      * Removes a module from the Module List using the module code.
      * @param moduleCode
      *  The module code of the module to remove from the module list
+     * @throws ModuleNotFoundException
+     *  When the module to be deleted is not in the module list
      */
     public static void delete(String moduleCode) throws ModuleNotFoundException {
         logger.getLogger().info("Deleting module with code: " + moduleCode);
@@ -136,7 +142,7 @@ public class ModuleManager {
      *  The module code of the module to be found
      * @return
      *  The found module with the specified module code
-     * @throws ModuleNotFoundException
+     * @throws ModuleNotProvidedException
      *  If the module is not found in the Module List
      */
     public static Module getNusModule(String moduleCode) throws ModuleNotProvidedException {
@@ -151,6 +157,7 @@ public class ModuleManager {
     public static String[] getModCodeList() {
         return modulesMap.keySet().toArray(new String[0]);
     }
+
 
     public static String[] getNusModCodeList() {
         return nusModsMap.keySet().toArray(new String[0]);

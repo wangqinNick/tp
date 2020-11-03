@@ -28,6 +28,6 @@ class EditCommandParserTest {
     @Test
     void prepareEditTaskCommandTest_NumberFormatException_isThrown() {
         assertThrows(NumberFormatException.class,
-            () -> new EditCommandParser().prepareEditTaskCommand(BAD_TASK_TO_EDIT));
+                () -> new EditCommandParser().prepareEditTaskCommand(BAD_TASK_TO_EDIT));
     }
 }

@@ -29,7 +29,7 @@ public class HelpCommandParser {
             throws InvalidParameterException, InvalidMatchException {
         Matcher matcher = HELP_FORMAT.matcher(parameters);
 
-        Parser.matcherMatches(matcher, parameters, HelpCommand.FORMAT,HelpCommand.HELP);
+        Parser.matcherMatches(matcher, parameters, HelpCommand.FORMAT, HelpCommand.HELP);
 
         String helpCommandWord = Parser.isMatcherNull(matcher.group(HCW_GROUP))
                 ? "genericHelp" : matcher.group(HCW_GROUP).trim();

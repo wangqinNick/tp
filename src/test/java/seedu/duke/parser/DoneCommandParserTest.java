@@ -15,19 +15,19 @@ public class DoneCommandParserTest {
     @Test
     void prepareDoneCommand_returnsDoneCommand() throws InvalidMatchException {
         assertTrue(DoneCommandParser.prepareDoneCommand(VALID_DONE_INPUT)
-            instanceof DoneCommand);
+                instanceof DoneCommand);
     }
 
     @Test
     void prepareDoneCommand_NumberFormatException_isThrown() {
         assertThrows(NumberFormatException.class,
-            () -> DoneCommandParser.prepareDoneCommand(INVALID_DONE_INPUT_STRING));
+                () -> DoneCommandParser.prepareDoneCommand(INVALID_DONE_INPUT_STRING));
     }
 
     @Test
     void prepareDoneCommand_InvalidMatchException_isThrown() {
         assertThrows(InvalidMatchException.class,
-            () -> DoneCommandParser.prepareDoneCommand(INVALID_DONE_INPUT_EXCESS));
+                () -> DoneCommandParser.prepareDoneCommand(INVALID_DONE_INPUT_EXCESS));
     }
 
 }

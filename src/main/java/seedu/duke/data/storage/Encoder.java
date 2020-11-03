@@ -1,18 +1,17 @@
 package seedu.duke.data.storage;
 
-import seedu.duke.data.Task;
-import seedu.duke.data.TaskManager;
+import com.alibaba.fastjson.JSON;
 import seedu.duke.data.Module;
 import seedu.duke.data.ModuleManager;
+import seedu.duke.data.Task;
+import seedu.duke.data.TaskManager;
+import seedu.duke.data.TimeTableManager;
+import seedu.duke.exception.ModuleNotFoundException;
+import seedu.duke.exception.ModuleNotProvidedException;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
-import com.alibaba.fastjson.JSON;
-import seedu.duke.data.TimeTableManager;
-import seedu.duke.exception.ModuleNotFoundException;
-import seedu.duke.exception.ModuleNotProvidedException;
 
 /**
  * Manages all inputs to files, and the conversion from Object in memory to String in file.
@@ -84,7 +83,7 @@ public class Encoder {
      *  The name of the file to save to
      * @throws IOException
      *  When there is an error preparing the save file
-     * @throws ModuleNotFoundException
+     * @throws ModuleNotProvidedException
      *  If module not found (should never happen)
      */
     public static void saveNusModules(String dataFileName) throws IOException, ModuleNotProvidedException {

@@ -10,6 +10,7 @@ import seedu.duke.data.Lesson;
 import seedu.duke.data.LessonType;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.data.TimeTableManager;
+import seedu.duke.data.storage.InputOutputManager;
 import seedu.duke.exception.DuplicateModuleException;
 import seedu.duke.exception.InvalidMatchException;
 import seedu.duke.exception.LessonInvalidTimeException;
@@ -39,14 +40,15 @@ public class TimeTableCommandTest {
     static final String BAD_VIEW_FORMAT = "-no";
 
     static final DayOfWeek DAY_OF_WEEK = DayOfWeek.MONDAY;
-    static final LocalTime LESSON_1_START_TIME = LocalTime.of(14,0);
-    static final LocalTime LESSON_1_END_TIME = LocalTime.of(16,0);
-    static final LocalTime OTHER_LESSON_START = LocalTime.of(9,0);
-    static final LocalTime OTHER_LESSON_END = LocalTime.of(10,0);
+    static final LocalTime LESSON_1_START_TIME = LocalTime.of(14, 0);
+    static final LocalTime LESSON_1_END_TIME = LocalTime.of(16, 0);
+    static final LocalTime OTHER_LESSON_START = LocalTime.of(9, 0);
+    static final LocalTime OTHER_LESSON_END = LocalTime.of(10, 0);
     static final LessonType LESSON_TYPE = LessonType.LECTURE;
 
     @BeforeAll
     static void setupUserMods() throws DuplicateModuleException, ModuleNotProvidedException {
+        InputOutputManager.loadNusModSave();
         ModuleManager.clearModules();
         ModuleManager.add(MOD_CODE_1);
         ModuleManager.add(MOD_CODE_2);
@@ -75,7 +77,8 @@ public class TimeTableCommandTest {
         LESSON_1_OVERLAP = new Lesson(MOD_CODE_2, LESSON_TYPE, DAY_OF_WEEK, LESSON_1_START_TIME, LESSON_1_END_TIME);
         TimeTableAddCommand timeTableAddCommand = new TimeTableAddCommand(LESSON_1_OVERLAP, REPEAT_FREQ_WEEKLY);
         CommandResult commandResult = timeTableAddCommand.execute();
-        assertEquals(ExceptionMessage.MESSAGE_LESSON_INVALID_TIME, commandResult.feedbackToUser);
+        assertEquals(String.format(ExceptionMessage.MESSAGE_LESSON_OVERLAP, LESSON_1.toString()),
+                commandResult.feedbackToUser);
     }
 
     @Test

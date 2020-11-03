@@ -37,23 +37,25 @@ public class ExceptionMessage {
     public static final String MESSAGE_LIST_EMPTY =
             "\nYour list is empty.\n";
     public static final String MESSAGE_STRING_IN_NUMBER =
-            "The task index has to be an integer!\n"
-            + "Use `list -t` to look at your tasks, and their index.\n"
-            + "Please check your command! Use help <command> for assistance.\n";
+            "The number you entered for task index is either not a number or too big.\n"
+            + "Use `list -t` to look at your tasks, and their index.\n";
     public static final String MESSAGE_INVALID_COMMAND_WORD =
             "I don't recognise that command...\n"
             + "Please use help to see our list of commands.\n";
     public static final String MESSAGE_INVALID_GRADE =
             "Your grade input isn't part of the NUS grading scheme. \n"
-            + "For your reference: A+, A, A-, B+, B, B-, C+, C, C-, D+, F.\n";
+            + "For your reference: A+, A, A-, B+, B, B-, C+, C, C-, D+, F. \n"
+            + "Grades CS, CU, are not accepted. \n";
     public static final String MESSAGE_LESSON_INVALID_TIME =
-            "Sorry, the lesson you have attempted to add "
-            + "either overlaps with other lessons or has an invalid start time.\n"
+            "Sorry, the lesson you have attempted to add has an invalid start time.\n"
             + "Try using timetable -day or timetable -week to look at your\n"
             + "current lessons first, or review your new lesson's start/end time.\n";
     public static final String MESSAGE_LESSON_NOT_FOUND =
             "Sorry, the lesson you have attempted to delete does not exist.\n"
             + "Use timetable (-week/-day) to look at your lessons and their index (ID).\n";
+    public static final String MESSAGE_LESSON_OVERLAP =
+            "Sorry, the lesson you have attempted to add overlaps with other lessons.\n"
+            + "This is the lesson you're overlapping with: %s\n";
     public static final String MESSAGE_REPEAT_FREQUENCY_UNKNOWN =
             "Sorry, the lesson you have attempted to add does "
             + "not have the correct repeatability.\n"
@@ -72,6 +74,13 @@ public class ExceptionMessage {
             "Please enter a valid date and time.\n"
             + "\tRequired date time format: HHmm HHmm\n"
             + "\tExample: 1800 2000";
+            + "You can use help <command> to find the required date time format.\n";
+    public static final String MESSAGE_INVALID_CAP =
+            "The CAP you entered is invalid.\n";
+    public static final String MESSAGE_INVALID_CAP_ATTAINED =
+            "The CAP calculated from your input is invalid.\n";
+    public static final String MESSAGE_INVALID_MC =
+            "The number of MCs you entered is invalid.\n";
 
     public static final String MESSAGE_MISSING_DIRECTORY_NAME =
             "Please include the name of the directory you want to move to.\n"
