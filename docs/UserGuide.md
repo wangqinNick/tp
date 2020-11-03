@@ -198,6 +198,9 @@ Format: `list -m`
 Assign a grade to a module in the Scheduler.
 Format: `grade <module Code> <module credit> <grade>`
 
+**Note:** For special grades: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;CS,CU,S,U are not covered in the calculator.
+
 Example of usage:
 * `grade CS2101 4 B+`
 
@@ -205,6 +208,11 @@ Example of usage:
 
 Calculate your new updated cap, accumulated from past semesters.
 Format: `cap <total module credit taken> <current cap>`
+
+**Note:** For first semester, key in <br>
+&nbsp;&nbsp;&nbsp;&nbsp;`<total module credit taken>` = 0 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;`<current cap>` = 0 <br>
+To get the current semester's CAP.
 
 Example of usage:
 * `cap 46 4.24`
