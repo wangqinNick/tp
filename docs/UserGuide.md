@@ -331,6 +331,7 @@ Format: `bye`
 | View day's timetable | `timetable -day` |
 | View week's timetable | `timetable -week` |
 | Filter timetable | `timetable -filter <module> <day> <start time> <end time> <lesson type>` |
+| Reset timetable | `timetable -reset` |
 | Get list of commands | `help` |
 | Get detailed help message for each command | `help <command_word>` |
 | Exit ra.VI | `bye` |
