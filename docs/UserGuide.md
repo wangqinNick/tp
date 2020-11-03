@@ -8,7 +8,7 @@ Welcome to the ra.VI User Guide! Choose a section or sub-section from the table 
 &nbsp;&nbsp;[1.2 Introduction](#12-introduction)  <br>
 &nbsp;&nbsp;[1.3 Product Overview](#13-product-overview) <br>
 &nbsp;&nbsp;[1.4 Quick Start](#14-quick-start)<br>
-2. **Key Features** <br>  
+2. **Key Features** 
 &nbsp;&nbsp;2.1 Key features <br>
 3. **Installation-Getting Started** <br>
 &nbsp;&nbsp;3.1 Installation <br>
@@ -161,6 +161,9 @@ Format: `list -m`
 Assign a grade to a module in the Scheduler.
 Format: `grade <module Code> <module credit> <grade>`
 
+**Note:** For special grades: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;CS,CU,S,U are not covered in the calculator.
+
 Example of usage:
 * `grade CS2101 4 B+`
 
@@ -168,6 +171,11 @@ Example of usage:
 
 Calculate your new updated cap, accumulated from past semesters.
 Format: `cap <total module credit taken> <current cap>`
+
+**Note:** For first semester, key in <br>
+&nbsp;&nbsp;&nbsp;&nbsp;`<total module credit taken>` = 0 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;`<current cap>` = 0 <br>
+To get the current semester's CAP.
 
 Example of usage:
 * `cap 46 4.24`

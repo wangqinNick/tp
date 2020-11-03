@@ -158,6 +158,7 @@ public class ModuleManager {
         return modulesMap.keySet().toArray(new String[0]);
     }
 
+
     public static String[] getNusModCodeList() {
         return nusModsMap.keySet().toArray(new String[0]);
     }
