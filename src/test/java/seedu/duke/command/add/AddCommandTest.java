@@ -3,7 +3,6 @@ package seedu.duke.command.add;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import seedu.duke.command.CommandResult;
-import seedu.duke.data.ModuleManager;
 import seedu.duke.data.storage.InputOutputManager;
 import seedu.duke.util.ExceptionMessage;
 
@@ -36,18 +35,18 @@ public class AddCommandTest {
     @Test
     void addTask_badDeadline_DateTimeParseException_isThrown() throws DateTimeParseException {
         assertThrows(DateTimeParseException.class,
-            () -> new AddTaskCommand(TASK, BAD_DEADLINE));
+                () -> new AddTaskCommand(TASK, BAD_DEADLINE));
     }
 
     @Test
     void addTask_emptyDeadline_DateTimeParseException_isThrown() throws DateTimeParseException {
         assertThrows(DateTimeParseException.class,
-            () -> new AddTaskCommand(TASK, EMPTY_DEADLINE));
+                () -> new AddTaskCommand(TASK, EMPTY_DEADLINE));
     }
 
     @Test
     void addTask_blankDeadline_DateTimeParseException_isThrown() throws DateTimeParseException {
         assertThrows(DateTimeParseException.class,
-            () -> new AddTaskCommand(TASK, SPACES_DEADLINE));
+                () -> new AddTaskCommand(TASK, SPACES_DEADLINE));
     }
 }

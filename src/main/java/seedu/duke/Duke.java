@@ -24,6 +24,11 @@ public class Duke {
      * @throws FileNotFoundException exception is thrown if the file is not found.
      */
     public static void main(String[] args) {
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            System.out.println("\nUser force-quit detected!");
+            System.out.println("As designed, ra.VI not save latest changes...");
+        }));
+
         new Duke().run(args);
     }
 
@@ -40,7 +45,11 @@ public class Duke {
         logger.getLogger().info("Initialised scanner, UI, and IO");
     }
 
-    /** Runs the program until termination.  */
+    /**
+     * Runs the program until termination.
+     *
+     * @param args arguments passed to the program.
+     */
     public void run(String[] args) {
         logger.getLogger().info("STARTING PROGRAM...");
         start(args);

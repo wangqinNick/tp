@@ -37,7 +37,7 @@ public class ExceptionMessage {
     public static final String MESSAGE_LIST_EMPTY =
             "\nYour list is empty.\n";
     public static final String MESSAGE_STRING_IN_NUMBER =
-            "The task index has to be an integer!\n"
+            "The task index you have entered is either not an integer or is too long!\n"
             + "Use `list -t` to look at your tasks, and their index.\n"
             + "Please check your command! Use help <command> for assistance.\n";
     public static final String MESSAGE_INVALID_COMMAND_WORD =
@@ -45,15 +45,18 @@ public class ExceptionMessage {
             + "Please use help to see our list of commands.\n";
     public static final String MESSAGE_INVALID_GRADE =
             "Your grade input isn't part of the NUS grading scheme. \n"
-            + "For your reference: A+, A, A-, B+, B, B-, C+, C, C-, D+, F.\n";
+            + "For your reference: A+, A, A-, B+, B, B-, C+, C, C-, D+, F. \n"
+            + "Grades CS, CU, are not accepted. \n";
     public static final String MESSAGE_LESSON_INVALID_TIME =
-            "Sorry, the lesson you have attempted to add "
-            + "either overlaps with other lessons or has an invalid start time.\n"
+            "Sorry, the lesson you have attempted to add has an invalid start time.\n"
             + "Try using timetable -day or timetable -week to look at your\n"
             + "current lessons first, or review your new lesson's start/end time.\n";
     public static final String MESSAGE_LESSON_NOT_FOUND =
             "Sorry, the lesson you have attempted to delete does not exist.\n"
             + "Use timetable (-week/-day) to look at your lessons and their index (ID).\n";
+    public static final String MESSAGE_LESSON_OVERLAP =
+            "Sorry, the lesson you have attempted to add overlaps with other lessons.\n"
+            + "This is the lesson you're overlapping with: %s\n";
     public static final String MESSAGE_REPEAT_FREQUENCY_UNKNOWN =
             "Sorry, the lesson you have attempted to add does "
             + "not have the correct repeatability.\n"
@@ -72,7 +75,12 @@ public class ExceptionMessage {
             "Please enter a valid date and time.\n"
             + "\tRequired date time format: HHmm HHmm\n"
             + "\tExample: 1800 2000";
-
+    public static final String MESSAGE_INVALID_CAP =
+            "Amazing, you have entered an invalid cap, Good try. \n";
+    public static final String MESSAGE_INVALID_CAP_ATTAINED =
+            "Amazing, you have attained an Invalid cap, hopefully not on purpose? \n";
+    public static final String MESSAGE_INVALID_MC =
+            "Amazing, you have entered an invalid number of module credits taken, Nice try. \n";
     public static final String MESSAGE_MISSING_DIRECTORY_NAME =
             "Please include the name of the directory you want to move to.\n"
                     + "Alternatively, enter .. to move to the parent directory instead.\n";

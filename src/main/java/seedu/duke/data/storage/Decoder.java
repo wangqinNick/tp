@@ -1,27 +1,24 @@
 package seedu.duke.data.storage;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
-import seedu.duke.data.Task;
 import seedu.duke.data.Module;
+import seedu.duke.data.Task;
+import seedu.duke.data.TimeTable;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.io.IOException;
-
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
-
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import com.alibaba.fastjson.JSON;
-import seedu.duke.data.TimeTable;
 
 import static seedu.duke.data.storage.InputOutputManager.JAR_NUS_MODULE_FILE;
 
@@ -48,6 +45,8 @@ public class Decoder {
      *  The file to load from
      * @return
      *  The HashMap of Module objects
+     * @throws JSONException
+     *  When the file to be parsed has caused some error
      */
     public static HashMap<String, Module> loadModules(String dataFileName) throws JSONException {
         String jsonStr;
@@ -74,6 +73,8 @@ public class Decoder {
      *  The name of the file to read from
      * @return
      *  The ArrayList tasksList
+     * @throws JSONException
+     *  When the file to be parsed has caused some error
      */
     public static ArrayList<Task> loadTasks(String dataFileName) throws JSONException {
         String jsonStr;
@@ -96,6 +97,10 @@ public class Decoder {
      *
      * @return
      *  The HashMap of Module objects (from NUSMods)
+     * @throws IOException
+     *  When an I/O error occurs
+     * @throws JSONException
+     *  When the file to be parsed has caused some error
      */
     public static HashMap<String, Module> loadNusModsFromJar() throws IOException, JSONException {
         BufferedReader br = new BufferedReader(new InputStreamReader(

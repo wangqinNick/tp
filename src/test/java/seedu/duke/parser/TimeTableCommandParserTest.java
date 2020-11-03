@@ -82,7 +82,7 @@ public class TimeTableCommandParserTest {
     @Test
     void bad_Lesson_Time_1_TimeTableAddCommand_InvalidMatchException_isThrown() {
         assertThrows(InvalidMatchException.class,
-            () -> TimeTableCommandParser.parseTimeTableCommand(WRONG_LESSON_TIME_1_TIMETABLE_ADD_COMMAND_FORMAT));
+                () -> TimeTableCommandParser.parseTimeTableCommand(WRONG_LESSON_TIME_1_TIMETABLE_ADD_COMMAND_FORMAT));
     }
 
     @Test
@@ -98,13 +98,13 @@ public class TimeTableCommandParserTest {
     @Test
     void bad_DateTime_TimeTableAddCommand_IllegalArgumentException_isThrown() {
         assertThrows(IllegalArgumentException.class,
-            () -> TimeTableCommandParser.parseTimeTableCommand(WRONG_DAY_TIMETABLE_ADD_COMMAND_FORMAT));
+                () -> TimeTableCommandParser.parseTimeTableCommand(WRONG_DAY_TIMETABLE_ADD_COMMAND_FORMAT));
     }
 
     @Test
     void bad_DateTime_TimeTableDeleteCommand_IllegalArgumentException_isThrown() {
         assertThrows(IllegalArgumentException.class,
-            () -> TimeTableCommandParser.parseTimeTableCommand(WRONG_DAY_TIMETABLE_DELETE_COMMAND_FORMAT));
+                () -> TimeTableCommandParser.parseTimeTableCommand(WRONG_DAY_TIMETABLE_DELETE_COMMAND_FORMAT));
     }
 
     @Test

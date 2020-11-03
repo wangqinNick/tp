@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import seedu.duke.data.storage.InputOutputManager;
 import seedu.duke.exception.DuplicateModuleException;
 import seedu.duke.exception.LessonInvalidTimeException;
+import seedu.duke.exception.LessonOverlapException;
 import seedu.duke.exception.ModuleNotFoundException;
 import seedu.duke.exception.ModuleNotProvidedException;
 import seedu.duke.exception.TimeTableInitialiseException;
@@ -25,12 +26,12 @@ public class TimeTableTest {
     static final String MOD_CODE_1 = "CS2113T";
     static final String MOD_CODE_2 = "CG2271";
     static final String MOD_CODE_3 = "MA1511";
-    static final LocalTime time_12 = LocalTime.of(12,0);
-    static final LocalTime time_13 = LocalTime.of(13,0);
-    static final LocalTime time_14 = LocalTime.of(14,0);
-    static final LocalTime time_15 = LocalTime.of(15,0);
-    static final LocalTime time_16 = LocalTime.of(16,0);
-    static final LocalTime time_17 = LocalTime.of(17,0);
+    static final LocalTime time_12 = LocalTime.of(12, 0);
+    static final LocalTime time_13 = LocalTime.of(13, 0);
+    static final LocalTime time_14 = LocalTime.of(14, 0);
+    static final LocalTime time_15 = LocalTime.of(15, 0);
+    static final LocalTime time_16 = LocalTime.of(16, 0);
+    static final LocalTime time_17 = LocalTime.of(17, 0);
     static final LocalDateTime now = LocalDateTime.now();
     static final int CURR_WEEK = now.get(ChronoField.ALIGNED_WEEK_OF_YEAR);
 
@@ -53,7 +54,7 @@ public class TimeTableTest {
     }
 
     @Test
-    void verify_addLesson_repeat1() throws LessonInvalidTimeException, ModuleNotFoundException {
+    void verify_addLesson_repeat1() throws LessonInvalidTimeException, ModuleNotFoundException, LessonOverlapException {
         TimeTableManager.addLesson(lesson1, 1);
 
         for (int i = CURR_WEEK; i < CURR_WEEK + 14; i++) {
@@ -68,7 +69,7 @@ public class TimeTableTest {
     }
 
     @Test
-    void verify_addLesson_repeat2() throws LessonInvalidTimeException, ModuleNotFoundException {
+    void verify_addLesson_repeat2() throws LessonInvalidTimeException, ModuleNotFoundException, LessonOverlapException {
         TimeTableManager.addLesson(lesson1, 2);
 
         for (int i = CURR_WEEK; i < CURR_WEEK + 14; i++) {
@@ -83,7 +84,7 @@ public class TimeTableTest {
     }
 
     @Test
-    void verify_addLesson_repeat3() throws LessonInvalidTimeException, ModuleNotFoundException {
+    void verify_addLesson_repeat3() throws LessonInvalidTimeException, ModuleNotFoundException, LessonOverlapException {
         TimeTableManager.addLesson(lesson1, 3);
 
         for (int i = CURR_WEEK; i < CURR_WEEK + 14; i++) {
@@ -98,7 +99,8 @@ public class TimeTableTest {
     }
 
     @Test
-    void verify_removeLesson_inSingleWeek() throws LessonInvalidTimeException, ModuleNotFoundException {
+    void verify_removeLesson_inSingleWeek() throws
+            LessonInvalidTimeException, ModuleNotFoundException, LessonOverlapException {
         TimeTableManager.addLesson(lesson1, 1);
         TimeTableManager.addLesson(lesson2, 1);
         TimeTableManager.addLesson(lesson3, 1);
@@ -116,7 +118,8 @@ public class TimeTableTest {
     }
 
     @Test
-    void verify_removeLesson_overMultipleWeeks() throws LessonInvalidTimeException, ModuleNotFoundException {
+    void verify_removeLesson_overMultipleWeeks() throws
+            LessonInvalidTimeException, ModuleNotFoundException, LessonOverlapException {
         TimeTableManager.addLesson(lesson1, 1);
         TimeTableManager.addLesson(lesson2, 2);
         TimeTableManager.addLesson(lesson3, 3);
@@ -139,7 +142,27 @@ public class TimeTableTest {
     @Test
     void verify_removeLesson_throwsOutOfBounds() {
         assertThrows(IndexOutOfBoundsException.class,
-            () -> TimeTableManager.deleteLesson(DayOfWeek.MONDAY, 1));
+                () -> TimeTableManager.deleteLesson(DayOfWeek.MONDAY, 1));
+    }
+
+    @Test
+    void verify_lessonOverlap_throwsLessonOverlap() throws
+            LessonOverlapException, LessonInvalidTimeException, ModuleNotFoundException {
+        TimeTableManager.addLesson(lesson1, 1);
+        assertThrows(LessonOverlapException.class,
+                () -> TimeTableManager.addLesson(lesson1, 0));
+        assertThrows(LessonOverlapException.class,
+                () -> TimeTableManager.addLesson(lesson1, 2));
+        assertThrows(LessonOverlapException.class,
+                () -> TimeTableManager.addLesson(lesson1, 3));
+
+        TimeTableManager.addLesson(lesson2, 2);
+        assertThrows(LessonOverlapException.class,
+                () -> TimeTableManager.addLesson(lesson2, 1));
+        assertThrows(LessonOverlapException.class,
+                () -> TimeTableManager.addLesson(lesson2, 2));
+
+        TimeTableManager.addLesson(lesson2, 3); // testing whether repeat 2 and 3 clashes (should not)
     }
 
 }
