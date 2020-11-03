@@ -280,7 +280,7 @@ Format: `timetable -del <day> <lesson index>`
 Example of usage: 
 * `timetable -del MONDAY 1`
 
-#### 3.11.4 Reset timetable: `timetable -reset`
+#### 3.11.4 Reset the timetable: `timetable -reset`
 
 Resets the timetable.\
 Format: `timetable -reset`
