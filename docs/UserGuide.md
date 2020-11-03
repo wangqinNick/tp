@@ -43,7 +43,7 @@ ra.VI helps you to manage your tasks, and their corresponding deadlines with eas
 
 ### 1.1 About
 
-This user guide provides in-depth documentation on the ra.VI installation process, system configuration and management. In addition, the quick start guide provides and end-to-end setup process to begin tracking your tasks and timetable with ra.VI.
+This user guide provides a clear documentation of ra.VI's features. In addition, the quick start guide provides an end-to-end setup process to begin tracking your tasks and timetable with ra.VI.
 
 ### 1.2 Product Overview
 
@@ -282,7 +282,7 @@ Format: `bye`
 **A**: Yes. ra.VI is compatible with Windows, macOS and Linux.
 
 **Q**: Can I use ra.VI throughout my time in NUS?\
-**A**: Yes! In fact, we strongly encourage using ra.VI for your stint at NUS. ra.VI is robust enough to handle the trials of time.
+**A**: Yes! In fact, we strongly encourage using ra.VI for your time at NUS. ra.VI is robust enough to handle the trials of time.
 
 **Q**: How do I transfer my data to another computer?\
 **A**: Zip the folder where you have installed ra.VI on and transfer the zip file to the other computer. Unzip the folder on the new computer, and you are good to go!
@@ -291,7 +291,7 @@ Format: `bye`
 **A**: It is not advised to edit the files created by ra.VI with any other software.
 
 **Q**: Can I force close ra.VI?\
-**A**: It is not advised to force close ra.VI. To close ra.VI, please enter `bye`
+**A**: It is not advised to force close ra.VI. If you decide to do so, the changes made during that current session may get corrupted. To close ra.VI, please enter `bye`.
 
 ## 5 Command Summary
 
