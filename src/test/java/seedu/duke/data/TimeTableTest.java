@@ -9,6 +9,7 @@ import seedu.duke.exception.LessonInvalidTimeException;
 import seedu.duke.exception.LessonOverlapException;
 import seedu.duke.exception.ModuleNotFoundException;
 import seedu.duke.exception.ModuleNotProvidedException;
+import seedu.duke.exception.NusModsNotLoadedException;
 import seedu.duke.exception.TimeTableInitialiseException;
 
 import java.time.DayOfWeek;
@@ -36,8 +37,8 @@ public class TimeTableTest {
     static final int CURR_WEEK = now.get(ChronoField.ALIGNED_WEEK_OF_YEAR);
 
     @BeforeAll
-    static void setupUserMods() throws DuplicateModuleException, ModuleNotProvidedException {
-        InputOutputManager.loadNusModSave();
+    static void setupUserMods() throws DuplicateModuleException, ModuleNotProvidedException, NusModsNotLoadedException {
+        InputOutputManager.tryLoadNusMods();
         ModuleManager.clearModules();
         ModuleManager.add(MOD_CODE_1);
         ModuleManager.add(MOD_CODE_2);

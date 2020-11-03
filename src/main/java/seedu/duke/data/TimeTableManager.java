@@ -17,6 +17,7 @@ import static seedu.duke.util.ExceptionMessage.TIMETABLE_NOT_INITIALISED;
 public class TimeTableManager {
     private static TimeTable timetable = new TimeTable();
     private static final DukeLogger logger = new DukeLogger(TimeTableManager.class.getName());
+    private static boolean isInitialised = false;
     
     /**
      * Initialise the semesterMap when it is empty.
@@ -55,6 +56,7 @@ public class TimeTableManager {
             timetable.initWeek(weekNum);
         }
         logger.getLogger().info("Initialisation of timetable complete");
+        isInitialised = true;
     }
 
     /**
@@ -328,6 +330,10 @@ public class TimeTableManager {
         } catch (Exception e) {
             TextUi.outputToUser(TIMETABLE_NOT_INITIALISED);
         }
+    }
+
+    public static boolean checkIsInitialised() {
+        return isInitialised;
     }
 
     public static int getWeekLessonCount(int week) {

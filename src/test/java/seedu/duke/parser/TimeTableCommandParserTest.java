@@ -12,6 +12,7 @@ import seedu.duke.data.storage.InputOutputManager;
 import seedu.duke.exception.DuplicateModuleException;
 import seedu.duke.exception.InvalidMatchException;
 import seedu.duke.exception.ModuleNotProvidedException;
+import seedu.duke.exception.NusModsNotLoadedException;
 import seedu.duke.exception.TimeTableInitialiseException;
 import seedu.duke.util.ExceptionMessage;
 
@@ -53,8 +54,8 @@ public class TimeTableCommandParserTest {
             + DELETE_INDEX_2;
 
     @BeforeAll
-    static void setupUserMods() throws DuplicateModuleException, ModuleNotProvidedException {
-        InputOutputManager.loadNusModSave();
+    static void setupUserMods() throws DuplicateModuleException, ModuleNotProvidedException, NusModsNotLoadedException {
+        InputOutputManager.tryLoadNusMods();
         ModuleManager.clearModules();
         ModuleManager.add(MOD_CODE_1);
     }
