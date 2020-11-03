@@ -90,7 +90,7 @@ public class TimeTableCommandParserTest {
         Command command =
                 TimeTableCommandParser.parseTimeTableCommand(WRONG_LESSON_TIME_2_TIMETABLE_ADD_COMMAND_FORMAT);
         CommandResult expectedCommandResult =
-                new IncorrectCommand(ExceptionMessage.MESSAGE_DATE_TIME_UNKNOWN).execute();
+                new IncorrectCommand(ExceptionMessage.MESSAGE_ADD_LESSON_DATE_TIME_UNKNOWN).execute();
         CommandResult actualCommandResult = command.execute();
         assertEquals(expectedCommandResult.feedbackToUser, actualCommandResult.feedbackToUser);
     }

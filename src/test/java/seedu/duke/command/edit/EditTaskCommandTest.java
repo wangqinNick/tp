@@ -8,7 +8,7 @@ import seedu.duke.data.Task;
 import seedu.duke.data.TaskManager;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.duke.util.ExceptionMessage.MESSAGE_DATE_TIME_UNKNOWN;
+import static seedu.duke.util.ExceptionMessage.MESSAGE_ADD_TASK_DATE_TIME_UNKNOWN;
 import static seedu.duke.util.Message.MESSAGE_EDIT_TASK_SUCCESS;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_NO_EDIT_TASK;
 
@@ -48,7 +48,7 @@ public class EditTaskCommandTest {
         assertEquals(MESSAGE_NO_EDIT_TASK, result3.feedbackToUser);
         CommandResult result4 = Executor.executeCommand("edit -t 1 return a book -by 3131313");
 
-        String dateErrorResult = new IncorrectCommand(MESSAGE_DATE_TIME_UNKNOWN).execute().feedbackToUser;
+        String dateErrorResult = new IncorrectCommand(MESSAGE_ADD_TASK_DATE_TIME_UNKNOWN).execute().feedbackToUser;
         assertEquals(dateErrorResult, result4.feedbackToUser);
     }
 }
