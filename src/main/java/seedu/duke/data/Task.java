@@ -18,6 +18,11 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(String name, boolean isDone) {
+        this.name = name;
+        this.isDone = isDone;
+    }
+
     public Task(String name, LocalDateTime dateTimeOfDeadline) {
         this.name = name;
         this.deadline = dateTimeOfDeadline;

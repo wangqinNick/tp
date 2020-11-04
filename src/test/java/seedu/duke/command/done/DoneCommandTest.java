@@ -23,7 +23,9 @@ public class DoneCommandTest {
     void doneTask_validIndex_success() {
         DoneCommand doneValidTask = new DoneCommand(0);
         CommandResult commandResult = doneValidTask.execute();
-        assertEquals(Message.MESSAGE_DONE_TASK_SUCCESS, commandResult.feedbackToUser);
+        Task editedTask = new Task("read a book", true);
+        assertEquals(String.format(Message.MESSAGE_DONE_TASK_SUCCESS, editedTask.toString()),
+                commandResult.feedbackToUser);
     }
 
     @Test
