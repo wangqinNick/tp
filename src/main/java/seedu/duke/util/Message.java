@@ -18,7 +18,7 @@ public class Message {
             + "Your deleted task - '%s'\n";
     public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Your module has been deleted successfully.\n"
             + "Your deleted module - '%s'\n";
-    public static final String MESSAGE_DELETE_LESSON_SUCCESS = "Your lesson has been deleted successfully from"
+    public static final String MESSAGE_DELETE_LESSON_SUCCESS = "Your lesson has been deleted successfully from "
             + "all weeks.\n"
             + "Your deleted lesson - '%s'\n";
 
