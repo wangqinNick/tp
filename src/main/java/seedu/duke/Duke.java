@@ -68,7 +68,7 @@ public class Duke {
             command = new Parser().parseCommand(userInput);
             CommandResult result = command.execute();
             if (command.getPromptType() == PromptType.EDIT) {
-                StateManager.saveState();
+                StateManager.saveState(userInput.trim());
             }
             ui.showResultToUser(result);
         } while (!ExitCommand.isExit(command));
