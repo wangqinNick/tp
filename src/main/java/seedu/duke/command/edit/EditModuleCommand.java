@@ -53,8 +53,10 @@ public class EditModuleCommand extends EditCommand {
     @Override
     public CommandResult execute() {
         try {
+            Module oldModule = ModuleManager.getModule(oldModuleCode);
             Module editedModule = ModuleManager.edit(newModuleCode, oldModuleCode);
-            String message = String.format(MESSAGE_EDIT_MODULE_SUCCESS, editedModule.toString());
+            String message = String.format(
+                    MESSAGE_EDIT_MODULE_SUCCESS, oldModule.toString(), editedModule.toString());
             return new CommandResult(message);
         } catch (ModuleNotProvidedException e) {
             return new CommandResult(MESSAGE_MODULE_NOT_PROVIDED, true);

@@ -62,6 +62,10 @@ public class ModuleManager {
             throw new ModuleNotFoundException();
         }
         add(newModuleCode);
+        Module oldModule = getModule(oldModuleCode);
+        if (oldModule.getModuleCredit() != 0 && oldModule.getModuleGrade() != null) {
+            grade(newModuleCode, oldModule.getModuleGrade(), oldModule.getModuleCredit());
+        }
         delete(oldModuleCode);
         return getModule(newModuleCode);
     }

@@ -23,9 +23,11 @@ public class Message {
             + "Your deleted lesson - '%s'\n";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Your task has been edited successfully.\n"
-            + "Your task after editing - '%s'\n";
+            + "Your task before editing - '%s'\n"
+            + "Your task after editing  - '%s'\n";
     public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Your module has been edited successfully.\n"
-            + "Your module after editing - '%s'\n";
+            + "Your module before editing - '%s'\n"
+            + "Your module after editing  - '%s'\n";
 
     public static final String MESSAGE_EMPTY_INPUT = "Please enter a command for me.\n";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT =
