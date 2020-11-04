@@ -198,8 +198,9 @@ Format: `list -m`
 Assign a grade to a module in the Scheduler.
 Format: `grade <module Code> <module credit> <grade>`
 
-**Note:** For special grades: <br>
-&nbsp;&nbsp;&nbsp;&nbsp;CS,CU,S,U are not covered in the calculator.
+**Note:** <br>
+&nbsp;&nbsp;&nbsp;&nbsp;CS & CU are covered in the cap calculator
+&nbsp;&nbsp;&nbsp;&nbsp;All grades input must be in Caps. ie `A+`
 
 Example of usage:
 * `grade CS2101 4 B+`

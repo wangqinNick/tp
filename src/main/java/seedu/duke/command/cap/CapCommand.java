@@ -56,7 +56,9 @@ public class CapCommand extends Command {
         C("C", 2.0),
         D_PLUS("D+", 1.5),
         D("D", 1.0),
-        F("F", 0.0);
+        F("F", 0.0),
+        CS("CS",-2.0),
+        CU("CU",-3.0);
 
         private final String symbol;
         private final double value;
@@ -78,6 +80,7 @@ public class CapCommand extends Command {
     private double gradeConvert(String grade) {
         double score = 0.0;
         if (grade.equals("No grade yet")) {
+            score = -1.0;
             return score;
         }
         for (GradeSchematic g : GradeSchematic.values()) {
@@ -95,24 +98,38 @@ public class CapCommand extends Command {
      * cap of the user
      * @throws InvalidCapCalculatedException
      * When the attained cap is unimaginable
+     * @throws ModuleNotFoundException
+     * When the module called isn't found
      */
     private double calculateCap() throws InvalidCapCalculatedException, ModuleNotFoundException {
         String[] moduleList = ModuleManager.getModCodeList();
-        double mcGrade;
+        double mcGrade = 0;
         double sumMcGrade = 0;
         double sumMc = 0;
         double gradeValue;
+        int numberOfCsCuModules = 0;
+        int numberOfModules = 0;
         for (String i : moduleList) {
+            numberOfModules++;
             gradeValue = gradeConvert(ModuleManager.getModule(i).getModuleGrade());
-            if (gradeValue == 0) {
+            if (gradeValue == -1.0) {
                 throw new InvalidCapCalculatedException();
+            } else if (gradeValue >= 0) {
+                sumMc += ModuleManager.getModule(i).getModuleCredit();
+                mcGrade = ModuleManager.getModule(i).getModuleCredit()
+                        * gradeValue;
+                sumMcGrade += mcGrade;
+            } else {
+                numberOfCsCuModules++;
             }
-            sumMc += ModuleManager.getModule(i).getModuleCredit();
-            mcGrade = ModuleManager.getModule(i).getModuleCredit()
-                    * gradeValue;
-            sumMcGrade += mcGrade;
         }
+        if (numberOfCsCuModules == numberOfModules) {
+            sumMcGrade = 20;
+            sumMc = 4;
+        }
+
         cap = ((currentCap * totalMcTaken) + sumMcGrade) / (sumMc + totalMcTaken);
+
         if (cap < 0 || cap > 5.0 || isNan(cap)) {
             throw new InvalidCapCalculatedException();
         }

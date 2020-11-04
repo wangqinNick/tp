@@ -44,7 +44,6 @@ public class CapCommandParser {
         int totalMcTaken = Integer.parseInt(mc);
         double currentCap = Double.parseDouble(cap);
 
-
         isCapParametersValid(totalMcTaken, currentCap);
 
         return new CapCommand(totalMcTaken, currentCap);
