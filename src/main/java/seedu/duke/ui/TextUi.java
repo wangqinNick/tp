@@ -47,10 +47,15 @@ public class TextUi {
     /**
      * Prints welcome message, and shows file loading status according to the status parameter.
      * Enum not used because it's only used by InputOutputManager.start() and this function.
-     * Status parameter is a 3 digit number. Hundreds: Timetable, Tens: Tasks, Ones: Modules.
+     * Status parameter is a 4 digit number. First 3 digits are Hundreds: Timetable, Tens: Tasks, Ones: Modules.
      * 0 - Files do not exist, skipping
      * 1 - Files exist, loading success
      * 2 - Files exist, error parsing JSON
+     * Then for the Thousands: NUSMods.
+     * 0 - Loaded from data directory
+     * 1 - Loaded from NUSMods API (subsequently to be saved to data directory)
+     * 2 - No internet connection, loaded from backup in jar file
+     *
      * @param status
      *  The status code as shown above
      */
@@ -58,7 +63,7 @@ public class TextUi {
         String[] items = {"Modules", "Tasks", "Timetable"};
         String loadingOutcomes = "";
 
-        int latestCode; // first - mods, second - tasks, third - timetable
+        int latestCode; // first - mods, second - tasks, third - timetable, fourth - NUSMods
         String statusMsg = "";
         String eachItem;
 
@@ -83,6 +88,26 @@ public class TextUi {
             loadingOutcomes += centerString(MAX_WIDTH,
                     String.format(MESSAGE_LOADING_TEMPLATE, eachItem, statusMsg)) + "\n";
         }
+
+        // Now find the NUSMods status, the remaining digit in the status code
+        String nusModsStatus;
+        switch (status) {
+        case 0:
+            nusModsStatus = "Loaded from data directory!";
+            break;
+        case 1:
+            nusModsStatus = "Downloaded latest version!";
+            break;
+        case 2:
+            nusModsStatus = "No internet - using packaged backup";
+            break;
+        default:
+            nusModsStatus = "You shouldn't be here";
+            break;
+        }
+        loadingOutcomes += centerString(MAX_WIDTH,
+                String.format(MESSAGE_LOADING_TEMPLATE, "NUSMods", nusModsStatus)) + "\n";
+
         outputToUser(
                 DIV_LINE,
                 centerString(MAX_WIDTH, Message.MESSAGE_WELCOME),

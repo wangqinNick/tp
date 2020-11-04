@@ -3,15 +3,19 @@ package seedu.duke;
 import seedu.duke.command.Command;
 import seedu.duke.command.CommandResult;
 import seedu.duke.command.ExitCommand;
+import seedu.duke.command.IncorrectCommand;
 import seedu.duke.command.PromptType;
 import seedu.duke.data.StateManager;
 import seedu.duke.data.TimeTableManager;
 import seedu.duke.data.storage.InputOutputManager;
+import seedu.duke.exception.NusModsNotLoadedException;
 import seedu.duke.parser.Parser;
 import seedu.duke.ui.TextUi;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+
+import static seedu.duke.util.ExceptionMessage.MESSAGE_NUS_MODS_NOT_LOADED;
 
 public class Duke {
     private TextUi ui;
@@ -25,15 +29,24 @@ public class Duke {
      */
     public static void main(String[] args) {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            System.out.println("\nUser force-quit detected!");
-            System.out.println("As designed, ra.VI not save latest changes...");
+            logger.getLogger().info("Shutdown hook - Saving all data...");
+            InputOutputManager.save();
+            InputOutputManager.saveNusMods();
+            logger.getLogger().info("PROGRAM TERMINATED SUCCESSFULLY");
         }));
 
         new Duke().run(args);
     }
 
-    /** Sets up the storage, loads up the data from the storage file and prints the welcome message.  */
-    private void start(String[] args) {
+    /**
+     * Sets up the storage, loads up the data from the storage file and prints the welcome message.
+     *
+     * @param args
+     *  From the command line
+     * @throws NusModsNotLoadedException
+     *  When no NUSMods data can be loaded
+     */
+    private void start(String[] args) throws NusModsNotLoadedException {
         Scanner in = new Scanner(System.in);
         this.ui = new TextUi(in);
         int loadStatus = InputOutputManager.start();
@@ -52,11 +65,15 @@ public class Duke {
      */
     public void run(String[] args) {
         logger.getLogger().info("STARTING PROGRAM...");
-        start(args);
+        try {
+            start(args);
+        } catch (NusModsNotLoadedException e) {
+            // Show long error message if NUSMods not loaded and crash!
+            this.ui.showResultToUser(new IncorrectCommand(MESSAGE_NUS_MODS_NOT_LOADED).execute());
+            return;
+        }
         runCommandLoopUntilExitCommand();
-        InputOutputManager.save();
-        //InputOutputManager.saveNusMods();
-        logger.getLogger().info("PROGRAM TERMINATED SUCCESSFULLY");
+        // Will save in shutdown hook
     }
 
     /** Reads the user command and executes it, until the user issues the exit command.  */
@@ -68,7 +85,7 @@ public class Duke {
             command = new Parser().parseCommand(userInput);
             CommandResult result = command.execute();
             if (command.getPromptType() == PromptType.EDIT) {
-                StateManager.saveState();
+                StateManager.saveState(userInput.trim());
             }
             ui.showResultToUser(result);
         } while (!ExitCommand.isExit(command));

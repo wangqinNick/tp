@@ -23,8 +23,8 @@ public class UndoCommand extends Command {
     @Override
     public CommandResult execute() {
         try {
-            StateManager.undo();
-            return new CommandResult(MESSAGE_UNDO_SUCCESS);
+            String lastCommand = StateManager.undo();
+            return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, lastCommand));
         } catch (EmptyStackException | IOException e) {
             return new CommandResult(MESSAGE_UNDO_AT_BEGINNING);
         }

@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import seedu.duke.command.CommandResult;
 import seedu.duke.data.storage.InputOutputManager;
+import seedu.duke.exception.NusModsNotLoadedException;
 import seedu.duke.util.ExceptionMessage;
 
 import java.time.format.DateTimeParseException;
@@ -19,8 +20,8 @@ public class AddCommandTest {
     static final String SPACES_DEADLINE = "        ";
 
     @BeforeAll
-    static void setup() {
-        InputOutputManager.loadNusModSave();
+    static void setup() throws NusModsNotLoadedException {
+        InputOutputManager.tryLoadNusMods();
     }
 
     @Test

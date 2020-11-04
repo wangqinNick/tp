@@ -9,6 +9,7 @@ import seedu.duke.command.add.AddModuleCommand;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.data.storage.InputOutputManager;
 import seedu.duke.exception.InvalidModuleCreditException;
+import seedu.duke.exception.NusModsNotLoadedException;
 import seedu.duke.util.ExceptionMessage;
 import seedu.duke.util.Message;
 
@@ -22,8 +23,8 @@ class GradeCommandTest {
     static final String NON_EXISTENT_MODULE_CODE = "CS2101";
 
     @BeforeAll
-    static void setup() {
-        InputOutputManager.loadNusModSave();
+    static void setup() throws NusModsNotLoadedException {
+        InputOutputManager.tryLoadNusMods();
     }
 
     @BeforeEach
