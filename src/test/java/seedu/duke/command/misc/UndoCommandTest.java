@@ -1,31 +1,24 @@
 package seedu.duke.command.misc;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.duke.Executor;
 import seedu.duke.command.CommandResult;
-import seedu.duke.command.add.AddCommand;
-import seedu.duke.data.Module;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.data.StateManager;
-import seedu.duke.data.Task;
 import seedu.duke.data.TaskManager;
 import seedu.duke.data.storage.InputOutputManager;
-import seedu.duke.parser.Parser;
-import seedu.duke.util.Message;
-
-import java.util.HashMap;
+import seedu.duke.exception.NusModsNotLoadedException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class UndoCommandTest {
 
     @BeforeEach
-    void setupModObjects() {
+    void setupModObjects() throws NusModsNotLoadedException {
         ModuleManager.clearModules();
         TaskManager.clear();
-        InputOutputManager.loadNusModSave();
+        InputOutputManager.tryLoadNusMods();
         StateManager.initialise();
     }
 

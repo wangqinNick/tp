@@ -1,17 +1,21 @@
 package seedu.duke.data.storage;
 
 import com.alibaba.fastjson.JSONException;
+import seedu.duke.data.Module;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.data.TimeTableManager;
 import seedu.duke.exception.ModuleNotFoundException;
 import seedu.duke.exception.ModuleNotProvidedException;
+import seedu.duke.exception.NusModsNotLoadedException;
 import seedu.duke.util.FileName;
 import seedu.duke.data.TaskManager;
 import seedu.duke.DukeLogger;
 
 import java.io.IOException;
+import java.net.ConnectException;
 import java.nio.file.Files;
 
+import java.util.HashMap;
 import java.util.logging.Level;
 
 
@@ -45,7 +49,7 @@ public class InputOutputManager {
     static final java.nio.file.Path TIMETABLE_FILE =
             java.nio.file.Paths.get(String.valueOf(DIR_PATH), TTABLE_F_NAME);
     static final java.nio.file.Path NUS_MODULE_FILE =
-            java.nio.file.Paths.get(String.valueOf(RESOURCE_DIR_PATH), NUS_MOD_F_NAME);
+            java.nio.file.Paths.get(String.valueOf(DIR_PATH), NUS_MOD_F_NAME);
     static final String JAR_NUS_MODULE_FILE = "/" + NUS_MOD_F_NAME;
 
     private static final DukeLogger logger = new DukeLogger(InputOutputManager.class.getName());
@@ -56,8 +60,10 @@ public class InputOutputManager {
      *
      * @return
      *  the integer containing the status of loading of the modules, task and timetable.
+     * @throws NusModsNotLoadedException
+     *  When no NUSMods data could be loaded. Signals the main class to crash.
      */
-    public static int start() {
+    public static int start() throws NusModsNotLoadedException {
         int status = 0; // 'Skipped load' status for all 3 files by default
         logger.getLogger().info("Starting InputOutputManager");
         java.io.File saveFolder = DIR_PATH.toFile();
@@ -69,8 +75,8 @@ public class InputOutputManager {
             status += tryLoadMods();
             status += tryLoadTasks() * 10;
             status += tryLoadTimetable() * 100;
+            status += tryLoadNusMods() * 1000;
         }
-        loadNusModSave(); // will load from NUSMods API if file not found
         return status;
     }
 
@@ -79,6 +85,7 @@ public class InputOutputManager {
             if (Files.exists(USER_MODULE_FILE)) {
                 logger.getLogger().info("Loading user module saves from " + USER_MOD_F_NAME);
                 ModuleManager.loadMods(Decoder.loadModules(USER_MODULE_FILE.toString()));
+                logger.getLogger().info("Successfully loaded user module saves from " + USER_MOD_F_NAME);
                 return 1; // 'Success' status
             } else {
                 logger.getLogger().info("Skipping user module save; file does not exist: " + USER_MOD_F_NAME);
@@ -88,6 +95,10 @@ public class InputOutputManager {
             logger.getLogger().severe("JSON string can't be parsed! Error: " + e.getMessage());
             handleCorruptedFile(USER_MODULE_FILE, MOD_BK_NAME);
             return 2; // 'Corrupted' status
+        } catch (IOException e) {
+            // should not happen
+            logger.getLogger().severe("IOException in tryLoadMods - check me now!!");
+            return 0; // 'Skipped' status
         }
     }
 
@@ -105,73 +116,118 @@ public class InputOutputManager {
             logger.getLogger().severe("JSON string can't be parsed! Error: " + e.getMessage());
             handleCorruptedFile(USER_TASK_FILE, TASK_BK_NAME);
             return 2; // 'Corrupted' status
+        } catch (IOException e) {
+            // should not happen
+            logger.getLogger().severe("IOException in tryLoadTasks - check me now!!");
+            return 0; // 'Skipped' status
         }
     }
 
     public static int tryLoadTimetable() {
         try {
             if (Files.exists(TIMETABLE_FILE)) {
-                logger.getLogger().info("Loading timetable save from " + TIMETABLE_FILE);
+                logger.getLogger().info("Loading timetable save from " + TTABLE_F_NAME);
                 TimeTableManager.loadTimeTable(Decoder.loadTimeTable(TIMETABLE_FILE.toString()));
                 return 1; // 'Success' status
             } else {
-                logger.getLogger().info("Skipping timetable save; file does not exist: " + TIMETABLE_FILE);
+                logger.getLogger().info("Skipping timetable save; file does not exist: " + TTABLE_F_NAME);
                 return 0; // 'Skipped' status
             }
         } catch (JSONException e) {
             logger.getLogger().severe("JSON string can't be parsed! Error: " + e.getMessage());
             handleCorruptedFile(TIMETABLE_FILE, TTABLE_BK_NAME);
             return 2; // 'Corrupted' status
+        } catch (IOException e) {
+            // should not happen
+            logger.getLogger().severe("IOException in tryLoadTimetable - check me now!!");
+            return 0; // 'Skipped' status
         }
     }
 
-    /** Loads NUS Modules from the given file. */
-    public static void loadNusModSave() {
+    /**
+     * Loads NUSMods from the saved file in the data directory.
+     * Failing that, it will try to load from the online NUSMods API.
+     * Failing even that, it will fall back to the packaged NUSMods list in the jar file.
+     * Finally, failing all these, it will throw the NusModsNotLoadedException as a signal to crash the program.
+     *
+     * @return
+     *  The status code (refer to TextUi's showWelcomeMessage method)
+     * @throws NusModsNotLoadedException
+     *  When no NUSMods data can be loaded
+    */
+    public static int tryLoadNusMods() throws NusModsNotLoadedException {
+        HashMap<String, Module> loadedNusModsMap;
+        int status;
         try {
-            logger.getLogger().info("Loading NUS modules from JAR file resources folder " + NUS_MOD_F_NAME);
-            ModuleManager.loadNusMods(Decoder.loadNusModsFromJar());
-            logger.getLogger().info("Successfully loaded from JAR!");
-        } catch (IOException | NullPointerException e) {
+            logger.getLogger().info("Loading NUSMods data from data directory...");
+            loadedNusModsMap = Decoder.loadModules(NUS_MODULE_FILE.toString());
+            logger.getLogger().info("Successfully loaded NUSMods data from data directory!");
+            status = 0;
+        } catch (IOException | JSONException e1) {
             try {
-                logger.getLogger().warning("Couldn't load NUSMods from JAR directory, trying normal directory...");
-                ModuleManager.loadNusMods(Decoder.loadModules(NUS_MODULE_FILE.toString()));
-                logger.getLogger().info("Successfully loaded from normal directory!");
-            } catch (Exception e2) {
-                logger.getLogger().warning("Can't load from normal location! " + e2.getMessage());
-                logger.getLogger().warning("Loading from NUSMods API...");
-                ModuleManager.loadNusMods(Decoder.generateNusModsList());
-                logger.getLogger().info("Successfully loaded from NUSMods API!");
+                logger.getLogger().warning("Could not load from data directory!");
+                logger.getLogger().info("Loading NUSMods from NUSMods API...");
+                loadedNusModsMap = Decoder.generateNusModsList();
+                logger.getLogger().info("Successfully loaded NUSMods data from NUSMods API!");
+                status = 1;
+            } catch (ConnectException | JSONException e2) {
+                try {
+                    logger.getLogger().warning("Could not load from NUSMods API! (No Internet connection?)");
+                    logger.getLogger().info("Loading NUSMods data from JAR resource file...");
+                    loadedNusModsMap = Decoder.loadNusModsFromJar();
+                    logger.getLogger().info("Successfully loaded NUSMods data from JAR resource file!");
+                    status = 2;
+                } catch (IOException | JSONException | NullPointerException e3) {
+                    logger.getLogger().severe("Could not load from JAR resource file! Crashing...");
+                    throw new NusModsNotLoadedException();
+                }
             }
         }
+        ModuleManager.loadNusMods(loadedNusModsMap);
+        return status;
     }
 
     /**
      * Updates the user's save files. Does not save NUS Modules.
      */
     public static void save() {
-        logger.getLogger().info("Saving user modules and tasks into " + USER_MOD_F_NAME
-                + " and " + USER_TASK_F_NAME);
         try {
             if (ModuleManager.getModCodeList().length != 0) {
                 Encoder.saveModules(USER_MODULE_FILE.toString());
+                logger.getLogger().info("Saved module data to " + USER_MOD_F_NAME);
+            } else {
+                logger.getLogger().warning("No module data to save!");
             }
             if (TaskManager.getTaskCount() != 0) {
                 Encoder.saveTasks(USER_TASK_FILE.toString());
+                logger.getLogger().info("Saved task data to " + USER_TASK_F_NAME);
+            } else {
+                logger.getLogger().warning("No task data to save!");
             }
-            Encoder.saveTimetable(TIMETABLE_FILE.toString()); // always save, even if there's no lessons
+            if (!TimeTableManager.checkIsInitialised()) {
+                Encoder.saveTimetable(TIMETABLE_FILE.toString());
+                logger.getLogger().info("Saved timetable data to " + TTABLE_F_NAME);
+            } else {
+                logger.getLogger().warning("No timetable data to save!");
+            }
         } catch (ModuleNotFoundException | TaskManager.TaskNotFoundException | IOException e) {
-            logger.getLogger().log(Level.WARNING, e.getLocalizedMessage(), e);
+            logger.getLogger().severe("Something went wrong while trying to save files!");
+            logger.getLogger().log(Level.SEVERE, e.getLocalizedMessage(), e);
         }
 
     }
 
     /**
-     * Updates the user's NUS Modules save file.
+     * Updates the user's NUS Modules save file. Will not create file to save if there is nothing to save.
      */
     public static void saveNusMods() {
-        logger.getLogger().info("Saving NUS modules into " + NUS_MOD_F_NAME);
         try {
-            Encoder.saveNusModules(NUS_MODULE_FILE.toString());
+            logger.getLogger().info("Saving NUS modules into " + NUS_MOD_F_NAME);
+            if (ModuleManager.getNusModCodeList().length != 0) {
+                Encoder.saveNusModules(NUS_MODULE_FILE.toString());
+            } else {
+                logger.getLogger().warning("No NUSMods data to save!");
+            }
         } catch (ModuleNotProvidedException | IOException e) {
             logger.getLogger().log(Level.WARNING, e.getLocalizedMessage(), e);
         }

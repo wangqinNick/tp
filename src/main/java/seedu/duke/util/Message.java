@@ -32,7 +32,7 @@ public class Message {
     public static final String ICON_DONE = "\u221A";
     public static final String ICON_NOT_DONE = "\u0078";
     public static final String MESSAGE_LIST_PRINTED = "Here's your list:\n";
-    public static final String MESSAGE_UNDO_SUCCESS = "Undo successful.";
+    public static final String MESSAGE_UNDO_SUCCESS = "Undo is successful.\n" + "Command undone - '%s'\n";
     public static final String MESSAGE_UNDO_AT_BEGINNING = "There is nothing to undo.";
     public static final String MESSAGE_GRADE_MODULE_SUCCESS = "Module graded successfully.\n";
     public static final String MESSAGE_CAP_DISPLAY = "Your current CAP is \n";

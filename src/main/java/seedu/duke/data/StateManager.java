@@ -18,6 +18,7 @@ import java.util.Stack;
 public class StateManager {
     private static Stack<State> undoStack = new Stack<>();
     private static Stack<State> redoStack = new Stack<>();
+    private static ArrayList<String> editTypeCommandArrayList = new ArrayList<>();
 
     /**
      * Initialises the screen shot manager with its first screen shot of the starting list.
@@ -30,7 +31,7 @@ public class StateManager {
         var gson = new GsonBuilder().create();
         var encodedSavedList = gson.toJson(TaskManager.getTaskList());
         var encodedSavedMap = gson.toJson(ModuleManager.getModulesMap());
-        var screenShot = new State(encodedSavedList, encodedSavedMap);
+        var screenShot = new State(encodedSavedList, encodedSavedMap, editTypeCommandArrayList);
         assert undoStack.isEmpty() : "Undo stack should be empty!";
         assert redoStack.isEmpty() : "Redo stack should be empty!";
         undoStack.push(screenShot);
@@ -48,6 +49,7 @@ public class StateManager {
             throw new EmptyStackException();
         }
         var currentState = undoStack.pop();
+        editTypeCommandArrayList = currentState.getEditTypeCommandArrayList();
         redoStack.push(currentState);
         return undoStack.peek();
     }
@@ -64,10 +66,11 @@ public class StateManager {
     /**
      * Reverts to the previous changed state of the list.
      *
+     * @return The last edit type command entered by the user.
      * @throws IOException exception is thrown when error occurred during IO operation.
      * @throws EmptyStackException exception is thrown when user trying to undo at the initial state.
      */
-    public static void undo() throws IOException, EmptyStackException {
+    public static String undo() throws IOException, EmptyStackException {
         var previousState = popPreviousScreenShot();
 
         var encodedSavedList = previousState.getEncodedSavedList();
@@ -88,16 +91,22 @@ public class StateManager {
 
         bufferedReader1.close();
         bufferedReader2.close();
+
+        String lastCommand = editTypeCommandArrayList.remove(editTypeCommandArrayList.size() - 1);
+        return lastCommand;
     }
 
     /**
      * Saves the moduleList as a string if it was changed.
+     *
+     * @param editTypeCommand The edit type command entered by the user.
      */
-    public static void saveState() {
+    public static void saveState(String editTypeCommand) {
+        editTypeCommandArrayList.add(editTypeCommand);
         var gson = new GsonBuilder().create();
         var encodedSavedList = gson.toJson(TaskManager.getTaskList());
         var encodedSavedMap = gson.toJson(ModuleManager.getModulesMap());
-        var screenShot = new State(encodedSavedList, encodedSavedMap);
+        var screenShot = new State(encodedSavedList, encodedSavedMap, editTypeCommandArrayList);
         undoStack.push(screenShot);
         /*
         if (getUndoStackSize() == 0) {
