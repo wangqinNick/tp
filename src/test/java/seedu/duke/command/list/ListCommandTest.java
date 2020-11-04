@@ -1,5 +1,6 @@
 package seedu.duke.command.list;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.duke.command.CommandResult;
 import seedu.duke.command.add.AddCommand;
@@ -13,14 +14,19 @@ import seedu.duke.util.Message;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ListCommandTest {
+
+    @BeforeEach
+    void setupLists(){
+        TaskManager.clear();
+        ModuleManager.clearModules();
+    }
+
     @Test
     void listCommand_MessageListEmpty_isShown() {
-        TaskManager.clear();
         ListCommand taskListCommand = new ListCommand(Parser.TypeOfEntries.TASK);
         CommandResult commandResult1 = taskListCommand.execute();
         assertEquals(ExceptionMessage.MESSAGE_LIST_EMPTY, commandResult1.feedbackToUser);
 
-        ModuleManager.clearModules();
         ListCommand moduleListCommand = new ListCommand(Parser.TypeOfEntries.MODULE);
         CommandResult commandResult2 = moduleListCommand.execute();
         assertEquals(ExceptionMessage.MESSAGE_LIST_EMPTY, commandResult2.feedbackToUser);
@@ -28,7 +34,6 @@ public class ListCommandTest {
 
     @Test
     void listCommand_MessageListPrinted_isShown() {
-        TaskManager.clear();
         AddCommand addTask = new AddTaskCommand("read a book");
         addTask.execute();
 
