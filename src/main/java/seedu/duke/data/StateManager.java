@@ -66,6 +66,7 @@ public class StateManager {
     /**
      * Reverts to the previous changed state of the list.
      *
+     * @return The last edit type command entered by the user.
      * @throws IOException exception is thrown when error occurred during IO operation.
      * @throws EmptyStackException exception is thrown when user trying to undo at the initial state.
      */
@@ -97,6 +98,8 @@ public class StateManager {
 
     /**
      * Saves the moduleList as a string if it was changed.
+     *
+     * @param editTypeCommand The edit type command entered by the user.
      */
     public static void saveState(String editTypeCommand) {
         editTypeCommandArrayList.add(editTypeCommand);
