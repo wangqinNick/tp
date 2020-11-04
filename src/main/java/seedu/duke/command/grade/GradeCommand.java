@@ -37,7 +37,7 @@ public class GradeCommand extends Command {
     public GradeCommand(String moduleGraded, double moduleCredit, String grade) {
         this.moduleGraded = moduleGraded.toUpperCase();
         this.moduleCredit = moduleCredit;
-        this.grade = grade;
+        this.grade = grade.toUpperCase();
         setPromptType(PromptType.EDIT);
     }
 

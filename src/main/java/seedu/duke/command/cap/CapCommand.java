@@ -23,6 +23,8 @@ public class CapCommand extends Command {
                                         + "\n\tExample usage: cap 20 4.5";
 
     public static double cap = 0.0;
+    private static final double SUMMCGRADE = 20;
+    private static final double SUMMC = 4;
 
 
     /**
@@ -121,8 +123,8 @@ public class CapCommand extends Command {
             }
         }
         if (numberOfCsCuModules == numberOfModules) {
-            sumMcGrade = 20;
-            sumMc = 4;
+            sumMcGrade = SUMMCGRADE;
+            sumMc = SUMMC;
         }
 
         cap = ((currentCap * totalMcTaken) + sumMcGrade) / (sumMc + totalMcTaken);
