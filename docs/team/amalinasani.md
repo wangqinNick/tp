@@ -33,26 +33,24 @@ Given below are my contributions to the project.
 * **Summary Feature**: Added the ability to view a task summary. (Pull request [\#93](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/93))
   * What it does: Allows the user to view a task summary, categorising tasks into "Incomplete tasks with deadlines", "Incomplete tasks without deadlines", and "Completed tasks". 
   * Justification: This feature is important in providing the user with a brief, categorised list of tasks for quick viewing. 
-  * Highlights: This implementation of this feature required that 
+  * Highlights: Th implementation of this feature required that 
   -------
   affects existing commands as the task index from `list` is required as a parameter for `done` and `edit` commands. 
   It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands. 
   
-* **View Timetable Feature**: Added the ability to list all added tasks and modules in ra.VI. (Pull request [\#120](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/120))
-
-* **Reset Timetable Feature**: Added the ability to list all added tasks and modules in ra.VI. (Pull request [\#230](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/230))
-
+* **View Timetable Feature**: Added the ability to view the timetable for the day or week. (Pull request [\#120](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/120))
+  * What it does: Allows the user to view the timetable, listing all lessons and lesson times for the day or week.
+  * Justification: This feature is important in providing the user with a brief, day-to-day timetable of lessons for quick viewing. 
+  * Highlights: The implementation of this feature required a clean UI to display the timetable. 
+  
+* **Reset Timetable Feature**: Added the ability to reset the timetable. (Pull request [\#230](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/230))
+  * What it does: Allows the user to clear and reinitisialise the timetable.
+  * Justification: This feature is necessary for the user to populate the timetable with new lessons in preparation for a new semester.  
+  * Highlights: 
+  
 #### Code contributed
 [RepoSense link]()
 
-#### Project management
-* Managed releases `v1.0` - `v2.1` (3 releases) on GitHub
-
-#### Enhancements to existing features
-  * Updated the GUI color scheme (Pull requests [\#33](), [\#34]())
-  * Wrote additional tests for `help` and `done` commands to increase coverage from 88% to 92% (Pull requests [\#79]())
-  * Solve issues [\#233]()
-  
 #### Documentation
   * User Guide:
     * Added documentation for the features `help`, `add`, `edit`, `del`, `list`, `done`, `bye` [\#106]()
@@ -65,8 +63,15 @@ Given below are my contributions to the project.
     * Added implementation details of the `list` feature. [\#133]()
     * Added sequence diagram for the `list` feature. [\#133]()
     * Added documentation `timetable -reset` [\#240]()
-    
+
+#### Project management
+* Managed releases `v1.0` - `v2.1` (3 releases) on GitHub
+
+#### Enhancements to existing features
+  * Wrote additional tests for `help` and `done` commands to increase coverage from 88% to 92% (Pull requests [\#79]())
+  * Solve issues [\#233]()
+  * Updated the GUI color scheme (Pull requests [\#33](), [\#34]())
     
 #### Community
   * PRs reviewed (with non-trivial review comments): [\#12](), [\#32](), [\#19](), [\#42]()
-  * Reported bugs and suggestions for other teams in the class (examples: [1](), [2](), [3]())
+  * Reported bugs and suggestions for other teams in the class (examples: [1](https://github.com/AY2021S1-CS2113T-T12-2/tp/issues/226), [2](https://github.com/AY2021S1-CS2113T-T12-2/tp/issues/225), [3](https://github.com/AY2021S1-CS2113T-T12-2/tp/issues/224))
