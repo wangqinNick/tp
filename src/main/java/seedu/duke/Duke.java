@@ -62,7 +62,7 @@ public class Duke {
         try {
             start(args);
         } catch (NusModsNotLoadedException e) {
-            // Show long error message if NUSMods not loaded and crash!
+            // Show NUSMods not loaded error message if NUSMods not loaded and crash!
             TextUi.showResultToUser(new IncorrectCommand(MESSAGE_NUS_MODS_NOT_LOADED).execute());
             return;
         }

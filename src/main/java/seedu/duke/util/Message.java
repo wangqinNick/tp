@@ -2,24 +2,30 @@ package seedu.duke.util;
 
 public class Message {
     public static final String MESSAGE_LOADING_TEMPLATE = "Loading %s: %s";
-    public static final String MESSAGE_LOADING_SUCCESS = "Loaded files; launching ra.VI...";
-    public static final String MESSAGE_LOADING_FAILURE = "User save is corrupted! "
-            + "ra.VI will rename the files, check the data folder.\n";
-    public static final String MESSAGE_LOADING_SKIPPED = "No saves found - starting ra.VI anew!\n";
 
     public static final String MESSAGE_ADD_TASK_SUCCESS = "Your task has been added successfully.\n"
             + "Your new task - '%s'\n";
     public static final String MESSAGE_ADD_MODULE_SUCCESS = "Your module has been added successfully.\n"
             + "Your new module - '%s'\n";
     public static final String MESSAGE_ADD_LESSON_SUCCESS = "Your lesson has been added successfully.\n"
-            + "Your new lesson - '%s'\n";
+            + "Your new lesson - '%s'\n"
+            + "Added to: %s\n";
 
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Your task has been deleted successfully.\n";
-    public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Your module has been deleted successfully.\n";
-    public static final String MESSAGE_DELETE_LESSON_SUCCESS = "Your lesson has been deleted successfully.\n";
+    public static final String MESSAGE_DONE_TASK_SUCCESS = "The task has been successfully marked as complete.\n"
+            + "Your completed task - '%s'\n";
 
-    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Your task has been edited successfully.\n";
-    public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Your module has been edited successfully.\n";
+    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Your task has been deleted successfully.\n"
+            + "Your deleted task - '%s'\n";
+    public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Your module has been deleted successfully.\n"
+            + "Your deleted module - '%s'\n";
+    public static final String MESSAGE_DELETE_LESSON_SUCCESS = "Your lesson has been deleted successfully from"
+            + "all weeks.\n"
+            + "Your deleted lesson - '%s'\n";
+
+    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Your task has been edited successfully.\n"
+            + "Your task after editing - '%s'\n";
+    public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Your module has been edited successfully.\n"
+            + "Your module after editing - '%s'\n";
 
     public static final String MESSAGE_EMPTY_INPUT = "Please enter a command for me.\n";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT =
@@ -28,7 +34,6 @@ public class Message {
             "Please check to make sure to follow the command format:\n";
     public static final String MESSAGE_GOODBYE = "Goodbye, hope to see you soon!";
     public static final String MESSAGE_WELCOME = "\u26A1 Welcome to ra.VI v2.0 \u26A1";
-    public static final String MESSAGE_DONE_TASK_SUCCESS = "The task has been successfully marked as complete.\n";
     public static final String ICON_DONE = "\u221A";
     public static final String ICON_NOT_DONE = "\u0078";
     public static final String MESSAGE_LIST_PRINTED = "Here's your list:\n";
@@ -65,12 +70,6 @@ public class Message {
             "Please enter the current week num e.g. 1 - 14"
                     + " where 7 is recess week.\n" + "In ra.Vi, NUS week 7 onwards is week 8 onwards. \n"
                     + "For example, in Academic week 9, please input the current week num to be 10";
-    public static final String MESSAGE_TIMETABLE_HEADER =
-            " ┌───────────┬────┬────────────────────┐\n"
-            + " │   Time    │ ID │       Lesson       │\n"
-            + " ├───────────┼────┼────────────────────┤\n";
-    public static final String MESSAGE_TIMETABLE_MIDDLE = "\n ├───────────┼────┼────────────────────┤\n";
-    public static final String MESSAGE_TIMETABLE_FOOTER = "\n └───────────┴────┴────────────────────┘\n";
     public static final String MESSAGE_NO_LESSONS = "\nNo lessons on ";
     public static final String MESSAGE_TIMETABLE_RESET = "Timetable reset successful.";
 }
