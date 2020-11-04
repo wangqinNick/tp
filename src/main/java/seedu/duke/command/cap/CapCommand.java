@@ -54,8 +54,8 @@ public class CapCommand extends Command {
         D_PLUS("D+", 1.5),
         D("D", 1.0),
         F("F", 0.0),
-        CS("CS",-2.0),
-        CU("CU",-3.0);
+        CS("CS", -2.0),
+        CU("CU", -3.0);
 
         private final String symbol;
         private final double value;
