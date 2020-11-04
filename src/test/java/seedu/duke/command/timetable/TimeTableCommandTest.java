@@ -15,6 +15,7 @@ import seedu.duke.exception.DuplicateModuleException;
 import seedu.duke.exception.InvalidMatchException;
 import seedu.duke.exception.LessonInvalidTimeException;
 import seedu.duke.exception.ModuleNotProvidedException;
+import seedu.duke.exception.NusModsNotLoadedException;
 import seedu.duke.exception.TimeTableInitialiseException;
 import seedu.duke.parser.TimeTableCommandParser;
 import seedu.duke.util.ExceptionMessage;
@@ -47,8 +48,8 @@ public class TimeTableCommandTest {
     static final LessonType LESSON_TYPE = LessonType.LECTURE;
 
     @BeforeAll
-    static void setupUserMods() throws DuplicateModuleException, ModuleNotProvidedException {
-        InputOutputManager.loadNusModSave();
+    static void setupUserMods() throws DuplicateModuleException, ModuleNotProvidedException, NusModsNotLoadedException {
+        InputOutputManager.tryLoadNusMods();
         ModuleManager.clearModules();
         ModuleManager.add(MOD_CODE_1);
         ModuleManager.add(MOD_CODE_2);

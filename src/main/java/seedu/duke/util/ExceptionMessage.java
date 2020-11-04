@@ -3,6 +3,13 @@ package seedu.duke.util;
 public class ExceptionMessage {
     public static final String EXCEPTION_HEADER = "\uD83D\uDEAB Error! \uD83D\uDEAB"; // 'No entry sign' emoji
 
+    public static final String MESSAGE_NUS_MODS_NOT_LOADED =
+            "NUSMods data could not be loaded!\n"
+            + "ra.VI is meant to be able to work offline, and so is packaged with a \n"
+            + "copy of NUSMods data. If you're reading this, the ra.VI jar file you are \n"
+            + "using may be corrupted. Please try to download again when you have an \n"
+            + "Internet connection. Sorry for the inconvenience.\n";
+
     public static final String MESSAGE_MODULE_NOT_FOUND =
             "Sorry, the module is not in your module list.\n"
             + "Try checking the spelling of your module code?\n";
