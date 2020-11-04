@@ -49,17 +49,16 @@ public class AddModuleCommand extends AddCommand {
      */
     @Override
     public CommandResult execute() {
-        String message = "";
         try {
             Module newModule = addModule(module);
-            message = String.format(MESSAGE_ADD_MODULE_SUCCESS, newModule.toString());
+            return new CommandResult(String.format(MESSAGE_ADD_MODULE_SUCCESS, newModule.toString()));
         } catch (DuplicateModuleException e) {
-            message = MESSAGE_DUPLICATE_MODULE;
+            return new CommandResult(MESSAGE_DUPLICATE_MODULE, true);
         } catch (ModuleNotProvidedException e) {
-            message = MESSAGE_MODULE_NOT_PROVIDED;
+            return new CommandResult(MESSAGE_MODULE_NOT_PROVIDED, true);
         } catch (ModuleNotFoundException e) {
             // should not happen
+            return new CommandResult("AddModuleCommand caught ModuleNotFoundException", true);
         }
-        return new CommandResult(message);
     }
 }

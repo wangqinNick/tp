@@ -31,17 +31,20 @@ public class TaskManager {
      * Edits a task in the Task List.
      *
      * @param taskId
-     *  The index of the task in the Task List.
+     *  The index of the task in the Task List
      * @param editedTaskDesc
      *  The edited task description string
+     * @return
+     *  The task object after editing
      * @throws TaskNotFoundException
      *  If there is no task found with that ID
      */
-    public static void edit(int taskId, String editedTaskDesc) throws TaskNotFoundException {
+    public static Task edit(int taskId, String editedTaskDesc) throws TaskNotFoundException {
         if (taskId < 0 || taskId > tasksList.size() - 1) {
             throw new TaskNotFoundException();
         }
         tasksList.get(taskId).setName(editedTaskDesc);
+        return tasksList.get(taskId);
     }
 
     /**
@@ -53,15 +56,18 @@ public class TaskManager {
      *  The edited task description string
      * @param deadline
      *  The edited deadline
+     * @return
+     *  The task object after editing
      * @throws TaskNotFoundException
      *  If there is no task found with that ID
      */
-    public static void edit(int taskId, String editedTaskDesc, LocalDateTime deadline) throws TaskNotFoundException {
+    public static Task edit(int taskId, String editedTaskDesc, LocalDateTime deadline) throws TaskNotFoundException {
         if (taskId < 0 || taskId > tasksList.size() - 1) {
             throw new TaskNotFoundException();
         }
         tasksList.get(taskId).setName(editedTaskDesc);
         tasksList.get(taskId).setDeadline(deadline);
+        return tasksList.get(taskId);
     }
 
     /**
@@ -87,13 +93,14 @@ public class TaskManager {
         tasksList.remove(taskId);
     }
 
-    public static void done(int taskId) throws TaskNotFoundException {
+    public static Task done(int taskId) throws TaskNotFoundException {
         Task task;
         if (taskId < 0 || taskId > tasksList.size() - 1) {
             throw new TaskNotFoundException();
         }
         task = getTask(taskId);
         task.setStatus(true);
+        return task;
     }
 
     /**
