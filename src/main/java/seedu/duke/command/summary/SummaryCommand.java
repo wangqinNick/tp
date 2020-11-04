@@ -4,7 +4,6 @@ import seedu.duke.command.Command;
 import seedu.duke.command.CommandResult;
 import seedu.duke.data.TaskManager;
 
-import static seedu.duke.util.ExceptionMessage.MESSAGE_LIST_EMPTY;
 import static seedu.duke.util.Message.MESSAGE_SUMMARY_PRINTED;
 
 public class SummaryCommand extends Command {
@@ -20,10 +19,7 @@ public class SummaryCommand extends Command {
     @Override
     public CommandResult execute() {
         String output = TaskManager.getSummary();
-        if (output.equals("")) {
-            return new CommandResult(MESSAGE_LIST_EMPTY);
-        } else {
-            return new CommandResult(MESSAGE_SUMMARY_PRINTED + output);
-        }
+        return new CommandResult(MESSAGE_SUMMARY_PRINTED + output);
+
     }
 }
