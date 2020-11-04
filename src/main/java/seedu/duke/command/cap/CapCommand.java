@@ -8,9 +8,6 @@ import seedu.duke.exception.InvalidCapCalculatedException;
 import seedu.duke.exception.ModuleNotFoundException;
 import seedu.duke.ui.TextUi;
 
-import static seedu.duke.ui.TextUi.MAX_WIDTH;
-import static seedu.duke.ui.TextUi.centerString;
-import static seedu.duke.util.ExceptionMessage.EXCEPTION_HEADER;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_INVALID_CAP_ATTAINED;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_MODULE_NOT_FOUND;
 import static seedu.duke.util.Message.MESSAGE_CAP_DISPLAY;
@@ -145,9 +142,9 @@ public class CapCommand extends Command {
         try {
             return new CommandResult(String.format("%s%.2f\n", MESSAGE_CAP_DISPLAY, calculateCap()));
         } catch (InvalidCapCalculatedException e) {
-            return new CommandResult(centerString(MAX_WIDTH, EXCEPTION_HEADER) + "\n" + MESSAGE_INVALID_CAP_ATTAINED);
+            return new CommandResult(MESSAGE_INVALID_CAP_ATTAINED, true);
         } catch (ModuleNotFoundException e) {
-            return new CommandResult(centerString(MAX_WIDTH, EXCEPTION_HEADER) + "\n" + MESSAGE_MODULE_NOT_FOUND);
+            return new CommandResult(MESSAGE_MODULE_NOT_FOUND, true);
         }
     }
 }

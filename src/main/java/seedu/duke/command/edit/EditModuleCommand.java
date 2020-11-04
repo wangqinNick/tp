@@ -53,14 +53,17 @@ public class EditModuleCommand extends EditCommand {
     @Override
     public CommandResult execute() {
         try {
-            ModuleManager.edit(newModuleCode, oldModuleCode);
-            return new CommandResult(MESSAGE_EDIT_MODULE_SUCCESS);
+            Module oldModule = ModuleManager.getModule(oldModuleCode);
+            Module editedModule = ModuleManager.edit(newModuleCode, oldModuleCode);
+            String message = String.format(
+                    MESSAGE_EDIT_MODULE_SUCCESS, oldModule.toString(), editedModule.toString());
+            return new CommandResult(message);
         } catch (ModuleNotProvidedException e) {
-            return new CommandResult(MESSAGE_MODULE_NOT_PROVIDED);
+            return new CommandResult(MESSAGE_MODULE_NOT_PROVIDED, true);
         } catch (DuplicateModuleException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_MODULE);
+            return new CommandResult(MESSAGE_DUPLICATE_MODULE, true);
         } catch (ModuleNotFoundException e) {
-            return new CommandResult(MESSAGE_MODULE_NOT_FOUND);
+            return new CommandResult(MESSAGE_MODULE_NOT_FOUND, true);
         }
     }
 }

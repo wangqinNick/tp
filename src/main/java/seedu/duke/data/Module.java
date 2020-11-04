@@ -58,7 +58,8 @@ public class Module extends Directory {
     }
 
     public String toString() {
-        return getModuleCode() + ": " + getTitle() + ": " + getModuleGrade();
+        String format = "%s: %s (%sMC) (Grade: %s)";
+        return String.format(format, getModuleCode(), getTitle(), getModuleCredit(), getModuleGrade());
     }
 
     @Override

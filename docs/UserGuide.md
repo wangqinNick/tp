@@ -32,6 +32,7 @@ Welcome to the ra.VI User Guide! Choose a section or sub-section from the table 
 &nbsp;&nbsp;&nbsp;&nbsp;[3.11.1 View timetable](#3111-view-the-timetable-timetable-args) <br>
 &nbsp;&nbsp;&nbsp;&nbsp;[3.11.2 Add a lesson](#3112-add-a-lesson-timetable--add) <br>
 &nbsp;&nbsp;&nbsp;&nbsp;[3.11.3 Delete a lesson](#3113-delete-a-lesson-timetable--del) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[3.11.4 Reset timetable](#3114-reset-the-timetable-timetable--reset) <br>
 &nbsp;&nbsp;[3.12 Exit](#312-exiting-the-program-bye) <br>
 [4. **FAQ**](#4-faq) <br>
 [5. **Command Summary**](#5-command-summary) <br>
@@ -241,9 +242,6 @@ Example of usage:
 Gets an overall view of the tasks.
 Format: `summary`
 
-Example of usage: 
-* `summary`
-
 ### 3.11 TimeTable: `timetable <opt> <args>`
 
 #### 3.11.1 View the timetable: `timetable <args>`
@@ -279,6 +277,11 @@ Format: `timetable -del <day> <lesson index>`
 
 Example of usage: 
 * `timetable -del MONDAY 1`
+
+#### 3.11.4 Reset the timetable: `timetable -reset`
+
+Clears the current timetable and creates a new timetable.\
+Format: `timetable -reset`
 
 ### 3.12 Exiting the program: `bye`
 
@@ -323,6 +326,7 @@ Format: `bye`
 | View day's timetable | `timetable -day` |
 | View week's timetable | `timetable -week` |
 | Filter timetable | `timetable -filter <module> <day> <start time> <end time> <lesson type>` |
+| Reset timetable | `timetable -reset` |
 | Get list of commands | `help` |
 | Get detailed help message for each command | `help <command_word>` |
 | Exit ra.VI | `bye` |
