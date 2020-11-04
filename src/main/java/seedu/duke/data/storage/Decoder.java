@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONException;
 import seedu.duke.data.Module;
 import seedu.duke.data.Task;
 import seedu.duke.data.TimeTable;
+import seedu.duke.exception.NusModsNotLoadedException;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -12,6 +13,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
@@ -31,7 +33,7 @@ import static seedu.duke.data.storage.InputOutputManager.JAR_NUS_MODULE_FILE;
  */
 
 public class Decoder {
-    public static TimeTable loadTimeTable(String dataFileName) throws JSONException {
+    public static TimeTable loadTimeTable(String dataFileName) throws IOException, JSONException {
         String jsonStr;
         jsonStr = loadJsonStringFromFile(dataFileName);
         TimeTable timetable = JSON.parseObject(jsonStr, TimeTable.class);
@@ -47,8 +49,10 @@ public class Decoder {
      *  The HashMap of Module objects
      * @throws JSONException
      *  When the file to be parsed has caused some error
+     * @throws IOException
+     *  When the file cannot be loaded or read
      */
-    public static HashMap<String, Module> loadModules(String dataFileName) throws JSONException {
+    public static HashMap<String, Module> loadModules(String dataFileName) throws IOException, JSONException {
         String jsonStr;
         jsonStr = loadJsonStringFromFile(dataFileName);
         // FastJSON doesn't write the square brackets for some reason when we save, so we add it in here
@@ -75,8 +79,10 @@ public class Decoder {
      *  The ArrayList tasksList
      * @throws JSONException
      *  When the file to be parsed has caused some error
+     * @throws IOException
+     *  When the file cannot be loaded or read
      */
-    public static ArrayList<Task> loadTasks(String dataFileName) throws JSONException {
+    public static ArrayList<Task> loadTasks(String dataFileName) throws IOException, JSONException {
         String jsonStr;
         jsonStr = loadJsonStringFromFile(dataFileName);
 
@@ -98,11 +104,13 @@ public class Decoder {
      * @return
      *  The HashMap of Module objects (from NUSMods)
      * @throws IOException
-     *  When an I/O error occurs
+     *  When the file cannot be read
      * @throws JSONException
      *  When the file to be parsed has caused some error
+     * @throws NullPointerException
+     *  When the file cannot be loaded
      */
-    public static HashMap<String, Module> loadNusModsFromJar() throws IOException, JSONException {
+    public static HashMap<String, Module> loadNusModsFromJar() throws IOException, JSONException, NullPointerException {
         BufferedReader br = new BufferedReader(new InputStreamReader(
                 Decoder.class.getResourceAsStream(JAR_NUS_MODULE_FILE)));
         String jsonStr = "";
@@ -125,11 +133,15 @@ public class Decoder {
      *
      * @return
      *  The HashMap of Module objects (from NUSMods)
+     * @throws ConnectException
+     *  When the connection to the NUSMods API fails
+     * @throws JSONException
+     *  When the JSON data cannot be parsed
      */
-    public static HashMap<String, Module> generateNusModsList() {
+    public static HashMap<String, Module> generateNusModsList() throws ConnectException, JSONException {
         HashMap<String, Module> retrievedNusModsList = new HashMap<>();
         String retrievedJson;
-        retrievedJson = requestNusModsJsonString("https://api.nusmods.com/v2/2019-2020/moduleList.json");
+        retrievedJson = requestNusModsJsonString("https://api.nusmods.com/v2/2020-2021/moduleList.json");
         // This JSON string comes with the square brackets, so no need to add
         List<Module> modulesList = JSON.parseArray(retrievedJson, Module.class);// extractModules(jsonStr);
 
@@ -147,19 +159,17 @@ public class Decoder {
      *  The specified file
      * @return
      *  The string read from file
+     * @throws IOException
+     *  When the file cannot be loaded or read
      */
-    private static String loadJsonStringFromFile(String dataFileName) {
+    private static String loadJsonStringFromFile(String dataFileName) throws IOException {
         File file = new File(dataFileName);
         long fileLength = file.length();
         byte[] fileContent = new byte[(int) fileLength];
 
-        try {
-            FileInputStream in = new FileInputStream(file);
-            in.read(fileContent);
-            in.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        FileInputStream in = new FileInputStream(file);
+        in.read(fileContent);
+        in.close();
 
         String encoding = "utf8";
         try {
@@ -178,10 +188,13 @@ public class Decoder {
      *  The endpoint for the NUSMods API.
      * @return
      *  The JSON string with information of all currently available mods in NUS.
+     * @throws ConnectException
+     *  When the connection to the NUSMods API fails
      */
-    private static String requestNusModsJsonString(String filePath) {
+    private static String requestNusModsJsonString(String filePath) throws ConnectException {
         int httpResult; // the status from the server response
         String content = "";
+
         try {
             URL url = new URL(filePath); // create URL
             URLConnection urlConn = url.openConnection(); // try to connect and get the status code
@@ -189,7 +202,7 @@ public class Decoder {
             HttpURLConnection httpConn = (HttpURLConnection) urlConn;
             httpResult = httpConn.getResponseCode();
             if (httpResult != HttpURLConnection.HTTP_OK) {
-                System.out.print("cannot connect!");
+                throw new ConnectException();
             } else {
                 int fileSize = urlConn.getContentLength(); // get the length of the data
                 InputStreamReader isReader = new InputStreamReader(urlConn.getInputStream(), StandardCharsets.UTF_8);
@@ -202,12 +215,12 @@ public class Decoder {
                     buffer.append(" "); // add new line
                     line = reader.readLine(); // read the next line
                 }
-                //System.out.print(buffer.toString());
                 content = buffer.toString();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new ConnectException();
         }
+
         return content;
     }
 }
