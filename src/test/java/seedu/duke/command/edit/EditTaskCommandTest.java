@@ -25,7 +25,8 @@ public class EditTaskCommandTest {
         Task editedTask = new Task("return a book");
         //base case
         CommandResult result1 = Executor.executeCommand("edit -t 1 return a book");
-        assertEquals(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask.toString()), result1.feedbackToUser);
+        assertEquals(String.format(MESSAGE_EDIT_TASK_SUCCESS, newTask.toString(), editedTask.toString()),
+                result1.feedbackToUser);
 
         //invalid parameters
         CommandResult result2 = Executor.executeCommand("edit -t 0 return a book");
@@ -45,7 +46,8 @@ public class EditTaskCommandTest {
 
         //base case
         CommandResult result1 = Executor.executeCommand("edit -t 1 return a book -by 30-12-2020 1200");
-        assertEquals(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask.toString()), result1.feedbackToUser);
+        assertEquals(String.format(MESSAGE_EDIT_TASK_SUCCESS, newTask.toString(), editedTask.toString()),
+                result1.feedbackToUser);
 
         //invalid parameters
         CommandResult result2 = Executor.executeCommand("edit -t 0 return a book");
