@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import static seedu.duke.util.ExceptionMessage.EXCEPTION_HEADER;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_LIST_EMPTY;
 import static seedu.duke.util.Message.MESSAGE_COMPLETED_TASKLIST;
 import static seedu.duke.util.Message.MESSAGE_GENERAL_HELP;
@@ -37,82 +38,25 @@ public class TextUi {
     //%1$ catches the furthest left arg, %2$ catches the 2nd arg
     private static final String MESSAGE_INDEX_LIST_FORMAT = "\n%1$d. %2$s";
 
-    public TextUi() {
-    }
-
-    public TextUi(Scanner in) {
+    public static void initialiseTextUi(Scanner in) {
         TextUi.in = in;
     }
 
     /**
      * Prints welcome message, and shows file loading status according to the status parameter.
      * Enum not used because it's only used by InputOutputManager.start() and this function.
-     * Status parameter is a 4 digit number. First 3 digits are Hundreds: Timetable, Tens: Tasks, Ones: Modules.
-     * 0 - Files do not exist, skipping
-     * 1 - Files exist, loading success
-     * 2 - Files exist, error parsing JSON
-     * Then for the Thousands: NUSMods.
-     * 0 - Loaded from data directory
-     * 1 - Loaded from NUSMods API (subsequently to be saved to data directory)
-     * 2 - No internet connection, loaded from backup in jar file
      *
      * @param status
      *  The status code as shown above
      */
     public static void showWelcomeMessage(int status) {
-        String[] items = {"Modules", "Tasks", "Timetable"};
-        String loadingOutcomes = "";
-
-        int latestCode; // first - mods, second - tasks, third - timetable, fourth - NUSMods
-        String statusMsg = "";
-        String eachItem;
-
-        for (int i = 0; i < 3; i++) {
-            eachItem = items[i];
-            latestCode = status % 10; // find ones digit of status
-            status /= 10; // remove ones digit
-            switch (latestCode) {
-            case 0:
-                statusMsg = "Skipped (file not found!)";
-                break;
-            case 1:
-                statusMsg = "Success!";
-                break;
-            case 2:
-                statusMsg = "Failed (corrupted file auto-renamed)";
-                break;
-            default:
-                statusMsg = "You shouldn't be here";
-                break;
-            }
-            loadingOutcomes += centerString(MAX_WIDTH,
-                    String.format(MESSAGE_LOADING_TEMPLATE, eachItem, statusMsg)) + "\n";
-        }
-
-        // Now find the NUSMods status, the remaining digit in the status code
-        String nusModsStatus;
-        switch (status) {
-        case 0:
-            nusModsStatus = "Loaded from data directory!";
-            break;
-        case 1:
-            nusModsStatus = "Downloaded latest version!";
-            break;
-        case 2:
-            nusModsStatus = "No internet - using packaged backup";
-            break;
-        default:
-            nusModsStatus = "You shouldn't be here";
-            break;
-        }
-        loadingOutcomes += centerString(MAX_WIDTH,
-                String.format(MESSAGE_LOADING_TEMPLATE, "NUSMods", nusModsStatus)) + "\n";
+        String loadingStatus = parseStatusCode(status);
 
         outputToUser(
                 DIV_LINE,
                 centerString(MAX_WIDTH, Message.MESSAGE_WELCOME),
                 "",
-                loadingOutcomes,
+                loadingStatus,
                 DIV_LINE);
     }
 
@@ -128,11 +72,19 @@ public class TextUi {
      *
      * @param result the relevant message shown to user
      */
-    public void showResultToUser(CommandResult result) {
-        outputToUser(
-                DIV_LINE,
-                result.feedbackToUser,
-                DIV_LINE);
+    public static void showResultToUser(CommandResult result) {
+        if (!result.checkIsError()) {
+            outputToUser(
+                    DIV_LINE,
+                    result.feedbackToUser,
+                    DIV_LINE);
+        } else {
+            outputToUser(
+                    DIV_LINE,
+                    centerString(MAX_WIDTH, EXCEPTION_HEADER),
+                    result.feedbackToUser,
+                    DIV_LINE);
+        }
     }
 
     public static void outputToUser(String... output) {
@@ -320,6 +272,70 @@ public class TextUi {
                 centerString(20, lesson.getModuleCode() + " " + lesson.getLessonTypeString()));
 
         return message;
+    }
+
+    /**
+     * Returns a string of the loading status based on the status code.
+     * Status parameter is a 4 digit number. First 3 digits are Hundreds: Timetable, Tens: Tasks, Ones: Modules.
+     * 0 - Files do not exist, skipping
+     * 1 - Files exist, loading success
+     * 2 - Files exist, error parsing JSON
+     * Then for the Thousands: NUSMods.
+     * 0 - Loaded from data directory
+     * 1 - Loaded from NUSMods API (subsequently to be saved to data directory)
+     * 2 - No internet connection, loaded from backup in jar file
+     *
+     * @param status
+     *  The status code parameter
+     * @return
+     *  The loading status string
+     */
+    public static String parseStatusCode(int status) {
+        String[] items = {"Modules", "Tasks", "Timetable"};
+        int latestCode;
+        String eachItem, statusMsg;
+        String loadingOutcomes = "";
+        for (int i = 0; i < 3; i++) {
+            eachItem = items[i];
+            latestCode = status % 10; // find ones digit of status
+            status /= 10; // remove ones digit
+            switch (latestCode) {
+            case 0:
+                statusMsg = "Skipped (file not found!)";
+                break;
+            case 1:
+                statusMsg = "Success!";
+                break;
+            case 2:
+                statusMsg = "Failed (corrupted file auto-renamed)";
+                break;
+            default:
+                statusMsg = "You shouldn't be here";
+                break;
+            }
+            loadingOutcomes += centerString(MAX_WIDTH,
+                    String.format(MESSAGE_LOADING_TEMPLATE, eachItem, statusMsg)) + "\n";
+        }
+
+        // Now find the NUSMods status, the remaining digit in the status code
+        String nusModsStatus;
+        switch (status) {
+        case 0:
+            nusModsStatus = "Loaded from data directory!";
+            break;
+        case 1:
+            nusModsStatus = "Downloaded latest version!";
+            break;
+        case 2:
+            nusModsStatus = "No internet - using packaged backup";
+            break;
+        default:
+            nusModsStatus = "You shouldn't be here";
+            break;
+        }
+        loadingOutcomes += centerString(MAX_WIDTH,
+                String.format(MESSAGE_LOADING_TEMPLATE, "NUSMods", nusModsStatus)) + "\n";
+        return loadingOutcomes;
     }
 
     /**

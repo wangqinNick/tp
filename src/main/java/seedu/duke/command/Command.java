@@ -20,4 +20,6 @@ public abstract class Command {
      *  The result of the execution
      */
     public abstract CommandResult execute();
+
+    ;
 }

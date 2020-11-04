@@ -1,15 +1,11 @@
 package seedu.duke;
 
-import seedu.duke.command.Command;
 import seedu.duke.command.CommandResult;
-import seedu.duke.command.ExitCommand;
 import seedu.duke.command.IncorrectCommand;
-import seedu.duke.command.PromptType;
 import seedu.duke.data.StateManager;
 import seedu.duke.data.TimeTableManager;
 import seedu.duke.data.storage.InputOutputManager;
 import seedu.duke.exception.NusModsNotLoadedException;
-import seedu.duke.parser.Parser;
 import seedu.duke.ui.TextUi;
 
 import java.io.FileNotFoundException;
@@ -18,7 +14,6 @@ import java.util.Scanner;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_NUS_MODS_NOT_LOADED;
 
 public class Duke {
-    private TextUi ui;
     private static final DukeLogger logger = new DukeLogger(Duke.class.getName());
 
     /**
@@ -47,11 +42,10 @@ public class Duke {
      *  When no NUSMods data can be loaded
      */
     private void start(String[] args) throws NusModsNotLoadedException {
-        Scanner in = new Scanner(System.in);
-        this.ui = new TextUi(in);
+        TextUi.initialiseTextUi(new Scanner(System.in));
         int loadStatus = InputOutputManager.start();
         StateManager.initialise();
-        ui.showWelcomeMessage(loadStatus);
+        TextUi.showWelcomeMessage(loadStatus);
         while (!TimeTableManager.isInitialised()) {
             TimeTableManager.initialiseTimetable();
         }
@@ -69,7 +63,7 @@ public class Duke {
             start(args);
         } catch (NusModsNotLoadedException e) {
             // Show long error message if NUSMods not loaded and crash!
-            this.ui.showResultToUser(new IncorrectCommand(MESSAGE_NUS_MODS_NOT_LOADED).execute());
+            TextUi.showResultToUser(new IncorrectCommand(MESSAGE_NUS_MODS_NOT_LOADED).execute());
             return;
         }
         runCommandLoopUntilExitCommand();
@@ -78,20 +72,13 @@ public class Duke {
 
     /** Reads the user command and executes it, until the user issues the exit command.  */
     private void runCommandLoopUntilExitCommand() {
-        Command command;
         logger.getLogger().info("ENTERING COMMAND LOOP");
+        CommandResult result;
+        String userInput;
         do {
-            String userInput = TextUi.getUserCommand();
-            command = new Parser().parseCommand(userInput);
-            CommandResult result = command.execute();
-            if (command.getPromptType() == PromptType.EDIT) {
-                StateManager.saveState(userInput.trim());
-            }
-            ui.showResultToUser(result);
-        } while (!ExitCommand.isExit(command));
-    }
-
-    private CommandResult getResponse(String userInput) {
-        return Executor.executeCommand(userInput);
+            userInput = TextUi.getUserCommand();
+            result = Executor.executeCommand(userInput); // Saves state too
+            TextUi.showResultToUser(result);
+        } while (!result.isExit);
     }
 }
