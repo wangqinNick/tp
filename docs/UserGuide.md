@@ -279,7 +279,7 @@ Example of usage:
 
 #### 3.11.4 Reset the timetable: `timetable -reset`
 
-Resets the timetable.\
+Clears the current timetable and creates a new timetable.\
 Format: `timetable -reset`
 
 ### 3.12 Exiting the program: `bye`

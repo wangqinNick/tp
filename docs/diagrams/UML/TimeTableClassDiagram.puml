@@ -76,9 +76,9 @@ IncorrectCommand --|> "{abstract} \n Command"
 "{abstract} \n TimeTableCommandParser" -- "0..1" IncorrectCommand
 
 TimeTableAddCommand -|> "{abstract} \n TimeTableCommand"
-TimeTableDeleteCommand --|> "{abstract} \n TimeTableCommand"
+"{abstract} \n TimeTableCommand" <|-- TimeTableDeleteCommand
 TimeTableViewCommand --|> "{abstract} \n TimeTableCommand"
-TimeTableResetCommand --|> "{abstract} \n TimeTableCommand"
+"{abstract} \n TimeTableCommand" <|-- TimeTableResetCommand
 
 TimeTableManager *-- "1" TimeTable
 TimeTable o-- "1..13" LessonManager
