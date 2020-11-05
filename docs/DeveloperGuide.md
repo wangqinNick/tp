@@ -300,7 +300,7 @@ a module named ‘CS2101’ and add it to their module list. This input is recei
 a string. The parser parses the string and allocates it to the AddCommand where it is added to the list of modules. 
 
 2. The user inputs `grade CS2101 4 A+`. The parser parses and allocates the user input to GradeCommand. 
-`GradeCommand#execute()` is called and moduleManager checks if such a module exists in the user’s module list, 
+`GradeCommand.execute()` is called and moduleManager checks if such a module exists in the user’s module list, 
 then checks if the input grade is valid according to the NUS grading schematic and finally assigns the specific module, 
 the grade and module credits.
 

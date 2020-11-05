@@ -7,9 +7,11 @@ import seedu.duke.command.CommandResult;
 import seedu.duke.command.IncorrectCommand;
 import seedu.duke.command.add.AddCommand;
 import seedu.duke.command.add.AddModuleCommand;
+import seedu.duke.data.Module;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.data.storage.InputOutputManager;
 import seedu.duke.exception.InvalidModuleCreditException;
+import seedu.duke.exception.ModuleNotFoundException;
 import seedu.duke.exception.NusModsNotLoadedException;
 import seedu.duke.util.ExceptionMessage;
 import seedu.duke.util.Message;
@@ -33,10 +35,12 @@ class GradeCommandTest {
     }
 
     @Test
-    void gradeCommand_MessageGradeSuccessful_isShown() throws InvalidModuleCreditException {
+    void gradeCommand_MessageGradeSuccessful_isShown() throws InvalidModuleCreditException, ModuleNotFoundException {
         GradeCommand gradeCommand = new GradeCommand(MODULE_CODE, 4, "A+");
+        Module moduleGraded = ModuleManager.getModule(MODULE_CODE);
         CommandResult commandResult = gradeCommand.execute();
-        assertEquals(Message.MESSAGE_GRADE_MODULE_SUCCESS, commandResult.feedbackToUser);
+        assertEquals(String.format(
+                Message.MESSAGE_GRADE_MODULE_SUCCESS, moduleGraded), commandResult.feedbackToUser);
     }
 
     @Test
