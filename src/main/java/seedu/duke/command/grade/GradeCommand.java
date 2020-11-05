@@ -37,7 +37,7 @@ public class GradeCommand extends Command {
     public GradeCommand(String moduleGraded, double moduleCredit, String grade) {
         this.moduleGraded = moduleGraded.toUpperCase();
         this.moduleCredit = moduleCredit;
-        this.grade = grade;
+        this.grade = grade.toUpperCase();
         setPromptType(PromptType.EDIT);
     }
 
@@ -48,7 +48,7 @@ public class GradeCommand extends Command {
      * grade input by user
      */
     private boolean testGrade(String grade) {
-        String[] validGrades = {"A+", "A", "A-", "B+", "B-", "B", "C+", "C", "D+", "D", "F"};
+        String[] validGrades = {"A+", "A", "A-", "B+", "B-", "B", "C+", "C", "D+", "D", "F", "CS", "CU"};
         for (String i: validGrades) {
             if (grade.equals(i)) {
                 return true;

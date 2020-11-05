@@ -51,8 +51,8 @@ public class ExceptionMessage {
             + "Please use 'help' to see our list of commands.\n";
     public static final String MESSAGE_INVALID_GRADE =
             "Your grade input isn't part of the NUS grading scheme. \n"
-            + "For your reference: A+, A, A-, B+, B, B-, C+, C, C-, D+, F.\n"
-            + "Do not enter grades CS and CU - leave the module ungraded!\n";
+            + "For your reference: A+, A, A-, B+, B, B-, C+, C, C-, D+, F, CS, CU. \n"
+            + "Grades have to be in uppercase not lower case. \n";
     public static final String MESSAGE_LESSON_INVALID_TIME =
             "Sorry, the lesson you have attempted to add has an invalid start time.\n"
             + "Try using 'timetable -day' or 'timetable -week' to look at your\n"
