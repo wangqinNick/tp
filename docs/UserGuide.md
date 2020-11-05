@@ -637,6 +637,7 @@ Goodbye, hope to see you soon!
 | Edit a module | `edit -m <module_code> <new_module_code>` |
 | Mark task as Done | `done <task_index>` |
 | Grade and allocated MCs to a module | `grade <module_code> <grade>` | 
+| Calculate cap | `cap <total mc taken> <current cap>` |
 | Undo previous action | `undo` | 
 | Add lesson to timetable | `timetable -add <module> <day> <start time> <end time> <lesson type> <repeat>` |
 | Delete lesson from timetable | `timetable -del <day> <lesson index>` |   
