@@ -85,7 +85,7 @@ public class GradeCommand extends Command {
         try {
             Module moduleGraded = grade();
             return new CommandResult(String.format(
-                    MESSAGE_GRADE_MODULE_SUCCESS,moduleGraded.toString()));
+                    MESSAGE_GRADE_MODULE_SUCCESS, moduleGraded.toString()));
         } catch (InvalidGradeException e) {
             return new CommandResult(MESSAGE_INVALID_GRADE, true);
         } catch (ModuleNotFoundException e) {
