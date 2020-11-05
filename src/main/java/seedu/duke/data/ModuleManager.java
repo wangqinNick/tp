@@ -45,6 +45,8 @@ public class ModuleManager {
      *  The new module code of the new module that replaces the old one.
      * @param oldModuleCode
      *  The module code of the module to be edited.
+     * @return
+     *  The module object after editing.
      * @throws ModuleNotProvidedException
      *  If there is no module with the new module code offered by NUS
      * @throws DuplicateModuleException
@@ -52,7 +54,7 @@ public class ModuleManager {
      * @throws ModuleNotFoundException
      *  If the old module is not found
      */
-    public static void edit(String newModuleCode, String oldModuleCode)
+    public static Module edit(String newModuleCode, String oldModuleCode)
             throws ModuleNotProvidedException, DuplicateModuleException, ModuleNotFoundException {
         logger.getLogger().info("Editing module at old module code: " + oldModuleCode);
         if (!doesContainMod(oldModuleCode)) {
@@ -60,7 +62,12 @@ public class ModuleManager {
             throw new ModuleNotFoundException();
         }
         add(newModuleCode);
+        Module oldModule = getModule(oldModuleCode);
+        if (oldModule.getModuleCredit() != 0 && oldModule.getModuleGrade() != null) {
+            grade(newModuleCode, oldModule.getModuleGrade(), oldModule.getModuleCredit());
+        }
         delete(oldModuleCode);
+        return getModule(newModuleCode);
     }
 
     /**

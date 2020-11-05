@@ -32,6 +32,7 @@ Welcome to the ra.VI User Guide! Choose a section or sub-section from the table 
 &nbsp;&nbsp;&nbsp;&nbsp;[3.11.1 View timetable](#3111-view-the-timetable-timetable-args) <br>
 &nbsp;&nbsp;&nbsp;&nbsp;[3.11.2 Add a lesson](#3112-add-a-lesson-timetable--add) <br>
 &nbsp;&nbsp;&nbsp;&nbsp;[3.11.3 Delete a lesson](#3113-delete-a-lesson-timetable--del) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[3.11.4 Reset timetable](#3114-reset-the-timetable-timetable--reset) <br>
 &nbsp;&nbsp;[3.12 Exit](#312-exiting-the-program-bye) <br>
 [4. **FAQ**](#4-faq) <br>
 [5. **Command Summary**](#5-command-summary) <br>
@@ -233,27 +234,11 @@ Example of usage:
 Example of output:
 ```
 Command: 
-⋗	list -t
-════════════════════════════════════════════════════════════════════════════════
-Here's your list:
-
-1. go running [x]
-2. buy something [x], by 07:00PM, Sunday, 02 Feb 20
-
-════════════════════════════════════════════════════════════════════════════════
-Command: 
 ⋗	edit -t 1 buy stuff
 ════════════════════════════════════════════════════════════════════════════════
 Your task has been edited successfully.
-
-════════════════════════════════════════════════════════════════════════════════
-Command: 
-⋗	list -t
-════════════════════════════════════════════════════════════════════════════════
-Here's your list:
-
-1. buy stuff [x]
-2. buy something [x], by 07:00PM, Sunday, 02 Feb 20
+Your task before editing - 'go running [x]'
+Your task after editing  - 'buy stuff [x]'
 
 ════════════════════════════════════════════════════════════════════════════════
 ```
@@ -269,24 +254,12 @@ Example of usage:
 Example of output:
 ```
 Command: 
-⋗	list -m
-════════════════════════════════════════════════════════════════════════════════
-Here's your list:
-
-1. CG1111: Engineering Principles and Practice I: A+
-════════════════════════════════════════════════════════════════════════════════
-Command: 
-⋗	edit -m CG1111 CG1112
+⋗	edit -m CG1112 CG2271
 ════════════════════════════════════════════════════════════════════════════════
 Your module has been edited successfully.
+Your module before editing - 'CG1112: Engineering Principles and Practice II (4.0MC) (Grade: CS)'
+Your module after editing  - 'CG2271: Real-Time Operating Systems (4.0MC) (Grade: CS)'
 
-════════════════════════════════════════════════════════════════════════════════
-Command: 
-⋗	list -m
-════════════════════════════════════════════════════════════════════════════════
-Here's your list:
-
-1. CG1112: Engineering Principles and Practice I: No grade yet
 ════════════════════════════════════════════════════════════════════════════════
 ```
 
@@ -303,26 +276,10 @@ Example of usage:
 Example of output:
 ```
 Command: 
-⋗	list -t
-════════════════════════════════════════════════════════════════════════════════
-Here's your list:
-
-1. go running [x]
-2. buy something [x], by 07:00PM, Sunday, 02 Feb 20
-
-════════════════════════════════════════════════════════════════════════════════
-Command: 
 ⋗	del -t 1
 ════════════════════════════════════════════════════════════════════════════════
 Your task has been deleted successfully.
-
-════════════════════════════════════════════════════════════════════════════════
-Command: 
-⋗	list -t
-════════════════════════════════════════════════════════════════════════════════
-Here's your list:
-
-1. buy something [x], by 07:00PM, Sunday, 02 Feb 20
+Your deleted task - 'buy stuff [x]'
 
 ════════════════════════════════════════════════════════════════════════════════
 ```
@@ -338,25 +295,11 @@ Example of usage:
 Example of output:
 ```
 Command: 
-⋗	list -m
-════════════════════════════════════════════════════════════════════════════════
-Here's your list:
-
-1. CG1112: Engineering Principles and Practice II: C-
-2. CS2101: Effective Communication for Computing Professionals: No grade yet
-════════════════════════════════════════════════════════════════════════════════
-Command: 
 ⋗	del -m CG1112
 ════════════════════════════════════════════════════════════════════════════════
 Your module has been deleted successfully.
+Your deleted module - 'CG2271: Real-Time Operating Systems (4.0MC) (Grade: CS)'
 
-════════════════════════════════════════════════════════════════════════════════
-Command: 
-⋗	list -m
-════════════════════════════════════════════════════════════════════════════════
-Here's your list:
-
-1. CS2101: Effective Communication for Computing Professionals: No grade yet
 ════════════════════════════════════════════════════════════════════════════════
 ```
 
@@ -403,8 +346,9 @@ Here's your list:
 Assign a grade to a module in the Scheduler.
 Format: `grade <module Code> <module credit> <grade>`
 
-**Note:** For special grades: <br>
-&nbsp;&nbsp;&nbsp;&nbsp;CS,CU,S,U are not covered in the calculator.
+**Note:** <br>
+&nbsp;&nbsp;&nbsp;&nbsp;CS & CU are covered in the cap calculator
+&nbsp;&nbsp;&nbsp;&nbsp;All grades input must be in Caps. ie `A+`
 
 Example of usage:
 * `grade CS2101 4 B+`
@@ -412,26 +356,11 @@ Example of usage:
 Example of output:
 ```
 Command: 
-⋗	list -m
-════════════════════════════════════════════════════════════════════════════════
-Here's your list:
-
-1. CG1112: Engineering Principles and Practice II: C-
-2. CS2101: Effective Communication for Computing Professionals: No grade yet
-════════════════════════════════════════════════════════════════════════════════
-Command: 
 ⋗	grade CS2101 4 A-
 ════════════════════════════════════════════════════════════════════════════════
-Module graded successfully.
+Your module has been graded successfully.
+The module - 'CG1111: Engineering Principles and Practice I (4.0MC) (Grade: C+)'. 
 
-════════════════════════════════════════════════════════════════════════════════
-Command: 
-⋗	list -m
-════════════════════════════════════════════════════════════════════════════════
-Here's your list:
-
-1. CG1112: Engineering Principles and Practice II: C-
-2. CS2101: Effective Communication for Computing Professionals: A-
 ════════════════════════════════════════════════════════════════════════════════
 ```
 
@@ -473,27 +402,10 @@ Example of usage:
 Example of output:
 ```
 Command: 
-⋗	list -t
-════════════════════════════════════════════════════════════════════════════════
-Here's your list:
-
-1. go running [x]
-2. buy something [x], by 07:00PM, Sunday, 02 Feb 20
-
-════════════════════════════════════════════════════════════════════════════════
-Command: 
 ⋗	done 1
 ════════════════════════════════════════════════════════════════════════════════
 The task has been successfully marked as complete.
-
-════════════════════════════════════════════════════════════════════════════════
-Command: 
-⋗	list -t
-════════════════════════════════════════════════════════════════════════════════
-Here's your list:
-
-1. go running [√]
-2. buy something [x], by 07:00PM, Sunday, 02 Feb 20
+Your completed task - 'buy new stuff [√]'
 
 ════════════════════════════════════════════════════════════════════════════════
 ```
@@ -511,24 +423,10 @@ Example of usage:
 Example of output:
 ```
 Command: 
-⋗	add -t go out with girlfriend
-════════════════════════════════════════════════════════════════════════════════
-Your task has been added successfully.
-Your new task - 'go out with girlfriend [x]'
-
-════════════════════════════════════════════════════════════════════════════════
-Command: 
 ⋗	undo
 ════════════════════════════════════════════════════════════════════════════════
-Undo successful.
-════════════════════════════════════════════════════════════════════════════════
-Command: 
-⋗	list -t
-════════════════════════════════════════════════════════════════════════════════
-Here's your list:
-
-1. find a girlfriend [x]
-2. buy something [x], by 07:00PM, Sunday, 02 Feb 20
+Undo is successful.
+Command undone - 'done 1'
 
 ════════════════════════════════════════════════════════════════════════════════
 ```
@@ -643,6 +541,7 @@ Command:
 ════════════════════════════════════════════════════════════════════════════════
 Your lesson has been added successfully.
 Your new lesson - 'CG1111 Lab: MONDAY 900-1200'
+Added to: every week.
 
 ════════════════════════════════════════════════════════════════════════════════
 ```
@@ -660,75 +559,38 @@ Example of usage:
 Example of output:
 ```
 Command: 
-⋗	timetable -week
-════════════════════════════════════════════════════════════════════════════════
-Current NUS Week: 1
-
-MONDAY, 02-11-20.
- ┌───────────┬────┬────────────────────┐
- │   Time    │ ID │       Lesson       │
- ├───────────┼────┼────────────────────┤
- │ 1000-1200 │ 01 │  CS1231 Tutorial   │
- └───────────┴────┴────────────────────┘
-
-TUESDAY, 03-11-20:
- ┌───────────┬────┬────────────────────┐
- │   Time    │ ID │       Lesson       │
- ├───────────┼────┼────────────────────┤
- │ 1300-1400 │ 01 │  CS2101 Tutorial   │
- └───────────┴────┴────────────────────┘
-
-No lessons on WEDNESDAY, 04-11-20.
-
-THURSDAY, 05-11-20:
- ┌───────────┬────┬────────────────────┐
- │   Time    │ ID │       Lesson       │
- ├───────────┼────┼────────────────────┤
- │ 0900-1200 │ 01 │     CG1111 Lab     │
- └───────────┴────┴────────────────────┘
-
-No lessons on FRIDAY, 06-11-20.
-
-No lessons on SATURDAY, 07-11-20.
-
-No lessons on SUNDAY, 08-11-20.
-
-════════════════════════════════════════════════════════════════════════════════
-Command: 
 ⋗	timetable -del MONDAY 1
 ════════════════════════════════════════════════════════════════════════════════
-Your lesson has been deleted successfully.
+Your lesson has been deleted successfully from all weeks.
+Your deleted lesson - 'CG1111 Lab: MONDAY 900-1200'
 
 ════════════════════════════════════════════════════════════════════════════════
+```
+
+#### 3.11.4 Reset the timetable: `timetable -reset`
+
+Clears the current timetable and creates a new timetable.\
+Format: `timetable -reset`
+
+**Note:** <br>
+After reset, it is mandatory to key in the current academic week
+
+Example of usage:
+1.`timetable -reset`
+2. `3`
+
+Example of ouput:
+```
 Command: 
-⋗	timetable -week
+⋗	timetable -reset
 ════════════════════════════════════════════════════════════════════════════════
-Current NUS Week: 1
-
-No lessons on MONDAY, 02-11-20.
-
-TUESDAY, 03-11-20:
- ┌───────────┬────┬────────────────────┐
- │   Time    │ ID │       Lesson       │
- ├───────────┼────┼────────────────────┤
- │ 1300-1400 │ 01 │  CS2101 Tutorial   │
- └───────────┴────┴────────────────────┘
-
-No lessons on WEDNESDAY, 04-11-20.
-
-THURSDAY, 05-11-20:
- ┌───────────┬────┬────────────────────┐
- │   Time    │ ID │       Lesson       │
- ├───────────┼────┼────────────────────┤
- │ 0900-1200 │ 01 │     CG1111 Lab     │
- └───────────┴────┴────────────────────┘
-
-No lessons on FRIDAY, 06-11-20.
-
-No lessons on SATURDAY, 07-11-20.
-
-No lessons on SUNDAY, 08-11-20.
-
+Please enter the current week num e.g. 1 - 14 where 7 is recess week.
+In ra.Vi, NUS week 7 onwards is week 8 onwards. 
+For example, in Academic week 9, please input the current week num to be 10
+════════════════════════════════════════════════════════════════════════════════
+3
+════════════════════════════════════════════════════════════════════════════════
+Timetable reset successful.
 ════════════════════════════════════════════════════════════════════════════════
 ```
 
@@ -784,6 +646,7 @@ Goodbye, hope to see you soon!
 | View day's timetable | `timetable -day` |
 | View week's timetable | `timetable -week` |
 | Filter timetable | `timetable -filter <module> <day> <start time> <end time> <lesson type>` |
+| Reset timetable | `timetable -reset` |
 | Get list of commands | `help` |
 | Get detailed help message for each command | `help <command_word>` |
 | Exit ra.VI | `bye` |
