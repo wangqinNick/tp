@@ -405,6 +405,12 @@ Given below is an example scenario to reset the timetable.
 |v1.0|user|add modules to the application|keep track of them during the school term|
 |v1.0|user|delete tasks from the application|keep track of new tasks|
 |v1.0|user|delete modules from the application|keep track of new modules|
+|v1.0|user|edit task descriptions|make changes or updates to my tasks|
+|v1.0|user|edit module code|make changes to module codes in the list|
+|v1.0|user|mark task as done|update the completion status of my tasks|
+|v1.0|user|view my task list|be aware of the tasks I have added to my list|
+|v1.0|user|view my module list|be aware of the modules I have added to my list|
+|v2.0|user|receive help messages and prompts|seamlessly navigate and use ra.VI's features|
 |v2.0|user|add lessons to my timetable|view my timetable with a simple command|
 |v2.0|user|delete lessons from my timetable|view my accurate timetable with a simple command|
 |v2.0|user|view my timetable quickly|be aware of my classes and prepare for them quickly|
@@ -436,7 +442,7 @@ Given below are instructions to test the app manually.
 5. For a detailed list on the command features, refer to the [user guide](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/UserGuide.md).
 6. Simply enter `bye` to terminate and exit the application.
 
-### Adding a task w/ deadline
+### Adding a task
 1. Adding a task without deadline
     1. Test case: `add -t read a book`\
     Expected: Task `read a book` will be added to the task list. Details of the success of the added task will be shown.
@@ -477,8 +483,35 @@ Given below are instructions to test the app manually.
     2. Test case: `del -m 0` where there is no module `0` in the module list.\
     Expected: As there is no such module in the module list, the deletion will give an error. 
     Details of the associated error message will be shown.
+
+### Editing a task
+1. Editing a task 
+    1. Test case: `edit -t 3 read a book`, where task index `3` has already been added previously into the task list.\
+    Expected: As the task at index `3` is in the task list, the task description will be edited and changed to `read a book`. 
+    Details of the success of the edit task will be shown.
+    2. Test case: `edit -t 10 meet girlfriend`, where there is no task `10` in the task list.\
+    Expected: As there is no such task in the task list, an error will be given to the user. Details of the associated error 
+    message will be shown.
+
+### Editing a module
+1. Editing a module 
+    1. Test case: `edit -m CG2271 GER1000`, where module `CG2271` has already been added previously into the module list.\
+    Expected: As `CG2271` is in the module list, the module will be edited and changed to `GER1000`. Details of the success 
+    of the edit module will be shown.
+    2. Test case: `edit -m ACC1101 GER1000`, where there is no module `ACC1101` in the module list.\
+    Expected: As there is no such module in the module list, an error will be given to the user. Details of the associated 
+    error message will be shown. 
     
-### Amend the timetable
+### Marking a task as done / undone
+1. Marking a task as done
+    1. Test case: `done 1`, where `task` is index `0` in the task list.\
+    Expected: The DoneCommandParser parses `1` and converts it to index `0` in the task list. 
+    As task `task` is the index `0` in the task list, `task` will be marked as done.
+    2. Test case: `done 10`, where there is no task of index `9` in the task list.\
+    Expected: The DoneCommandParser parses `10` and converts it to index `9` in the task list. 
+    As there is no task of index `9` in the task list, an error is thrown. Details of the associated error message will be shown.
+        
+### Amending the timetable
 1. Adding a lesson
     1. Test case: `timetable -add CS2113T MONDAY 1200 1400 LECTURE 0` where `CS2113T` is a module in module list.\
     Expected: The TimeTableCommandParser parses the lesson parameters, `CS2113T` is the associated module, 
@@ -513,33 +546,6 @@ Given below are instructions to test the app manually.
 1. Reset the timetable
     1. Test case: `timetable -reset`\
     Expected: TimeTableManager clears and reinitialises the timetable. The user is prompted to input the current week for reinitialisation.
-
-### Marking a task as done / undone
-1. Marking a task as done
-    1. Test case: `done 1`, where `task` is index `0` in the task list.\
-    Expected: The DoneCommandParser parses `1` and converts it to index `0` in the task list. 
-    As task `task` is the index `0` in the task list, `task` will be marked as done.
-    2. Test case: `done 10`, where there is no task of index `9` in the task list.\
-    Expected: The DoneCommandParser parses `10` and converts it to index `9` in the task list. 
-    As there is no task of index `9` in the task list, an error is thrown. Details of the associated error message will be shown.
-    
-### Editing a task
-1. Editing a task 
-    1. Test case: `edit -t 3 read a book`, where task index `3` has already been added previously into the task list.\
-    Expected: As the task at index `3` is in the task list, the task description will be edited and changed to `read a book`. 
-    Details of the success of the edit task will be shown.
-    2. Test case: `edit -t 10 meet girlfriend`, where there is no task `10` in the task list.\
-    Expected: As there is no such task in the task list, an error will be given to the user. Details of the associated error 
-    message will be shown.
-
-### Editing a module
-1. Editing a module 
-    1. Test case: `edit -m CG2271 GER1000`, where module `CG2271` has already been added previously into the module list.\
-    Expected: As `CG2271` is in the module list, the module will be edited and changed to `GER1000`. Details of the success 
-    of the edit module will be shown.
-    2. Test case: `edit -m ACC1101 GER1000`, where there is no module `ACC1101` in the module list.\
-    Expected: As there is no such module in the module list, an error will be given to the user. Details of the associated 
-    error message will be shown.
 
 ### Calculating the Accumulated Cap after the current semester
 1. Calculate the Cap:
