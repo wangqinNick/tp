@@ -20,40 +20,6 @@ else UNKNOWN_PREFIX
     ":AddCommandParser" <-- ":IncorrectCommand"
     deactivate ":IncorrectCommand"
 end
-<-- ":AddCommandParser": AddCommand
+<-- ":AddCommandParser": Command
 destroy ":AddCommandParser"
-
--> ":AddModuleCommand": execute()
-activate ":AddModuleCommand"
-create ":CommandResult"
-":AddModuleCommand" -> ":CommandResult": <<construct>>
-activate ":CommandResult"
-":AddModuleCommand" <-- ":CommandResult": CommandResult
-deactivate ":CommandResult"
-<-- ":AddModuleCommand": CommandResult
-deactivate ":AddModuleCommand"
-destroy ":AddModuleCommand"
-
--> ":AddTaskCommand": execute()
-activate ":AddTaskCommand"
-create ":CommandResult"
-":AddTaskCommand" -> ":CommandResult": <<construct>>
-activate ":CommandResult"
-":AddTaskCommand" <-- ":CommandResult": CommandResult
-deactivate ":CommandResult"
-<-- ":AddTaskCommand": CommandResult
-deactivate ":AddTaskCommand"
-destroy ":AddTaskCommand"
-
--> ":IncorrectCommand": execute()
-activate ":IncorrectCommand"
-create ":CommandResult"
-":IncorrectCommand" -> ":CommandResult": <<construct>>
-activate ":CommandResult"
-":IncorrectCommand" <-- ":CommandResult": CommandResult
-deactivate ":CommandResult"
-<-- ":IncorrectCommand": CommandResult
-deactivate ":IncorrectCommand"
-destroy ":IncorrectCommand"
-
 @enduml
