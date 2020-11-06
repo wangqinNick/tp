@@ -2,8 +2,8 @@ package seedu.duke.command.add;
 
 import seedu.duke.command.CommandResult;
 import seedu.duke.command.PromptType;
-import seedu.duke.data.ModuleManager;
 import seedu.duke.data.Module;
+import seedu.duke.data.ModuleManager;
 import seedu.duke.exception.DuplicateModuleException;
 import seedu.duke.exception.ModuleNotFoundException;
 import seedu.duke.exception.ModuleNotProvidedException;
@@ -11,7 +11,6 @@ import seedu.duke.exception.ModuleNotProvidedException;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_DUPLICATE_MODULE;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_MODULE_NOT_PROVIDED;
 import static seedu.duke.util.Message.MESSAGE_ADD_MODULE_SUCCESS;
-import static seedu.duke.util.Message.MESSAGE_ADD_TASK_SUCCESS;
 
 public class AddModuleCommand extends AddCommand {
     private final String module;
@@ -49,17 +48,16 @@ public class AddModuleCommand extends AddCommand {
      */
     @Override
     public CommandResult execute() {
-        String message = "";
         try {
             Module newModule = addModule(module);
-            message = String.format(MESSAGE_ADD_MODULE_SUCCESS, newModule.toString());
+            return new CommandResult(String.format(MESSAGE_ADD_MODULE_SUCCESS, newModule.toString()));
         } catch (DuplicateModuleException e) {
-            message = MESSAGE_DUPLICATE_MODULE;
+            return new CommandResult(MESSAGE_DUPLICATE_MODULE, true);
         } catch (ModuleNotProvidedException e) {
-            message = MESSAGE_MODULE_NOT_PROVIDED;
+            return new CommandResult(MESSAGE_MODULE_NOT_PROVIDED, true);
         } catch (ModuleNotFoundException e) {
             // should not happen
+            return new CommandResult("AddModuleCommand caught ModuleNotFoundException", true);
         }
-        return new CommandResult(message);
     }
 }

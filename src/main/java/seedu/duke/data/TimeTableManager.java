@@ -138,10 +138,12 @@ public class TimeTableManager {
      *  The day of week.
      * @param lessonIndex
      *  The lesson index.
+     * @return
+     *  The deleted lesson.
      * @throws IndexOutOfBoundsException
      *  When the lesson index is out of bounds.
      */
-    public static void deleteLesson(DayOfWeek dayOfWeek, int lessonIndex) throws IndexOutOfBoundsException {
+    public static Lesson deleteLesson(DayOfWeek dayOfWeek, int lessonIndex) throws IndexOutOfBoundsException {
         logger.getLogger().info("Deleting lesson with index " + lessonIndex + " on " + dayOfWeek
                 + " (failed if no successful deletion log below)");
         int currWeek = getCurrWeekNum();
@@ -152,8 +154,10 @@ public class TimeTableManager {
         String id = lesson.getHiddenId();
 
         // remove by ID
+        Lesson deletedLesson = timetable.getLessonManagerOfWeek(currWeek).getDayLessonList(dayOfWeek).get(lessonIndex);
         timetable.deleteLessonById(dayOfWeek, id);
         logger.getLogger().info("Successful deletion of lesson with hiddenId " + id);
+        return deletedLesson;
     }
 
     /**

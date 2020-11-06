@@ -45,6 +45,10 @@ class TimeTableDeleteCommand {
     + execute()
 }
 
+class TimeTableResetCommand {
+    + execute()
+}
+
 class IncorrectCommand {
     + execute()
 }
@@ -70,8 +74,10 @@ IncorrectCommand --|> "{abstract} \n Command"
 "TimeTableCommandParser" ..> IncorrectCommand
 
 TimeTableAddCommand -|> "{abstract} \n TimeTableCommand"
-TimeTableDeleteCommand --|> "{abstract} \n TimeTableCommand"
+"{abstract} \n TimeTableCommand" <|-- TimeTableDeleteCommand
 TimeTableViewCommand --|> "{abstract} \n TimeTableCommand"
+"{abstract} \n TimeTableCommand" <|-- TimeTableResetCommand
+
 TimeTableManager *-- "1" TimeTable
 TimeTable o-- "1..13" LessonManager
 LessonManager o-- "*" Lesson

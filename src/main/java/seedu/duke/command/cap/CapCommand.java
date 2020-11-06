@@ -8,9 +8,6 @@ import seedu.duke.exception.InvalidCapCalculatedException;
 import seedu.duke.exception.ModuleNotFoundException;
 import seedu.duke.ui.TextUi;
 
-import static seedu.duke.ui.TextUi.MAX_WIDTH;
-import static seedu.duke.ui.TextUi.centerString;
-import static seedu.duke.util.ExceptionMessage.EXCEPTION_HEADER;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_INVALID_CAP_ATTAINED;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_MODULE_NOT_FOUND;
 import static seedu.duke.util.Message.MESSAGE_CAP_DISPLAY;
@@ -26,6 +23,8 @@ public class CapCommand extends Command {
                                         + "\n\tExample usage: cap 20 4.5";
 
     public static double cap = 0.0;
+    private static final double SUMMCGRADE = 20;
+    private static final double SUMMC = 4;
 
 
     /**
@@ -56,7 +55,9 @@ public class CapCommand extends Command {
         C("C", 2.0),
         D_PLUS("D+", 1.5),
         D("D", 1.0),
-        F("F", 0.0);
+        F("F", 0.0),
+        CS("CS", -2.0),
+        CU("CU", -3.0);
 
         private final String symbol;
         private final double value;
@@ -78,6 +79,7 @@ public class CapCommand extends Command {
     private double gradeConvert(String grade) {
         double score = 0.0;
         if (grade.equals("No grade yet")) {
+            score = -1.0;
             return score;
         }
         for (GradeSchematic g : GradeSchematic.values()) {
@@ -95,24 +97,38 @@ public class CapCommand extends Command {
      * cap of the user
      * @throws InvalidCapCalculatedException
      * When the attained cap is unimaginable
+     * @throws ModuleNotFoundException
+     * When the module called isn't found
      */
     private double calculateCap() throws InvalidCapCalculatedException, ModuleNotFoundException {
         String[] moduleList = ModuleManager.getModCodeList();
-        double mcGrade;
+        double mcGrade = 0;
         double sumMcGrade = 0;
         double sumMc = 0;
         double gradeValue;
+        int numberOfCsCuModules = 0;
+        int numberOfModules = 0;
         for (String i : moduleList) {
+            numberOfModules++;
             gradeValue = gradeConvert(ModuleManager.getModule(i).getModuleGrade());
-            if (gradeValue == 0) {
+            if (gradeValue == -1.0) {
                 throw new InvalidCapCalculatedException();
+            } else if (gradeValue >= 0) {
+                sumMc += ModuleManager.getModule(i).getModuleCredit();
+                mcGrade = ModuleManager.getModule(i).getModuleCredit()
+                        * gradeValue;
+                sumMcGrade += mcGrade;
+            } else {
+                numberOfCsCuModules++;
             }
-            sumMc += ModuleManager.getModule(i).getModuleCredit();
-            mcGrade = ModuleManager.getModule(i).getModuleCredit()
-                    * gradeValue;
-            sumMcGrade += mcGrade;
         }
+        if (numberOfCsCuModules == numberOfModules) {
+            sumMcGrade = SUMMCGRADE;
+            sumMc = SUMMC;
+        }
+
         cap = ((currentCap * totalMcTaken) + sumMcGrade) / (sumMc + totalMcTaken);
+
         if (cap < 0 || cap > 5.0 || isNan(cap)) {
             throw new InvalidCapCalculatedException();
         }
@@ -128,9 +144,9 @@ public class CapCommand extends Command {
         try {
             return new CommandResult(String.format("%s%.2f\n", MESSAGE_CAP_DISPLAY, calculateCap()));
         } catch (InvalidCapCalculatedException e) {
-            return new CommandResult(centerString(MAX_WIDTH, EXCEPTION_HEADER) + "\n" + MESSAGE_INVALID_CAP_ATTAINED);
+            return new CommandResult(MESSAGE_INVALID_CAP_ATTAINED, true);
         } catch (ModuleNotFoundException e) {
-            return new CommandResult(centerString(MAX_WIDTH, EXCEPTION_HEADER) + "\n" + MESSAGE_MODULE_NOT_FOUND);
+            return new CommandResult(MESSAGE_MODULE_NOT_FOUND, true);
         }
     }
 }

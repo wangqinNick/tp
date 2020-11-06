@@ -26,7 +26,7 @@ public class UndoCommand extends Command {
             String lastCommand = StateManager.undo();
             return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, lastCommand));
         } catch (EmptyStackException | IOException e) {
-            return new CommandResult(MESSAGE_UNDO_AT_BEGINNING);
+            return new CommandResult(MESSAGE_UNDO_AT_BEGINNING, true);
         }
     }
 }

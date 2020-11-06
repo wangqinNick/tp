@@ -132,7 +132,7 @@ IncorrectCommand object is created). This Command object passes back to the main
 
 The Timetable Family of classes is a _cross-family_ family of classes from the Data and Command families, 
 and consists of the timetable Command and CommandParser classes, as well as TimeTableManager and TimeTable themselves. 
-Extending from the abstract TimeTableCommand class are the TimeTableAddCommand, TimeTableDeleteCommand and TimeTableViewCommand classes.
+Extending from the abstract TimeTableCommand class are the TimeTableAddCommand, TimeTableDeleteCommand, TimeTableViewCommand, and TimeTableResetCommand classes.
 
 ![Class diagram for TimeTable Family Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/TimeTableClassDiagram.png?raw=true)
 
@@ -302,7 +302,7 @@ a module named ‘CS2101’ and add it to their module list. This input is recei
 a string. The parser parses the string and allocates it to the AddCommand where it is added to the list of modules. 
 
 2. The user inputs `grade CS2101 4 A+`. The parser parses and allocates the user input to GradeCommand. 
-`GradeCommand#execute()` is called and moduleManager checks if such a module exists in the user’s module list, 
+`GradeCommand.execute()` is called and moduleManager checks if such a module exists in the user’s module list, 
 then checks if the input grade is valid according to the NUS grading schematic and finally assigns the specific module, 
 the grade and module credits.
 
@@ -311,10 +311,11 @@ Otherwise, an exception message will be shown regarding the exception caught.
 
 ### Timetable Feature
 This feature is facilitated by the TimeTableManager class and TimeTableCommand class.
-Extending from the abstract TimeTableCommand class are the TimeTableAddCommand, TimeTableDeleteCommand and TimeTableViewCommand classes.
+Extending from the abstract TimeTableCommand class are the TimeTableAddCommand, TimeTableDeleteCommand, TimeTableViewCommand and TimeTableResetCommand classes.
 * AddLesson - Add a Lesson to the timetable through `TimeTableManager.addLesson()`
-* DeleteLesson - Delete all associated Lessons from the timetable through `TaskManager.deleteLesson()`
-* ViewTimeTable - List all Lessons in the timetable through `TaskManager.getSpecificDayLessons()` or `TaskManager.getSpecifiedWeekLessons()`
+* DeleteLesson - Delete all associated Lessons from the timetable through `TimeTableManager.deleteLesson()`
+* ViewTimeTable - List all Lessons in the timetable through `TimeTableManager.getSpecificDayLessons()` or `TimeTableManager.getSpecifiedWeekLessons()`
+* ResetTimeTable - Reset timetable through `TimeTableManager.initialiseTimetable()` 
 
 #### Add lesson/s to timetable
 Given below is an example scenario to add a lesson to the timetable and how the timetable feature behaves at each step.
@@ -388,6 +389,13 @@ Given below is an example scenario to filter the timetable for CS2101 LECTURE.
 * Wrong command format\
 e.g. `timetable -filter`
 
+#### Reset the timetable
+Given below is an example scenario to reset the timetable. 
+
+1. The user inputs `timetable -reset`.  
+
+2. ra.VI will ask for the current NUS week. This input is parsed and reinitialises the TimeTableManager with a new Timetable. 
+
 ## User Stories
 
 |Version| As a ... | I want to ... | So that I can ...|
@@ -407,6 +415,7 @@ e.g. `timetable -filter`
 |v2.0|user|grade my modules|keep track of my grades for respective modules|
 |v2.0|user|calculate my accumulative cap|keep track of my progress in university|
 |v2.0|user|undo unintended commands|make amends quickly|
+|v2.1|user|reset my timetable|prepare for another semester|
 
 ## Non-Functional Requirements
 
@@ -501,6 +510,11 @@ Given below are instructions to test the app manually.
     3. Test case: `timetable -filter CS2113T MONDAY 1200 2000 LECTURE`, which filters CS2113T lectures **on Monday 
     between 1200 and 2000** only.\
     Expected: All CS2113T lectures on Monday between 1200 and 2000 are shown to the user.
+
+### Resetting the timetable
+1. Reset the timetable
+    1. Test case: `timetable -reset`\
+    Expected: TimeTableManager clears and reinitialises the timetable. The user is prompted to input the current week for reinitialisation.
 
 ### Marking a task as done / undone
 1. Marking a task as done

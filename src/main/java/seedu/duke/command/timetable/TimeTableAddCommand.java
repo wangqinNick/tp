@@ -45,21 +45,35 @@ public class TimeTableAddCommand extends TimeTableCommand {
         TimeTableManager.addLesson(newLesson, repeatFreq);
     }
 
+    public String parseRepeatFreq() {
+        switch (repeatFreq) {
+        case 0:
+            return "this week only.";
+        case 1:
+            return "every week.";
+        case 2:
+            return "every even week.";
+        case 3:
+            return "every odd week.";
+        default:
+            return "error!";
+        }
+    }
+
     @Override
     public CommandResult execute() {
-        String message;
         try {
             addLessonToTimeTable();
-            message = String.format(MESSAGE_ADD_LESSON_SUCCESS, newLesson.toString());
+            return new CommandResult(
+                    String.format(MESSAGE_ADD_LESSON_SUCCESS, newLesson.toString(), parseRepeatFreq()));
         } catch (LessonInvalidTimeException e) {
-            message = MESSAGE_LESSON_INVALID_TIME;
+            return new CommandResult(MESSAGE_LESSON_INVALID_TIME, true);
         } catch (RepeatFrequencyInvalidException e) {
-            message = MESSAGE_REPEAT_FREQUENCY_UNKNOWN;
+            return new CommandResult(MESSAGE_REPEAT_FREQUENCY_UNKNOWN, true);
         } catch (ModuleNotFoundException e) {
-            message = MESSAGE_MODULE_NOT_FOUND;
+            return new CommandResult(MESSAGE_MODULE_NOT_FOUND, true);
         } catch (LessonOverlapException e) {
-            message = String.format(MESSAGE_LESSON_OVERLAP, e.overlapLessonStr);
+            return new CommandResult(String.format(MESSAGE_LESSON_OVERLAP, e.overlapLessonStr), true);
         }
-        return new CommandResult(message);
     }
 }

@@ -2,6 +2,7 @@ package seedu.duke.command.delete;
 
 import seedu.duke.command.CommandResult;
 import seedu.duke.command.PromptType;
+import seedu.duke.data.Module;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.exception.ModuleNotFoundException;
 
@@ -31,8 +32,10 @@ public class DeleteModuleCommand extends DeleteCommand {
      * @param moduleCode Module code to be deleted.
      * @throws ModuleNotFoundException If the module is not found in the module list.
      */
-    private void deleteModule(String moduleCode) throws ModuleNotFoundException {
+    private Module deleteModule(String moduleCode) throws ModuleNotFoundException {
+        Module deletedModule = ModuleManager.getModule(moduleCode);
         ModuleManager.delete(moduleCode);
+        return deletedModule;
     }
 
     /**
@@ -42,13 +45,11 @@ public class DeleteModuleCommand extends DeleteCommand {
      */
     @Override
     public CommandResult execute() {
-        String message;
         try {
-            deleteModule(moduleCode);
-            message = MESSAGE_DELETE_MODULE_SUCCESS;
+            Module deletedMod = deleteModule(moduleCode);
+            return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, deletedMod.toString()));
         } catch (ModuleNotFoundException e) {
-            message = MESSAGE_MODULE_NOT_FOUND;
+            return new CommandResult(MESSAGE_MODULE_NOT_FOUND, true);
         }
-        return new CommandResult(message);
     }
 }

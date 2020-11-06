@@ -21,44 +21,45 @@ public class ExceptionMessage {
             + "Perhaps you meant a different module?\n";
     public static final String MESSAGE_TASK_NOT_FOUND =
             "Sorry, that task index is not valid.\n"
-            + "Use list -t to look at your tasks, and their index.\n"
+            + "Use 'list -t' to look at your tasks, and their index.\n"
             + "You can't use the task index from the summary command!\n";
     public static final String MESSAGE_NO_EDIT_MODULE =
             "Please enter a proper module code to edit.\n"
             + "It should be a module code of an actual NUS mod. E.g. CS1010.\n";
     public static final String MESSAGE_NO_EDIT_TASK =
             "Please enter a proper task index to edit.\n"
-            + "Use list -t to look at your tasks, and their index.\n"
+            + "Use 'list -t' to look at your tasks, and their index.\n"
             + "You can't use the task index from the summary command!\n";
     public static final String MESSAGE_NO_ADD_MODULE =
             "Please enter a new module code to add.\n"
             + "It should be a module code of an actual NUS mod. E.g. CS1010.\n";
     public static final String MESSAGE_NO_ADD_TASK =
             "Please enter a new task to add.\n"
-            + "Use list -t to look at your tasks, and their index.\n"
+            + "Use 'list -t' to look at your tasks, and their index.\n"
             + "You can't use the task index from the summary command!\n";
     public static final String MESSAGE_INVALID_PARAMETERS =
-            "Some invalid or missing parameters were found!";
+            "Some invalid or missing parameters were found!\n"
+            + "Use 'help' to find out about the parameters required: 'help %s'\n";
     public static final String MESSAGE_LIST_EMPTY =
             "\nYour list is empty.\n";
     public static final String MESSAGE_STRING_IN_NUMBER =
             "The task index you have entered is either not an integer or is too long!\n"
-            + "Use `list -t` to look at your tasks, and their index.\n"
-            + "Please check your command! Use help <command> for assistance.\n";
+            + "Use 'list -t' to look at your tasks, and their index.\n"
+            + "Please check your command! Use 'help %s' for assistance.\n";
     public static final String MESSAGE_INVALID_COMMAND_WORD =
-            "I don't recognise that command...\n"
-            + "Please use help to see our list of commands.\n";
+            "ra.VI does not recognise that command.\n"
+            + "Please use 'help' to see our list of commands.\n";
     public static final String MESSAGE_INVALID_GRADE =
             "Your grade input isn't part of the NUS grading scheme. \n"
-            + "For your reference: A+, A, A-, B+, B, B-, C+, C, C-, D+, F. \n"
-            + "Grades CS, CU, are not accepted. \n";
+            + "For your reference: A+, A, A-, B+, B, B-, C+, C, C-, D+, F, CS, CU. \n"
+            + "Grades have to be in uppercase not lower case. \n";
     public static final String MESSAGE_LESSON_INVALID_TIME =
             "Sorry, the lesson you have attempted to add has an invalid start time.\n"
-            + "Try using timetable -day or timetable -week to look at your\n"
+            + "Try using 'timetable -day' or 'timetable -week' to look at your\n"
             + "current lessons first, or review your new lesson's start/end time.\n";
     public static final String MESSAGE_LESSON_NOT_FOUND =
             "Sorry, the lesson you have attempted to delete does not exist.\n"
-            + "Use timetable (-week/-day) to look at your lessons and their index (ID).\n";
+            + "Use 'timetable (-week/-day)' to look at your lessons and their index (ID).\n";
     public static final String MESSAGE_LESSON_OVERLAP =
             "Sorry, the lesson you have attempted to add overlaps with other lessons.\n"
             + "This is the lesson you're overlapping with: %s\n";
@@ -77,15 +78,19 @@ public class ExceptionMessage {
             + "\tRequired date time format: dd-MM-yyyy HHmm\n"
             + "\tExample: 30-12-2020 1600";
     public static final String MESSAGE_ADD_LESSON_DATE_TIME_UNKNOWN =
-            "Please enter a valid date and time.\n"
-            + "\tRequired date time format: HHmm HHmm\n"
+            "Please enter a valid start time and end time.\n"
+            + "\tRequired date time format: HHmm HHmm (start, end)\n"
             + "\tExample: 1800 2000";
     public static final String MESSAGE_INVALID_CAP =
             "The CAP you entered is invalid.\n";
     public static final String MESSAGE_INVALID_CAP_ATTAINED =
-            "The CAP calculated from your input is invalid.\n";
+            "The CAP calculated from your input is invalid.\n"
+            + "For more information, use 'help cap'.\n";
     public static final String MESSAGE_INVALID_MC =
-            "The number of MCs you entered is invalid.\n";
+            "The number of MCs you entered is invalid.\n"
+            + "For more information, use 'help grade'.\n";
+
+    /*
     
     public static final String MESSAGE_MISSING_DIRECTORY_NAME =
             "Please include the name of the directory you want to move to.\n"
@@ -105,7 +110,6 @@ public class ExceptionMessage {
     public static final String MESSAGE_MISSING_PARAMETERS = "Sorry, some parameters seem to be missing.\n";
 
     public static final String MESSAGE_INVALID_PRIORITY = "Alert! Priority should be a number between 0 and 20.\n";
-    /*
     public static final String MESSAGE_INVALID_DATETIME_FORMAT =
             "Sorry, the deadline you entered is not in a recognised datetime format.\n"
             + "Please make sure to follow the datetime format as such:\n\t"
@@ -114,7 +118,6 @@ public class ExceptionMessage {
             "Sorry, the date you entered is not in a recognised date format.\n"
             + "Please make sure to follow the date format as such:\n\t"
             + DateTime.DATE_FORMAT + "\nExample: 07/07/2020\n";
-    */
 
     public static final String MESSAGE_LIST_NUMBER_NOT_FOUND =
             "The List number is not found on the list! Deletion is aborted.\n";
@@ -145,4 +148,5 @@ public class ExceptionMessage {
             "Deletion completed.\n"
                     + "However, note that the following file(s) could not be deleted completely from Nuke as they "
                     + "could not be found:\n";
+    */
 }

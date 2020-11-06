@@ -3,14 +3,11 @@ package seedu.duke.command.grade;
 import seedu.duke.command.Command;
 import seedu.duke.command.CommandResult;
 import seedu.duke.command.PromptType;
+import seedu.duke.data.Module;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.exception.InvalidGradeException;
 import seedu.duke.exception.ModuleNotFoundException;
 import seedu.duke.ui.TextUi;
-
-import static seedu.duke.ui.TextUi.MAX_WIDTH;
-import static seedu.duke.ui.TextUi.centerString;
-import static seedu.duke.util.ExceptionMessage.EXCEPTION_HEADER;
 
 import static seedu.duke.util.ExceptionMessage.MESSAGE_INVALID_GRADE;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_MODULE_NOT_FOUND;
@@ -41,7 +38,7 @@ public class GradeCommand extends Command {
     public GradeCommand(String moduleGraded, double moduleCredit, String grade) {
         this.moduleGraded = moduleGraded.toUpperCase();
         this.moduleCredit = moduleCredit;
-        this.grade = grade;
+        this.grade = grade.toUpperCase();
         setPromptType(PromptType.EDIT);
     }
 
@@ -52,7 +49,7 @@ public class GradeCommand extends Command {
      * grade input by user
      */
     private boolean testGrade(String grade) {
-        String[] validGrades = {"A+", "A", "A-", "B+", "B-", "B", "C+", "C", "D+", "D", "F"};
+        String[] validGrades = {"A+", "A", "A-", "B+", "B-", "B", "C+", "C", "D+", "D", "F", "CS", "CU"};
         for (String i: validGrades) {
             if (grade.equals(i)) {
                 return true;
@@ -68,12 +65,13 @@ public class GradeCommand extends Command {
      * @throws InvalidGradeException
      * If the grade isn't recognised by the NUS grading schematic
      */
-    private void grade() throws InvalidGradeException, ModuleNotFoundException {
+    private Module grade() throws InvalidGradeException, ModuleNotFoundException {
         if (testGrade(grade)) {
             ModuleManager.grade(moduleGraded, grade, moduleCredit);
         } else {
             throw new InvalidGradeException();
         }
+        return ModuleManager.getModule(moduleGraded);
     }
 
     /**
@@ -85,12 +83,13 @@ public class GradeCommand extends Command {
     @Override
     public CommandResult execute() {
         try {
-            grade();
-            return new CommandResult(MESSAGE_GRADE_MODULE_SUCCESS);
+            Module moduleGraded = grade();
+            return new CommandResult(String.format(
+                    MESSAGE_GRADE_MODULE_SUCCESS, moduleGraded.toString()));
         } catch (InvalidGradeException e) {
-            return new CommandResult(centerString(MAX_WIDTH, EXCEPTION_HEADER) + "\n" + MESSAGE_INVALID_GRADE);
+            return new CommandResult(MESSAGE_INVALID_GRADE, true);
         } catch (ModuleNotFoundException e) {
-            return new CommandResult(centerString(MAX_WIDTH, EXCEPTION_HEADER) + "\n" + MESSAGE_MODULE_NOT_FOUND);
+            return new CommandResult(MESSAGE_MODULE_NOT_FOUND, true);
         }
     }
 }

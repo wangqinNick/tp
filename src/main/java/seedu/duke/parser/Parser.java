@@ -71,11 +71,13 @@ public class Parser {
             return new IncorrectCommand(MESSAGE_INVALID_COMMAND_FORMAT);
         }
 
+        String commandWord = "";
+        String parameters = "";
         try {
             // Checks if the matched groups are null
-            String commandWord = isMatcherNull(matcher.group(COMMAND_WORD_GROUP))
+            commandWord = isMatcherNull(matcher.group(COMMAND_WORD_GROUP))
                     ? null : matcher.group(COMMAND_WORD_GROUP).toLowerCase().trim();
-            String parameters = isMatcherNull(matcher.group(PARAMETERS_GROUP))
+            parameters = isMatcherNull(matcher.group(PARAMETERS_GROUP))
                     ? null : matcher.group(PARAMETERS_GROUP).trim();
 
             switch (commandWord) {
@@ -108,10 +110,10 @@ public class Parser {
             }
         } catch (NumberFormatException e) {
             logger.getLogger().warning("Found a string where a number should be");
-            return new IncorrectCommand(MESSAGE_STRING_IN_NUMBER);
+            return new IncorrectCommand(String.format(MESSAGE_STRING_IN_NUMBER, commandWord));
         } catch (IllegalStateException | IllegalArgumentException e) {
             logger.getLogger().warning("Invalid parameters for the command");
-            return new IncorrectCommand(MESSAGE_INVALID_PARAMETERS);
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_PARAMETERS, commandWord));
         } catch (NullPointerException e) {
             logger.getLogger().warning("Invalid command word");
             return new IncorrectCommand(MESSAGE_INVALID_COMMAND_WORD);
