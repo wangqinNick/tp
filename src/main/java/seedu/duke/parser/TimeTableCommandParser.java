@@ -29,7 +29,7 @@ import static seedu.duke.util.ExceptionMessage.MESSAGE_MODULE_NOT_FOUND;
 import static seedu.duke.util.Message.MESSAGE_CHECK_COMMAND_FORMAT;
 import static seedu.duke.util.Message.MESSAGE_INVALID_COMMAND_FORMAT;
 
-public abstract class TimeTableCommandParser {
+public class TimeTableCommandParser {
     public static final String REPEAT_GROUP = "repeat";
     public static final String TIMETABLE_GROUP = "timeTableParams";
     public static final String INDEX_GROUP = "index";

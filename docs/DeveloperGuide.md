@@ -83,15 +83,17 @@ commands. Command is a dependency of Parser as Parser creates Command objects to
 ### Command Family
 
 The Command family of classes are nearly all derived from the abstract Command class, except for
-CommandResult and PromptType. All Command classes belong to the command package.
+CommandResult and PromptType. All Command classes belong to the command package. This is shown in the diagram below.
 
-The Command classes carry information about the user's command. There is one class for each exact user command.  
-The `execute()` function of the Command class generates a CommandResult, which holds the reply to the user.
+![UML class diagram for Command Family Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/CommandClassDiagram.png?raw=true)
 
 PromptType indicates the functionality of the Command object. The most useful type is EDIT, which indicates to
 StateManager that there has been a change in state.
 
-![UML class diagram for Command Family Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/CommandClassDiagram.png?raw=true)
+The Command classes carry information about the user's command. There is one class for each exact user command.  
+The `execute()` function of the Command class generates a CommandResult, which holds the reply to the user. This is shown in the diagram below.
+
+![UML class diagram for Command Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/CommandSequenceDiagram.png?raw=true)
 
 ### Data Family
 
