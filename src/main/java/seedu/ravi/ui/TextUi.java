@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import static seedu.ravi.util.ExceptionMessage.EXCEPTION_HEADER;
@@ -197,17 +198,15 @@ public class TextUi {
      * Gets the User's input command.
      *
      * @return
-     *  The trimmed user input command
+     *  The trimmed user input command.
+     * @throws NoSuchElementException
+     *  When the user input is ctrl-c.
      */
-    public static String getUserCommand() {
+    public static String getUserCommand() throws NoSuchElementException {
         System.out.println("\n\nCommand: ");
         System.out.print("⋗\t");
+
         String userInput = in.nextLine();
-
-        while (TextHelper.isEmptyCheck(userInput)) {
-            userInput = in.nextLine();
-        }
-
         return userInput;
     }
 
@@ -216,8 +215,10 @@ public class TextUi {
      *
      * @return
      *  The current week of year.
+     * @throws NoSuchElementException
+     *  When the user input is ctrl-c.
      */
-    public static int getCurrentWeekNum() {
+    public static int getCurrentWeekNum() throws NoSuchElementException {
         String userInput = in.nextLine().trim();
         return Integer.parseInt(userInput);
     }

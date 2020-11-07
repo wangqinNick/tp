@@ -4,6 +4,7 @@ import seedu.ravi.command.Command;
 import seedu.ravi.command.CommandResult;
 import seedu.ravi.command.PromptType;
 import seedu.ravi.data.StateManager;
+import seedu.ravi.data.storage.InputOutputManager;
 import seedu.ravi.parser.Parser;
 
 public class Executor {
@@ -19,6 +20,7 @@ public class Executor {
 
         if (command.getPromptType() == PromptType.EDIT) {
             StateManager.saveState(userInput);
+            InputOutputManager.save();
         }
 
         return result;
