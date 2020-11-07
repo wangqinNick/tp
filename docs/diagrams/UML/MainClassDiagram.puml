@@ -29,13 +29,13 @@ package ui {
     }
 }
 
-Duke "1" *-- TextUi
-Duke <.. Parser
-Duke <.. Command
-Duke <.. CommandResult
-Duke <.. Executor
-Duke <.. InputOutputManager
-Duke <.. StateManager
+Ravi "1" *-- TextUi
+Ravi <.. Parser
+Ravi <.. Command
+Ravi <.. CommandResult
+Ravi <.. Executor
+Ravi <.. InputOutputManager
+Ravi <.. StateManager
 
 Parser <.. Command
 Executor <.. Command
