@@ -1,3 +1,4 @@
+//@@author aseanseen
 package seedu.duke.data;
 
 import seedu.duke.exception.LessonInvalidTimeException;
