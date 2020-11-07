@@ -39,7 +39,7 @@ sourceSets {
 }
 
 application {
-    mainClassName = "seedu.ravi.Duke"
+    mainClassName = "seedu.ravi.Ravi"
 }
 
 java {
