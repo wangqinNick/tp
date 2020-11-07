@@ -1,3 +1,5 @@
+//@@author aseanseen
+
 package seedu.ravi.command.timetable;
 
 import seedu.ravi.command.Command;

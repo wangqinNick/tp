@@ -1,3 +1,5 @@
+//@@author aseanseen
+
 package seedu.ravi.command.timetable;
 
 import org.junit.jupiter.api.BeforeAll;
