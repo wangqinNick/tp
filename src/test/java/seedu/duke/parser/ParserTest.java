@@ -1,3 +1,5 @@
+//@@author tobiasceg
+
 package seedu.duke.parser;
 
 import org.junit.jupiter.api.Test;
@@ -16,14 +18,12 @@ class ParserTest {
     @Test
     void isEmptyParse_emptyString_returnsTrue() {
         assertTrue(new Parser().isEmptyParse(""));
-        assertTrue(new Parser().isEmptyParse("", ""));
         assertTrue(new Parser().isEmptyParse("", "", ""));
     }
 
     @Test
     void isEmptyParse_nonemptyString_returnsFalse() {
         assertFalse(new Parser().isEmptyParse(" "));
-        assertFalse(new Parser().isEmptyParse(" ", ""));
         assertFalse(new Parser().isEmptyParse("", "b", ""));
     }
 

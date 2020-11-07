@@ -1,3 +1,5 @@
+//@@author tobiasceg
+
 package seedu.duke.parser;
 
 import seedu.duke.DukeLogger;
@@ -48,7 +50,6 @@ public class Parser {
     private static final Pattern BASIC_COMMAND_FORMAT =
             Pattern.compile("(?<commandWord>\\S+)" + "((?<parameters>.*)?)");
 
-    //(?<identifier>(?:\s+\w\S*)*)+ -m+ (?<moduleCode>(?:\\s+" + "(?:\\s+\\w\\S*)+)?)(?<invalid>.*)
 
     /**
      * Takes the user's full input and parses it, checking for the command word and assigning it to the relevant
@@ -139,7 +140,7 @@ public class Parser {
      * @param attributes
      *  The input from the user
      * @return
-     *  <code>TRUE</code> if the input is empty, or <code>FALSE</code> otherwise
+     *  true if the input is empty, or false otherwise
      */
     protected static boolean isEmptyParse(String... attributes) {
         for (String attribute : attributes) {

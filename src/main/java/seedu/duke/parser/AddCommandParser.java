@@ -1,3 +1,5 @@
+//@@author tobiasceg
+
 package seedu.duke.parser;
 
 import seedu.duke.command.Command;
@@ -25,10 +27,12 @@ public class AddCommandParser {
     protected static final String DESC_GROUP = "desc";
     protected static final String DEADLINE_GROUP = "deadline";
     protected static final String BY_GROUP = "by";
+    //@@author aseanseen
     protected static final Pattern ADD_FORMAT =
             Pattern.compile("(?<commandFlag>-\\S+)" + "(?<desc>(?:(?!-by).)*)"
                     + "((?<by>-by)?)" + "((?<deadline>.*)?)");
 
+    //@@author tobiasceg
     /**
      * Takes the user's input and parses it into the respective arguments for AddCommand.
      *
