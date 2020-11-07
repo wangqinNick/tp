@@ -2,8 +2,8 @@ package seedu.duke.command.add;
 
 import seedu.duke.command.CommandResult;
 import seedu.duke.command.PromptType;
-import seedu.duke.data.ModuleManager;
 import seedu.duke.data.Module;
+import seedu.duke.data.ModuleManager;
 import seedu.duke.exception.DuplicateModuleException;
 import seedu.duke.exception.ModuleNotFoundException;
 import seedu.duke.exception.ModuleNotProvidedException;
@@ -11,7 +11,6 @@ import seedu.duke.exception.ModuleNotProvidedException;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_DUPLICATE_MODULE;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_MODULE_NOT_PROVIDED;
 import static seedu.duke.util.Message.MESSAGE_ADD_MODULE_SUCCESS;
-import static seedu.duke.util.Message.MESSAGE_ADD_TASK_SUCCESS;
 
 public class AddModuleCommand extends AddCommand {
     private final String module;

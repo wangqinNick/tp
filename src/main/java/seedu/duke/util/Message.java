@@ -41,7 +41,8 @@ public class Message {
     public static final String MESSAGE_LIST_PRINTED = "Here's your list:\n";
     public static final String MESSAGE_UNDO_SUCCESS = "Undo is successful.\n" + "Command undone - '%s'\n";
     public static final String MESSAGE_UNDO_AT_BEGINNING = "There is nothing to undo.";
-    public static final String MESSAGE_GRADE_MODULE_SUCCESS = "Module graded successfully.\n";
+    public static final String MESSAGE_GRADE_MODULE_SUCCESS = "Your module has been graded successfully.\n"
+            + "The module - '%s'. \n";
     public static final String MESSAGE_CAP_DISPLAY = "Your current CAP is \n";
     public static final String MESSAGE_COMPLETED_TASKLIST = "\n\uD83D\uDC4C Completed tasks:";
     public static final String MESSAGE_INCOMPLETE_UNDATED_TASKLIST = "\n\u2757 Incomplete tasks with no deadline:";

@@ -70,6 +70,7 @@ public class InputOutputManager {
         if (!saveFolder.exists()) {
             logger.getLogger().info("Save folder does not exist, creating now");
             saveFolder.mkdir();
+            status += tryLoadNusMods() * 1000;
         } else {
             // For documentation of this part, look at TextUi's showWelcomeMessage
             status += tryLoadMods();

@@ -21,11 +21,12 @@ public class EditTaskCommandTest {
         TaskManager.clear();
         Task newTask = new Task("read a book");
         TaskManager.add(newTask);
+        String newTaskString = newTask.toString();
 
         Task editedTask = new Task("return a book");
         //base case
         CommandResult result1 = Executor.executeCommand("edit -t 1 return a book");
-        assertEquals(String.format(MESSAGE_EDIT_TASK_SUCCESS, newTask.toString(), editedTask.toString()),
+        assertEquals(String.format(MESSAGE_EDIT_TASK_SUCCESS, newTaskString, editedTask.toString()),
                 result1.feedbackToUser);
 
         //invalid parameters
@@ -40,13 +41,14 @@ public class EditTaskCommandTest {
         TaskManager.clear();
         Task newTask = new Task("read a book");
         TaskManager.add(newTask);
+        String newTaskString = newTask.toString();
 
         Task editedTask = new Task("return a book",
                 LocalDateTime.of(2020, 12, 30, 12, 00));
 
         //base case
         CommandResult result1 = Executor.executeCommand("edit -t 1 return a book -by 30-12-2020 1200");
-        assertEquals(String.format(MESSAGE_EDIT_TASK_SUCCESS, newTask.toString(), editedTask.toString()),
+        assertEquals(String.format(MESSAGE_EDIT_TASK_SUCCESS, newTaskString, editedTask.toString()),
                 result1.feedbackToUser);
 
         //invalid parameters

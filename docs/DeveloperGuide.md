@@ -83,15 +83,17 @@ commands. Command is a dependency of Parser as Parser creates Command objects to
 ### Command Family
 
 The Command family of classes are nearly all derived from the abstract Command class, except for
-CommandResult and PromptType. All Command classes belong to the command package.
+CommandResult and PromptType. All Command classes belong to the command package. This is shown in the diagram below.
 
-The Command classes carry information about the user's command. There is one class for each exact user command.  
-The `execute()` function of the Command class generates a CommandResult, which holds the reply to the user.
+![UML class diagram for Command Family Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/CommandClassDiagram.png?raw=true)
 
 PromptType indicates the functionality of the Command object. The most useful type is EDIT, which indicates to
 StateManager that there has been a change in state.
 
-![UML class diagram for Command Family Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/CommandClassDiagram.png?raw=true)
+The Command classes carry information about the user's command. There is one class for each exact user command.  
+The `execute()` function of the Command class generates a CommandResult, which holds the reply to the user. This is shown in the diagram below.
+
+![UML class diagram for Command Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/CommandSequenceDiagram.png?raw=true)
 
 ### Data Family
 
@@ -300,7 +302,7 @@ a module named ‘CS2101’ and add it to their module list. This input is recei
 a string. The parser parses the string and allocates it to the AddCommand where it is added to the list of modules. 
 
 2. The user inputs `grade CS2101 4 A+`. The parser parses and allocates the user input to GradeCommand. 
-`GradeCommand#execute()` is called and moduleManager checks if such a module exists in the user’s module list, 
+`GradeCommand.execute()` is called and moduleManager checks if such a module exists in the user’s module list, 
 then checks if the input grade is valid according to the NUS grading schematic and finally assigns the specific module, 
 the grade and module credits.
 

@@ -3,6 +3,7 @@ package seedu.duke.command.grade;
 import seedu.duke.command.Command;
 import seedu.duke.command.CommandResult;
 import seedu.duke.command.PromptType;
+import seedu.duke.data.Module;
 import seedu.duke.data.ModuleManager;
 import seedu.duke.exception.InvalidGradeException;
 import seedu.duke.exception.ModuleNotFoundException;
@@ -64,12 +65,13 @@ public class GradeCommand extends Command {
      * @throws InvalidGradeException
      * If the grade isn't recognised by the NUS grading schematic
      */
-    private void grade() throws InvalidGradeException, ModuleNotFoundException {
+    private Module grade() throws InvalidGradeException, ModuleNotFoundException {
         if (testGrade(grade)) {
             ModuleManager.grade(moduleGraded, grade, moduleCredit);
         } else {
             throw new InvalidGradeException();
         }
+        return ModuleManager.getModule(moduleGraded);
     }
 
     /**
@@ -81,8 +83,9 @@ public class GradeCommand extends Command {
     @Override
     public CommandResult execute() {
         try {
-            grade();
-            return new CommandResult(MESSAGE_GRADE_MODULE_SUCCESS);
+            Module moduleGraded = grade();
+            return new CommandResult(String.format(
+                    MESSAGE_GRADE_MODULE_SUCCESS, moduleGraded.toString()));
         } catch (InvalidGradeException e) {
             return new CommandResult(MESSAGE_INVALID_GRADE, true);
         } catch (ModuleNotFoundException e) {
