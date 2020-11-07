@@ -1,4 +1,5 @@
 //@@author aseanseen
+
 package seedu.duke.command.timetable;
 
 import seedu.duke.command.Command;
