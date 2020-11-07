@@ -39,7 +39,7 @@ sourceSets {
 }
 
 application {
-    mainClassName = "seedu.duke.Duke"
+    mainClassName = "seedu.ravi.Duke"
 }
 
 java {
@@ -48,7 +48,7 @@ java {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "ravi"
     archiveClassifier = null
 }
 
