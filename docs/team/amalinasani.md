@@ -2,8 +2,8 @@
 
 ## CS2113T Project: ra.VI
 ### Overview
-Repository assistant with a Versatile Interface (ra.VI) is a desktop app for managing tasks, deadlines, and notes, optimized for use via a Command Line Interface (CLI).  
-If you can type fast, ra.VI can manage your tasks faster than traditional GUI apps. ra.VI helps you to manage your tasks, and their corresponding deadlines with ease. It can also help you plan your timetable and being organised keeps you ahead of the curve.
+Repository assistant with a Versatile Interface (ra.VI) is a desktop app for managing tasks, deadlines, and timetables, optimized for use via a Command Line Interface (CLI). 
+Ra.VI aims to help freshmen ease into and adapt to their new university schedules. 
 
 ### Summary of Contributions
 #### Features
