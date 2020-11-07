@@ -512,7 +512,40 @@ Given below are instructions to test the app manually.
     2. Test case: `done 10`, where there is no task of index `9` in the task list.\
     Expected: The DoneCommandParser parses `10` and converts it to index `9` in the task list. 
     As there is no task of index `9` in the task list, an error is thrown. Details of the associated error message will be shown.
-        
+  
+### Viewing the task list
+1. Viewing the task list
+    1. Test case: `list -t`, after adding the tasks "read book", "buy stuff" have been added in succession.\
+    Expected: A list containing the two tasks will be shown.
+    2. Test case: `list -t` when no tasks have been added.\
+    Expected: As there are no tasks in the list, a message signifying the empty list is shown.
+    
+### Viewing the module list
+1. Viewing the module list
+    1. Test case: `list -m`, after adding the modules "CS2113T", and "CS2101" have been added in succession.\
+    Expected: A list containing the two module codes, MCs, and grades associated will be shown.
+    2. Test case: `list -m` when no modules have been added.\
+    Expected: As there are no modules in the list, a message signifying the empty list is shown. 
+
+### Viewing help messages and prompts
+1. Viewing the help message for a specific command
+    1. Test case: `help add`\
+    Expected: A help message containing the `add` command format and examples of its usage is shown.
+    2. Test case: `add CS2101`\
+    Expected: As this is an incorrect command format, a help message containing the correct format is shown. A prompt message suggesting the use of `help` is also shown. 
+    
+### Viewing task summary
+1. Viewing the task summary 
+    1. Test case: 
+    `summary` after inputting the following:
+    ```
+    add -t Read a book  
+    add -t Return book -by 20-10-2020 1800
+    add -t meeting -by 22-10-2020 2000
+    done 3
+    ```
+    Expected: The task summary will be shown, each task belonging to their respective categories. 
+
 ### Amending the timetable
 1. Adding a lesson
     1. Test case: `timetable -add CS2113T MONDAY 1200 1400 LECTURE 0` where `CS2113T` is a module in module list.\
