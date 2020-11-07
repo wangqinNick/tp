@@ -15,7 +15,7 @@ class Lesson {
     - hiddenId: String
 }
 
-abstract class "{abstract} \n TimeTableCommandParser" {
+class "TimeTableCommandParser" {
     + {static} parseTimeTableCommand()
     - {static} parseTimeTableAddCommand()
     - {static} parseTimeTableDeleteCommand()
@@ -31,7 +31,6 @@ abstract class "{abstract} \n Command" {
 }
 
 class TimeTable {
-    - semesterMap: HashMap<Integer, LessonManager>
 }
 
 class TimeTableAddCommand {
@@ -55,7 +54,6 @@ class IncorrectCommand {
 }
 
 class LessonManager {
-    - lessonMap: HashMap<DayOfWeek, ArrayList<Lesson>>
     + addLesson()
     + deleteLessonById()
     + getDayLessonList(): ArrayList<Lesson>
@@ -72,8 +70,8 @@ class TimeTableManager {
 "{abstract} \n TimeTableCommand" --|> "{abstract} \n Command"
 IncorrectCommand --|> "{abstract} \n Command"
 
-"{abstract} \n TimeTableCommandParser" -- "0..1" "{abstract} \n TimeTableCommand"
-"{abstract} \n TimeTableCommandParser" -- "0..1" IncorrectCommand
+"TimeTableCommandParser" ..> "{abstract} \n TimeTableCommand"
+"TimeTableCommandParser" ..> IncorrectCommand
 
 TimeTableAddCommand -|> "{abstract} \n TimeTableCommand"
 "{abstract} \n TimeTableCommand" <|-- TimeTableDeleteCommand
@@ -84,6 +82,6 @@ TimeTableManager *-- "1" TimeTable
 TimeTable o-- "1..13" LessonManager
 LessonManager o-- "*" Lesson
 
-TimeTableManager ...> "{abstract} \n TimeTableCommand"
+TimeTableManager <... "{abstract} \n TimeTableCommand"
 
 @enduml

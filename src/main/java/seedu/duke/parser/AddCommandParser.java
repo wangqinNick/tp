@@ -60,7 +60,7 @@ public class AddCommandParser {
             taskDeadline = matcher.group(DEADLINE_GROUP).trim();
             if (taskDeadline.isEmpty()) { // -by is present but empty deadline
                 return new IncorrectCommand(String.format("%s%s\n\n%s%s\n\n%s\n",
-                    MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT,
+                        MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT,
                         AddTaskCommand.FORMAT, AddCommand.PROMPT_HELP));
             }
         }
