@@ -1,4 +1,5 @@
 //@@author tobiasceg
+
 package seedu.duke.command.grade;
 
 import org.junit.jupiter.api.BeforeAll;
