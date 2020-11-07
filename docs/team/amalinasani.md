@@ -62,7 +62,7 @@ If you can type fast, ra.VI can manage your tasks faster than traditional GUI ap
 
 #### Enhancements to existing features
   * Wrote additional tests for `help`,`done`,`list` commands to increase coverage. (Pull requests [\#79](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/79), [\#252](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/252))
-  * Solve issues surfaced from bug bounty. ([\#233](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/233)
+  * Solve issues surfaced from bug bounty. ([\#233](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/233))
     
 #### Community
   * Reported bugs and suggestions for other teams in the class (examples: [1](https://github.com/AY2021S1-CS2113T-T12-2/tp/issues/226), [2](https://github.com/AY2021S1-CS2113T-T12-2/tp/issues/225), [3](https://github.com/AY2021S1-CS2113T-T12-2/tp/issues/224), [4](https://github.com/nus-cs2113-AY2021S1/tp/pull/36/files/8b45df880852c7cd42988080fb263f72f22a6328))
