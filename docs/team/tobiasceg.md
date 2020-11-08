@@ -2,8 +2,9 @@
 layout: page
 title: Tobias's Project Portfolio Page
 ---
+# Tan Jian Hui Tobias - Project Portfolio Page
 
-# CS2113t Project: ra.VI
+## CS2113t Project: ra.VI
 
 The Repository Assistant with a Versatile Interface is a user-friendly desktop application for managing task,deadline
 ,modules and planning of timetable via a Command Line Interface (CLI). ra.VI aims to help freshmen of Universities to
