@@ -34,36 +34,8 @@ options](https://se-education.org/guides/tutorials/intellijCodeStyle.html) to ma
 The checkstyle configurations is in `<ROOT>/config/checkstyle/` by default. Here is some information on [how to use the
 Checkstyle plugin with IntelliJ IDEA](https://se-education.org/guides/tutorials/checkstyle.html).
 
-## Product scope
-### Target user profile
 
-The target user profile for ra.VI is described by the following:
-* A student of NUS (a freshman in particular)
-* Has a need to manage their school related tasks, classes and notes
-* Prefers desktop apps over other types
-* Types fast
-* Prefers typing to mouse interactions
-* Reasonably comfortable using CLI apps
-
-### Value proposition
-
-A common problem amongst freshmen is the inability to organise all the incoming information.  
-NUS places a focus on taking responsibility for your own learning, so it might be a tough transition from tertiary education.  
-A lot of students miss lessons, assignments, and even exams, just because they're struggling to adapt to the new
-environment.
-
-ra.VI helps students to manage their school-related information in a compact, stripped-down interface that does not bombard them with too much information.  
-When you receive your modules and lessons, simply enter them into ra.VI as they arrive. ra.VI will keep track of all of it
-for you.  
-You can create tasks, give them deadlines, and tag them to certain modules. You can see all of your tasks and deadlines at a glance.  
-You can even write and save your notes in ra.VI, uncluttering your work environment even further.
-
-ra.VI is even integrated with NUSMods, bringing its comprehensive library of information to your fingertips.  
-All the above features are wrapped in a compact, no-frills command-line interface. No confusing menus and dropdowns
-to distract you; only simple commands to give you what you want.
-
-## Implementation
-This section describes some noteworthy details on how certain features are implemented.
+## Design
 
 ## Top level classes
 
@@ -147,7 +119,8 @@ The point of entry for this feature will be at TimeTableCommandParser, which wil
 to return through `parseTimeTableCommand()`. If the TimeTableCommand is returned and executed, the 
 TimeTableManager will carry out the associated commands, adding, deleting or viewing the Lessons in the timetable.
 
-## Feature explanation with sequence diagrams
+## Implementation
+This section describes some noteworthy details on how certain features are implemented.
 
 ### Main loop sequence
 When ra.VI runs, there are 3 phases to its lifecycle.
@@ -396,7 +369,37 @@ Given below is an example scenario to reset the timetable.
 
 2. ra.VI will ask for the current NUS week. This input is parsed and reinitialises the TimeTableManager with a new Timetable. 
 
-## User Stories
+
+## Appendix A: Product scope
+### Target user profile
+
+The target user profile for ra.VI is described by the following:
+* A student of NUS (a freshman in particular)
+* Has a need to manage their school related tasks, classes and notes
+* Prefers desktop apps over other types
+* Types fast
+* Prefers typing to mouse interactions
+* Reasonably comfortable using CLI apps
+
+### Value proposition
+
+A common problem amongst freshmen is the inability to organise all the incoming information.  
+NUS places a focus on taking responsibility for your own learning, so it might be a tough transition from tertiary education.  
+A lot of students miss lessons, assignments, and even exams, just because they're struggling to adapt to the new
+environment.
+
+ra.VI helps students to manage their school-related information in a compact, stripped-down interface that does not bombard them with too much information.  
+When you receive your modules and lessons, simply enter them into ra.VI as they arrive. ra.VI will keep track of all of it
+for you.  
+You can create tasks, give them deadlines, and tag them to certain modules. You can see all of your tasks and deadlines at a glance.  
+You can even write and save your notes in ra.VI, uncluttering your work environment even further.
+
+ra.VI is even integrated with NUSMods, bringing its comprehensive library of information to your fingertips.  
+All the above features are wrapped in a compact, no-frills command-line interface. No confusing menus and dropdowns
+to distract you; only simple commands to give you what you want.
+
+
+## Appendix B: User Stories
 
 |Version| As a ... | I want to ... | So that I can ...|
 |--------|----------|---------------|------------------|
@@ -417,17 +420,20 @@ Given below is an example scenario to reset the timetable.
 |v2.0|user|undo unintended commands|make amends quickly|
 |v2.1|user|reset my timetable|prepare for another semester|
 
-## Non-Functional Requirements
+
+## Appendix C: Non-Functional Requirements
 
 {Give non-functional requirements}
 * Should work on any mainstream OS as long as it has Java 11 or above installed.
 * A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-## Glossary
+
+## Appendix D: Glossary
 
 * *Mainstream OS* - Windows, Linux, OSX
 
-## Instructions for manual testing
+
+## Appendix E: Instructions for manual testing
 
 Given below are instructions to test the app manually.
 
