@@ -81,9 +81,9 @@ skinparam classAttributeIconSize 0
 }
 package command{
 }
-class Duke
-Duke ..> command
-Duke ..> InputOutputManager
+class Ravi
+Ravi ..> command
+Ravi ..> InputOutputManager
 command ..> TimeTableManager
 command ..> TaskManager
 command ..> ModuleManager

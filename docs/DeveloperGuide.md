@@ -68,13 +68,13 @@ This section describes some noteworthy details on how certain features are imple
 ## Top level classes
 
 This is a class diagram of the top-level of ra.Vi.  
-The classes depicted here are those which are direct dependencies of the main class Duke.  
+The classes depicted here are those which are direct dependencies of the main class Ravi.  
 The various dependencies of the classes depicted here are not shown to avoid cluttering, and are described in later sections.  
 
-Duke calls the main class (carried over from the legacy codebase). The main class holds the main loop.  
+Ravi calls the main class (carried over from the legacy codebase). The main class holds the main loop.  
 Most classes used by the main class are static in nature and do not need to be instantiated. 
 
-The Command and CommandResult objects are dependencies of Executor in addition to Duke. Executor can be
+The Command and CommandResult objects are dependencies of Executor in addition to Ravi. Executor can be
 viewed as a simple layer of abstraction on top of Command and CommandResult to facilitate the execution of user
 commands. Command is a dependency of Parser as Parser creates Command objects to return to the main loop.
 
@@ -83,15 +83,17 @@ commands. Command is a dependency of Parser as Parser creates Command objects to
 ### Command Family
 
 The Command family of classes are nearly all derived from the abstract Command class, except for
-CommandResult and PromptType. All Command classes belong to the command package.
+CommandResult and PromptType. All Command classes belong to the command package. This is shown in the diagram below.
 
-The Command classes carry information about the user's command. There is one class for each exact user command.  
-The `execute()` function of the Command class generates a CommandResult, which holds the reply to the user.
+![UML class diagram for Command Family Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/CommandClassDiagram.png?raw=true)
 
 PromptType indicates the functionality of the Command object. The most useful type is EDIT, which indicates to
 StateManager that there has been a change in state.
 
-![UML class diagram for Command Family Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/CommandClassDiagram.png?raw=true)
+The Command classes carry information about the user's command. There is one class for each exact user command.  
+The `execute()` function of the Command class generates a CommandResult, which holds the reply to the user. This is shown in the diagram below.
+
+![UML class diagram for Command Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/CommandSequenceDiagram.png?raw=true)
 
 ### Data Family
 
@@ -109,7 +111,7 @@ filtering of lessons via lambda functions. For example, the user can choose to f
 
 Since there is no command to save or load, InputOutputManager is not a dependency of Command. All the other Managers,
 however, are dependencies of Command as there are commands for using/manipulating each one of them. InputOutputManager
-and Command are then dependencies of the main class Duke.
+and Command are then dependencies of the main class Ravi.
 
 ![UML class diagram for Data Family Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/DataClassDiagram.png?raw=true)
 
@@ -121,7 +123,7 @@ subclass, then Parser delegates the remaining work to the subclass due to the co
 handles the logic itself.
 
 It will create a Command object, no matter whether the user command is valid or not (if it is not, then an
-IncorrectCommand object is created). This Command object passes back to the main class Duke for execution.
+IncorrectCommand object is created). This Command object passes back to the main class Ravi for execution.
 
 ![UML class diagram for Parser Family Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/ParserClassDiagram.png?raw=true)
 
@@ -130,7 +132,7 @@ IncorrectCommand object is created). This Command object passes back to the main
 
 The Timetable Family of classes is a _cross-family_ family of classes from the Data and Command families, 
 and consists of the timetable Command and CommandParser classes, as well as TimeTableManager and TimeTable themselves. 
-Extending from the abstract TimeTableCommand class are the TimeTableAddCommand, TimeTableDeleteCommand and TimeTableViewCommand classes.
+Extending from the abstract TimeTableCommand class are the TimeTableAddCommand, TimeTableDeleteCommand, TimeTableViewCommand, and TimeTableResetCommand classes.
 
 ![Class diagram for TimeTable Family Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/TimeTableClassDiagram.png?raw=true)
 
@@ -300,7 +302,7 @@ a module named ‘CS2101’ and add it to their module list. This input is recei
 a string. The parser parses the string and allocates it to the AddCommand where it is added to the list of modules. 
 
 2. The user inputs `grade CS2101 4 A+`. The parser parses and allocates the user input to GradeCommand. 
-`GradeCommand#execute()` is called and moduleManager checks if such a module exists in the user’s module list, 
+`GradeCommand.execute()` is called and moduleManager checks if such a module exists in the user’s module list, 
 then checks if the input grade is valid according to the NUS grading schematic and finally assigns the specific module, 
 the grade and module credits.
 
@@ -309,10 +311,11 @@ Otherwise, an exception message will be shown regarding the exception caught.
 
 ### Timetable Feature
 This feature is facilitated by the TimeTableManager class and TimeTableCommand class.
-Extending from the abstract TimeTableCommand class are the TimeTableAddCommand, TimeTableDeleteCommand and TimeTableViewCommand classes.
+Extending from the abstract TimeTableCommand class are the TimeTableAddCommand, TimeTableDeleteCommand, TimeTableViewCommand and TimeTableResetCommand classes.
 * AddLesson - Add a Lesson to the timetable through `TimeTableManager.addLesson()`
-* DeleteLesson - Delete all associated Lessons from the timetable through `TaskManager.deleteLesson()`
-* ViewTimeTable - List all Lessons in the timetable through `TaskManager.getSpecificDayLessons()` or `TaskManager.getSpecifiedWeekLessons()`
+* DeleteLesson - Delete all associated Lessons from the timetable through `TimeTableManager.deleteLesson()`
+* ViewTimeTable - List all Lessons in the timetable through `TimeTableManager.getSpecificDayLessons()` or `TimeTableManager.getSpecifiedWeekLessons()`
+* ResetTimeTable - Reset timetable through `TimeTableManager.initialiseTimetable()` 
 
 #### Add lesson/s to timetable
 Given below is an example scenario to add a lesson to the timetable and how the timetable feature behaves at each step.
@@ -386,6 +389,7 @@ Given below is an example scenario to filter the timetable for CS2101 LECTURE.
 * Wrong command format\
 e.g. `timetable -filter`
 
+<<<<<<< HEAD
 ### Undo Feature 
 This feature is facilitated by State and StateManager classes. 
 It extends the abstract Command class and override the execute command.
@@ -417,6 +421,13 @@ a string. The parser parses the string and allocates it to the AddCommand where 
 5. More importantly, the Undo command only works for those 'data-changed' operations. Those operations refer to 'add', 'delete', 'edit' commands.
 
 
+#### Reset the timetable
+Given below is an example scenario to reset the timetable. 
+
+1. The user inputs `timetable -reset`.  
+
+2. ra.VI will ask for the current NUS week. This input is parsed and reinitialises the TimeTableManager with a new Timetable. 
+
 ## User Stories
 
 |Version| As a ... | I want to ... | So that I can ...|
@@ -436,6 +447,7 @@ a string. The parser parses the string and allocates it to the AddCommand where 
 |v2.0|user|grade my modules|keep track of my grades for respective modules|
 |v2.0|user|calculate my accumulative cap|keep track of my progress in university|
 |v2.0|user|undo unintended commands|make amends quickly|
+|v2.1|user|reset my timetable|prepare for another semester|
 
 ## Non-Functional Requirements
 
@@ -452,8 +464,8 @@ a string. The parser parses the string and allocates it to the AddCommand where 
 Given below are instructions to test the app manually.
 
 1. Download the latest version of `ra.VI` from [here](https://github.com/AY2021S1-CS2113T-T09-2/tp/releases/tag/v2.0) and copy it into an empty folder.
-2. Open a new terminal window and navigate to the same directory where duke.jar is located. 
-3. Enter the command `java -jar duke.jar` into the terminal window to launch the application. The application should now be running.
+2. Open a new terminal window and navigate to the same directory where ravi.jar is located. 
+3. Enter the command `java -jar ravi.jar` into the terminal window to launch the application. The application should now be running.
 4. Enter the command `help` to get a list of all available commands and its usages.
 5. For a detailed list on the command features, refer to the [user guide](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/UserGuide.md).
 6. Simply enter `bye` to terminate and exit the application.
@@ -530,6 +542,11 @@ Given below are instructions to test the app manually.
     3. Test case: `timetable -filter CS2113T MONDAY 1200 2000 LECTURE`, which filters CS2113T lectures **on Monday 
     between 1200 and 2000** only.\
     Expected: All CS2113T lectures on Monday between 1200 and 2000 are shown to the user.
+
+### Resetting the timetable
+1. Reset the timetable
+    1. Test case: `timetable -reset`\
+    Expected: TimeTableManager clears and reinitialises the timetable. The user is prompted to input the current week for reinitialisation.
 
 ### Marking a task as done / undone
 1. Marking a task as done

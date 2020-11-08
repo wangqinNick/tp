@@ -1,0 +1,12 @@
+@startuml
+-> ":Command": execute()
+activate ":Command"
+create ":CommandResult"
+":Command" -> ":CommandResult": <<construct>>
+activate ":CommandResult"
+":Command" <-- ":CommandResult": CommandResult
+deactivate ":CommandResult"
+<-- ":Command": CommandResult
+deactivate ":Command"
+destroy ":Command"
+@enduml
