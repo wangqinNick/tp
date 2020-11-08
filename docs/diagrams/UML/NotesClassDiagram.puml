@@ -1,0 +1,76 @@
+@startuml
+
+hide circle
+skinparam classAttributeIconSize 0
+
+class NotesAddCommand
+class NotesDeleteCommand
+class NotesEditCommand
+class NotesManager
+class Note
+
+class "NotesCommandParser" {
+    + {static} parseNotesCommand()
+    - {static} parseNotesAddCommand()
+    - {static} parseNotesDeleteCommand()
+    - {static} parseNotesViewCommand()
+    - {static} parseNotesEditCommand()
+}
+
+class NotesManager {
+    + addNote()
+    + deleteNote()
+    + editNote()
+    + viewNote()
+}
+
+class Note {
+    - note: String
+}
+
+abstract class "{abstract} \n Command " {
+    + execute()
+}
+
+abstract class "{abstract} \n NotesCommand " {
+    + execute()
+}
+
+class IncorrectCommand {
+    + execute()
+}
+
+class NotesAddCommand {
+    + execute()
+}
+
+class NotesDeleteCommand {
+    + execute()
+}
+
+class NotesEditCommand {
+    + execute()
+}
+
+class NotesViewCommand {
+    + execute()
+}
+
+Note --* "*" NotesManager
+NotesManager <.. "{abstract} \n NotesCommand "
+
+"{abstract} \n NotesCommand " --|> "{abstract} \n Command "
+IncorrectCommand --|> "{abstract} \n Command "
+
+"{abstract} \n NotesCommand " <|-- NotesEditCommand
+ NotesDeleteCommand  --|> "{abstract} \n NotesCommand "
+"{abstract} \n NotesCommand " <|-- NotesViewCommand
+NotesAddCommand  --|> "{abstract} \n NotesCommand "
+
+
+
+NotesCommandParser ..> IncorrectCommand
+NotesCommandParser ..> "{abstract} \n NotesCommand "
+
+
+@enduml
