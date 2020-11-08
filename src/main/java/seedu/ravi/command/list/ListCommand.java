@@ -11,6 +11,7 @@ import seedu.ravi.ui.TextUi;
 import static seedu.ravi.util.ExceptionMessage.MESSAGE_LIST_EMPTY;
 import static seedu.ravi.util.Message.MESSAGE_LIST_PRINTED;
 
+//@@author amalinasani
 public class ListCommand extends Command {
     private final Parser.TypeOfEntries typeOfEntry;
     public static final String COMMAND_WORD = "list";
@@ -46,10 +47,10 @@ public class ListCommand extends Command {
         default:
             break;
         }
-        if (output == null) {
-            return new CommandResult(MESSAGE_LIST_EMPTY);
-        } else {
+        if (output != null) {
             return new CommandResult(MESSAGE_LIST_PRINTED + output);
+        } else {
+            return new CommandResult(MESSAGE_LIST_EMPTY);
         }
     }
 }
