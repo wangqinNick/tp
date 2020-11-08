@@ -29,7 +29,6 @@ Ra.VI aims to help freshmen ease into and adapt to their new university schedule
 * **View Timetable Feature**: Added the ability to view the timetable for the day or week in collaboration with [Sean Lim](https://github.com/AY2021S1-CS2113T-T09-2/tp/tree/master/docs/team/aseanseen.md). (Pull request [\#120](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/120))
   * What it does: Allows the user to view the timetable, listing all lessons and lesson times for the day or week.
   * Justification: This feature is important in providing the user with a brief, day-to-day timetable of lessons for quick viewing. 
-  * Highlights: The implementation of this feature required a clean text-based UI to display the timetable. 
   
 * **Reset Timetable Feature**: Added the ability to reset the timetable. (Pull request [\#230](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/230))
   * What it does: Allows the user to clear and reinitisialise the timetable.
