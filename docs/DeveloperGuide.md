@@ -370,9 +370,17 @@ Given below is an example scenario to reset the timetable.
 2. ra.VI will ask for the current NUS week. This input is parsed and reinitialises the TimeTableManager with a new Timetable. 
 
 ### [Proposed] Notes Feature
-The proposed notes feature is facililated by the __
+![Class diagram for Notes Feature in Command class](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/NotesClassDiagram.png?raw=true)
 
-It implements the following operations 
+The proposed notes feature is facililated by the NotesManager class and NotesCommand class
+Extending from the abstract NotesCommand class are the NotesAddCommand, NotesDeleteCommand, NotesViewCommand, and NotesEditCommand classes. 
+
+It implements the following operations:
+* `NotesManager.addNote()` - Add a note
+* `NoteManager.deleteNote()` - Delete a note
+* `NoteManager.editNote()` - Edit a note
+* `NoteManager.viewNote()` - View notes
+
 
 ## Appendix A: Product scope
 ### Target user profile
