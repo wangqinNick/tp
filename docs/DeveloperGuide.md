@@ -373,14 +373,42 @@ Given below is an example scenario to reset the timetable.
 ![Class diagram for Notes Feature in Command class](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/NotesClassDiagram.png?raw=true)
 
 The proposed notes feature is facililated by the NotesManager class and NotesCommand class
-Extending from the abstract NotesCommand class are the NotesAddCommand, NotesDeleteCommand, NotesViewCommand, and NotesEditCommand classes. 
+Extending from the abstract NotesCommand class are the NotesAddCommand, NotesListCommand, NotesDeleteCommand, and NotesViewCommand classes. 
 
 It implements the following operations:
 * `NotesManager.addNote()` - Add a note
+* `NoteManager.listNote()` - View the list of notes and their indexes
 * `NoteManager.deleteNote()` - Delete a note
-* `NoteManager.editNote()` - Edit a note
-* `NoteManager.viewNote()` - View notes
+* `NoteManager.viewNote()` - View a particular note
 
+#### Add notes
+Given below is an example scenario to add a note and how the notes feature behave at each step
+
+Step 1. The user inputs `note -add Orbital Mechanics: Application of ballistics and celestial mechanics`, as the user wants to add a note.
+Step 2. This input is parsed by NotesCommandParser and it returns NotesAddCommand. 
+Step 3. NotesAddCommand is executed, returning a `CommandResult` containing a success message if the note has been added successfully. Otherwise, an exception message will be shown explaining the exception to the user.
+
+#### Viewing list of notes
+Given below is an example scenario to view the list of notes and how the notes feature behaves at each step.
+
+Step 1. The user inputs `note -list` as the user wants to view the list of notes.
+Step 2. This input is parsed by NotesCommandParser and it returns NotesListCommand.
+Step 3. NotesListCommand is executed, returning a `CommandResult` containing the list of notes and their indexes. Otherwise, an exception message will be shown explaining the exception to the user. 
+
+#### Delete a note
+Given below is an example scenario to delete a note and how the notes feature behaves at each step.
+
+Step 1. The user inputs `note -del 1` as the user wants to delete the note with index 1.
+Step 2. This input is parsed by NotesCommandParser and it returns NotesDeleteCommand.
+Step 3. NotesDeleteCommand is executed, returning a `CommandResult` containing a success message if the note has been deleted successfully. Otherwise, an exception message will be shown explaining the exception to the user. 
+
+* Currently available notes and their indexes can be found by entering `notes -list`
+
+#### View the timetable
+Given below is an example scenario to view a particular note in the list
+Step 1. The user inputs `note -view 1` as the user wants to view the note with index 1.
+Step 2. This input is parsed by NotesCommandParser and it returns NotesDeleteCommand.
+Step 3. NotesViewCommand is executed, returning a `CommandResult` containing a the note if the note has been shown successfully. Otherwise, an exception message will be shown explaining the exception to the user. 
 
 ## Appendix A: Product scope
 ### Target user profile
