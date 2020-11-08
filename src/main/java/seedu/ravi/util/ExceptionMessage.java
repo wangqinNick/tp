@@ -85,6 +85,7 @@ public class ExceptionMessage {
             "The CAP you entered is invalid.\n";
     public static final String MESSAGE_INVALID_CAP_ATTAINED =
             "The CAP calculated from your input is invalid.\n"
+            + "Please check if every module has been graded. \n"
             + "For more information, use 'help cap'.\n";
     public static final String MESSAGE_INVALID_MC =
             "The number of MCs you entered is invalid.\n"
