@@ -10,7 +10,7 @@ import static seedu.ravi.util.Message.MESSAGE_SUMMARY_PRINTED;
 public class SummaryCommand extends Command {
     public static final String COMMAND_WORD = "summary";
     public static final String HELP =   "View task summary."
-                                        + "\n\tFormat: " + COMMAND_WORD;
+                                        + "\n\t@|bold,blue,BG_BLACK Format:|@ " + COMMAND_WORD;
 
     /**
      * Lists the tasks from respective lists in summaryLists.

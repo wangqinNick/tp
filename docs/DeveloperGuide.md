@@ -174,7 +174,6 @@ the starting state) to the stack.
 * If it's currently recess week, the user should input "7".
 * If it's currently after recess week, the user should input the current week number plus one (to account for
 recess week).
-* If it's currently reading week, the user should input "15".
 There is a validation loop to catch invalid user input.
 
 
