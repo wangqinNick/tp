@@ -5,7 +5,8 @@ skinparam classAttributeIconSize 0
 
 class NotesAddCommand
 class NotesDeleteCommand
-class NotesEditCommand
+class NotesListCommand
+class NotesViewCommand
 class NotesManager
 class Note
 
@@ -14,13 +15,14 @@ class "NotesCommandParser" {
     - {static} parseNotesAddCommand()
     - {static} parseNotesDeleteCommand()
     - {static} parseNotesViewCommand()
-    - {static} parseNotesEditCommand()
+    - {static} parseNotesListCommand()
 }
 
 class NotesManager {
+    notes: ArrayList<Note>
     + addNote()
+    + listNote()
     + deleteNote()
-    + editNote()
     + viewNote()
 }
 
@@ -48,7 +50,7 @@ class NotesDeleteCommand {
     + execute()
 }
 
-class NotesEditCommand {
+class NotesListCommand {
     + execute()
 }
 
@@ -62,7 +64,7 @@ NotesManager <.. "{abstract} \n NotesCommand "
 "{abstract} \n NotesCommand " --|> "{abstract} \n Command "
 IncorrectCommand --|> "{abstract} \n Command "
 
-"{abstract} \n NotesCommand " <|-- NotesEditCommand
+"{abstract} \n NotesCommand " <|-- NotesListCommand
  NotesDeleteCommand  --|> "{abstract} \n NotesCommand "
 "{abstract} \n NotesCommand " <|-- NotesViewCommand
 NotesAddCommand  --|> "{abstract} \n NotesCommand "
