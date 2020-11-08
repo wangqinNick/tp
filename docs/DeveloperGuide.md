@@ -68,13 +68,13 @@ This section describes some noteworthy details on how certain features are imple
 ## Top level classes
 
 This is a class diagram of the top-level of ra.Vi.  
-The classes depicted here are those which are direct dependencies of the main class Duke.  
+The classes depicted here are those which are direct dependencies of the main class Ravi.  
 The various dependencies of the classes depicted here are not shown to avoid cluttering, and are described in later sections.  
 
-Duke calls the main class (carried over from the legacy codebase). The main class holds the main loop.  
+Ravi calls the main class (carried over from the legacy codebase). The main class holds the main loop.  
 Most classes used by the main class are static in nature and do not need to be instantiated. 
 
-The Command and CommandResult objects are dependencies of Executor in addition to Duke. Executor can be
+The Command and CommandResult objects are dependencies of Executor in addition to Ravi. Executor can be
 viewed as a simple layer of abstraction on top of Command and CommandResult to facilitate the execution of user
 commands. Command is a dependency of Parser as Parser creates Command objects to return to the main loop.
 
@@ -111,7 +111,7 @@ filtering of lessons via lambda functions. For example, the user can choose to f
 
 Since there is no command to save or load, InputOutputManager is not a dependency of Command. All the other Managers,
 however, are dependencies of Command as there are commands for using/manipulating each one of them. InputOutputManager
-and Command are then dependencies of the main class Duke.
+and Command are then dependencies of the main class Ravi.
 
 ![UML class diagram for Data Family Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/DataClassDiagram.png?raw=true)
 
@@ -123,7 +123,7 @@ subclass, then Parser delegates the remaining work to the subclass due to the co
 handles the logic itself.
 
 It will create a Command object, no matter whether the user command is valid or not (if it is not, then an
-IncorrectCommand object is created). This Command object passes back to the main class Duke for execution.
+IncorrectCommand object is created). This Command object passes back to the main class Ravi for execution.
 
 ![UML class diagram for Parser Family Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/ParserClassDiagram.png?raw=true)
 
@@ -438,8 +438,8 @@ Given below is an example scenario to reset the timetable.
 Given below are instructions to test the app manually.
 
 1. Download the latest version of `ra.VI` from [here](https://github.com/AY2021S1-CS2113T-T09-2/tp/releases/tag/v2.0) and copy it into an empty folder.
-2. Open a new terminal window and navigate to the same directory where duke.jar is located. 
-3. Enter the command `java -jar duke.jar` into the terminal window to launch the application. The application should now be running.
+2. Open a new terminal window and navigate to the same directory where ravi.jar is located. 
+3. Enter the command `java -jar ravi.jar` into the terminal window to launch the application. The application should now be running.
 4. Enter the command `help` to get a list of all available commands and its usages.
 5. For a detailed list on the command features, refer to the [user guide](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/UserGuide.md).
 6. Simply enter `bye` to terminate and exit the application.
