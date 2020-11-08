@@ -4,7 +4,6 @@ hide circle
 skinparam classAttributeIconSize 0
 
 abstract class "{abstract} \n Command" {
-    PromptType promptType
     PromptType getPromptType()
     void setPromptType()
     CommandResult execute()
@@ -12,6 +11,8 @@ abstract class "{abstract} \n Command" {
 
 class CommandResult {
     String feedbackToUser
+    Boolean isError
+    Boolean isExit
 }
 
 abstract class "{abstract} \n AddCommand"
@@ -57,7 +58,7 @@ IncorrectCommand -|> "{abstract} \n Command"
 
 "<<Enumeration>> \n PromptType" -* "{abstract} \n Command"
 
-"{abstract} \n Command" <. CommandResult
+"{abstract} \n Command" -- "0..1" CommandResult
 
 "{abstract} \n AddCommand" <|-- AddModuleCommand
 "{abstract} \n AddCommand" <|-- AddTaskCommand
