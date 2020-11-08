@@ -1,5 +1,6 @@
 package seedu.ravi;
 
+import org.fusesource.jansi.AnsiConsole;
 import seedu.ravi.command.CommandResult;
 import seedu.ravi.command.IncorrectCommand;
 import seedu.ravi.data.StateManager;
@@ -23,11 +24,13 @@ public class Ravi {
      * @throws FileNotFoundException exception is thrown if the file is not found.
      */
     public static void main(String[] args) {
+        AnsiConsole.systemInstall();
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             logger.getLogger().info("Shutdown hook - Saving all data...");
             InputOutputManager.save();
             InputOutputManager.saveNusMods();
             logger.getLogger().info("PROGRAM TERMINATED SUCCESSFULLY");
+            AnsiConsole.systemUninstall();
         }));
 
         run(args);
