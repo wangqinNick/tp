@@ -14,8 +14,10 @@ import seedu.duke.command.filtercommand.listcommand.ListCommand;
 import seedu.duke.command.filtercommand.listcommand.ListModuleCommand;
 import seedu.duke.command.filtercommand.listcommand.ListTaskCommand;
 import seedu.duke.command.misc.ChangeDirectoryCommand;
+import seedu.duke.command.misc.DirectoryCommand;
 import seedu.duke.command.misc.ExitCommand;
 import seedu.duke.command.misc.UndoCommand;
+import seedu.duke.command.misc.WeekCommand;
 import seedu.duke.directory.Directory;
 import seedu.duke.directory.DirectoryLevel;
 import seedu.duke.directory.DirectoryTraverser;
@@ -111,6 +113,10 @@ public class Parser {
                 return new UndoCommand();
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
+            case WeekCommand.COMMAND_WORD:
+                return new WeekCommand();
+            case DirectoryCommand.COMMAND_WORD:
+                return new DirectoryCommand();
             default:
                 return new IncorrectCommand(MESSAGE_INVALID_COMMAND_FORMAT);
             }
