@@ -1,7 +1,4 @@
----
-layout: page
-title: Tobias's Project Portfolio Page
----
+# Tan Jian Hui Tobias - Project Portfolio Page
 
 # CS2113T Project: ra.VI
 

@@ -1,0 +1,37 @@
+@startuml
+mainframe sd start()
+
+participant ":Ravi" as Ravi << Class >>
+participant ":TextUi" as Ui << Class >>
+participant ":InputOutputManager" as IO << Class >>
+participant ":StateManager" as State << Class >>
+participant ":TimeTableManager" as TT << Class >>
+
+-> Ravi ++ : start()
+
+Ravi -> Ui ++ : Initializes Scanner
+|||
+return
+
+Ravi -> IO ++ : Initialization
+|||
+return Returns loading status
+
+Ravi -> State ++ : Initialization
+|||
+return
+
+Ravi -> Ui ++ : Show welcome message\nwith loading status
+|||
+return
+
+loop while TimeTableManager not initialised
+    Ravi -> TT ++ : Initialization
+        TT -> Ui ++ : Try to get week number from user
+        return
+    return
+end loop
+
+return
+
+@enduml

@@ -1,5 +1,6 @@
 package seedu.ravi;
 
+import org.fusesource.jansi.AnsiConsole;
 import seedu.ravi.command.CommandResult;
 import seedu.ravi.command.IncorrectCommand;
 import seedu.ravi.data.StateManager;
@@ -23,14 +24,16 @@ public class Ravi {
      * @throws FileNotFoundException exception is thrown if the file is not found.
      */
     public static void main(String[] args) {
+        AnsiConsole.systemInstall();
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             logger.getLogger().info("Shutdown hook - Saving all data...");
             InputOutputManager.save();
             InputOutputManager.saveNusMods();
             logger.getLogger().info("PROGRAM TERMINATED SUCCESSFULLY");
+            AnsiConsole.systemUninstall();
         }));
 
-        new Ravi().run(args);
+        run(args);
     }
 
     /**
@@ -41,7 +44,7 @@ public class Ravi {
      * @throws NusModsNotLoadedException
      *  When no NUSMods data can be loaded
      */
-    private void start(String[] args) throws NusModsNotLoadedException {
+    private static void start(String[] args) throws NusModsNotLoadedException {
         TextUi.initialiseTextUi(new Scanner(System.in));
         int loadStatus = InputOutputManager.start();
         StateManager.initialise();
@@ -57,7 +60,7 @@ public class Ravi {
      *
      * @param args arguments passed to the program.
      */
-    public void run(String[] args) {
+    public static void run(String[] args) {
         logger.getLogger().info("STARTING PROGRAM...");
         try {
             start(args);
@@ -71,7 +74,7 @@ public class Ravi {
     }
 
     /** Reads the user command and executes it, until the user issues the exit command.  */
-    private void runCommandLoopUntilExitCommand() {
+    private static void runCommandLoopUntilExitCommand() {
         logger.getLogger().info("ENTERING COMMAND LOOP");
         CommandResult result;
         String userInput;
