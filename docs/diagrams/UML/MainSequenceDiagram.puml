@@ -1,159 +1,37 @@
 @startuml
-create ":Ravi"
-activate ":Ravi"
--> ":Ravi": main()
-":Ravi" -> ":Ravi": <<construct>> run()
-activate ":Ravi"
-    == INITIALISATION ==
-    ":Ravi" -> ":Ravi": start()
-    note right
-        Initialisation of all static classes used directly by the main class
-    end note
-    activate ":Ravi"
-        ":Ravi" -> ":TextUi": <<construct>>
-        activate ":TextUi"
-        ":Ravi" <-- ":TextUi"
-        deactivate ":TextUi"
 
-        ":Ravi" -> ":InputOutputManager": start()
-        activate ":InputOutputManager"
-        ":Ravi" <-- ":InputOutputManager"
-        deactivate ":InputOutputManager"
+participant ":Ravi" as Ravi << Class >>
 
-        ":Ravi" -> ":StateManager": initialise()
-        activate ":StateManager"
-        ":Ravi" <-- ":StateManager"
-        deactivate ":StateManager"
+create Ravi
+activate Ravi
+-> Ravi: main()
+Ravi -> Ravi ++ : Add shutdown hook
+return
+|||
+Ravi -> Ravi  ++ : run()
+    |||
+        ref over Ravi: start()
+        opt Could not load NUSMods
+            |||
+            <- Ravi : Terminate program here
+        end opt
+        |||
+        ref over Ravi: runCommandLoopUntilExitCommand()
+    |||
+return
 
-        loop TimeTableManager is not initialised
-            ":Ravi" -> ":TextUi": showTimeTableInitialisationMessage()
-            note right
-                If there is no timetable save file available, get the current
-                NUS week from the user and initialise TimeTableManager
-            end note
-            activate ":TextUi"
-            ":Ravi" <-- ":TextUi"
-            deactivate ":TextUi"
+<- Ravi -- : exit main()
 
-            ":Ravi" -> ":TextUi": getCurrentWeekNum()
-            activate ":TextUi"
-            ":Ravi" <-- ":TextUi": User input of current NUS week
-            deactivate ":TextUi"
-
-            ":Ravi" -> ":TimeTableManager": initialise(), current NUS week
-            activate ":TimeTableManager"
-            ":Ravi" <-- ":TimeTableManager"
-            deactivate ":TimeTableManager"
-        end
-
-        ":Ravi" -> ":TextUi": showWelcomeMessage()
-        activate ":TextUi"
-        ":Ravi" <-- ":TextUi"
-        deactivate ":TextUi"
-
-        ":Ravi" <-- ":Ravi"
-    deactivate ":Ravi"
-
-    == COMMAND LOOP ==
-    ":Ravi" -> ":Ravi": runCommandLoopUntilExitCommand()
-    note right
-        Receives and executes commands until exit command is given
-    end note
-    activate ":Ravi"
-        loop Exit command not given
-            ":Ravi" -> ":TextUi": getUserCommand()
-            activate ":TextUi"
-            ":Ravi" <-- ":TextUi": User input
-            deactivate ":TextUi"
-
-            ":Ravi" -> ":Parser": parseCommand()
-            note right
-                User's typed input is converted using Parser into
-                a new Command like AddModuleCommand
-            end note
-            activate ":Parser"
-            ":Parser" -> ":Command": <<construct>>
-            activate ":Command"
-            ":Parser" <-- ":Command": Command object
-            ":Ravi" <-- ":Parser": Command object
-            deactivate ":Command"
-            deactivate ":Parser"
-            destroy ":Parser"
-
-            ":Ravi" -> ":Command": execute()
-            activate ":Command"
-                ":Command" ->: Work done via other classes
-                ":Command" <--: Result of work
-                note left
-                    The command object does work here when execute() is called,
-                    storing the work result in the CommandResult object
-                end note
-                ":Command" -> ":CommandResult": <<construct>>
-                activate ":CommandResult"
-                ":Command" <-- ":CommandResult": CommandResult object
-                deactivate ":CommandResult"
-                ":Ravi" <-- ":Command": CommandResult object
-            deactivate ":Command"
-
-            opt data has been edited
-                ":Ravi" -> ":StateManager": saveState()
-                note right
-                    StateManager saves state if the Command object
-                    has the PromptType EDIT
-                    (i.e. if the user command is to edit data)
-                end note
-                activate ":StateManager"
-                ":Ravi" <-- ":StateManager"
-                deactivate ":StateManager"
-            end
-            ":Ravi" -> ":TextUi": showResultToUser()
-            note right
-                TextUi gets the message to user from the returned
-                CommandResult object and displays it
-            end note
-            activate ":TextUi"
-            ":TextUi" -> ":CommandResult": Retrieve message to user
-            activate ":CommandResult"
-            ":TextUi" <-- ":CommandResult": Message to user
-            deactivate ":CommandResult"
-
-            ":TextUi" -> ":TextUi": outputToUser
-            activate ":TextUi"
-            ":TextUi" <-- ":TextUi"
-            deactivate ":TextUi"
-
-            ":Ravi" <-- ":TextUi"
-            deactivate ":TextUi"
-            destroy ":CommandResult"
-            destroy ":Command"
-        end
-        ":Ravi" <-- ":Ravi"
-    deactivate ":Ravi"
-    == SAVE AND EXIT ==
-
-    ":Ravi" -> ":InputOutputManager": save()
-    note right
-        Saves all user data like tasks, modules, and timetable to disk
-    end note
-    activate ":InputOutputManager"
-    ":Ravi" <-- ":InputOutputManager"
-    deactivate ":InputOutputManager"
-
-    ":Ravi" -> ":InputOutputManager": saveNusMods()
-    activate ":InputOutputManager"
-    ":Ravi" <-- ":InputOutputManager"
-    deactivate ":InputOutputManager"
-
-    ":Ravi" <-- ":Ravi"
-deactivate ":Ravi"
-":Ravi" <-- ":Ravi"
-deactivate ":Ravi"
-destroy ":Ravi"
-destroy ":TextUi"
-destroy ":InputOutputManager"
-destroy ":StateManager"
-destroy ":TimeTableManager"
-
-
+-> Ravi ++ : Shutdown hook
+Ravi -> Ravi ++ : Print "saving" message
+note right
+    Saving is actually done in Executor.
+    This is just to assure the user that
+    ra.VI has shut down properly (if they
+    used Ctrl-C to shut down ra.VI)
+end note
+return
+return Completed shutdown
+destroy Ravi
 
 @enduml

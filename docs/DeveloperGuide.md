@@ -166,26 +166,59 @@ When ra.VI runs, there are 3 phases to its lifecycle.
 
 The main sequence diagram can be broken into three parts representing each of these phases.
 
-![Sequence diagram 1 for Main loop](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/MainSequenceDiagram1.png?raw=true)
-The main class `Ravi`'s `start()` method initialises all the classes used by the main class, like `TextUi`,
-`InputOutputManager`, and more. `TimeTableManager` may need user input to be initialised, and so it is placed in a
-validation loop. A welcome message is shown at the end of the initialisation phase.
+![Sequence diagram 1 for Main loop](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/MainSequenceDiagram.png?raw=true)
+This sequence diagram shows the activity of the main class, `Ravi`. When it starts, it first adds the shutdown hook to
+handle both unexpected and normal shutdowns.
 
-![Sequence diagram 2 for Main loop](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/MainSequenceDiagram2.png?raw=true)
-The main loop is contained in the `runCommandLoopUntilExitCommand() method.
+`start()` and `runCommandLoopUntilExitCommand()` are referenced in sequence diagrams below.
+
+Following that, `Ravi` calls the `run()` function, which is just a wrapper for the two methods `start()` and
+`runCommandLoopUntilExitCommand()`. `start()` may throw an exception while trying to load the NUSMods data; if it cannot
+load the NUSMods data, `run()` will show the error message to the user using `TextUi` then return
+to `main()`, where `main()` terminates and ra.VI shuts down.
+
+After `start()` runs successfully, `runCommandLoopUntilExitCommand()` will run until the user gives the exit command,
+`bye`. Subsequently, `run()` will return, `main()` will terminate, and ra.VI shuts down.
+
+The shutdown hook runs right before ra.VI shuts down (i.e. when `main()` terminates or when the process is shut down via
+any other means other than `SIGKILL`). It prints a shutdown message as described in the diagram to assure the user that
+their data is saved.
+
+![Sequence diagram 2 for Main loop](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/MainSequenceDiagramStartSd.png?raw=true)
+This sequence diagram holds the reference for `start()`.
+
+`TextUi` is initialised with a new `Scanner` object set to `System.in` to get user input.
+
+`InputOutputManager` is initialised, which makes it load all user data files and NUSMods data. It will return the
+results of the load (i.e. success or failure) which will be displayed by `TextUi` later on. As mentioned earlier, if
+it fails to load NUSMods data (when resource file is corrupted and there is no Internet connection), it will throw an
+exception so that ra.VI terminates.
+
+`StateManager` is initialised, creating the empty stacks of 'snapshots' as well as pushing the first snapshot (which is
+the starting state) to the stack.
+
+`TimeTableManager` is initialised. The user is required to input the **current NUS week**.
+* If it is currently before or exactly Week 6 of the semester, the user should input the actual week number.
+* If it's currently recess week, the user should input "7".
+* If it's currently after recess week, the user should input the current week number plus one (to account for
+recess week).
+* If it's currently reading week, the user should input "15".
+There is a validation loop to catch invalid user input.
+
+
+![Sequence diagram 3 for Main loop](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/MainSequenceDiagramLoopSd.png?raw=true)
+
+The main loop is contained in the `runCommandLoopUntilExitCommand()` method.
 The main loop follows the following steps:
 1. Get the user input as a string.
 2. Parse the input using `Parser`. `Parser` will return a `Command` object.
-3. Execute the `Command` object with the `execute()` method. This will do the necessary work and return a `CommandResult` object.
-4. If any data was changed, `StateManager` will run `saveState()` to facilitate undo commands.
+3. Execute the `Command` object with the `execute()` method. This will do the necessary work and return a
+`CommandResult` object.
+4. If any data was changed, `StateManager` will run `saveState()` to facilitate undo commands, and `InputOutputManager`
+will run `save()` to save all user data as a measure against unexpected shutdowns.
 5. Finally, use the `CommandResult` object to show the result of the `Command` to the user using `TextUi`.
 
-Note that the `Command` and `CommandResult` objects are destroyed at the end of the method. Additionally, the `Parser` object
-is destroyed after each use.
-
-![Sequence diagram 3 for Main loop](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/MainSequenceDiagram3.png?raw=true)
-After exiting the main loop, the main class calls `InputOutputManager`'s saving methods to save all user data.
-After that, the program terminates.
+Note that the `Command` and `CommandResult` objects are destroyed after use.
 
 ### Add/Delete Feature
 This feature is facilitated by the `TaskManager`, `ModuleManager` classes.
