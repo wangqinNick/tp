@@ -575,8 +575,8 @@ Format: `timetable -reset`
 After reset, it is mandatory to key in the current academic week
 
 Example of usage: <br>
-1.`timetable -reset` <br>
-2. `3`
+* `timetable -reset` <br>
+* `3`
 
 Example of ouput:
 ```
