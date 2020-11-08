@@ -68,84 +68,92 @@ This section describes some noteworthy details on how certain features are imple
 ## Top level classes
 
 This is a class diagram of the top-level of ra.Vi.  
-The classes depicted here are those which are direct dependencies of the main class Ravi.  
-The various dependencies of the classes depicted here are not shown to avoid cluttering, and are described in later sections.  
+The classes depicted here are those which are direct dependencies of the main class `Ravi`.  
+The various dependencies of the classes depicted here are not shown to avoid cluttering, and are described in later
+sections.  
 
 The main class holds the main loop. 
 Most classes used by the main class are static in nature and do not need to be instantiated. 
 
-The Command and CommandResult objects are dependencies of Executor in addition to Ravi. Executor can be
-viewed as a simple layer of abstraction on top of Command and CommandResult to facilitate the execution of user
-commands. Command is a dependency of Parser as Parser creates Command objects to return to the main loop.
+The `Command` and `CommandResult` objects are dependencies of Executor in addition to `Ravi`. `Executor` can be
+viewed as a simple layer of abstraction on top of `Command` and `CommandResult` to facilitate the execution of user
+commands. `Command` is a dependency of `Parser` as `Parser` creates `Command` objects to return to the main loop.
 
 ![UML class diagram for Main Class](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/MainClassDiagram.png?raw=true)
 
 ### Command Family
 
-The Command family of classes are nearly all derived from the abstract Command class, except for
-CommandResult and PromptType. All Command classes belong to the command package. This is shown in the diagram below.
+The Command family of classes are nearly all derived from the abstract `Command` class, except for
+`CommandResult` and `PromptType`. All `Command` classes belong to the `Command` package. This is shown in the diagram
+below.
 
 ![UML class diagram for Command Family Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/CommandClassDiagram.png?raw=true)
 
-PromptType indicates the functionality of the Command object. The most useful type is EDIT, which indicates to
+`PromptType` indicates the functionality of the `Command` object. The most useful type is `EDIT`, which indicates to
 StateManager that there has been a change in state.
 
-The Command classes carry information about the user's command. There is one class for each exact user command. The
-`execute()` function of the Command class generates a CommandResult, which holds the reply to the user. This is shown in the diagram below.
+The `Command` classes carry information about the user's command. There is one class for each exact user command. The
+`execute()` function of the `Command` class generates a `CommandResult`, which holds the reply to the user. This is
+shown in the diagram below.
 
 ![UML sequence diagram for Command Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/CommandSequenceDiagram.png?raw=true)
 
 ### Data Family
 
 The Data family of classes consists of all the abstracted data types required for our features, such as
-Tasks, Modules, and their respective Managers. All Data classes exist in the data package, and the classes
-in charge of saving and loading like InputOutputManager are in the storage subpackage.
+`Task`, `Module`, and their respective Managers. All Data classes exist in the `data` package, and the classes
+in charge of saving and loading like `InputOutputManager` are in the storage subpackage.
 
-Lesson, Task, and Module are the base level abstractions, with their respective Managers containing the logic to store
-and manipulate instances of these objects in a meaningful way. InputOutputManager reads and writes information from the
-various Managers in order to save and load. State and StateManager are specifically for undo and redo functionality.
-They do not interact directly with the rest of the Data family.
+`Lesson`, `Task`, and `Module` are the base level abstractions, with their respective Managers containing the logic
+to store and manipulate instances of these objects in a meaningful way. `InputOutputManager` reads and writes
+information from the various Managers in order to save and load. `State` and `StateManager` are specifically for undo
+and redo functionality. They do not interact directly with the rest of the Data family.
 
-LessonFilter is the only interface in the data package. It allows for flexible creation of filters for powerful user
-filtering of lessons via lambda functions. For example, the user can choose to filter only lectures on Mondays before 2PM.
+`LessonFilter` is the only interface in the data package. It allows for flexible creation of filters for powerful user
+filtering of lessons via lambda functions. For example, the user can choose to filter only lectures on Mondays before
+2PM.
 
-Since there is no command to save or load, InputOutputManager is not a dependency of Command. All the other Managers,
-however, are dependencies of Command as there are commands for using/manipulating each one of them. InputOutputManager
-and Command are then dependencies of the main class Ravi.
+Since there is no `Command` to save or load, `InputOutputManager` is not a dependency of `Command`. All the other
+Managers, however, are dependencies of `Command` as there are commands for using/manipulating each one of them.
+`InputOutputManager` and `Command` are then dependencies of the main class `Ravi`.
 
 ![UML class diagram for Data Family Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/DataClassDiagram.png?raw=true)
 
 ### Parser Family
 
-The Parser family of classes consists of the main Parser class and the xCommandParser subclasses. The main Parser class
-first determines the main command in the user command string. If it is one of the 5 commands with a xCommandParser
-subclass, then Parser delegates the remaining work to the subclass due to the complicated logic involved. Otherwise, it
+The Parser family of classes consists of the main `Parser` class and the `xCommandParser` subclasses. The main `Parser` class
+first determines the main `Command` in the user `Command` string. If it is one of the 10 commands with a `xCommandParser`
+subclass, then `Parser` delegates the remaining work to the subclass due to the complicated logic involved. Otherwise, it
 handles the logic itself.
 
-It will create a Command object, no matter whether the user command is valid or not (if it is not, then an
-IncorrectCommand object is created). This Command object passes back to the main class Ravi for execution.
+**Parser "subclasses" do not inherit from the `Parser` class.** They serve to organise the code that would otherwise all
+be placed in the `Parser` class.
+
+`Parser` will create a `Command` object, no matter whether the user `Command` is valid or not (if it is not, then an
+`IncorrectCommand` object is created). This `Command` object passes back to the main class `Ravi` for execution.
 
 ![UML class diagram for Parser Family Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/ParserClassDiagram.png?raw=true)
 
 
 ### Timetable Family 
 
-The Timetable Family of classes is a _cross-family_ family of classes from the Data and Command families, 
-and consists of the timetable Command and CommandParser classes, as well as TimeTableManager and TimeTable themselves. 
-Extending from the abstract TimeTableCommand class are the TimeTableAddCommand, TimeTableDeleteCommand, TimeTableViewCommand, and TimeTableResetCommand classes.
+The Timetable Family of classes is a _cross-family_ family of classes from the `Data` and `Command` families, 
+and consists of the `TimeTableCommand` and `TimeTableCommandParser` classes, as well as `TimeTableManager` and
+`TimeTable` themselves. Extending from the abstract `TimeTableCommand` class are the `TimeTableAddCommand`,
+`TimeTableDeleteCommand`, `TimeTableViewCommand`, and `TimeTableResetCommand` classes.
 
 ![Class diagram for TimeTable Family Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/TimeTableClassDiagram.png?raw=true)
 
-**This is a good representation of how the other data classes (Task, Module) work as well.** The Command objects
+**This is a good representation of how the other data classes (`Task`, `Module`) work as well.** The `Command` objects
 call the methods held in the Manager classes to perform work on the stored user data.
 
-Upon the first start up of ra.VI, `TimeTableManager.initialise()` will be run. This will no longer run again as long as the user 
-does not tamper with or delete the files in the created data folder.
+Upon the first start up of ra.VI, `TimeTableManager.initialise()` will be run. This will no longer run again in future
+sessions as long as the user does not tamper with or delete the files in the created data folder, or use ra.VI elsewhere.
 
-The TimeTable is created based on the user's initial input, with an appropriate number of LessonManagers.
-The point of entry for this feature will be at TimeTableCommandParser, which will decide which of the commands 
-to return through `parseTimeTableCommand()`. If the TimeTableCommand is returned and executed, the 
-TimeTableManager will carry out the associated commands, adding, deleting or viewing the Lessons in the timetable.
+The `TimeTable` is created based on the user's initial input, with an appropriate number of `LessonManagers`.
+The point of entry for this feature will be at `TimeTableCommandParser`, which will decide which of the commands 
+to return through `parseTimeTableCommand()`. If the `TimeTableCommand` is returned and executed, the 
+`TimeTableManager` will carry out the associated commands, adding, deleting or viewing the lessons in the timetable.
 
 ## Feature explanation with sequence diagrams
 
@@ -159,49 +167,52 @@ When ra.VI runs, there are 3 phases to its lifecycle.
 The main sequence diagram can be broken into three parts representing each of these phases.
 
 ![Sequence diagram 1 for Main loop](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/MainSequenceDiagram1.png?raw=true)
-ra.VI's `start()` method initialises all the classes used by the main class, like TextUi, InputOutputManager, and more.
-TimeTableManager may need user input to be initialised, and so it is placed in a validation loop.
-A welcome message is shown at the end of the initialisation phase.
+The main class `Ravi`'s `start()` method initialises all the classes used by the main class, like `TextUi`,
+`InputOutputManager`, and more. `TimeTableManager` may need user input to be initialised, and so it is placed in a
+validation loop. A welcome message is shown at the end of the initialisation phase.
 
 ![Sequence diagram 2 for Main loop](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/MainSequenceDiagram2.png?raw=true)
-The main loop is contained in the 'runCommandLoopUntilExitCommand()' method.
+The main loop is contained in the `runCommandLoopUntilExitCommand() method.
 The main loop follows the following steps:
-1. Get the user command as a string.
-2. Parse the command using Parser. Parser will return a Command object.
-3. Execute the Command object with the `execute()` method. This will do the necessary work and return a CommandResult object.
-4. If any data was changed, StateManager will run `saveState()` to facilitate undo commands.
-5. Finally, use the CommandResult object to show the result of the command to the user using TextUi.
+1. Get the user input as a string.
+2. Parse the input using `Parser`. `Parser` will return a `Command` object.
+3. Execute the `Command` object with the `execute()` method. This will do the necessary work and return a `CommandResult` object.
+4. If any data was changed, `StateManager` will run `saveState()` to facilitate undo commands.
+5. Finally, use the `CommandResult` object to show the result of the `Command` to the user using `TextUi`.
 
-Note that the Command and CommandResult objects are destroyed at the end of the method. Additionally, the Parser object
+Note that the `Command` and `CommandResult` objects are destroyed at the end of the method. Additionally, the `Parser` object
 is destroyed after each use.
 
 ![Sequence diagram 3 for Main loop](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/MainSequenceDiagram3.png?raw=true)
-After exiting the main loop, the main class calls InputOutputManager's saving methods to save all user data.
+After exiting the main loop, the main class calls `InputOutputManager`'s saving methods to save all user data.
 After that, the program terminates.
 
 ### Add/Delete Feature
-This feature is facilitated by the TaskManager, ModuleManager classes.
-Extending from the abstract Command class are the AddModule, AddTask Command classes. This feature implements the following operations:
-* AddTask - Add a task to the task list through `TaskManager.add()`
-* AddModule - Add a module to the module list through `ModuleManager.add()`
-* DeleteTask - Deletes a task from the task list through `TaskManager.delete()`
-* DeleteModule - Deletes a module from the module list through `ModuleManager.delete()`
+This feature is facilitated by the `TaskManager`, `ModuleManager` classes.
+Extending from the abstract `Command` class are the `AddModuleCommand` and `AddTaskCommand` classes. This feature implements
+the following operations:
+* Add tasks - Add a task to the task list through `TaskManager.add()`
+* Add modules - Add a module to the module list through `ModuleManager.add()`
+* Delete tasks - Deletes a task from the task list through `TaskManager.delete()`
+* Delete modules - Deletes a module from the module list through `ModuleManager.delete()`
 
 ![Sequence diagram for AddCommand](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/AddCommandSequenceDiagram.png?raw=true)
 
 As seen from the sequence diagram above, this is the flow of an add command.\
-AddCommand is an abstract class, inheriting from it are AddTaskCommand and AddModuleComand.\
-The AddCommandParser decides to create either AddModuleCommand, AddTaskCommand or IncorrectCommand objects based on the user input.\
-Each of these have an execute() function that creates a CommandResult object that shows the user the result of the command through TextUi, using `showOutputToUser()`
+`AddCommand` is an abstract class, inheriting from it are `AddTaskCommand` and `AddModuleCommand`.\
+The `AddCommandParser` decides to create either `AddModuleCommand`, `AddTaskCommand` or `IncorrectCommand` objects
+based on the user input.\
+Each of these have an `execute()` function that creates a `CommandResult` object that shows the user the result of
+the `Command` through `TextUi`, using `showOutputToUser()`
 
 Given below is an example usage scenario and how the add feature behaves at each step.
 
 1. The user launches the application for the first time.
 
 2. The user inputs `add -m CS2101` into ra.VI, as the user wants to note down a module named ‘CS2101’ and add it to their module list.\
-The Ui receives the input as a string. Parser parses the string, and thereafter the AddCommandParser, before creating an AddModuleCommand. 
+`TextUi` receives the input as a string. `Parser` and `AddCommandParser` parse the string before creating an `AddModuleCommand`. 
 
-3. The AddModuleCommand is executed, returning a `CommandResult` containing a success message if the module has been successfully added.\
+3. The `AddModuleCommand` is executed, returning a `CommandResult` containing a success message if the module has been successfully added.\
 Otherwise, an exception message will be shown explaining the exception to the user.\
 Common reasons for failure include:
 
@@ -214,20 +225,23 @@ e.g. `add -t task -by 2nd Jan`
 e.g. `add -m CS1010` but the module list already contains `CS1010`
 
 ### List Feature
-This feature is facilitated by the TaskManager and ModuleManager classes.  
+This feature is facilitated by the `TaskManager` and `ModuleManager` classes.  
 It extends from the abstract `Command` class.  
 This feature implements the following operations:
 * List tasks - List all tasks in the task list through `TaskManager.list()`
-* List modules - List all modules in module map through `ModuleManager.list()`
+* List modules - List all modules in the module map through `ModuleManager.list()`
 
 ![Sequence diagram for List Feature in Command class](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/ListCommandSequenceDiagram.png?raw=true)
 
 As seen from the sequence diagram above, this is the flow of `ListCommand`.  
-`ListCommandParser` class calls ListCommand(1), ListCommand(0), or InvalidParameterException() methods based on the user input.
+`ListCommandParser` class calls `ListCommand(1)`, `ListCommand(0)`, or throws an `InvalidParameterException()`
+based on the user input.
 
-`ListCommand` has an execute method. Depending on the type of entry, `ListCommand` calls list() method of `TaskManager` if it is TASK, or list() method of `ModuleManager` if it is MODULE. Both objects return output.
+`ListCommand` has an `execute()` method. Depending on the type of entry, `ListCommand` calls `list()` method of
+`TaskManager` if it is "TASK", or `list()` method of `ModuleManager` if it is "MODULE".
 
-If output is null, `ListCommand` calls CommandResult(MESSAGE_LIST_EMPTY), creating a `CommandResult` object. Else, `ListCommand` calls CommandResult(MESSAGE_LIST_PRINTED + output), creating a `CommandResult` object.
+If output is null, `ListCommand` calls `CommandResult(MESSAGE_LIST_EMPTY)`, creating a `CommandResult` object.
+Else, `ListCommand` calls `CommandResult(MESSAGE_LIST_PRINTED + output)`, creating a `CommandResult` object.
 
 `ListCommand` returns `CommandResult`. 
 
@@ -241,13 +255,13 @@ Given below is an example usage scenario and how the cap feature behaves at each
 * `add -m CS2101`
 * `add -m CG2271`
 
-4. The user inputs `list -t`. The CommandResult returns  
+4. The user inputs `list -t`. The `CommandResult` returns  
 ```
 1. Read book [x]
 2. Return book [x], by 02:00PM, Friday, 02 Oct 20 
 3. Meeting [x]
 ```
-Step 5. The user inputs `list -m`. The CommandResult returns  
+Step 5. The user inputs `list -m`. The `CommandResult` returns  
 ```
 1. CS2113T: Software Engineering & Object-Oriented Programming: No grade yet
 2. CG2271: Real-Time Operating Systems: No grade yet
@@ -255,80 +269,80 @@ Step 5. The user inputs `list -m`. The CommandResult returns
 ```
 
 ### CAP Feature 
-This feature is faciliatated by ModuleManager and Module classes.
-It extends `Command` and runs through the `ModuleManager`, checking every `grade` and `moduleCredit`.
-* `CapCommand.gradeConvert` - Takes the grade of a module and assigns it a value according to the NUS grading schematic
-* `CapCommand.calculateCap` - Uses a formula to calculate the user's current cap, with the user's total Module Credit taken and current CAP.
+This feature is faciliatated by `ModuleManager` and `Module` classes.
+It extends `Command` and runs through the `ModuleManager`, checking every `Module`'s grade and module credit.
+* Calculate user's CAP - Uses a formula to calculate the user's current cap, with the user's total Module Credits taken
+and latest CAP.
 
 ![Sequence diagram for Cap Feature in Command class](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/CapCommandSequenceDiagram.png?raw=true)
 
 As seen from the sequence diagram above, this is the flow of a CAP command.
-The CapCommandParser parses the user's input and assigns the relevant attributes in the CAP Command constructor, 
-such as `totalMcTaken` and `currentCap`.
-When Cap Command executes, a CommandResult object is created that calculates the user's current cap after taking into 
-account the current `ModuleManager` modules and the past semester's total MC taken and current CAP.
+The `CapCommandParser` parses the user's input and calls the `CapCommand` constructor.
+When `CapCommand` executes, a `CommandResult` object is created that calculates the user's current cap after taking into 
+account the current modules and the past semester's total MC taken and latest CAP.
 
 Given below is an example usage scenario and how the CAP feature behaves at each step. 
 
 1. The user launches the application for the first time. 
 
-2. The user inputs `add -m CS2101` into ra.VI, as the user adds a module he's taking into the `ModuleManager`.
+2. The user inputs `add -m CS2101` into ra.VI, as the user adds a module they are taking into the `ModuleManager`.
 The user keys in as many modules into ra.VI as they are taking. 
 
-3. Once the user attains a grade for the modules keyed in, he inputs `grade CS2101 4 A-` and grades all the other
-modules he has taken.
+3. Once the user attains a grade for the modules keyed in, they inputs `grade CS2101 4 A-` (4 MCs, A grade) to record the
+grade for their module. They does this for all the other modules they have taken.
 
-4. Once every module in the `ModuleManager` has been graded, he inputs `cap 46 4.24` to calculate his accumulative 
-CAP after attaining his new grades.
+4. Once every module in the `ModuleManager` has been graded, they inputs `cap 46 4.24` to calculate their accumulative 
+CAP after attaining their new grades.
 
-5. The `CommandResult` returns the success message to show the user his current CAP after attaining his grades.
+5. The `CommandResult` returns the success message to show the user their current CAP after attaining their grades.
 
 ### Grade Feature 
-This feature is facilitated by ModuleManager and Module classes. 
-It extends `Command` and is stored internally inside `Module` as an `grade` and `moduleCredit`.
-* `GradeCommand.testgrade(stringGrade)` - checks if the input grade is valid according to NUS grading schematic 
-* `GradeCommand.grade(moduleModule)` - assigns the specific module present in the module list, the grade and moduleCredit attributes.
+This feature is facilitated by `ModuleManager` and `Module` classes. 
+It extends `Command` and is stored internally inside `Module` as a `grade` and `moduleCredit`.
+* Grading a module - assigns a grade and MC number to a specific module present in the module list.
 
 ![Sequence diagram for Grade Feature in Command class](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/GradeCommandSequenceDiagram.png?raw=true)
 
 As seen from the sequence diagram above, this is the flow of a Grade command.
-The GradeCommandParser parses the user's input, and assigns the relevant attributes in the Grade Command constructor, such as `moduleCredit` and `grade`
-When Grade Command executes,a CommandResult object is created that shows the user the result of the command through TextUi, using `showOutputToUser()`
+The `GradeCommandParser` parses the user's input, and assigns the relevant attributes in the `GradeCommand` constructor,
+such as `moduleCredit` and `grade`. When `GradeCommand` executes,a `CommandResult` object is created that shows
+the user the result of the `Command` through `TextUi`, using `showOutputToUser()`.
 
 Given below is an example usage scenario and how the grade feature behaves at each step.
 
 1. The user launches the application. The user inputs `add -m CS2101` into ra.VI, as the user wants to note down 
-a module named ‘CS2101’ and add it to their module list. This input is received by the Ui ,which processes it into 
-a string. The parser parses the string and allocates it to the AddCommand where it is added to the list of modules. 
+a module named ‘CS2101’ and add it to their module list.
 
-2. The user inputs `grade CS2101 4 A+`. The parser parses and allocates the user input to GradeCommand. 
-`GradeCommand.execute()` is called and moduleManager checks if such a module exists in the user’s module list, 
-then checks if the input grade is valid according to the NUS grading schematic and finally assigns the specific module, 
-the grade and module credits.
+2. The user inputs `grade CS2101 4 A+`. The `Parser` parses and allocates the user input to `GradeCommand`. 
+`GradeCommand.execute()` is called and `ModuleManager` checks if such a module exists in the user’s module list, 
+then checks if the input grade is valid according to the NUS grading schematic. Finally, it assigns the specific module
+with the grade and module credits.
 
 3. The `CommandResult` returns the success message to show the user that their module has successfully been graded. 
 Otherwise, an exception message will be shown regarding the exception caught.
 
 ### Timetable Feature
-This feature is facilitated by the TimeTableManager class and TimeTableCommand class.
-Extending from the abstract TimeTableCommand class are the TimeTableAddCommand, TimeTableDeleteCommand, TimeTableViewCommand and TimeTableResetCommand classes.
-* AddLesson - Add a Lesson to the timetable through `TimeTableManager.addLesson()`
-* DeleteLesson - Delete all associated Lessons from the timetable through `TimeTableManager.deleteLesson()`
-* ViewTimeTable - List all Lessons in the timetable through `TimeTableManager.getSpecificDayLessons()` or `TimeTableManager.getSpecifiedWeekLessons()`
-* ResetTimeTable - Reset timetable through `TimeTableManager.initialiseTimetable()` 
+This feature is facilitated by the `TimeTableManager` class and `TimeTableCommand` class.
+Extending from the abstract `TimeTableCommand` class are the `TimeTableAddCommand`, `TimeTableDeleteCommand`,
+`TimeTableViewCommand` and `TimeTableResetCommand` classes.
+* Add a lesson - Add a lesson to the timetable through `TimeTableManager.addLesson()`
+* Delete a lesson - Delete all associated lessons from the timetable through `TimeTableManager.deleteLesson()`
+* View today's timetable - List all lessons for today through `TimeTableManager.getSpecificDayLessons()`
+* View this week's timetable - List all lessons in this week through `TimeTableManager.getSpecifiedWeekLessons()`
+* Reset timetable - Reset the whole timetable through `TimeTableManager.initialiseTimetable()` 
 
 #### Add lesson/s to timetable
 Given below is an example scenario to add a lesson to the timetable and how the timetable feature behaves at each step.
 
 1. The user launches the application for the first time. ra.VI asks for the current NUS week. This input is parsed and 
-initialises the TimeTableManager. 
+initialises the `TimeTableManager`. 
 
 2. The user inputs `add -m CS2101`, as the user wants to note down a module named `CS2101` and add it to their module list.
 
 3. The user inputs `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 1`. This means the user wants to add a `CS2101 LECTURE` 
-that occurs once a week on `TUESDAY 0800 1000`. This command will be parsed and eventually returns a TimeTableAddCommand.
+that occurs once a week on `TUESDAY 0800 1000`. This `Command` will be parsed and eventually returns a `TimeTableAddCommand`.
 
-Step 4. The TimeTableAddCommand is executed, returning a `CommandResult` containing a success message if the Lessons have 
+4. The `TimeTableAddCommand` is executed, returning a `CommandResult` containing a success message if the lesson has 
 been successfully added. Otherwise, an exception message will be shown explaining the exception to the user.\
 Common reasons for failure include:
 
@@ -345,23 +359,23 @@ e.g. `timetable -add BAD TUESDAY 0800 1000 LECTURE 1` but the module list does n
 Given below is an example scenario to delete a lesson from the timetable and how the timetable feature behaves at each step.
 
 1. The user launches the application for the first time. ra.VI asks for the current NUS week. This input is parsed 
-and initialises the TimeTableManager. 
+and initialises the `TimeTableManager`. 
 
 2. The user inputs `add -m CS2101`, as the user wants to note down a module named `CS2101` and add it to their module list.
 
 3. The user inputs `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 1`. This means the user wants to add a 
-`CS2101 LECTURE` that occurs once a week on `TUESDAY 0800 1000`. This command will be parsed and eventually returns a 
-TimeTableAddCommand.
+`CS2101 LECTURE` that occurs once a week on `TUESDAY 0800 1000`. This `Command` will be parsed and eventually returns a 
+`TimeTableAddCommand`.
 
 4. The user inputs `timetable -del TUESDAY 1`. This means the user wants to delete the `CS2101 TUESDAY 0800 1000 LECTURE` 
 lessons. The `1` at the end reflects lessons on index `1` on `TUESDAY` as reflected by `timetable -day` or `timetable -week`. 
-This command will be parsed and eventually returns a TimeTableDeleteCommand.
+This `Command` will be parsed and eventually returns a `TimeTableDeleteCommand`.
 
-5. The TimeTableDeleteCommand is executed, returning a `CommandResult` containing a success message if the Lessons 
+5. The `TimeTableDeleteCommand` is executed, returning a `CommandResult` containing a success message if the lessons 
 have been successfully deleted. Otherwise, an exception message will be shown explaining the exception to the user.
 Common reasons for failure include:
 
-* Wrong command format\
+* Wrong Command format\
 e.g. `timetable -del TUE 1`.
 * Lesson does not exist in the timetable\
 e.g. `timetable -del TUESDAY 5` but the timetable does not contain a lesson/s on `TUESDAY` at index `5`. Current 
@@ -386,7 +400,7 @@ Given below is an example scenario to filter the timetable for CS2101 LECTURE.
 
 3. All CS2101 lectures in the timetable are shown to the user. The user is able to see the CS2101 weekly lectures that were previously added in step 1.
 
-* Wrong command format\
+* Wrong Command format\
 e.g. `timetable -filter`
 
 #### Reset the timetable
@@ -394,7 +408,7 @@ Given below is an example scenario to reset the timetable.
 
 1. The user inputs `timetable -reset`.  
 
-2. ra.VI will ask for the current NUS week. This input is parsed and reinitialises the TimeTableManager with a new Timetable. 
+2. ra.VI will ask for the current NUS week. This input is parsed and re-initialises the `TimeTableManager` with a new `Timetable`. 
 
 ## User Stories
 
@@ -419,9 +433,9 @@ Given below is an example scenario to reset the timetable.
 
 ## Non-Functional Requirements
 
-{Give non-functional requirements}
 * Should work on any mainstream OS as long as it has Java 11 or above installed.
-* A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+* A user with above average typing speed for regular English text (i.e. not code, not system admin commands)
+should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 ## Glossary
 
@@ -432,10 +446,10 @@ Given below is an example scenario to reset the timetable.
 Given below are instructions to test the app manually.
 
 1. Download the latest version of `ra.VI` from [here](https://github.com/AY2021S1-CS2113T-T09-2/tp/releases/tag/v2.0) and copy it into an empty folder.
-2. Open a new terminal window and navigate to the same directory where ravi.jar is located. 
+2. Open a new terminal window and navigate to the same directory where `ravi.jar` is located. 
 3. Enter the command `java -jar ravi.jar` into the terminal window to launch the application. The application should now be running.
 4. Enter the command `help` to get a list of all available commands and its usages.
-5. For a detailed list on the command features, refer to the [user guide](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/UserGuide.md).
+5. For a detailed list on available features, refer to the [user guide](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/UserGuide.md).
 6. Simply enter `bye` to terminate and exit the application.
 
 ### Adding a task w/ deadline
@@ -559,7 +573,7 @@ Given below are instructions to test the app manually.
 ### Undo the previous command
 1. Undo previous action:
     1. Test case: `undo`, after the user has input in an initial command.\
-    Expected: The previous command that was input will be undone. Details of the success of the undone will be shown.
+    Expected: The previous Command that was input will be undone. Details of the success of the undone will be shown.
     2. Test case: `undo`, without any initial input by the user.\
     Expected: Due to the fact that there is nothing to undo as there was no user input, details of the associated error message will be shown.
 
