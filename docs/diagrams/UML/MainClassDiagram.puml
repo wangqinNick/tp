@@ -3,9 +3,6 @@
 hide circle
 skinparam classAttributeIconSize 0
 
-class Duke {
-    TextUi ui
-}
 class Executor
 class Scanner
 
@@ -29,17 +26,14 @@ package ui {
     }
 }
 
-Ravi "1" *-- TextUi
-Ravi <.. Parser
-Ravi <.. Command
-Ravi <.. CommandResult
-Ravi <.. Executor
-Ravi <.. InputOutputManager
-Ravi <.. StateManager
+Ravi .> ui
+Ravi ..> Executor
+Ravi ...> data
+Ravi ..> command
 
-Parser <.. Command
-Executor <.. Command
-Executor <.. CommandResult
+Executor ..> parser
+parser ..> command
+Executor ..> command
 
 TextUi "1" *-- Scanner
 
