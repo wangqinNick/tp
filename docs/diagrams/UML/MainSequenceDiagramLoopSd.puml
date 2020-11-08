@@ -1,0 +1,50 @@
+@startuml
+mainframe sd runCommandLoopUntilExitCommand()
+
+participant ":Ravi" as Ravi << Class >>
+participant ":TextUi" as Ui << Class >>
+participant ":Executor" as Ex << Class >>
+participant ":Parser" as P << Class >>
+participant ":InputOutputManager" as IO << Class >>
+participant ":StateManager" as State << Class >>
+
+-> Ravi ++ : runCommandLoopUntilExitCommand()
+
+loop do while Exit command not received
+
+    Ravi -> Ui ++ : Get user input
+    |||
+    return User input string
+
+    Ravi -> Ex ++ : Send user input to be parsed and executed
+        Ex -> P ++ : Parse user input
+            P -> ":Command" ** : Construct relevant\nCommand
+            activate ":Command"
+                ":Command" -> ":CommandResult" ** : Construct\nCommandResult
+                activate ":CommandResult"
+                return CommandResult object
+            return Command object
+        return Command object
+
+        Ex -> ":Command" ++ : Execute Command
+        return CommandResult object
+        destroy ":Command"
+        |||
+
+        opt If user made changes to data
+            Ex -> IO ++ : Save data
+            return
+
+            Ex -> State ++ : Save state
+            return
+        end opt
+    return CommandResult object
+
+    Ravi -> Ui ++ : Show CommandResult to user
+    |||
+    return
+
+end loop
+return
+
+@enduml
