@@ -8,12 +8,14 @@
 
 -> ":CapCommand" ++ : execute()
     ":CapCommand" -> ":CapCommand" ++ : calculateCap()
+        |||
         participant ":ModuleManager" as MM << Class >>
         ":CapCommand" -> MM ++ : getModuleMap()
         return moduleList
-
+        |||
         ":CapCommand" -> ":CapCommand" ++ : gradeConvert(moduleList)
         return mcGrade
+        |||
     return CAP
 
     create ":CommandResult"

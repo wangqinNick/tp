@@ -10,10 +10,11 @@
     participant ":ModuleManager" as MM << Class >>
     ":GradeCommand" -> MM ++ : getModule()
     ":GradeCommand" <-- MM -- :moduleToBeGraded
-
+    |||
     ":GradeCommand" -> ":GradeCommand" ++ : grade(moduleToBeGraded)
         alt testGrade(grade)
             ":GradeCommand" -> MM ++ : grade(module,grade,moduleCredit)
+            |||
             ":GradeCommand" <-- MM --
         else
             <-- ":GradeCommand" : InvalidGradeException()
