@@ -369,6 +369,10 @@ Given below is an example scenario to reset the timetable.
 
 2. ra.VI will ask for the current NUS week. This input is parsed and reinitialises the TimeTableManager with a new Timetable. 
 
+### [Proposed] Notes Feature
+The proposed notes feature is facililated by the __
+
+It implements the following operations 
 
 ## Appendix A: Product scope
 ### Target user profile
