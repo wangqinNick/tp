@@ -65,7 +65,7 @@ to distract you; only simple commands to give you what you want.
 ## Implementation
 This section describes some noteworthy details on how certain features are implemented.
 
-## Top level classes
+### Top level classes
 
 This is a class diagram of the top-level of ra.Vi.  
 The classes depicted here are those which are direct dependencies of the main class `Ravi`.  
@@ -81,7 +81,7 @@ commands. `Command` is a dependency of `Parser` as `Parser` creates `Command` ob
 
 ![UML class diagram for Main Class](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/MainClassDiagram.png?raw=true)
 
-### Command Family
+#### Command Family
 
 The Command family of classes are nearly all derived from the abstract `Command` class, except for
 `CommandResult` and `PromptType`. All `Command` classes belong to the `Command` package. This is shown in the diagram
@@ -98,7 +98,7 @@ shown in the diagram below.
 
 ![UML sequence diagram for Command Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/CommandSequenceDiagram.png?raw=true)
 
-### Data Family
+#### Data Family
 
 The Data family of classes consists of all the abstracted data types required for our features, such as
 `Task`, `Module`, and their respective Managers. All Data classes exist in the `data` package, and the classes
@@ -119,7 +119,7 @@ Managers, however, are dependencies of `Command` as there are commands for using
 
 ![UML class diagram for Data Family Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/DataClassDiagram.png?raw=true)
 
-### Parser Family
+#### Parser Family
 
 The Parser family of classes consists of the main `Parser` class and the `xCommandParser` subclasses. The main `Parser` class
 first determines the main `Command` in the user `Command` string. If it is one of the 10 commands with a `xCommandParser`
@@ -135,7 +135,7 @@ be placed in the `Parser` class.
 ![UML class diagram for Parser Family Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/ParserClassDiagram.png?raw=true)
 
 
-### Timetable Family 
+#### Timetable Family 
 
 The Timetable Family of classes is a _cross-family_ family of classes from the `Data` and `Command` families, 
 and consists of the `TimeTableCommand` and `TimeTableCommandParser` classes, as well as `TimeTableManager` and
@@ -155,9 +155,9 @@ The point of entry for this feature will be at `TimeTableCommandParser`, which w
 to return through `parseTimeTableCommand()`. If the `TimeTableCommand` is returned and executed, the 
 `TimeTableManager` will carry out the associated commands, adding, deleting or viewing the lessons in the timetable.
 
-## Feature explanation with sequence diagrams
+### Feature explanation with sequence diagrams
 
-### Main loop sequence
+#### Main loop sequence
 When ra.VI runs, there are 3 phases to its lifecycle.
 
 1. Initialisation
@@ -220,7 +220,7 @@ will run `save()` to save all user data as a measure against unexpected shutdown
 
 Note that the `Command` and `CommandResult` objects are destroyed after use.
 
-### Add/Delete Feature
+#### Add/Delete Feature
 This feature is facilitated by the `TaskManager`, `ModuleManager` classes.
 Extending from the abstract `Command` class are the `AddModuleCommand` and `AddTaskCommand` classes. This feature implements
 the following operations:
@@ -257,7 +257,7 @@ e.g. `add -t task -by 2nd Jan`
 * Module already exists in module list\
 e.g. `add -m CS1010` but the module list already contains `CS1010`
 
-### List Feature
+#### List Feature
 This feature is facilitated by the `TaskManager` and `ModuleManager` classes.  
 It extends from the abstract `Command` class.  
 This feature implements the following operations:
@@ -301,7 +301,7 @@ Step 5. The user inputs `list -m`. The `CommandResult` returns
 3. CS2101: Effective Communication for Computing Professionals: No grade yet
 ```
 
-### CAP Feature 
+#### CAP Feature 
 This feature is faciliatated by `ModuleManager` and `Module` classes.
 It extends `Command` and runs through the `ModuleManager`, checking every `Module`'s grade and module credit.
 * Calculate user's CAP - Uses a formula to calculate the user's current cap, with the user's total Module Credits taken
@@ -329,7 +329,7 @@ CAP after attaining their new grades.
 
 5. The `CommandResult` returns the success message to show the user their current CAP after attaining their grades.
 
-### Grade Feature 
+#### Grade Feature 
 This feature is facilitated by `ModuleManager` and `Module` classes. 
 It extends `Command` and is stored internally inside `Module` as a `grade` and `moduleCredit`.
 * Grading a module - assigns a grade and MC number to a specific module present in the module list.
@@ -354,7 +354,7 @@ with the grade and module credits.
 3. The `CommandResult` returns the success message to show the user that their module has successfully been graded. 
 Otherwise, an exception message will be shown regarding the exception caught.
 
-### Timetable Feature
+#### Timetable Feature
 This feature is facilitated by the `TimeTableManager` class and `TimeTableCommand` class.
 Extending from the abstract `TimeTableCommand` class are the `TimeTableAddCommand`, `TimeTableDeleteCommand`,
 `TimeTableViewCommand` and `TimeTableResetCommand` classes.
@@ -364,7 +364,7 @@ Extending from the abstract `TimeTableCommand` class are the `TimeTableAddComman
 * View this week's timetable - List all lessons in this week through `TimeTableManager.getSpecifiedWeekLessons()`
 * Reset timetable - Reset the whole timetable through `TimeTableManager.initialiseTimetable()` 
 
-#### Add lesson/s to timetable
+##### Add lesson/s to timetable
 Given below is an example scenario to add a lesson to the timetable and how the timetable feature behaves at each step.
 
 1. The user launches the application for the first time. ra.VI asks for the current NUS week. This input is parsed and 
@@ -388,7 +388,7 @@ e.g. `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 5`
 e.g. `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 1` but the module list does not contain `CS2101`. Available modules can be found by entering `list -m`
 e.g. `timetable -add BAD TUESDAY 0800 1000 LECTURE 1` but the module list does not contain `BAD` and `BAD` is not a valid NUS module.
 
-#### Delete lesson/s from timetable
+##### Delete lesson/s from timetable
 Given below is an example scenario to delete a lesson from the timetable and how the timetable feature behaves at each step.
 
 1. The user launches the application for the first time. ra.VI asks for the current NUS week. This input is parsed 
@@ -414,7 +414,7 @@ e.g. `timetable -del TUE 1`.
 e.g. `timetable -del TUESDAY 5` but the timetable does not contain a lesson/s on `TUESDAY` at index `5`. Current 
 lessons can be found by entering `timetable -day` or `timetable -week`.
 
-#### View the timetable
+##### View the timetable
 Given below is an example scenario to view the timetable for the day.
 
 1. The user adds a lesson to the timetable for today, for e.g. `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 1`.
@@ -424,7 +424,7 @@ Given below is an example scenario to view the timetable for the day.
 3. The timetable for the day is shown to the user. The user is able to see the Tuesday CS2101 lecture that was 
 previously added in step 1.
 
-#### Filter the timetable
+##### Filter the timetable
 Given below is an example scenario to filter the timetable for CS2101 LECTURE.
 
 1. The user adds a lesson to the timetable for today, for e.g. `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 1`.
@@ -436,7 +436,7 @@ Given below is an example scenario to filter the timetable for CS2101 LECTURE.
 * Wrong Command format\
 e.g. `timetable -filter`
 
-#### Reset the timetable
+##### Reset the timetable
 Given below is an example scenario to reset the timetable. 
 
 1. The user inputs `timetable -reset`.  
