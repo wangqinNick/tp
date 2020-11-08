@@ -90,10 +90,10 @@ CommandResult and PromptType. All Command classes belong to the command package.
 PromptType indicates the functionality of the Command object. The most useful type is EDIT, which indicates to
 StateManager that there has been a change in state.
 
-The Command classes carry information about the user's command. There is one class for each exact user command.  
-The `execute()` function of the Command class generates a CommandResult, which holds the reply to the user. This is shown in the diagram below.
+The Command classes carry information about the user's command. There is one class for each exact user command. The
+`execute()` function of the Command class generates a CommandResult, which holds the reply to the user. This is shown in the diagram below.
 
-![UML class diagram for Command Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/CommandSequenceDiagram.png?raw=true)
+![UML sequence diagram for Command Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/CommandSequenceDiagram.png?raw=true)
 
 ### Data Family
 
