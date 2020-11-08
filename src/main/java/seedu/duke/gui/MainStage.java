@@ -19,6 +19,9 @@ import seedu.duke.Executor;
 import seedu.duke.PacApp;
 import seedu.duke.command.Command;
 import seedu.duke.data.CommandManager;
+import seedu.duke.data.StorageManager;
+import seedu.duke.data.StoragePath;
+import seedu.duke.gui.util.AutoCompleteTextField;
 import seedu.duke.gui.util.DailyTaskCounter;
 import seedu.duke.parser.Parser;
 
@@ -92,6 +95,7 @@ public class MainStage implements Initializable {
         String userInput = console.getText().trim();
         Command parsedCommand = Parser.parseCommand(userInput);
         new Executor(consoleScreen).executeCommand(parsedCommand);
+        new StorageManager(StoragePath.SAVE_PATH).saveList();
         CommandManager.add(userInput);
         refreshScene();
     }

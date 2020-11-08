@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import seedu.duke.data.ScreenShotManager;
+import seedu.duke.data.StorageManager;
+import seedu.duke.data.StoragePath;
 import seedu.duke.data.SystemSetting;
 
 import java.io.IOException;
@@ -15,7 +17,7 @@ import java.io.IOException;
  * Runs the application.
  */
 public class PacApp extends Application {
-
+    StorageManager storageManager;
     public PacApp() {
 
     }
@@ -29,8 +31,10 @@ public class PacApp extends Application {
         super.init();
         //todo initialize
         //SystemSetting.initialise();
+        storageManager = new StorageManager(StoragePath.SAVE_PATH);
         //TaskManager.initialise();
         SystemSetting.initialise();
+        storageManager.loadList();
         ScreenShotManager.initialise();
         //IOManager.loadList();
         //StateManager.initialise();

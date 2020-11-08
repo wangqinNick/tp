@@ -68,7 +68,7 @@ public class ChangeDirectoryCommand extends Command {
         // Traverse to specified directory
         if (directory != null) {
             DirectoryTraverser.traverseTo(directory);
-            return new CommandResult(null);
+            return new CommandResult(directory.toString());
         }
 
         // Traverse up or down current directory
@@ -81,11 +81,11 @@ public class ChangeDirectoryCommand extends Command {
                 if(DirectoryTraverser.getCurrentDirectoryLevel() == DirectoryLevel.ROOT){
                     ArrayList<Module> filteredModuleList = ModuleManager.getModuleList();
                     var listMessage = TextUi.getAppendedModules(filteredModuleList);
-                    return new CommandResult(listMessage);
+                    return new CommandResult("root");
                 }
             }
             // No feedback for successful traversal
-            return new CommandResult(null);
+            return new CommandResult(nextDirectoryName);
         } catch (DirectoryTraversalOutOfBoundsException e) {
             return new CommandResult(MESSAGE_FAILED_DIRECTORY_TRAVERSAL);
         } catch (DataNotFoundException e) {
