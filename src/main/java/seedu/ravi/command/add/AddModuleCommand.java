@@ -18,8 +18,8 @@ public class AddModuleCommand extends AddCommand {
     private final String module;
     public static final String FORMAT = COMMAND_WORD + " -m <module_code>";
     public static final String HELP =   "Add a module from NUSMods to the scheduler."
-                                        + "\n\tFormat: " + FORMAT
-                                        + "\n\tExample usage: add -m CS2113T";
+                                        + "\n\t@|bold,blue,BG_BLACK Format:|@ " + FORMAT
+                                        + "\n\t@|bold,blue,BG_BLACK Example usage:|@ add -m CS2113T";
 
     /**
      * Constructs AddModuleCommand.

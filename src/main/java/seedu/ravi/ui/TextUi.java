@@ -242,7 +242,7 @@ public class TextUi {
      *  The list of available commands
      */
     public static String getCommandHelpMessage(String commandWord) {
-        return String.format("For more information on %s, type `help %s`", commandWord, commandWord);
+        return String.format("For more information on %s, type `help %s`.", commandWord, commandWord);
     }
 }
 

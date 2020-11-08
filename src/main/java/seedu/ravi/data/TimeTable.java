@@ -5,9 +5,9 @@ import java.util.HashMap;
 
 public class TimeTable {
     private HashMap<Integer, LessonManager> semesterMap = new HashMap<>();
-    public int semStartWeekNum;
-    public int semEndWeekNum;
-    public int semRecessWeekNum;
+    private int semStartWeekNum;
+    private int semEndWeekNum;
+    private int semRecessWeekNum;
 
     public TimeTable() {
 

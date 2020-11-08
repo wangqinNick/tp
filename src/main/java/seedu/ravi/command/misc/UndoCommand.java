@@ -14,7 +14,7 @@ import static seedu.ravi.util.Message.MESSAGE_UNDO_SUCCESS;
 public class UndoCommand extends Command {
     public static final String COMMAND_WORD = "undo";
     public static final String HELP =   "Undo last action."
-                                        + "\n\tFormat: " + COMMAND_WORD;
+                                        + "\n\t@|bold,blue,BG_BLACK Format:|@ " + COMMAND_WORD;
 
     public UndoCommand() {
         this.promptType = PromptType.INFORMATIVE;

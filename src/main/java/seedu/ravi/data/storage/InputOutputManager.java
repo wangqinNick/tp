@@ -205,7 +205,7 @@ public class InputOutputManager {
             } else {
                 logger.getLogger().warning("No task data to save!");
             }
-            if (!TimeTableManager.checkIsInitialised()) {
+            if (TimeTableManager.isInitialised()) {
                 Encoder.saveTimetable(TIMETABLE_FILE.toString());
                 logger.getLogger().info("Saved timetable data to " + TTABLE_F_NAME);
             } else {

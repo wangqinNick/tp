@@ -56,6 +56,12 @@ public class AddCommandParser {
         String commandFlag = Parser.isMatcherNull(matcher.group(COMMAND_FLAG_GROUP))
                 ? null : matcher.group(COMMAND_FLAG_GROUP).toLowerCase().trim();
 
+        if (!(commandFlag.equals(MODULE_PREFIX) || commandFlag.equals(TASK_PREFIX))) {
+            return new IncorrectCommand(String.format("%s%s\n\n%s%s\n\n%s\n",
+                    MESSAGE_INVALID_COMMAND_FORMAT, parameters, MESSAGE_CHECK_COMMAND_FORMAT,
+                    AddCommand.FORMAT, AddCommand.PROMPT_HELP));
+        }
+
         String addedTask = matcher.group(DESC_GROUP).trim();
         String taskDeadline = null;
         // Checks for presence of -by

@@ -21,8 +21,8 @@ public class CapCommand extends Command {
     public static final String FORMAT = COMMAND_WORD + " <total_mc> <current_cap>";
     public static final String PROMPT_HELP = TextUi.getCommandHelpMessage(COMMAND_WORD);
     public static final String HELP =   "Calculate your CAP."
-                                        + "\n\tFormat: " + FORMAT
-                                        + "\n\tExample usage: cap 20 4.5";
+                                        + "\n\t@|bold,blue,BG_BLACK Format:|@ " + FORMAT
+                                        + "\n\t@|bold,blue,BG_BLACK Example usage:|@ cap 20 4.5";
 
     public static double cap = 0.0;
     private static final double SUMMCGRADE = 20;

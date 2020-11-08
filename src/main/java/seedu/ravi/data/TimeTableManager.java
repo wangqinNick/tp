@@ -19,7 +19,7 @@ import static seedu.ravi.util.ExceptionMessage.TIMETABLE_NOT_INITIALISED;
 public class TimeTableManager {
     private static TimeTable timetable = new TimeTable();
     private static final RaviLogger logger = new RaviLogger(TimeTableManager.class.getName());
-    private static boolean isInitialised = false;
+    private static boolean isInitialised;
     
     /**
      * Initialise the semesterMap when it is empty.
@@ -62,13 +62,13 @@ public class TimeTableManager {
     }
 
     /**
-     * Checks if semesterMap is initialised.
+     * Checks if timetable is initialised.
      *
      * @return
      *  Boolean of whether it is initialised
      */
     public static boolean isInitialised() {
-        return !(timetable.countLessonManagers() == 0);
+        return isInitialised;
     }
 
     /**
@@ -339,10 +339,6 @@ public class TimeTableManager {
         }
     }
 
-    public static boolean checkIsInitialised() {
-        return isInitialised;
-    }
-
     public static int getWeekLessonCount(int week) {
         return timetable.countWeekLessons(week);
     }
@@ -357,6 +353,7 @@ public class TimeTableManager {
 
     public static void loadTimeTable(TimeTable loadedTimeTable) {
         timetable = loadedTimeTable;
+        isInitialised = true;
     }
 
     public static void clearTimeTable() {

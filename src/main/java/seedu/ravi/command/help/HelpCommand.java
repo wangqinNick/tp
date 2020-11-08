@@ -20,8 +20,8 @@ public class HelpCommand extends Command {
     public static final String COMMAND_WORD = "help";
     public static final String FORMAT = COMMAND_WORD + " [<command_word>]";
     public static final String HELP =   "View command information."
-                                        + "\n\tFormat: " + FORMAT
-                                        + "\n\tExample usage: help"
+                                        + "\n\t@|bold,blue,BG_BLACK Format:|@ " + FORMAT
+                                        + "\n\t@|bold,blue,BG_BLACK Example usage:|@ help"
                                         + "\n\t               help add";
 
     public HelpCommand(String commandType) {
