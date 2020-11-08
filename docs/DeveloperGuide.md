@@ -685,9 +685,9 @@ Given below are instructions to test the app manually.
     Expected: Due to the fact that there is nothing to undo as there was no user input, details of the associated error message will be shown.
 
 ### Saving data
-**Do note that if you exit the application without entering `bye`, ra.VI will not be able to retrieve any data that was 
-amended during that session.**\
-**Tampering with the files created by ra.VI, through any other application, will also cause it to malfunction and is 
+**Do note that if you exit the application without entering `bye`, ra.VI will still be able to retrieve data that was 
+amended during that session. However, this is not a recommended way to use ra.VI.**\
+**Tampering with the files created by ra.VI, through any other application, may also cause ra.VI to malfunction and is 
 strongly discouraged.**
 1. Add tasks and modules, then exit
     1. Test case: `add -t task 1`, `add -m CS1010`, `bye`\
