@@ -42,7 +42,7 @@
                         <Image url="@images/module.jpg" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="22.0" layoutY="81.0"  onMouseExited="#hideDailyTask" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="22.0" layoutY="81.0" onMouseEntered="#showDailyTask" onMouseExited="#hideDailyTask" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/daily.png" />
                      </image>

@@ -7,14 +7,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import seedu.duke.Executor;
 import seedu.duke.PacApp;
 import seedu.duke.command.Command;
+import seedu.duke.data.CommandManager;
 import seedu.duke.gui.util.DailyTaskCounter;
 import seedu.duke.parser.Parser;
 
@@ -41,6 +45,29 @@ public class MainStage implements Initializable {
     @FXML
     private VBox dailyTaskPlaceHolder;
 
+    /* Daily Task Counter Panel components */
+    public VBox mondayBox;
+    public Label mondayTaskCount;
+    public Label mondayDate;
+    public VBox tuesdayBox;
+    public Label tuesdayTaskCount;
+    public Label tuesdayDate;
+    public VBox wednesdayBox;
+    public Label wednesdayTaskCount;
+    public Label wednesdayDate;
+    public VBox thursdayBox;
+    public Label thursdayTaskCount;
+    public Label thursdayDate;
+    public VBox fridayBox;
+    public Label fridayTaskCount;
+    public Label fridayDate;
+    public VBox saturdayBox;
+    public Label saturdayTaskCount;
+    public Label saturdayDate;
+    public VBox sundayBox;
+    public Label sundayTaskCount;
+    public Label sundayDate;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Auto scroll-down
@@ -55,6 +82,7 @@ public class MainStage implements Initializable {
         });
 
         console.setOnAction(this::onSubmitInput);
+        console.setOnKeyPressed(event -> handleKeyPress(event.getCode()));
 
         // Set focus on console on start
         Platform.runLater(() -> console.requestFocus());
@@ -64,6 +92,7 @@ public class MainStage implements Initializable {
         String userInput = console.getText().trim();
         Command parsedCommand = Parser.parseCommand(userInput);
         new Executor(consoleScreen).executeCommand(parsedCommand);
+        CommandManager.add(userInput);
         refreshScene();
     }
 
@@ -101,12 +130,33 @@ public class MainStage implements Initializable {
     }
 
     private void refreshTaskCounterPanel() {
-//        new DailyTaskCounter(mondayBox, mondayTaskCount, mondayDate, DayOfWeek.MONDAY).setDailyTaskCount();
-//        new DailyTaskCounter(tuesdayBox, tuesdayTaskCount, tuesdayDate, DayOfWeek.TUESDAY).setDailyTaskCount();
-//        new DailyTaskCounter(wednesdayBox, wednesdayTaskCount, wednesdayDate, DayOfWeek.WEDNESDAY).setDailyTaskCount();
-//        new DailyTaskCounter(thursdayBox, thursdayTaskCount, thursdayDate, DayOfWeek.THURSDAY).setDailyTaskCount();
-//        new DailyTaskCounter(fridayBox, fridayTaskCount, fridayDate, DayOfWeek.FRIDAY).setDailyTaskCount();
-//        new DailyTaskCounter(saturdayBox, saturdayTaskCount, saturdayDate, DayOfWeek.SATURDAY).setDailyTaskCount();
-//        new DailyTaskCounter(sundayBox, sundayTaskCount, sundayDate, DayOfWeek.SUNDAY).setDailyTaskCount();
+        new DailyTaskCounter(mondayBox, mondayTaskCount, mondayDate, DayOfWeek.MONDAY).setDailyTaskCount();
+        new DailyTaskCounter(tuesdayBox, tuesdayTaskCount, tuesdayDate, DayOfWeek.TUESDAY).setDailyTaskCount();
+        new DailyTaskCounter(wednesdayBox, wednesdayTaskCount, wednesdayDate, DayOfWeek.WEDNESDAY).setDailyTaskCount();
+        new DailyTaskCounter(thursdayBox, thursdayTaskCount, thursdayDate, DayOfWeek.THURSDAY).setDailyTaskCount();
+        new DailyTaskCounter(fridayBox, fridayTaskCount, fridayDate, DayOfWeek.FRIDAY).setDailyTaskCount();
+        new DailyTaskCounter(saturdayBox, saturdayTaskCount, saturdayDate, DayOfWeek.SATURDAY).setDailyTaskCount();
+        new DailyTaskCounter(sundayBox, sundayTaskCount, sundayDate, DayOfWeek.SUNDAY).setDailyTaskCount();
+    }
+
+    /**
+     * Handles key presses for `userInput`, displaying the command history on
+     * {@code KeyCode.UP} and {@code KeyCode.DOWN}.
+     *
+     * @param keyCode the key that was pressed by the user.
+     */
+    private void handleKeyPress(KeyCode keyCode) {
+        switch (keyCode) {
+        case UP:
+            console.setText(CommandManager.traverseUpHistoryCommand());
+            break;
+        case DOWN:
+            console.setText(CommandManager.traverseDownHistoryCommand());
+            break;
+        default:
+            return;
+        }
+        // Set the caret position to the end of the string.
+        console.positionCaret(console.getLength());
     }
 }
