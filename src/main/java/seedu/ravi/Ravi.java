@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import static seedu.ravi.util.ExceptionMessage.MESSAGE_NUS_MODS_NOT_LOADED;
-import static seedu.ravi.util.Message.MESSAGE_GOODBYE;
+import static seedu.ravi.util.Message.MESSAGE_SHUTDOWN;
 
 public class Ravi {
     private static final RaviLogger logger = new RaviLogger(Ravi.class.getName());
@@ -28,7 +28,7 @@ public class Ravi {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             logger.getLogger().info("Shutdown hook");
             System.out.println();
-            TextUi.outputToUser(MESSAGE_GOODBYE);
+            TextUi.outputToUser(MESSAGE_SHUTDOWN);
             logger.getLogger().info("PROGRAM TERMINATED SUCCESSFULLY");
         }));
 
