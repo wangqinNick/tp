@@ -46,6 +46,7 @@ Repository Assistant with a Versatile Interface (ra.VI) is a desktop app for NUS
         * Based on the Java coding standard, I amended `checkstyle.xml` to make it more comprehensive.
     * Added Jansi library
         * Did cosmetic tweaks to add some colors to the application.
+        * Credits: [Jun You](https://ay2021s1-cs2113t-t09-2.github.io/tp/team/f0fz.html)
 
 ### Contributions to team-based tasks
 
@@ -68,3 +69,4 @@ Repository Assistant with a Versatile Interface (ra.VI) is a desktop app for NUS
 * **Review/mentoring contributions**:
 
     * PRs reviewed (with non-trivial review comments): [#242](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/242) [#29](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/29) [#106](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/106) [#44](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/44) [#226](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/226) [#238](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/238)
+    * Reported bugs and suggestions for [other teams' tp](https://github.com/Aseanseen/ped/issues)
