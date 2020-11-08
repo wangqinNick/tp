@@ -1,5 +1,4 @@
 # Amalina Sani's Project Portfolio Page
-
 ## CS2113T Project: ra.VI
 ### Overview
 Repository assistant with a Versatile Interface (ra.VI) is a desktop app for managing tasks, deadlines, and timetables, optimized for use via a Command Line Interface (CLI). 
@@ -18,12 +17,9 @@ Ra.VI aims to help freshmen ease into and adapt to their new university schedule
   * Highlights: This enhancement affects existing commands as the task index from `list` is required as a parameter for `done` and `edit` commands.
 
 * **Help Feature**: Added the ability to view the list of all available commands, and help messages for each command. (Pull requests [\#39](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/39), [\#107](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/107))
-  * What it does: 
-  A general help message allows the user to view the list of all available commands and its functions. 
-  Detailed help messages for each command allows the user to view the command's format and example usage.
-  A prompt to use `help` is also shown to the user when the user inputs an incorrect command. 
-  * Justification: This feature is important in providing seamless assistance for the usage of ra.VI. 
-  It assists the user in navigating all the features and commands of the application. 
+  * What it does: A general help message allows the user to view the list of all available commands and its functions. 
+  Detailed help messages for each command allows the user to view the command's format and example usage. A prompt to use `help` is also shown to the user when the user inputs an incorrect command. 
+  * Justification: This feature is important in providing seamless assistance for the usage of ra.VI. It assists the user in navigating all the features and commands of the application. 
   * Highlights: The implementation of this feature was challenging as a unique help message had to be integrated into each existing command.
 
 * **Summary Feature**: Added the ability to view a task summary in collaboration with [Jun You](https://github.com/AY2021S1-CS2113T-T09-2/tp/tree/master/docs/team/f0fz.md). (Pull request [\#93](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/93))
@@ -39,8 +35,7 @@ Ra.VI aims to help freshmen ease into and adapt to their new university schedule
   * What it does: Allows the user to clear and reinitisialise the timetable.
   * Justification: This feature is necessary for the user to populate the timetable with new lessons in preparation for a new semester.  
   
-#### Code contributed
-[RepoSense link](https://nus-cs2113-ay2021s1.github.io/tp-dashboard/#breakdown=true&search=amalinasani&sort=groupTitle&sortWithin=title&since=2020-09-27&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other)
+#### Code contributed [RepoSense link](https://nus-cs2113-ay2021s1.github.io/tp-dashboard/#breakdown=true&search=amalinasani&sort=groupTitle&sortWithin=title&since=2020-09-27&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other)
 
 #### Documentation
   * User Guide:
@@ -49,7 +44,6 @@ Ra.VI aims to help freshmen ease into and adapt to their new university schedule
     * Added documentation for the features `timetable -reset` [\#240](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/240)
     
   * Developer Guide:
-    * Did grammatical and language tweaks to existing documentation [\#128](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/128)
     * Added instructions for manual testing. [\#128](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/128)
     * Added implementation details and sequence diagram for the `list` feature. [\#133](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/133)
     * Added documentation for `timetable -reset` [\#240](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/240)
