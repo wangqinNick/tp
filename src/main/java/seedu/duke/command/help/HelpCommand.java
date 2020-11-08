@@ -14,6 +14,7 @@ import seedu.duke.command.summary.SummaryCommand;
 import seedu.duke.command.timetable.TimeTableCommand;
 import seedu.duke.ui.TextUi;
 
+//@@author amalinasani
 public class HelpCommand extends Command {
     private final String commandType;
     public static final String COMMAND_WORD = "help";

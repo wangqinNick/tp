@@ -6,6 +6,7 @@ import seedu.duke.data.TimeTableManager;
 
 import static seedu.duke.util.Message.MESSAGE_TIMETABLE_RESET;
 
+//@@author amalinasani
 public class TimeTableResetCommand extends Command {
     @Override
     public CommandResult execute() {

@@ -6,6 +6,7 @@ import seedu.duke.data.TaskManager;
 
 import static seedu.duke.util.Message.MESSAGE_SUMMARY_PRINTED;
 
+//@@author amalinasani
 public class SummaryCommand extends Command {
     public static final String COMMAND_WORD = "summary";
     public static final String HELP =   "View task summary."

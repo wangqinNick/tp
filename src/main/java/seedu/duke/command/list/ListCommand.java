@@ -11,6 +11,7 @@ import seedu.duke.ui.TextUi;
 import static seedu.duke.util.ExceptionMessage.MESSAGE_LIST_EMPTY;
 import static seedu.duke.util.Message.MESSAGE_LIST_PRINTED;
 
+//@@author amalinasani
 public class ListCommand extends Command {
     private final Parser.TypeOfEntries typeOfEntry;
     public static final String COMMAND_WORD = "list";

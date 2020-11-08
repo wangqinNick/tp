@@ -14,6 +14,7 @@ import static seedu.duke.data.TimeTableManager.getCurrNusWeekStr;
 import static seedu.duke.data.TimeTableManager.getSpecificDayLessons;
 import static seedu.duke.data.TimeTableManager.getSpecifiedWeekLessons;
 
+//@@author amalinasani
 public class TimeTableViewCommand extends TimeTableCommand {
     private final int numOfDays;
     private final LocalDate now = LocalDate.now();
