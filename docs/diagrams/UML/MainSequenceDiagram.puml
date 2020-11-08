@@ -95,7 +95,7 @@ activate ":Ravi"
                 ":Ravi" <-- ":Command": CommandResult object
             deactivate ":Command"
 
-            alt command edited data
+            opt data has been edited
                 ":Ravi" -> ":StateManager": saveState()
                 note right
                     StateManager saves state if the Command object

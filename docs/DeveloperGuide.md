@@ -71,7 +71,7 @@ This is a class diagram of the top-level of ra.Vi.
 The classes depicted here are those which are direct dependencies of the main class Ravi.  
 The various dependencies of the classes depicted here are not shown to avoid cluttering, and are described in later sections.  
 
-Ravi calls the main class (carried over from the legacy codebase). The main class holds the main loop.  
+The main class holds the main loop. 
 Most classes used by the main class are static in nature and do not need to be instantiated. 
 
 The Command and CommandResult objects are dependencies of Executor in addition to Ravi. Executor can be
