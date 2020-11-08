@@ -33,18 +33,6 @@ public class TextHelper {
     }
 
     /**
-     * Trims spacing and checks if input is empty.
-     *
-     * @param rawInputLine
-     *  The full input from the user
-     * @return
-     *  True if rawInputLine is not empty
-     */
-    public static boolean isEmptyCheck(String rawInputLine) {
-        return rawInputLine.trim().isEmpty();
-    }
-
-    /**
      * Returns a string of the loading status based on the status code.
      * Status parameter is a 4 digit number. First 3 digits are Hundreds: Timetable, Tens: Tasks, Ones: Modules.
      * 0 - Files do not exist, skipping

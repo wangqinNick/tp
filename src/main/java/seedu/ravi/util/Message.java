@@ -35,7 +35,9 @@ public class Message {
     public static final String MESSAGE_CHECK_COMMAND_FORMAT =
             "Please check to make sure to follow the command format:\n";
     public static final String MESSAGE_GOODBYE = "Goodbye, hope to see you soon!";
+    public static final String MESSAGE_SHUTDOWN = "Shutting down ra.VI...";
     public static final String MESSAGE_WELCOME = "@|bold,magenta,BG_BLACK Welcome to ra.VI v2.0|@";
+
     public static final String ICON_DONE = "\u221A";
     public static final String ICON_NOT_DONE = "\u0078";
     public static final String MESSAGE_LIST_PRINTED = "Here's your list:\n";
