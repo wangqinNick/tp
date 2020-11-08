@@ -4,9 +4,9 @@ import seedu.ravi.command.Command;
 import seedu.ravi.command.CommandResult;
 import seedu.ravi.data.TaskManager;
 
-import static seedu.ravi.util.ExceptionMessage.MESSAGE_LIST_EMPTY;
 import static seedu.ravi.util.Message.MESSAGE_SUMMARY_PRINTED;
 
+//@@author amalinasani
 public class SummaryCommand extends Command {
     public static final String COMMAND_WORD = "summary";
     public static final String HELP =   "View task summary."
@@ -19,12 +19,8 @@ public class SummaryCommand extends Command {
      */
     @Override
     public CommandResult execute() {
-        String output;
-        output = TaskManager.getSummary();
-        if (output.equals("")) {
-            return new CommandResult(MESSAGE_LIST_EMPTY);
-        } else {
-            return new CommandResult(MESSAGE_SUMMARY_PRINTED + output);
-        }
+        String output = TaskManager.getSummary();
+        return new CommandResult(MESSAGE_SUMMARY_PRINTED + output);
+
     }
 }
