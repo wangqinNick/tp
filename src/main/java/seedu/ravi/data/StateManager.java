@@ -93,7 +93,17 @@ public class StateManager {
         bufferedReader2.close();
 
         String lastCommand = editTypeCommandArrayList.remove(editTypeCommandArrayList.size() - 1);
-        return lastCommand;
+        String[] arrOfLastCommand = lastCommand.split("\\s+");
+        String out;
+        // Special case to find tasks
+        if (arrOfLastCommand[1].equals("-t")) {
+            out = String.join(" ", arrOfLastCommand[0], arrOfLastCommand[1]);
+            String substring = lastCommand.substring(lastCommand.indexOf(arrOfLastCommand[2]));
+            out += " " + substring;
+        } else {
+            out = String.join(" ", arrOfLastCommand);
+        }
+        return out;
     }
 
     /**
