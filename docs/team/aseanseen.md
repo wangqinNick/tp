@@ -1,7 +1,4 @@
----
-layout: page
-title: Sean Lim Zhi Xiang's Project Portfolio Page
----
+# Sean Lim Zhi Xiang - Project Portfolio Page
 
 # CS2113T Project: ra.VI
 
@@ -11,7 +8,7 @@ Repository Assistant with a Versatile Interface (ra.VI) is a desktop app for NUS
 
 ### Features implemented:
 
-* **New Feature**: Added the timetable feature in collaboration with [Jun You](https://github.com/AY2021S1-CS2113T-T09-2/tp/tree/master/docs/team/f0fz.md) [#101](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/101) [#118](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/118)
+* **New Feature**: Added the timetable feature [#101](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/101) [#118](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/118)
     * What it does: Allows the user to manage their lessons in their timetable. This includes adding, deleting, viewing and filtering.
     * Justification: This feature allows students to manage all of their classes in addition to their tasks and deadlines. This allows the student be aware of their lessons on a daily basis and prepare for them.
     * Highlights: This feature was challenging due to the Time element. Therefore, we had to be very careful during our implementation, creating a robust data structure to handle the timetable.
@@ -21,9 +18,10 @@ Repository Assistant with a Versatile Interface (ra.VI) is a desktop app for NUS
         * Implemented the `TimeTableManager` to handle the lessons from the timetable.
             * Implemented `TimeTableManager` to contain a hashmap of week number of the year to `LessonManager` objects where each `LessonManager` contained the lessons for a week.\
             `TimeTableManager` creates the number of `LessonManager`(s) based on the number of weeks left in one semester.
-            * Amended by [Jun You](https://github.com/AY2021S1-CS2113T-T09-2/tp/tree/master/docs/team/f0fz.md) to include a `TimeTable` object instead due to the difficulty faced during saving.
+            * Amended by [Jun You](https://ay2021s1-cs2113t-t09-2.github.io/tp/team/f0fz.html) to include a `TimeTable` object instead due to the difficulty faced during saving.
         * Implemented the commands to add and delete lessons from the timetable.
             * Created `TimeTableCommand`, `TimeTableAddCommand`, `TimeTableDeleteCommand`.
+    * Credits: [Jun You](https://ay2021s1-cs2113t-t09-2.github.io/tp/team/f0fz.html)
 
 * **New Feature**: Added add/delete tasks and modules feature [#17](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/17) [#35](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/35) [#54](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/54)
     * What it does: Allows the user to manage their tasks and modules. This includes adding, deleting and handling of deadlines.
@@ -31,11 +29,12 @@ Repository Assistant with a Versatile Interface (ra.VI) is a desktop app for NUS
     * Highlights: Implemented with adaptations from my [iP](https://github.com/Aseanseen/ip).
     * In-depth contribution:
         * Created `AddTaskCommand`, `AddModuleCommand`, `DeleteTaskCommand`, `DeleteModuleCommand`.
+    * Credits: Implemented with adaptations from my [iP](https://github.com/Aseanseen/ip)
 
 * **New Feature**: Added main class and exit command [#40](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/40) [#53](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/53)
     * What it does: Main entry and exit points for the app.
     * Justification: This is a fundamental feature for the app to work.
-    * Highlights: Implemented with adaptations from my [iP](https://github.com/Aseanseen/ip) and [AddressBook (Level 2)](https://se-education.org/addressbook-level2/).
+    * Credits: Implemented with adaptations from my [iP](https://github.com/Aseanseen/ip) and [AddressBook (Level 2)](https://se-education.org/addressbook-level2/).
     
 * **Code contributed**: [RepoSense Link](https://nus-cs2113-ay2021s1.github.io/tp-dashboard/#breakdown=true&search=aseanseen)
 
@@ -45,6 +44,8 @@ Repository Assistant with a Versatile Interface (ra.VI) is a desktop app for NUS
         * Added an ArrayList to the `State` to save the successful command input.
     * Fix checkstyle for many classes. [#145](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/145)
         * Based on the Java coding standard, I amended `checkstyle.xml` to make it more comprehensive.
+    * Added Jansi library
+        * Did cosmetic tweaks to add some colors to the application.
 
 ### Contributions to team-based tasks
 
