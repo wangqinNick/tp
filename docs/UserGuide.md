@@ -209,10 +209,10 @@ Example of usage:
 Example of output:
 ```
 Command: 
-⋗	add -m CG1111
+⋗	add -m CS1010s
 ════════════════════════════════════════════════════════════════════════════════
 Your module has been added successfully.
-Your new module - 'CG1111: Engineering Principles and Practice I: No grade yet'
+Your new module - 'CS1010S: Programming Methodology (0.0MC) (Grade: No grade yet)'
 
 ════════════════════════════════════════════════════════════════════════════════
 ```
@@ -358,7 +358,7 @@ Command:
 ⋗	grade CS2101 4 A-
 ════════════════════════════════════════════════════════════════════════════════
 Your module has been graded successfully.
-The module - 'CG1111: Engineering Principles and Practice I (4.0MC) (Grade: C+)'. 
+The module - 'CS2101: Effective Communication for Computing Professionals (4.0MC) (Grade: A-)'. 
 
 ════════════════════════════════════════════════════════════════════════════════
 ```
