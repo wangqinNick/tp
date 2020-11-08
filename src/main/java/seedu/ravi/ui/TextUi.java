@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+import static org.fusesource.jansi.Ansi.ansi;
 import static seedu.ravi.util.ExceptionMessage.EXCEPTION_HEADER;
 import static seedu.ravi.util.ExceptionMessage.MESSAGE_LIST_EMPTY;
 import static seedu.ravi.util.Message.MESSAGE_COMPLETED_TASKLIST;
@@ -70,7 +71,7 @@ public class TextUi {
     public static void outputToUser(String... output) {
         System.out.println(TextHelper.DIV_LINE);
         for (String o : output) {
-            System.out.println(o);
+            System.out.println(ansi().render(o));
         }
         System.out.println(TextHelper.DIV_LINE);
     }
@@ -204,7 +205,7 @@ public class TextUi {
      */
     public static String getUserCommand() throws NoSuchElementException {
         System.out.println("\n\nCommand: ");
-        System.out.print("⋗\t");
+        System.out.print("»\t");
 
         String userInput = in.nextLine();
         return userInput;

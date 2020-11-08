@@ -14,6 +14,7 @@ import seedu.ravi.command.summary.SummaryCommand;
 import seedu.ravi.command.timetable.TimeTableCommand;
 import seedu.ravi.ui.TextUi;
 
+//@@author amalinasani
 public class HelpCommand extends Command {
     private final String commandType;
     public static final String COMMAND_WORD = "help";

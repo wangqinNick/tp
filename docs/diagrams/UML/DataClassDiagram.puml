@@ -3,90 +3,80 @@
 hide circle
 skinparam classAttributeIconSize 0
 
-    package data {
-    package storage {
-        class InputOutputManager
-        class Decoder
-        class Encoder
+package storage {
+    class InputOutputManager
+    class Decoder
+    class Encoder
 
-        InputOutputManager ..> Decoder
-        InputOutputManager ..> Encoder
-    }
-
-    class Module {
-        String moduleCode
-        String title
-    }
-    class ModuleManager {
-        HashMap<String, Module> modulesMap
-        HashMap<String, Module> nusModsMap
-    }
-    ModuleManager *-- "*"  Module
-    InputOutputManager ...> ModuleManager
-
-    class TimeTable {
-        HashMap<Integer, LessonManager> semesterMap
-    }
-    class TimeTableManager {
-        TimeTable timetable
-    }
-    TimeTableManager *-- "1" TimeTable
-    TimeTable *-- "1..13" LessonManager
-
-    class Task {
-        String name
-        LocalDateTime deadline
-        boolean isDone
-    }
-    class TaskManager {
-        ArrayList<Task> tasksList
-    }
-    TaskManager *-- "*" Task
-    InputOutputManager ..> TaskManager
-
-    class State {
-        String encodedSavedList
-        String encodedSavedMap
-    }
-    class StateManager {
-        Stack<State> undoStack
-        Stack<State> redoStack
-    }
-    StateManager *- "*" State
-
-    class Lesson {
-        String moduleCode
-        String description
-        LessonType lessonType
-        DayOfWeek day
-        LocalTime startTime
-        LocalTime endTime
-    }
-    class LessonManager {
-        HashMap<DayOfWeek, ArrayList<Lesson>> lessonMap
-    }
-    interface "<<interface>> \n LessonFilter"
-    enum "<<Enumeration>> \n LessonType" {
-        TUTORIAL,
-        LECTURE,
-        SEMINAR,
-        LAB,
-        RECITATION,
-        SESSION
-    }
-    LessonManager *-- "*"  Lesson
-    LessonManager ..> "<<Enumeration>> \n LessonType"
-    LessonManager ..> "<<interface>> \n LessonFilter"
-    InputOutputManager ..> TimeTableManager
+    InputOutputManager ..> Decoder
+    InputOutputManager ..> Encoder
 }
-package command{
+
+class Module {
+    String moduleCode
+    String title
 }
-class Ravi
-Ravi ..> command
-Ravi ..> InputOutputManager
-command ..> TimeTableManager
-command ..> TaskManager
-command ..> ModuleManager
-command ..> StateManager
+class ModuleManager {
+    HashMap<String, Module> modulesMap
+    HashMap<String, Module> nusModsMap
+}
+ModuleManager *-- "*"  Module : Any number of modules
+InputOutputManager ...> ModuleManager
+
+class TimeTable {
+    HashMap<Integer, LessonManager> semesterMap
+}
+class TimeTableManager {
+    TimeTable timetable
+}
+TimeTableManager *-- "1" TimeTable : Only one timetable
+TimeTable *-- "1..13" LessonManager : One for each week
+
+class Task {
+    String name
+    LocalDateTime deadline
+    boolean isDone
+}
+class TaskManager {
+    ArrayList<Task> tasksList
+}
+TaskManager *-- "*" Task : Any number of tasks
+InputOutputManager ..> TaskManager
+
+class State {
+    String encodedSavedList
+    String encodedSavedMap
+}
+class StateManager {
+    Stack<State> undoStack
+    Stack<State> redoStack
+}
+StateManager *-down- "*" State : Stores a stack
+
+class Lesson {
+    String moduleCode
+    String description
+    LessonType lessonType
+    DayOfWeek day
+    LocalTime startTime
+    LocalTime endTime
+}
+class LessonManager {
+    HashMap<DayOfWeek, ArrayList<Lesson>> lessonMap
+}
+interface "<<interface>> \n LessonFilter"
+enum "<<Enumeration>> \n LessonType" {
+    TUTORIAL,
+    LECTURE,
+    SEMINAR,
+    LAB,
+    RECITATION,
+    SESSION
+}
+LessonManager *-- "*"  Lesson : Any number of\nlessons in a week
+LessonManager ..> "<<Enumeration>> \n LessonType"
+LessonManager ..> "<<interface>> \n LessonFilter" : used, not\nimplemented
+InputOutputManager ..> TimeTableManager
+
 
 @enduml

@@ -93,6 +93,16 @@ public class TaskManager {
         tasksList.remove(taskId);
     }
 
+    //@@author amalinasani
+    /**
+     * Marks a task from the Task List as done using the task index (id).
+     * @param taskId
+     *  The index of the task to be marked done
+     * @return
+     *  The task object marked as done
+     * @throws TaskNotFoundException
+     *  When the task to be removed is not in the task list
+     */
     public static Task done(int taskId) throws TaskNotFoundException {
         Task task;
         if (taskId < 0 || taskId > tasksList.size() - 1) {
@@ -103,6 +113,7 @@ public class TaskManager {
         return task;
     }
 
+    //@@author
     /**
      * Generate an ordered ArrayList of ArrayLists.
      * First ArrayList contains a list of uncompleted tasks with deadlines, sorted by deadlines.
@@ -138,6 +149,7 @@ public class TaskManager {
         return summaryLists;
     }
 
+    //@@author amalinasani
     /**
      * Gets Task summary.
      *
@@ -146,8 +158,7 @@ public class TaskManager {
      */
     public static String getSummary() {
         ArrayList<ArrayList<Task>> summaryLists = summary();
-        String message = TextUi.getSummaryList(summaryLists);
-        return message;
+        return TextUi.getSummaryList(summaryLists);
     }
 
     /**
@@ -173,6 +184,7 @@ public class TaskManager {
         }
     }
 
+    //@@author
     /**
      * Loads the file loaded task list into TaskManager's own task list.
      *

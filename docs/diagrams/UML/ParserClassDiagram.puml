@@ -3,7 +3,6 @@
 hide circle
 skinparam classAttributeIconSize 0
 
-class Ravi
 abstract class "{abstract} \n Command"
 package parser {
     class Parser
@@ -12,13 +11,23 @@ package parser {
     class DoneCommandParser
     class EditCommandParser
     class ListCommandParser
+    class CapCommandParser
+    class GradeCommandParser
+    class HelpCommandParser
+    class LessonParser
+    class TimeTableCommandParser
 }
-Ravi <.. Parser
-Parser <. "{abstract} \n Command"
-Parser <... AddCommandParser
-Parser <.. DeleteCommandParser
-Parser <... DoneCommandParser
-Parser <.. EditCommandParser
-Parser <... ListCommandParser
+parser .left.> "{abstract} \n Command" : All Parser classes\ngenerate Command objects
+
+Parser .left.> AddCommandParser :  All Parser "subclasses" do not\ninherit from Parser
+Parser .right.> HelpCommandParser
+Parser ..> DeleteCommandParser
+Parser ...> DoneCommandParser
+Parser ....> EditCommandParser
+Parser ...> ListCommandParser
+Parser ..> CapCommandParser
+Parser ....> GradeCommandParser
+Parser ...> LessonParser
+Parser ....> TimeTableCommandParser
 
 @enduml
