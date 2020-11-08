@@ -49,9 +49,9 @@ public class Message {
     public static final String MESSAGE_INCOMPLETE_DATED_TASKLIST = "\n\u23F0 Incomplete tasks with deadlines:";
     public static final String MESSAGE_SUMMARY_PRINTED = "Here's a summary of your latest tasks...\n";
     public static final String MESSAGE_GENERAL_HELP =
-            "Hello! I'm @|bold,magenta ra.VI|@, your personal NUS assistant.\n"
+            "Hello! I'm @|bold,magenta,BG_BLACK ra.VI|@, your personal NUS assistant.\n"
             + "I'm here to help you manage your tasks, modules, and lessons.\n"
-            + "This help message appears when you type @|bold,green 'help'|@, or an unrecognised command.\n"
+            + "This help message appears when you type @|bold,green,BG_BLACK 'help'|@, or an unrecognised command.\n"
             + "To find out more about any of my commands, type @|bold,green,BG_BLACK 'help <command>'|@.\n"
             + "Here's a list of my commands to help you out:\n\n"
             + "@|bold,red,BG_BLACK Action commands:|@\n"
