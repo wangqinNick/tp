@@ -64,6 +64,7 @@ public class TaskManager {
         tasksList.remove(taskId);
     }
 
+    //@@author amalinasani
     /**
      * Marks a task from the Task List as done using the task index (id).
      * @param taskId
@@ -77,6 +78,7 @@ public class TaskManager {
         task.setStatus(true);
     }
 
+    //@@author
     /**
      * Generate an ordered ArrayList of ArrayLists.
      * First ArrayList contains a list of uncompleted tasks with deadlines, sorted by deadlines.
@@ -112,6 +114,7 @@ public class TaskManager {
         return summaryLists;
     }
 
+    //@@author amalinasani
     /**
      * Gets Task summary.
      *
@@ -146,6 +149,7 @@ public class TaskManager {
         }
     }
 
+    //@@author
     /**
      * Loads the file loaded task list into TaskManager's own task list.
      *

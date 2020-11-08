@@ -116,6 +116,7 @@ public class TextUi {
         }
     }
 
+    //@@author amalinasani
     /**
      * Formats an Arraylist of type Task with their Index.
      *
@@ -182,6 +183,7 @@ public class TextUi {
         return message.toString();
     }
 
+    //@@author
     /**
      *  Formats a string with its index in the list.
      *
@@ -224,6 +226,7 @@ public class TextUi {
         return Integer.parseInt(userInput);
     }
 
+    //@@author amalinasani
     /**
      * Gets command list.
      *

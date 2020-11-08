@@ -68,6 +68,7 @@ public class Task {
         }
     }
 
+    //@@author amalinasani
     public String generateStatusIcon() {
         if (this.isDone) {
             return Message.ICON_DONE;
@@ -75,7 +76,8 @@ public class Task {
             return Message.ICON_NOT_DONE;
         }
     }
-
+    
+    //@@author
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mma, EEEE, dd MMM yy");
         if (retrieveDeadline() == null) {

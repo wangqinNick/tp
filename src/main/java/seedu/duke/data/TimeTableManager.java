@@ -270,6 +270,7 @@ public class TimeTableManager {
         return outputList;
     }
 
+    //@@author amalinasani
     public static void initialiseTimetable() {
         try {
             TextUi.showTimeTableInitialisationMessage();
