@@ -13,6 +13,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 import static seedu.ravi.util.ExceptionMessage.TIMETABLE_NOT_INITIALISED;
 
@@ -328,13 +329,18 @@ public class TimeTableManager {
         return outputList;
     }
 
-    //@@author amalinasani
-    public static void initialiseTimetable() {
+    /**
+     * Initialises the timetable to get the current nus week.
+     *
+     * @throws NoSuchElementException
+     *  When the user input is ctrl-c.
+     */
+    public static void initialiseTimetable() throws NoSuchElementException {
         try {
             TextUi.showTimeTableInitialisationMessage();
             int currWeekNum = TextUi.getCurrentWeekNum();
             TimeTableManager.initialise(currWeekNum);
-        } catch (Exception e) {
+        } catch (TimeTableInitialiseException e) {
             TextUi.outputToUser(TIMETABLE_NOT_INITIALISED);
         }
     }
