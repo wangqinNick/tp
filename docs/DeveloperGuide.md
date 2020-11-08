@@ -130,14 +130,6 @@ to return through `parseTimeTableCommand()`. If the `TimeTableCommand` is return
 ### Feature explanation with sequence diagrams
 
 #### Main loop sequence
-When ra.VI runs, there are 3 phases to its lifecycle.
-
-1. Initialisation
-2. Main command loop
-3. Saving and exiting
-
-The main sequence diagram can be broken into three parts representing each of these phases.
-
 ![Sequence diagram 1 for Main loop](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/MainSequenceDiagram.png?raw=true)
 This sequence diagram shows the activity of the main class, `Ravi`. When it starts, it first adds the shutdown hook to
 handle both unexpected and normal shutdowns.
