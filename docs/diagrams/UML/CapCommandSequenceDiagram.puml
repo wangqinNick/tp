@@ -1,34 +1,23 @@
 @startuml
--> ":CapCommandParser" : prepareCapCommand()
-activate ":CapCommandParser"
-create ":CapCommand"
-":CapCommandParser" -> ":CapCommand" : <<construct>> CapCommand(totalMcTaken,currentCap)
-activate ":CapCommand"
-":CapCommandParser" <-- ":CapCommand" : CapCommand
-deactivate ":CapCommand"
-<-- ":CapCommandParser" : CapCommand
-destroy ":CapCommandParser"
-deactivate ":CapCommandParser"
--> ":CapCommand" : execute()
-activate ":CapCommand"
-":CapCommand" -> ":CapCommand" : calculateCap()
-activate ":CapCommand"
-":CapCommand" -> ":ModuleManager" : getModuleMap()
-activate ":ModuleManager"
-":CapCommand" <-- ":ModuleManager" : moduleList
-deactivate ":ModuleManager"
-":CapCommand" -> ":CapCommand" : gradeConvert(moduleList)
-activate ":CapCommand"
-":CapCommand" <-- ":CapCommand" : mcGrade
-deactivate ":CapCommand"
-":CapCommand" <-- ":CapCommand" : Cap
-deactivate ":CapCommand"
-create ":CommandResult"
-":CapCommand" -> ":CommandResult" : <<construct>>
-activate ":CommandResult"
-":CapCommand" <-- ":CommandResult" : CommandResult
-deactivate ":CommandResult"
-<-- ":CapCommand" : CommandResult
-deactivate ":CapCommand"
-destroy ":CapCommand"
+
+-> ":CapCommandParser" ++ : prepareCapCommand()
+    ":CapCommandParser" -> ":CapCommand" ** : <<construct>> CapCommand(totalMcTaken,currentCap)
+    activate ":CapCommand"
+    return CapCommand
+<-- ":CapCommandParser" !! : CapCommand
+
+-> ":CapCommand" ++ : execute()
+    ":CapCommand" -> ":CapCommand" ++ : calculateCap()
+        participant ":ModuleManager" as MM << Class >>
+        ":CapCommand" -> MM ++ : getModuleMap()
+        return moduleList
+
+        ":CapCommand" -> ":CapCommand" ++ : gradeConvert(moduleList)
+        return mcGrade
+    return CAP
+
+    create ":CommandResult"
+    ":CapCommand" -> ":CommandResult" ++ : <<construct>>
+    return CommandResult
+<-- ":CapCommand" !! : CommandResult
 @enduml
