@@ -6,6 +6,7 @@ import seedu.ravi.util.Message;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//@@author amalinasani
 public class HelpCommandTest {
     static final String HELP_MESSAGE = Message.MESSAGE_GENERAL_HELP;
 
