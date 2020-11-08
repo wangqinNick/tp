@@ -88,7 +88,26 @@ public class RaviLogger {
             currentLogFileName = LOG_PATH + LOG_NAME + sessionNum + LOG_EXT;
             logFile = new File(currentLogFileName);
         }
+        if (sessionNum >= 2) {
+            try {
+                deletePreviousLogs();
+            } catch (NullPointerException e) {
+                // do nothing
+            }
+            sessionNum = 0;
+            currentLogFileName = LOG_PATH + LOG_NAME + sessionNum + LOG_EXT;
+            logFile = new File(currentLogFileName);
+        }
         logFile.createNewFile();
         return currentLogFileName;
+    }
+
+    public static void deletePreviousLogs() throws NullPointerException {
+        File logFolder = new File(LOG_PATH);
+        for (File file: logFolder.listFiles()) {
+            if (!file.isDirectory()) {
+                file.delete();
+            }
+        }
     }
 }

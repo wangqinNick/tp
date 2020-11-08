@@ -22,7 +22,8 @@ public class EditTaskCommand extends EditCommand {
     public static final String HELP =   "Edit a task description from the task list."
                                         + "\n\t@|bold,blue,BG_BLACK Format:|@ " + FORMAT
                                         + "\n\t@|bold,blue,BG_BLACK Example usage:|@ edit -t 1 Project meeting"
-                                        + "\n\t@|bold,blue,BG_BLACK Example usage:|@ edit -t 1 Project meeting -by 30-12-2020 1200\n\n";
+                                        + "\n\t@|bold,blue,BG_BLACK Example usage:|@ edit -t 1 Project meeting -by"
+                                        + " 30-12-2020 1200\n\n";
 
     /**
      * Constructs the command to edit a task.
