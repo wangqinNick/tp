@@ -45,7 +45,7 @@ test {
 }
 
 application {
-    mainClassName = "seedu.duke.Duke"
+    mainClassName = "seedu.duke.Pac"
 }
 
 java {
@@ -54,7 +54,7 @@ java {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "pac"
     archiveClassifier = null
 }
 

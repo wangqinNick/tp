@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import seedu.duke.data.ScreenShotManager;
 import seedu.duke.data.SystemSetting;
 
 import java.io.IOException;
@@ -30,6 +31,7 @@ public class PacApp extends Application {
         //SystemSetting.initialise();
         //TaskManager.initialise();
         SystemSetting.initialise();
+        ScreenShotManager.initialise();
         //IOManager.loadList();
         //StateManager.initialise();
     }

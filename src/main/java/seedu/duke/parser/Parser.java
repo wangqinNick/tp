@@ -14,6 +14,7 @@ import seedu.duke.command.filtercommand.listcommand.ListCommand;
 import seedu.duke.command.filtercommand.listcommand.ListModuleCommand;
 import seedu.duke.command.filtercommand.listcommand.ListTaskCommand;
 import seedu.duke.command.misc.ChangeDirectoryCommand;
+import seedu.duke.command.misc.UndoCommand;
 import seedu.duke.directory.Directory;
 import seedu.duke.directory.DirectoryLevel;
 import seedu.duke.directory.DirectoryTraverser;
@@ -105,6 +106,8 @@ public class Parser {
                 return prepareDoneCommand(parameters);
             case ChangeDirectoryCommand.COMMAND_WORD:
                 return prepareChangeDirectoryCommand(parameters);
+            case UndoCommand.COMMAND_WORD:
+                return new UndoCommand();
 
             default:
                 return new IncorrectCommand("Wrong!");

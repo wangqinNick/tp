@@ -5,6 +5,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import seedu.duke.command.Command;
 import seedu.duke.command.PromptType;
+import seedu.duke.data.ScreenShotManager;
 import seedu.duke.util.TextUtil;
 
 public class Executor {
@@ -23,9 +24,8 @@ public class Executor {
     public void executeCommand(Command parsedCommand) {
         var commandResult = parsedCommand.execute();
         if (parsedCommand.getPromptType() == PromptType.EDIT){
-            //StateManager.saveState();
+            ScreenShotManager.saveScreenShot();
         }
-        //IOManager.saveAsJson();
         Text response = TextUtil.createText(String.format("%s", commandResult.getFeedbackToUser()), Color.MIDNIGHTBLUE);
         consoleScreen.getChildren().add(response);
         Text divider = TextUtil.createText(String.format("\n%s\n\n", DIVIDER), Color.DARKKHAKI);

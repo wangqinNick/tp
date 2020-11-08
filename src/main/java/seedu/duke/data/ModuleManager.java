@@ -197,6 +197,16 @@ public class ModuleManager {
         return filteredTaskList;
     }
 
+    /**
+     * Sets the entire Module List to a new list.
+     *
+     * @param moduleList
+     *  The new Module List to be set
+     */
+    public static void setModuleList(ArrayList<Module> moduleList) {
+        ModuleManager.moduleList = moduleList;
+    }
+
     public static class ModuleNotFoundException extends DataNotFoundException {
     }
 
