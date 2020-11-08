@@ -34,36 +34,8 @@ options](https://se-education.org/guides/tutorials/intellijCodeStyle.html) to ma
 The checkstyle configurations is in `<ROOT>/config/checkstyle/` by default. Here is some information on [how to use the
 Checkstyle plugin with IntelliJ IDEA](https://se-education.org/guides/tutorials/checkstyle.html).
 
-## Product scope
-### Target user profile
 
-The target user profile for ra.VI is described by the following:
-* A student of NUS (a freshman in particular)
-* Has a need to manage their school related tasks, classes and notes
-* Prefers desktop apps over other types
-* Types fast
-* Prefers typing to mouse interactions
-* Reasonably comfortable using CLI apps
-
-### Value proposition
-
-A common problem amongst freshmen is the inability to organise all the incoming information.  
-NUS places a focus on taking responsibility for your own learning, so it might be a tough transition from tertiary education.  
-A lot of students miss lessons, assignments, and even exams, just because they're struggling to adapt to the new
-environment.
-
-ra.VI helps students to manage their school-related information in a compact, stripped-down interface that does not bombard them with too much information.  
-When you receive your modules and lessons, simply enter them into ra.VI as they arrive. ra.VI will keep track of all of it
-for you.  
-You can create tasks, give them deadlines, and tag them to certain modules. You can see all of your tasks and deadlines at a glance.  
-You can even write and save your notes in ra.VI, uncluttering your work environment even further.
-
-ra.VI is even integrated with NUSMods, bringing its comprehensive library of information to your fingertips.  
-All the above features are wrapped in a compact, no-frills command-line interface. No confusing menus and dropdowns
-to distract you; only simple commands to give you what you want.
-
-## Implementation
-This section describes some noteworthy details on how certain features are implemented.
+## Design
 
 ### Top level classes
 
@@ -443,7 +415,77 @@ Given below is an example scenario to reset the timetable.
 
 2. ra.VI will ask for the current NUS week. This input is parsed and re-initialises the `TimeTableManager` with a new `Timetable`. 
 
-## User Stories
+### [Proposed] Notes Feature
+![Class diagram for Notes Feature in Command class](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/NotesClassDiagram.png?raw=true)
+
+The proposed notes feature is facililated by the NotesManager class and NotesCommand class
+Extending from the abstract NotesCommand class are the NotesAddCommand, NotesListCommand, NotesDeleteCommand, and NotesViewCommand classes. 
+
+It implements the following operations:
+* `NotesManager.addNote()` - Add a note
+* `NoteManager.listNote()` - View the list of notes and their indexes
+* `NoteManager.deleteNote()` - Delete a note
+* `NoteManager.viewNote()` - View a particular note
+
+#### Add notes
+Given below is an example scenario to add a note and how the notes feature behave at each step
+
+Step 1. The user inputs `note -add Orbital Mechanics: Application of ballistics and celestial mechanics`, as the user wants to add a note.
+Step 2. This input is parsed by NotesCommandParser and it returns NotesAddCommand. 
+Step 3. NotesAddCommand is executed, returning a `CommandResult` containing a success message if the note has been added successfully. Otherwise, an exception message will be shown explaining the exception to the user.
+
+#### Viewing list of notes
+Given below is an example scenario to view the list of notes and how the notes feature behaves at each step.
+
+Step 1. The user inputs `note -list` as the user wants to view the list of notes.
+Step 2. This input is parsed by NotesCommandParser and it returns NotesListCommand.
+Step 3. NotesListCommand is executed, returning a `CommandResult` containing the list of notes and their indexes. Otherwise, an exception message will be shown explaining the exception to the user. 
+
+#### Delete a note
+Given below is an example scenario to delete a note and how the notes feature behaves at each step.
+
+Step 1. The user inputs `note -del 1` as the user wants to delete the note with index 1.
+Step 2. This input is parsed by NotesCommandParser and it returns NotesDeleteCommand.
+Step 3. NotesDeleteCommand is executed, returning a `CommandResult` containing a success message if the note has been deleted successfully. Otherwise, an exception message will be shown explaining the exception to the user. 
+
+* Currently available notes and their indexes can be found by entering `notes -list`
+
+#### View the timetable
+Given below is an example scenario to view a particular note in the list
+Step 1. The user inputs `note -view 1` as the user wants to view the note with index 1.
+Step 2. This input is parsed by NotesCommandParser and it returns NotesDeleteCommand.
+Step 3. NotesViewCommand is executed, returning a `CommandResult` containing a the note if the note has been shown successfully. Otherwise, an exception message will be shown explaining the exception to the user. 
+
+## Appendix A: Product scope
+### Target user profile
+
+The target user profile for ra.VI is described by the following:
+* A student of NUS (a freshman in particular)
+* Has a need to manage their school related tasks, classes and notes
+* Prefers desktop apps over other types
+* Types fast
+* Prefers typing to mouse interactions
+* Reasonably comfortable using CLI apps
+
+### Value proposition
+
+A common problem amongst freshmen is the inability to organise all the incoming information.  
+NUS places a focus on taking responsibility for your own learning, so it might be a tough transition from tertiary education.  
+A lot of students miss lessons, assignments, and even exams, just because they're struggling to adapt to the new
+environment.
+
+ra.VI helps students to manage their school-related information in a compact, stripped-down interface that does not bombard them with too much information.  
+When you receive your modules and lessons, simply enter them into ra.VI as they arrive. ra.VI will keep track of all of it
+for you.  
+You can create tasks, give them deadlines, and tag them to certain modules. You can see all of your tasks and deadlines at a glance.  
+You can even write and save your notes in ra.VI, uncluttering your work environment even further.
+
+ra.VI is even integrated with NUSMods, bringing its comprehensive library of information to your fingertips.  
+All the above features are wrapped in a compact, no-frills command-line interface. No confusing menus and dropdowns
+to distract you; only simple commands to give you what you want.
+
+
+## Appendix B: User Stories
 
 |Version| As a ... | I want to ... | So that I can ...|
 |--------|----------|---------------|------------------|
@@ -470,17 +512,20 @@ Given below is an example scenario to reset the timetable.
 |v2.0|user|undo unintended commands|make amends quickly|
 |v2.1|user|reset my timetable|prepare for another semester|
 
-## Non-Functional Requirements
+
+## Appendix C: Non-Functional Requirements
 
 * Should work on any mainstream OS as long as it has Java 11 or above installed.
 * A user with above average typing speed for regular English text (i.e. not code, not system admin commands)
 should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-## Glossary
+
+## Appendix D: Glossary
 
 * *Mainstream OS* - Windows, Linux, OSX
 
-## Instructions for manual testing
+
+## Appendix E: Instructions for manual testing
 
 Given below are instructions to test the app manually.
 
