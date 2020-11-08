@@ -96,7 +96,7 @@ Must be in the 24h format e.g. `0900`, `1415`
 ### 2 Quick Start
 
 1. Ensure that you have Java 11 or above installed.
-2. Download the latest version of `ra.VI` from [here](https://github.com/AY2021S1-CS2113T-T09-2/tp/releases/tag/v2.0).
+2. Download the latest version of `ra.VI` from [here](https://github.com/AY2021S1-CS2113T-T09-2/tp/releases/tag/v2.1).
 3. Copy the file to the folder you want to use as the home folder for `ra.VI`.
 4. Open a command prompt in the folder from step 3 and enter `java -jar ravi.jar`.
 5. Enter the current NUS week number as prompted.
