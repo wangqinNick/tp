@@ -412,7 +412,7 @@ Given below is an example scenario to reset the timetable.
 |v1.0|user|mark task as done|update the completion status of my tasks|
 |v1.0|user|view my task list|be aware of the tasks I have added to my list|
 |v1.0|user|view my module list|be aware of the modules I have added to my list|
-|v2.0|user|receive help messages and prompts|seamlessly navigate and use ra.VI's features|
+|v2.0|user|receive help easily|use ra.VI efficiently|
 |v2.0|user|add lessons to my timetable|view my timetable with a simple command|
 |v2.0|user|delete lessons from my timetable|view my accurate timetable with a simple command|
 |v2.0|user|view my timetable quickly|be aware of my classes and prepare for them quickly|
@@ -515,14 +515,14 @@ Given below are instructions to test the app manually.
   
 ### Viewing the task list
 1. Viewing the task list
-    1. Test case: `list -t`, after adding the tasks "read book", "buy stuff" have been added in succession.\
+    1. Test case: `list -t`, with the tasks "read book" and "buy stuff" in the task list.\
     Expected: A list containing the two tasks will be shown.
     2. Test case: `list -t` when no tasks have been added.\
     Expected: As there are no tasks in the list, a message signifying the empty list is shown.
     
 ### Viewing the module list
 1. Viewing the module list
-    1. Test case: `list -m`, after adding the modules "CS2113T", and "CS2101" have been added in succession.\
+    1. Test case: `list -m`, with the modules "CS2113T" and "CS2101" in the module list.\
     Expected: A list containing the two module codes, MCs, and grades associated will be shown.
     2. Test case: `list -m` when no modules have been added.\
     Expected: As there are no modules in the list, a message signifying the empty list is shown. 
@@ -537,12 +537,11 @@ Given below are instructions to test the app manually.
 ### Viewing task summary
 1. Viewing the task summary 
     1. Test case: 
-    `summary` after inputting the following:
+    `summary`, when the list contains
     ```
-    add -t Read a book  
-    add -t Return book -by 20-10-2020 1800
-    add -t meeting -by 22-10-2020 2000
-    done 3
+    1. Read a book [x]
+    2. Return book [x], by 06:00PM, Tuesday, 20 Oct 2020
+    3. meeting [√], by 08:00PM, Thursday, 22 Oct 2020
     ```
     Expected: The task summary will be shown, each task belonging to their respective categories. 
 
