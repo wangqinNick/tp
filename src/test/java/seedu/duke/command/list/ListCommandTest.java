@@ -13,6 +13,7 @@ import seedu.duke.util.Message;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//@@author amalinasani
 public class ListCommandTest {
 
     @BeforeEach

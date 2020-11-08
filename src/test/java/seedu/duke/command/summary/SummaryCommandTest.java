@@ -7,6 +7,7 @@ import seedu.duke.data.TaskManager;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.duke.util.Message.MESSAGE_SUMMARY_PRINTED;
 
+//@@author amalinasani
 public class SummaryCommandTest {
     @Test
     void listCommand_Summary_isShown() {
