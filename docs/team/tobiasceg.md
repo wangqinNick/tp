@@ -3,7 +3,7 @@ layout: page
 title: Tobias's Project Portfolio Page
 ---
 
-# CS2113t Project: ra.VI
+# CS2113T Project: ra.VI
 
 The Repository Assistant with a Versatile Interface is a user-friendly desktop application for managing task,deadline
 ,modules and planning of timetable via a Command Line Interface (CLI). ra.VI aims to help freshmen of Universities to
@@ -35,7 +35,7 @@ better integrate and manage their hectic schedule.
     module manager and subsequently consolidating the relevant attributes, to calculate the user's CAP. Multiple grades and scenarios 
     had to be taken into account to ensure that the CAP calculated was as accurate as possible. 
     
-* **Code Contribution**: [RepoSense Link](https://nus-cs2113-ay2021s1.github.io/tp-dashboard/#breakdown=true&search=tobiasceg&sort=groupTitle&sortWithin=title&since=2020-09-27&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other)
+* **Code Contribution**: [RepoSense Link](https://nus-cs2113-ay2021s1.github.io/tp-dashboard/#breakdown=true&search=tobiasceg)
 
 * **Project management**:
   * Assisted in release `v1.0 - v2.1` (3 releases) on GitHub
