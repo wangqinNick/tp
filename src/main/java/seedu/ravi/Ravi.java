@@ -26,10 +26,9 @@ public class Ravi {
      */
     public static void main(String[] args) {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            logger.getLogger().info("Shutdown hook");
+            logger.getLogger().info("PROGRAM TERMINATED SUCCESSFULLY");
             System.out.println();
             TextUi.outputToUser(MESSAGE_SHUTDOWN);
-            logger.getLogger().info("PROGRAM TERMINATED SUCCESSFULLY");
         }));
 
         new Ravi().run(args);
