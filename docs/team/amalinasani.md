@@ -51,11 +51,11 @@ Ra.VI aims to help freshmen ease into and adapt to their new university schedule
   * Developer Guide:
     * Did grammatical and language tweaks to existing documentation [\#128](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/128)
     * Added instructions for manual testing. [\#128](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/128)
-    * Added implementation details of the `list` feature. [\#133](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/133)
-    * Added sequence diagram for the `list` feature. [\#133](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/133)
-    * Added documentation `timetable -reset` [\#240](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/240)
+    * Added implementation details and sequence diagram for the `list` feature. [\#133](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/133)
+    * Added documentation for `timetable -reset` [\#240](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/240)
     * Added user stories for existing features [\#251](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/251)
-    * Added manual testing steps for `list`, `help`, and `summary` commands. 
+    * Added manual testing steps for `list`, `help`, and `summary` commands. [\#251](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/251)
+    * Added implementation details and class diagram for the proposed `notes` feature [\#257](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/257)
 
 #### Project management
 * Added and managed issues for milestones v1.0, v2.0, v2.1. 
