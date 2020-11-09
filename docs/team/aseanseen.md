@@ -9,10 +9,8 @@ Repository Assistant with a Versatile Interface (ra.VI) is a desktop app for NUS
     * Highlights: This feature was challenging due to the Time element. Therefore, we had to be very careful during our implementation, creating a robust data structure to handle the timetable.
     * In-depth contribution:
         * Implemented the parsing of the timetable commands.
-            * Used Regex to ensure that only timetable commands with the appropriate format create `TimeTableCommand` objects.
         * Implemented the `TimeTableManager` to handle the lessons from the timetable.
-            * Implemented `TimeTableManager` to contain `LessonManager` objects where each `LessonManager` contained the lessons for a week.`TimeTableManager` creates the number of `LessonManager`(s) based on the number of weeks left in one semester.
-            * Amended by [Jun You](https://ay2021s1-cs2113t-t09-2.github.io/tp/team/f0fz.html) to include a `TimeTable` object instead.
+            * Contain `LessonManager` objects where each `LessonManager` contained the lessons for a week.`TimeTableManager` creates the number of `LessonManager`(s) based on the number of weeks left in one semester.
         * Implemented the commands to add and delete lessons from the timetable.
     * Credits: [Jun You](https://ay2021s1-cs2113t-t09-2.github.io/tp/team/f0fz.html)
 * **New Feature**: Added add/delete tasks and modules feature [#17](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/17) [#35](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/35) [#54](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/54)
@@ -27,11 +25,8 @@ Repository Assistant with a Versatile Interface (ra.VI) is a desktop app for NUS
 * **Code contributed**: [RepoSense Link](https://nus-cs2113-ay2021s1.github.io/tp-dashboard/#breakdown=true&search=aseanseen)
 * **Enhancements**:
     * After a successful undo command, show the user the command that was undone. [#241](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/241)
-        * Added an ArrayList to the `State` to save the successful command input.
     * Fix checkstyle for many classes. [#145](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/145)
-        * Amended `checkstyle.xml` to make it more comprehensive.
-    * Added Jansi library
-        * Did cosmetic tweaks to add some colors to the application.
+    * Added Jansi library to add colors
         * Credits: Implemented in collaboration with [Jun You](https://ay2021s1-cs2113t-t09-2.github.io/tp/team/f0fz.html)
 #### Contributions to team-based tasks
 * **Project Management**:
