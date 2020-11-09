@@ -18,14 +18,14 @@
 &nbsp;&nbsp;[3.3 List Feature](#33-list-feature) <br>
 &nbsp;&nbsp;[3.4 Cap Feature](#34-cap-feature) <br>
 &nbsp;&nbsp;[3.5 Grade Feature](#35-grade-feature) <br>
-&nbsp;&nbsp;[3.6 Timetable Feature](#36-timetable-feature) <br>
-&nbsp;&nbsp;&nbsp;&nbsp;[3.6.1 Add lesson/s to timetable](#361-add-lessons-to-timetable) <br>
-&nbsp;&nbsp;&nbsp;&nbsp;[3.6.2 Delete lesson/s from timetable](#362-delete-lessons-from-timetable) <br>
-&nbsp;&nbsp;&nbsp;&nbsp;[3.6.3 View the timetable](#363-view-the-timetable) <br>
-&nbsp;&nbsp;&nbsp;&nbsp;[3.6.4 Filter the timetable](#364-filter-the-timetable) <br>
-&nbsp;&nbsp;&nbsp;&nbsp;[3.6.5 Reset the timetable](#365-reset-the-timetable) <br>
-&nbsp;&nbsp;&nbsp;&nbsp;[3.7 Undo the Previous Command](#37-undo-feature) <br>
-&nbsp;&nbsp;&nbsp;&nbsp;[3.8 [Proposed] Notes Feature](#38-proposed-notes-feature) <br>
+&nbsp;&nbsp;[3.6 Undo the Previous Command](#36-undo-feature) <br>
+&nbsp;&nbsp;[3.7 Timetable Feature](#37-timetable-feature) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[3.7.1 Add lesson/s to timetable](#371-add-lessons-to-timetable) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[3.7.2 Delete lesson/s from timetable](#372-delete-lessons-from-timetable) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[3.7.3 View the timetable](#373-view-the-timetable) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[3.7.4 Filter the timetable](#374-filter-the-timetable) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[3.7.5 Reset the timetable](#375-reset-the-timetable) <br>
+&nbsp;&nbsp;[3.8 [Proposed] Notes Feature](#38-proposed-notes-feature) <br>
 [4 Appendix A: Product Scope](#4-appendix-a-product-scope) <br>
 &nbsp;&nbsp;[4.1 Target user profile](#41-target-user-profile) <br>
 &nbsp;&nbsp;[4.2 Value proposition](#42-value-proposition) <br>
@@ -377,97 +377,8 @@ with the grade and module credits.
 3. The `CommandResult` returns the success message to show the user that their module has successfully been graded. 
 Otherwise, an exception message will be shown regarding the exception caught.
 
-#### 3.6 Timetable Feature
-This feature is facilitated by the `TimeTableManager` class and `TimeTableCommand` class.
-Extending from the abstract `TimeTableCommand` class are the `TimeTableAddCommand`, `TimeTableDeleteCommand`,
-`TimeTableViewCommand` and `TimeTableResetCommand` classes.
-* Add a lesson - Add a lesson to the timetable through `TimeTableManager.addLesson()`
-* Delete a lesson - Delete all associated lessons from the timetable through `TimeTableManager.deleteLesson()`
-* View today's timetable - List all lessons for today through `TimeTableManager.getSpecificDayLessons()`
-* View this week's timetable - List all lessons in this week through `TimeTableManager.getSpecifiedWeekLessons()`
-* Reset timetable - Reset the whole timetable through `TimeTableManager.initialiseTimetable()` 
-
-##### 3.61 Add lesson/s to timetable
-Given below is an example scenario to add a lesson to the timetable and how the timetable feature behaves at each step.
-
-1. The user launches the application for the first time. ra.VI asks for the current NUS week. This input is parsed and 
-initialises the `TimeTableManager`. 
-
-2. The user inputs `add -m CS2101`, as the user wants to note down a module named `CS2101` and add it to their module list.
-
-3. The user inputs `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 1`. This means the user wants to add a `CS2101 LECTURE` 
-that occurs once a week on `TUESDAY 0800 1000`. This `Command` will be parsed and eventually returns a `TimeTableAddCommand`.
-
-4. The `TimeTableAddCommand` is executed, returning a `CommandResult` containing a success message if the lesson has 
-been successfully added. Otherwise, an exception message will be shown explaining the exception to the user.\
-Common reasons for failure include:
-
-* Wrong command format\
-e.g. `timetable -add CS2101 TUE 0800 1000 LECTURE 1`\
-e.g. `timetable -add CS2101 TUESDAY 8am 10am LECTURE 1`\
-e.g. `timetable -add CS2101 TUESDAY 0800 1000 NONSENSE 1`\
-e.g. `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 5`
-* Module does not exist in module list\
-e.g. `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 1` but the module list does not contain `CS2101`. Available modules can be found by entering `list -m`
-e.g. `timetable -add BAD TUESDAY 0800 1000 LECTURE 1` but the module list does not contain `BAD` and `BAD` is not a valid NUS module.
-
-##### 3.62 Delete lesson/s from timetable
-Given below is an example scenario to delete a lesson from the timetable and how the timetable feature behaves at each step.
-
-1. The user launches the application for the first time. ra.VI asks for the current NUS week. This input is parsed 
-and initialises the `TimeTableManager`. 
-
-2. The user inputs `add -m CS2101`, as the user wants to note down a module named `CS2101` and add it to their module list.
-
-3. The user inputs `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 1`. This means the user wants to add a 
-`CS2101 LECTURE` that occurs once a week on `TUESDAY 0800 1000`. This `Command` will be parsed and eventually returns a 
-`TimeTableAddCommand`.
-
-4. The user inputs `timetable -del TUESDAY 1`. This means the user wants to delete the `CS2101 TUESDAY 0800 1000 LECTURE` 
-lessons. The `1` at the end reflects lessons on index `1` on `TUESDAY` as reflected by `timetable -day` or `timetable -week`. 
-This `Command` will be parsed and eventually returns a `TimeTableDeleteCommand`.
-
-5. The `TimeTableDeleteCommand` is executed, returning a `CommandResult` containing a success message if the lessons 
-have been successfully deleted. Otherwise, an exception message will be shown explaining the exception to the user.
-Common reasons for failure include:
-
-* Wrong Command format\
-e.g. `timetable -del TUE 1`.
-* Lesson does not exist in the timetable\
-e.g. `timetable -del TUESDAY 5` but the timetable does not contain a lesson/s on `TUESDAY` at index `5`. Current 
-lessons can be found by entering `timetable -day` or `timetable -week`.
-
-##### 3.63 View the timetable
-Given below is an example scenario to view the timetable for the day.
-
-1. The user adds a lesson to the timetable for today, for e.g. `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 1`.
-
-2. The user inputs `timetable -day`.
-
-3. The timetable for the day is shown to the user. The user is able to see the Tuesday CS2101 lecture that was 
-previously added in step 1.
-
-##### 3.64 Filter the timetable
-Given below is an example scenario to filter the timetable for CS2101 LECTURE.
-
-1. The user adds a lesson to the timetable for today, for e.g. `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 1`.
-
-2. The user inputs `timetable -filter CS2101 - - - LECTURE`
-
-3. All CS2101 lectures in the timetable are shown to the user. The user is able to see the CS2101 weekly lectures that were previously added in step 1.
-
-* Wrong Command format\
-e.g. `timetable -filter`
-
-##### 3.65 Reset the timetable
-Given below is an example scenario to reset the timetable. 
-
-1. The user inputs `timetable -reset`.  
-
-2. ra.VI will ask for the current NUS week. This input is parsed and re-initialises the `TimeTableManager` with a new `Timetable`. 
-
 <!-- @@author wangqinNick-->
-#### 3.7 Undo Feature
+#### 3.6 Undo Feature
 This feature is facilitated by State and StateManager classes. 
 It extends the abstract Command class and override the execute command.
 
@@ -497,6 +408,95 @@ a string. The parser parses the string and allocates it to the AddCommand where 
 
 5. More importantly, the Undo command only works for those 'data-changed' operations. Those operations refer to 'add', 'delete', 'edit' commands.
 <!-- @@wangqinNick -->
+
+#### 3.7 Timetable Feature
+This feature is facilitated by the `TimeTableManager` class and `TimeTableCommand` class.
+Extending from the abstract `TimeTableCommand` class are the `TimeTableAddCommand`, `TimeTableDeleteCommand`,
+`TimeTableViewCommand` and `TimeTableResetCommand` classes.
+* Add a lesson - Add a lesson to the timetable through `TimeTableManager.addLesson()`
+* Delete a lesson - Delete all associated lessons from the timetable through `TimeTableManager.deleteLesson()`
+* View today's timetable - List all lessons for today through `TimeTableManager.getSpecificDayLessons()`
+* View this week's timetable - List all lessons in this week through `TimeTableManager.getSpecifiedWeekLessons()`
+* Reset timetable - Reset the whole timetable through `TimeTableManager.initialiseTimetable()` 
+
+##### 3.7.1 Add lesson/s to timetable
+Given below is an example scenario to add a lesson to the timetable and how the timetable feature behaves at each step.
+
+1. The user launches the application for the first time. ra.VI asks for the current NUS week. This input is parsed and 
+initialises the `TimeTableManager`. 
+
+2. The user inputs `add -m CS2101`, as the user wants to note down a module named `CS2101` and add it to their module list.
+
+3. The user inputs `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 1`. This means the user wants to add a `CS2101 LECTURE` 
+that occurs once a week on `TUESDAY 0800 1000`. This `Command` will be parsed and eventually returns a `TimeTableAddCommand`.
+
+4. The `TimeTableAddCommand` is executed, returning a `CommandResult` containing a success message if the lesson has 
+been successfully added. Otherwise, an exception message will be shown explaining the exception to the user.\
+Common reasons for failure include:
+
+* Wrong command format\
+e.g. `timetable -add CS2101 TUE 0800 1000 LECTURE 1`\
+e.g. `timetable -add CS2101 TUESDAY 8am 10am LECTURE 1`\
+e.g. `timetable -add CS2101 TUESDAY 0800 1000 NONSENSE 1`\
+e.g. `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 5`
+* Module does not exist in module list\
+e.g. `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 1` but the module list does not contain `CS2101`. Available modules can be found by entering `list -m`
+e.g. `timetable -add BAD TUESDAY 0800 1000 LECTURE 1` but the module list does not contain `BAD` and `BAD` is not a valid NUS module.
+
+##### 3.7.2 Delete lesson/s from timetable
+Given below is an example scenario to delete a lesson from the timetable and how the timetable feature behaves at each step.
+
+1. The user launches the application for the first time. ra.VI asks for the current NUS week. This input is parsed 
+and initialises the `TimeTableManager`. 
+
+2. The user inputs `add -m CS2101`, as the user wants to note down a module named `CS2101` and add it to their module list.
+
+3. The user inputs `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 1`. This means the user wants to add a 
+`CS2101 LECTURE` that occurs once a week on `TUESDAY 0800 1000`. This `Command` will be parsed and eventually returns a 
+`TimeTableAddCommand`.
+
+4. The user inputs `timetable -del TUESDAY 1`. This means the user wants to delete the `CS2101 TUESDAY 0800 1000 LECTURE` 
+lessons. The `1` at the end reflects lessons on index `1` on `TUESDAY` as reflected by `timetable -day` or `timetable -week`. 
+This `Command` will be parsed and eventually returns a `TimeTableDeleteCommand`.
+
+5. The `TimeTableDeleteCommand` is executed, returning a `CommandResult` containing a success message if the lessons 
+have been successfully deleted. Otherwise, an exception message will be shown explaining the exception to the user.
+Common reasons for failure include:
+
+* Wrong Command format\
+e.g. `timetable -del TUE 1`.
+* Lesson does not exist in the timetable\
+e.g. `timetable -del TUESDAY 5` but the timetable does not contain a lesson/s on `TUESDAY` at index `5`. Current 
+lessons can be found by entering `timetable -day` or `timetable -week`.
+
+##### 3.7.3 View the timetable
+Given below is an example scenario to view the timetable for the day.
+
+1. The user adds a lesson to the timetable for today, for e.g. `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 1`.
+
+2. The user inputs `timetable -day`.
+
+3. The timetable for the day is shown to the user. The user is able to see the Tuesday CS2101 lecture that was 
+previously added in step 1.
+
+##### 3.7.4 Filter the timetable
+Given below is an example scenario to filter the timetable for CS2101 LECTURE.
+
+1. The user adds a lesson to the timetable for today, for e.g. `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 1`.
+
+2. The user inputs `timetable -filter CS2101 - - - LECTURE`
+
+3. All CS2101 lectures in the timetable are shown to the user. The user is able to see the CS2101 weekly lectures that were previously added in step 1.
+
+* Wrong Command format\
+e.g. `timetable -filter`
+
+##### 3.7.5 Reset the timetable
+Given below is an example scenario to reset the timetable. 
+
+1. The user inputs `timetable -reset`.  
+
+2. ra.VI will ask for the current NUS week. This input is parsed and re-initialises the `TimeTableManager` with a new `Timetable`. 
 
 ### 3.8 [Proposed] Notes Feature
 ![Class diagram for Notes Feature in Command class](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/NotesClassDiagram.png?raw=true)
