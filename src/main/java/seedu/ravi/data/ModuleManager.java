@@ -57,6 +57,7 @@ public class ModuleManager {
     public static Module edit(String newModuleCode, String oldModuleCode)
             throws ModuleNotProvidedException, DuplicateModuleException, ModuleNotFoundException {
         logger.getLogger().info("Editing module at old module code: " + oldModuleCode);
+
         if (!doesContainMod(oldModuleCode)) {
             logger.getLogger().warning("Old module code not found!");
             throw new ModuleNotFoundException();
