@@ -28,11 +28,7 @@ public class StateManager {
         undoStack = new Stack<>();
         redoStack = new Stack<>();
 
-        var gson = new GsonBuilder().create();
-        var encodedSavedList = gson.toJson(TaskManager.getTaskList());
-        var encodedSavedMap = gson.toJson(ModuleManager.getModulesMap());
-        var encodedTimeTable = gson.toJson(TimeTableManager.getTimeTable().getSemesterMap());
-        var screenShot = new State(encodedSavedList, encodedSavedMap, editTypeCommandArrayList, encodedTimeTable);
+        State screenShot = toJson();
         assert undoStack.isEmpty() : "Undo stack should be empty!";
         assert redoStack.isEmpty() : "Redo stack should be empty!";
         undoStack.push(screenShot);
@@ -122,11 +118,7 @@ public class StateManager {
      */
     public static void saveState(String editTypeCommand) {
         editTypeCommandArrayList.add(editTypeCommand);
-        var gson = new GsonBuilder().create();
-        var encodedSavedList = gson.toJson(TaskManager.getTaskList());
-        var encodedSavedMap = gson.toJson(ModuleManager.getModulesMap());
-        var encodedSavedTimeTable = gson.toJson(TimeTableManager.getTimeTable().getSemesterMap());
-        var screenShot = new State(encodedSavedList, encodedSavedMap, editTypeCommandArrayList, encodedSavedTimeTable);
+        State screenShot = toJson();
         undoStack.push(screenShot);
         /*
         if (getUndoStackSize() == 0) {
@@ -143,6 +135,14 @@ public class StateManager {
         }
 
          */
+    }
+
+    private static State toJson() {
+        var gson = new GsonBuilder().create();
+        var encodedSavedList = gson.toJson(TaskManager.getTaskList());
+        var encodedSavedMap = gson.toJson(ModuleManager.getModulesMap());
+        var encodedSavedTimeTable = gson.toJson(TimeTableManager.getTimeTable().getSemesterMap());
+        return new State(encodedSavedList, encodedSavedMap, editTypeCommandArrayList, encodedSavedTimeTable);
     }
 
     /**
