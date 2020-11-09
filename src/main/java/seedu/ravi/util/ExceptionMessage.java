@@ -4,7 +4,7 @@ public class ExceptionMessage {
     public static final String EXCEPTION_HEADER = "@|bold,white,BG_RED Error!|@";
 
     public static final String MESSAGE_NUS_MODS_NOT_LOADED =
-            "@|bold,red,BG_BLACK,underline NUSMods data could not be loaded!|@\n"
+            "@|bold,red,BG_BLACK,NEGATIVE_ON NUSMods data could not be loaded!|@\n"
             + "ra.VI is meant to be able to work offline, and so is packaged with a \n"
             + "copy of NUSMods data. If you're reading this, the ra.VI jar file you are \n"
             + "using may be corrupted. Please try to download again when you have an \n"

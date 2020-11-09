@@ -218,8 +218,10 @@ public class TextUi {
      *  The current week of year.
      * @throws NoSuchElementException
      *  When the user input is ctrl-c.
+     * @throws NumberFormatException
+     *  When the user input is not an integer.
      */
-    public static int getCurrentWeekNum() throws NoSuchElementException {
+    public static int getCurrentWeekNum() throws NoSuchElementException, NumberFormatException {
         String userInput = in.nextLine().trim();
         return Integer.parseInt(userInput);
     }
