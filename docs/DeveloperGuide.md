@@ -1,6 +1,9 @@
 # Developer Guide for ra.VI
 
 ## Table of Contents
+Work in progress
+
+----
 
 ## Setting up
 The following section describes how to set up ra.VI on your own computer.
@@ -34,15 +37,18 @@ options](https://se-education.org/guides/tutorials/intellijCodeStyle.html) to ma
 The checkstyle configurations is in `<ROOT>/config/checkstyle/` by default. Here is some information on [how to use the
 Checkstyle plugin with IntelliJ IDEA](https://se-education.org/guides/tutorials/checkstyle.html).
 
+----
 
 ## Design
 
-### Top level classes
+### Top level classes and main flow
 
 This is a class diagram of the top-level of ra.Vi.  
 The classes depicted here are those which are direct dependencies of the main class `Ravi`.  
 The various dependencies of the classes depicted here are not shown to avoid cluttering, and are described in later
-sections.  
+sections.
+
+![UML class diagram for Main Class](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/MainClassDiagram.png?raw=true)
 
 The main class holds the main loop. 
 Most classes used by the main class are static in nature and do not need to be instantiated. 
@@ -51,86 +57,8 @@ The `Command` and `CommandResult` objects are dependencies of Executor in additi
 viewed as a simple layer of abstraction on top of `Command` and `CommandResult` to facilitate the execution of user
 commands. `Command` is a dependency of `Parser` as `Parser` creates `Command` objects to return to the main loop.
 
-![UML class diagram for Main Class](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/MainClassDiagram.png?raw=true)
-
-#### Command Family
-
-The Command family of classes are nearly all derived from the abstract `Command` class, except for
-`CommandResult` and `PromptType`. All `Command` classes belong to the `Command` package. This is shown in the diagram
-below.
-
-![UML class diagram for Command Family Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/CommandClassDiagram.png?raw=true)
-
-`PromptType` indicates the functionality of the `Command` object. The most useful type is `EDIT`, which indicates to
-StateManager that there has been a change in state.
-
-The `Command` classes carry information about the user's command. There is one class for each exact user command. The
-`execute()` function of the `Command` class generates a `CommandResult`, which holds the reply to the user. This is
-shown in the diagram below.
-
-![UML sequence diagram for Command Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/CommandSequenceDiagram.png?raw=true)
-
-#### Data Family
-
-The Data family of classes consists of all the abstracted data types required for our features, such as
-`Task`, `Module`, and their respective Managers. All Data classes exist in the `data` package, and the classes
-in charge of saving and loading like `InputOutputManager` are in the storage subpackage.
-
-`Lesson`, `Task`, and `Module` are the base level abstractions, with their respective Managers containing the logic
-to store and manipulate instances of these objects in a meaningful way. `InputOutputManager` reads and writes
-information from the various Managers in order to save and load. `State` and `StateManager` are specifically for undo
-and redo functionality. They do not interact directly with the rest of the Data family.
-
-`LessonFilter` is the only interface in the data package. It allows for flexible creation of filters for powerful user
-filtering of lessons via lambda functions. For example, the user can choose to filter only lectures on Mondays before
-2PM.
-
-Since there is no `Command` to save or load, `InputOutputManager` is not a dependency of `Command`. All the other
-Managers, however, are dependencies of `Command` as there are commands for using/manipulating each one of them.
-`InputOutputManager` and `Command` are then dependencies of the main class `Ravi`.
-
-![UML class diagram for Data Family Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/DataClassDiagram.png?raw=true)
-
-#### Parser Family
-
-The Parser family of classes consists of the main `Parser` class and the `xCommandParser` subclasses. The main `Parser` class
-first determines the main `Command` in the user `Command` string. If it is one of the 10 commands with a `xCommandParser`
-subclass, then `Parser` delegates the remaining work to the subclass due to the complicated logic involved. Otherwise, it
-handles the logic itself.
-
-**Parser "subclasses" do not inherit from the `Parser` class.** They serve to organise the code that would otherwise all
-be placed in the `Parser` class.
-
-`Parser` will create a `Command` object, no matter whether the user `Command` is valid or not (if it is not, then an
-`IncorrectCommand` object is created). This `Command` object passes back to the main class `Ravi` for execution.
-
-![UML class diagram for Parser Family Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/ParserClassDiagram.png?raw=true)
-
-
-#### Timetable Family 
-
-The Timetable Family of classes is a _cross-family_ family of classes from the `Data` and `Command` families, 
-and consists of the `TimeTableCommand` and `TimeTableCommandParser` classes, as well as `TimeTableManager` and
-`TimeTable` themselves. Extending from the abstract `TimeTableCommand` class are the `TimeTableAddCommand`,
-`TimeTableDeleteCommand`, `TimeTableViewCommand`, and `TimeTableResetCommand` classes.
-
-![Class diagram for TimeTable Family Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/TimeTableClassDiagram.png?raw=true)
-
-**This is a good representation of how the other data classes (`Task`, `Module`) work as well.** The `Command` objects
-call the methods held in the Manager classes to perform work on the stored user data.
-
-Upon the first start up of ra.VI, `TimeTableManager.initialise()` will be run. This will no longer run again in future
-sessions as long as the user does not tamper with or delete the files in the created data folder, or use ra.VI elsewhere.
-
-The `TimeTable` is created based on the user's initial input, with an appropriate number of `LessonManagers`.
-The point of entry for this feature will be at `TimeTableCommandParser`, which will decide which of the commands 
-to return through `parseTimeTableCommand()`. If the `TimeTableCommand` is returned and executed, the 
-`TimeTableManager` will carry out the associated commands, adding, deleting or viewing the lessons in the timetable.
-
-### Feature explanation with sequence diagrams
-
-#### Main loop sequence
 ![Sequence diagram 1 for Main loop](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/MainSequenceDiagram.png?raw=true)
+
 This sequence diagram shows the activity of the main class, `Ravi`. When it starts, it first adds the shutdown hook to
 handle both unexpected and normal shutdowns.
 
@@ -149,6 +77,7 @@ any other means other than `SIGKILL`). It prints a shutdown message as described
 their data is saved.
 
 ![Sequence diagram 2 for Main loop](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/MainSequenceDiagramStartSd.png?raw=true)
+
 This sequence diagram holds the reference for `start()`.
 
 `TextUi` is initialised with a new `Scanner` object set to `System.in` to get user input.
@@ -182,6 +111,119 @@ will run `save()` to save all user data as a measure against unexpected shutdown
 5. Finally, use the `CommandResult` object to show the result of the `Command` to the user using `TextUi`.
 
 Note that the `Command` and `CommandResult` objects are destroyed after use.
+
+#### Command Family
+
+The Command family of classes are nearly all derived from the abstract `Command` class, except for
+`CommandResult` and `PromptType`. All `Command` classes belong to the `Command` package. This is shown in the diagram
+below.
+
+![UML class diagram for Command Family Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/CommandClassDiagram.png?raw=true)
+
+`PromptType` indicates the functionality of the `Command` object. The most useful type is `EDIT`, which indicates to
+StateManager that there has been a change in state.
+
+The `Command` classes carry information about the user's command. There is one class for each exact user command. The
+`execute()` function of the `Command` class generates a `CommandResult`, which holds the reply to the user. This is
+shown in the diagram below.
+
+![UML sequence diagram for Command Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/CommandSequenceDiagram.png?raw=true)
+
+#### Data Family
+
+The Data family of classes consists of all the abstracted data types required for our features, such as
+`Task`, `Module`, and their respective Managers. All Data classes exist in the `data` package, and the classes
+in charge of saving and loading like `InputOutputManager` are in the storage subpackage.
+
+![UML class diagram for Data Family Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/DataClassDiagram.png?raw=true)
+
+`Lesson`, `Task`, and `Module` are the base level abstractions, with their respective Managers containing the logic
+to store and manipulate instances of these objects in a meaningful way. `InputOutputManager` reads and writes
+information from the various Managers in order to save and load. `State` and `StateManager` are specifically for undo
+and redo functionality. They do not interact directly with the rest of the Data family.
+
+`LessonFilter` is the only interface in the data package. It allows for flexible creation of filters for powerful user
+filtering of lessons via lambda functions. For example, the user can choose to filter only lectures on Mondays before
+2PM.
+
+Since there is no `Command` to save or load, `InputOutputManager` is not a dependency of `Command`. All the other
+Managers, however, are dependencies of `Command` as there are commands for using/manipulating each one of them.
+`InputOutputManager` and `Command` are then dependencies of the main class `Ravi`.
+
+ra.VI loads the user saves granularly to prevent any errors in loading one file from affecting the rest. The full
+sequence diagram is below, separated into three sections.
+
+![UML sequence diagram for Loading Data](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/DataSequenceDiagram.png?raw=true)
+
+The above is the main loading diagram. ra.VI tries to load each save file separately. The tasks, modules, and timetable
+save files are handled in the same way. The NUSMods save file is handled in a different way as it is possible to load
+from the NUSMods API or the prepackaged NUSMods resource file in the JAR release.
+
+![UML sequence diagram for Loading Data (Normal data)](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/DataSequenceDiagramDataSd.png?raw=true)
+
+`InputOutputManager` uses the `File` and `Decoder` classes to read from the file and decode the contents into the data
+objects (using FastJSON). Depending on whether the file exists or whether exceptions are thrown, the status code is
+updated and returned accordingly.
+
+> :exclamation: The data classes may have seemingly unused getters and setters. This is intended, as FastJSON needs
+> them to be present in order to handle the conversion between JSON strings and Java objects.
+
+![UML sequence diagram for Loading Data (NUSMods)](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/DataSequenceDiagramNusModsSd.png?raw=true)
+
+For NUSMods, the same principles apply. However, there is a chain of try-catch blocks to serve as fallbacks if one
+loading measure fails.
+
+1. Try to load from the data directory. The NUSMods data is saved in the data directory to serve as a cached, most
+up-to-date version of the data for faster and more accurate data.
+2. Failing that, try to load from the NUSMods API. This is slightly slower and requries the user to have an internet
+access.
+3. Failing both of the above, try to load from the JAR resource file. The JAR release will hold a version of the
+NUSMods data that we stored in case of these situations. This version may be out of date, however, but it's the next
+best option available.
+4. Failing all the above, `InputOutputManager` will throw an exception that causes ra.VI to shut down. There will be
+a message prompting the user to re-download the JAR release if they can do so, as it is likely that the JAR file is 
+corrupted in some way.
+
+#### Parser Family
+
+The Parser family of classes consists of the main `Parser` class and the `xCommandParser` subclasses. The main `Parser` class
+first determines the main `Command` in the user `Command` string. If it is one of the 10 commands with a `xCommandParser`
+subclass, then `Parser` delegates the remaining work to the subclass due to the complicated logic involved. Otherwise, it
+handles the logic itself.
+
+**Parser "subclasses" do not inherit from the `Parser` class.** They serve to organise the code that would otherwise all
+be placed in the `Parser` class.
+
+`Parser` will create a `Command` object, no matter whether the user `Command` is valid or not (if it is not, then an
+`IncorrectCommand` object is created). This `Command` object passes back to the main class `Ravi` for execution.
+
+![UML class diagram for Parser Family Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/ParserClassDiagram.png?raw=true)
+
+
+#### Timetable Family 
+
+The Timetable Family of classes is an example of a _cross-family_ family of classes from the `Data` and `Command`
+families, and consists of the `TimeTableCommand` and `TimeTableCommandParser` classes, as well as `TimeTableManager` and
+`TimeTable` themselves. Extending from the abstract `TimeTableCommand` class are the `TimeTableAddCommand`,
+`TimeTableDeleteCommand`, `TimeTableViewCommand`, and `TimeTableResetCommand` classes.
+
+![Class diagram for TimeTable Family Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/TimeTableClassDiagram.png?raw=true)
+
+**This is a good representation of how the other data classes (`Task`, `Module`) work as well.** The `Command` objects
+call the methods held in the Manager classes to perform work on the stored user data. There are the classic getters and
+setters, as well as more elaborate adding, deleting, editing, and viewing methods with logic for validation.
+
+Upon the first start up of ra.VI, `TimeTableManager.initialise()` will be run. This will no longer run again in future
+sessions as long as the user does not tamper with or delete the files in the created data folder, or use ra.VI elsewhere.
+
+The `TimeTable` is created based on the user's initial input, with an appropriate number of `LessonManagers`.
+The point of entry for this feature will be at `TimeTableCommandParser`, which will decide which of the commands 
+to return through `parseTimeTableCommand()`. If the `TimeTableCommand` is returned and executed, the 
+`TimeTableManager` will carry out the associated commands, adding, deleting or viewing the lessons in the timetable.
+
+----
+
+### Feature explanation
 
 #### Add/Delete Feature
 This feature is facilitated by the `TaskManager`, `ModuleManager` classes.
