@@ -253,15 +253,22 @@ Given below is an example usage scenario and how the list feature behaves at eac
 
 4. The user inputs `list -t`. The `CommandResult` returns  
 ```
-1. Read book [x]
-2. Return book [x], by 02:00PM, Friday, 02 Oct 20 
-3. Meeting [x]
+════════════════════════════════════════════════════════════════════════════════
+Here's your list:
+
+1. return a book [x]
+2. read a book [x], by 07:00PM, Sunday, 02 Feb 2020
+
+════════════════════════════════════════════════════════════════════════════════
 ```
-Step 5. The user inputs `list -m`. The `CommandResult` returns  
+5. The user inputs `list -m`. The `CommandResult` returns  
 ```
-1. CS2113T: Software Engineering & Object-Oriented Programming: No grade yet
-2. CG2271: Real-Time Operating Systems: No grade yet
-3. CS2101: Effective Communication for Computing Professionals: No grade yet
+════════════════════════════════════════════════════════════════════════════════
+Here's your list:
+
+1. CS1010: Programming Methodology (0.0MC) (Grade: No grade yet)
+2. CS3235: Computer Security (0.0MC) (Grade: No grade yet)
+════════════════════════════════════════════════════════════════════════════════
 ```
 
 #### CAP Feature 
@@ -315,6 +322,39 @@ with the grade and module credits.
 
 3. The `CommandResult` returns the success message to show the user that their module has successfully been graded. 
 Otherwise, an exception message will be shown regarding the exception caught.
+
+<!-- @@author wangqinNick-->
+#### Undo Feature
+This feature is facilitated by State and StateManager classes. 
+It extends the abstract Command class and override the execute command.
+
+* `GradeCommand.testgrade(stringGrade)` - checks if the input grade is valid according to NUS grading schematic 
+* `GradeCommand.grade(moduleModule)` - assigns the specific module present in the module list, the grade and moduleCredit attributes.
+
+![Sequence diagram for Undo Feature](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/UndoCommandSequenceDiagram.png?raw=true)
+
+As seen from the sequence diagram above, this is the flow of an Undo command.
+The Parser parses the user's input, and construct the default UndoCommand.
+When an Undo Command object executes, the `undo()` method in the StateManager class will be called.
+In the StateManager, the previous copies of the data are encoded as Json and stored in a stack.
+When the `undo()` is called, the StateManager will pops the top copy in the stack. 
+After that, the StateManager class will notify TaskManager and Module Manager to load from the encoded saved copies. To do that, it will facilitate the load methods, `loadMods()` `loadTasks()` from TaskManager and ModuleManager to set the data.
+
+Given below is an example usage scenario and how the undo feature behaves at each step.
+
+1. The user launches the application. The user inputs `add -m CS2101` into ra.VI, as the user wants to note down 
+a module named ‘CS2101’ and add it to their module list. This input is received by the Ui ,which processes it into 
+a string. The parser parses the string and allocates it to the AddCommand where it is added to the list of modules. 
+
+2. The user finds the module just added is wrong. Thus, he wants to undo the previous `add -m CS2101` command.
+
+3. The user inputs `undo` into ra.VI. The input is received by the Ui, which then passes the input to Parser and parsed to an Undo command.
+
+4. Then the execution process of the Undo command will makes the method calls demonstrate above in the diagram. 
+
+5. More importantly, the Undo command only works for those 'data-changed' operations. Those operations refer to 'add', 'delete', 'edit' commands.
+<!-- @@wangqinNick -->
+
 
 #### Timetable Feature
 This feature is facilitated by the `TimeTableManager` class and `TimeTableCommand` class.
