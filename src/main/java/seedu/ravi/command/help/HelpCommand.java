@@ -14,9 +14,11 @@ import seedu.ravi.command.summary.SummaryCommand;
 import seedu.ravi.command.timetable.TimeTableCommand;
 import seedu.ravi.ui.TextUi;
 
+import static seedu.ravi.util.ExceptionMessage.MESSAGE_INVALID_HELP_COMMAND;
+
 //@@author amalinasani
 public class HelpCommand extends Command {
-    private final String commandType;
+    private String commandType;
     public static final String COMMAND_WORD = "help";
     public static final String FORMAT = COMMAND_WORD + " [<command_word>]";
     public static final String HELP =   "View command information."
@@ -35,7 +37,12 @@ public class HelpCommand extends Command {
      */
     @Override
     public CommandResult execute() {
-        String output;
+        String output = TextUi.getCommandList();
+
+        if (commandType == null) {
+            return new CommandResult(output);
+        }
+
         switch (commandType) {
         case AddCommand.COMMAND_WORD:
             output = AddCommand.HELP;
@@ -71,8 +78,8 @@ public class HelpCommand extends Command {
             output = SummaryCommand.HELP;
             break;
         default:
-            output = TextUi.getCommandList();
-            break;
+            output = MESSAGE_INVALID_HELP_COMMAND;
+            return new CommandResult(output,true);
         }
         return new CommandResult(output);
     }

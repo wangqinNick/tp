@@ -91,6 +91,9 @@ public class ExceptionMessage {
     public static final String MESSAGE_INVALID_MC =
             "The number of MCs you entered is @|bold,red,BG_BLACK invalid|@.\n"
             + "For more information, use @|bold,green,BG_BLACK 'help grade'|@.\n";
+    public static final String MESSAGE_INVALID_HELP_COMMAND =
+            "The help command you have entered is @|bold,red,BG_BLACK invalid. \n"
+            + "For more information, use @|bold,green,BG_BLACK 'help'|@.\n";
 
     /*
     

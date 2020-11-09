@@ -1,9 +1,9 @@
 @startuml
 
--> ":CapCommandParser" ++ : prepareCapCommand()
-    ":CapCommandParser" -> ":CapCommand" ** : <<construct>> CapCommand(totalMcTaken,currentCap)
+-> ":CapCommandParser" ++ : CapCommand()
+    ":CapCommandParser" -> ":CapCommand" ** : <<construct>>
     activate ":CapCommand"
-    return CapCommand
+    return
 <-- ":CapCommandParser" !! : CapCommand
 
 -> ":CapCommand" ++ : execute()

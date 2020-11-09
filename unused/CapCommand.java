@@ -4,6 +4,7 @@ package seedu.ravi.command.cap;
 
 import seedu.ravi.command.Command;
 import seedu.ravi.command.CommandResult;
+import seedu.ravi.command.PromptType;
 import seedu.ravi.data.ModuleManager;
 import seedu.ravi.exception.InvalidCapCalculatedException;
 import seedu.ravi.exception.ModuleNotFoundException;
@@ -14,6 +15,8 @@ import static seedu.ravi.util.ExceptionMessage.MESSAGE_MODULE_NOT_FOUND;
 import static seedu.ravi.util.Message.MESSAGE_CAP_DISPLAY;
 
 public class CapCommand extends Command {
+    private final int totalMcTaken;
+    private final double currentCap;
     public static final String COMMAND_WORD = "cap";
     public static final String FORMAT = COMMAND_WORD + " <total_mc> <current_cap>";
     public static final String PROMPT_HELP = TextUi.getCommandHelpMessage(COMMAND_WORD);
@@ -21,9 +24,24 @@ public class CapCommand extends Command {
                                         + "\n\t@|bold,blue,BG_BLACK Format:|@ " + FORMAT
                                         + "\n\t@|bold,blue,BG_BLACK Example usage:|@ cap 20 4.5";
 
-    private static double cap = 0.0;
+    public static double cap = 0.0;
     private static final double SUMMCGRADE = 20;
     private static final double SUMMC = 4;
+
+
+    /**
+     * Constructor for CapCommand which checks if the totalMcTaken and currentCap is valid also.
+     *
+     * @param totalMcTaken
+     * users total module credit attained
+     * @param currentCap
+     * users current cap score
+     */
+    public CapCommand(int totalMcTaken, double currentCap) {
+        this.totalMcTaken = totalMcTaken;
+        this.currentCap = currentCap;
+        setPromptType(PromptType.EDIT);
+    }
 
     /**
      * Enum for the grading schematic of NUS.
@@ -86,26 +104,24 @@ public class CapCommand extends Command {
      */
     private double calculateCap() throws InvalidCapCalculatedException, ModuleNotFoundException {
         String[] moduleList = ModuleManager.getModCodeList();
-        double mcGrade;
+        double mcGrade = 0;
         double sumMcGrade = 0;
         double sumMc = 0;
         double gradeValue;
         int numberOfCsCuModules = 0;
         int numberOfModules = 0;
-
         for (String i : moduleList) {
             numberOfModules++;
             gradeValue = gradeConvert(ModuleManager.getModule(i).getModuleGrade());
-
-            if (gradeValue != -1.0) {
-                if (gradeValue >= 0) {
-                    sumMc += ModuleManager.getModule(i).getModuleCredit();
-                    mcGrade = ModuleManager.getModule(i).getModuleCredit()
-                            * gradeValue;
-                    sumMcGrade += mcGrade;
-                } else {
-                    numberOfCsCuModules++;
-                }
+            if (gradeValue == -1.0) {
+                throw new InvalidCapCalculatedException();
+            } else if (gradeValue >= 0) {
+                sumMc += ModuleManager.getModule(i).getModuleCredit();
+                mcGrade = ModuleManager.getModule(i).getModuleCredit()
+                        * gradeValue;
+                sumMcGrade += mcGrade;
+            } else {
+                numberOfCsCuModules++;
             }
         }
         if (numberOfCsCuModules == numberOfModules) {
@@ -113,7 +129,7 @@ public class CapCommand extends Command {
             sumMc = SUMMC;
         }
 
-        cap =  sumMcGrade / sumMc;
+        cap = ((currentCap * totalMcTaken) + sumMcGrade) / (sumMc + totalMcTaken);
 
         if (cap < 0 || cap > 5.0 || isNan(cap)) {
             throw new InvalidCapCalculatedException();
