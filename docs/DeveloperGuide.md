@@ -8,6 +8,9 @@ Work in progress
 ## Setting up
 The following section describes how to set up ra.VI on your own computer.
 
+Testing! I hope this works.
+{: .alert .alert-danger}
+
 ### Software Prerequisites
 
 1. **JDK** 11
