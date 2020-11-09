@@ -17,7 +17,7 @@ public class UndoCommand extends Command {
                                         + "\n\t@|bold,blue,BG_BLACK Format:|@ " + COMMAND_WORD;
 
     public UndoCommand() {
-        this.promptType = PromptType.INFORMATIVE;
+        this.promptType = PromptType.EDIT;
     }
 
     @Override
