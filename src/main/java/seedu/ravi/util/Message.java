@@ -1,7 +1,7 @@
 package seedu.ravi.util;
 
 public class Message {
-    public static final String MESSAGE_GOODBYE = "@|bold,magenta,BG_BLACKGoodbye, hope to see you soon!|@";
+    public static final String MESSAGE_GOODBYE = "@|bold,magenta,BG_BLACK Goodbye, hope to see you soon!|@";
     public static final String MESSAGE_WELCOME = "@|bold,magenta,BG_BLACK Welcome to ra.VI v2.0|@";
     public static final String MESSAGE_SHUTDOWN = "@|bold,magenta,BG_BLACK Shutting down ra.VI...|@";
 
