@@ -43,7 +43,7 @@ Repository Assistant with a Versatile Interface (ra.VI) is a desktop app for NUS
     * After a successful undo command, show the user the command that was undone. [#241](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/241)
         * Added an ArrayList to the `State` to save the successful command input.
     * Fix checkstyle for many classes. [#145](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/145)
-        * Based on the Java coding standard, I amended `checkstyle.xml` to make it more comprehensive.
+        * Based on the Java coding standard, amended `checkstyle.xml` to make it more comprehensive.
     * Added Jansi library
         * Did cosmetic tweaks to add some colors to the application.
         * Credits: Implemented in collaboration with [Jun You](https://ay2021s1-cs2113t-t09-2.github.io/tp/team/f0fz.html)
