@@ -732,3 +732,18 @@ strongly discouraged.**
     Expected: `task 1` should be shown in the task list, and `CS1010` should be shown in the module list.
     
     
+## The Graphical User Interface
+**The graphical user interface and its related features are supposed to released in the next iteration v3.0**
+**Thus, the GUI is currently still a separate branch. The professor asks me to attach the GUI features here to fulfill my contribution to the DG**
+**The following are some features implemented in the GUI branch**
+
+#### Command Family
+
+The Command family of classes in GUI branch are regarded as the supplement for the master branch (CLI).
+The Command family of classes are nearly all derived from the abstract `Command` class, except for
+`CommandResult` and `PromptType`. All `Command` classes belong to the `Command` package. This is shown in the diagram
+below.
+    
+
+
+
