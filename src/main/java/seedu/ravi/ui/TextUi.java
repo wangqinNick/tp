@@ -219,7 +219,7 @@ public class TextUi {
      * @throws NoSuchElementException
      *  When the user input is ctrl-c.
      */
-    public static int getCurrentWeekNum() throws NoSuchElementException {
+    public static int getCurrentWeekNum() throws NoSuchElementException, NumberFormatException {
         String userInput = in.nextLine().trim();
         return Integer.parseInt(userInput);
     }
