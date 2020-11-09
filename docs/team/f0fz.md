@@ -49,7 +49,7 @@ as well as the main class. Some examples:
     * Added sequence diagram for the main loop.
 
 * UG:
-    * 
+    * Polished and proofread some sections of the UG.
 
 #### Contributions to team-based tasks
 

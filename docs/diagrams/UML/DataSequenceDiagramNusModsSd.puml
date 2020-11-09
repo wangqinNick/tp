@@ -1,0 +1,40 @@
+@startuml
+mainframe sd <b>Try to load NUSMods</b>
+
+participant ":InputOutputManager" as IO << Class >>
+participant ":java.io.File" as File << Class >>
+participant ":Decoder" as Dec << Class >>
+participant ":ModuleManager" as Man << Class >>
+
+-> IO ++ : tryLoadNusMods()
+|||
+group try
+    |||
+    IO -> File ++ : Read file
+    IO <-- File -- : File contents string
+    IO -> Dec ++ : Decode contents
+    IO <-- Dec -- : Module objects (of mods on NUSMods)
+    IO <-- IO : Update status code: 'Read from data dir'
+    |||
+else catch couldn't load from data directory
+    group try
+        IO -> Dec ++ : Read from NUSMods API and decode
+        IO <-- Dec -- : Module objects (of mods on NUSMods)
+        IO <-- IO : Update status code: 'Read from NUSMods API'
+        |||
+    else catch couldn't load from NUSMods API (online)
+        group try
+            IO -> Dec ++ : Read from JAR resource file and decode
+            IO <- Dec -- : Module objects (of mods on NUSMods)
+            IO <-- IO : Update status code: 'Read from JAR resource file'
+            |||
+        else catch couldn't load from JAR resource file
+            <-- IO : Throw exception since\nNUSMods could not be loaded.\nThis exception will halt ra.VI
+        end group
+    end group
+end group
+|||
+IO -> Man ++ : Save NUSMods into ModuleManager
+IO <-- Man --
+<-- IO -- : Return status code
+@enduml
