@@ -283,7 +283,7 @@ Given below is an example usage scenario and how the CAP feature behaves at each
 2. The user inputs `add -m CS2101` into ra.VI, as the user adds a module they are taking into the `ModuleManager`.
 The user keys in as many modules into ra.VI as they are taking. 
 
-3. Once the user attains a grade for the modules keyed in, they inputs `grade CS2101 4 A-` (4 MCs, A grade) to record the
+3. Once the user attains a grade for the modules keyed in, they input `grade CS2101 4 A-` (4 MCs, A grade) to record the
 grade for their module. They does this for all the other modules they have taken.
 
 4. Once every module in the `ModuleManager` has been graded, they inputs `cap` to calculate their accumulative 
