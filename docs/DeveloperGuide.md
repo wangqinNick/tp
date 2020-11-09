@@ -398,38 +398,7 @@ Given below is an example scenario to filter the timetable for CS2101 LECTURE.
 * Wrong Command format\
 e.g. `timetable -filter`
 
-### Undo Feature 
-This feature is facilitated by State and StateManager classes. 
-It extends the abstract Command class and override the execute command.
-
-* `GradeCommand.testgrade(stringGrade)` - checks if the input grade is valid according to NUS grading schematic 
-* `GradeCommand.grade(moduleModule)` - assigns the specific module present in the module list, the grade and moduleCredit attributes.
-
-![Sequence diagram for Undo Feature](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/UndoCommandSequenceDiagram.png?raw=true)
-
-As seen from the sequence diagram above, this is the flow of an Undo command.
-The Parser parses the user's input, and construct the default UndoCommand.
-When an Undo Command object executes, the `undo()` method in the StateManager class will be called.
-In the StateManager, the previous copies of the data are encoded as Json and stored in a stack.
-When the `undo()` is called, the StateManager will pops the top copy in the stack. 
-After that, the StateManager class will notify TaskManager and Module Manager to load from the encoded saved copies. To do that, it will facilitate the load methods, `loadMods()` `loadTasks()` from TaskManager and ModuleManager to set the data.
-
-Given below is an example usage scenario and how the undo feature behaves at each step.
-
-1. The user launches the application. The user inputs `add -m CS2101` into ra.VI, as the user wants to note down 
-a module named ‘CS2101’ and add it to their module list. This input is received by the Ui ,which processes it into 
-a string. The parser parses the string and allocates it to the AddCommand where it is added to the list of modules. 
-
-2. The user finds the module just added is wrong. Thus, he wants to undo the previous `add -m CS2101` command.
-
-3. The user inputs `undo` into ra.VI. The input is received by the Ui, which then passes the input to Parser and parsed to an Undo command.
-
-4. Then the execution process of the Undo command will makes the method calls demonstrate above in the diagram. 
-
-5. More importantly, the Undo command only works for those 'data-changed' operations. Those operations refer to 'add', 'delete', 'edit' commands.
-
-
-#### Reset the timetable
+##### Reset the timetable
 Given below is an example scenario to reset the timetable. 
 
 1. The user inputs `timetable -reset`.  
@@ -726,78 +695,3 @@ strongly discouraged.**
 2. Loading tasks and modules
     1. Test case: Run ra.VI again after the first test case, then run `list -t` and `list -m`.\
     Expected: `task 1` should be shown in the task list, and `CS1010` should be shown in the module list.
-    
-    
-## The Graphical User Interface V3.0
-**The graphical user interface and its related features are supposed to released in the next iteration v3.0**
-**Thus, the GUI is currently still a separate branch. The professor asks me to attach the GUI features here to fulfill my contribution to the DG**
-**The following are some features implemented in the GUI branch**
-
-### Top level classes
-
-This is a class diagram of the top-level of ra.Vi GUI version.  
-The classes depicted here are those which are direct dependencies of the main class `Ravi`.  
-The various dependencies of the classes depicted here are not shown to avoid cluttering, and are described in later
-sections.  
-
-![UML class diagram for Main Class](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/MainClassDiagramGUI.png?raw=true)
-
-
-#### Command Family
-
-The Command family of classes in GUI branch are regarded as the supplement for the master branch (CLI).
-The Command family of classes are nearly all derived from the abstract `Command` class, except for
-`CommandResult` and `PromptType`. All `Command` classes belong to the `Command` package. This is shown in the diagram
-below.
-![UML class diagram for Command Family Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/CommandClassDiagramGUI.png?raw=true)
-
-
-#### Graphical User Interface Features
-The graphical user interface is designed to help user to have a more intuitive concept of the modules and tasks.
-The `MainStage` class implements the `Initializable` class. 
-The DirectoryTree object is created when the `showDirectoryTree()` method is called in the `MainStage` class. 
-The DailyTaskWindow object is created when the `showDailyTask()` method is called in the `MainStage` class.
-
-### Feature explanation
-#### General Add Feature
-This feature is facilitated by the ModuleManager and TaskManager classes.
-This is the general version of add feature. 
-The Parser class will parse the general AddCommand to AddModuleCommand or AddTaskCommand  according to the user current level.
-If the user is at the root level, the general AddCommand will be parsed to AddModuleCommand.
-If the user is at the Module level, the general AddCommand will be parsed to AddTaskCommand.
-
-#### Change directory Feature
-This feature is facilitated by the `DirectoryTraverser` classes.  
-It extends from the abstract `Command` class.  
-This feature implements the following operations:
-* Change to a specific directory (module/task) 
-* Jump out of the the current directory (module/task)
-
-Given below is an example scenario to show how the change directory feature behaves at each step.
-Suppose the user is currently at the `root` level.
-The user inputs cd `CS2113T`, to move to the module CS2113T directory.
-The ChangeDirectoryCommand object will first examine if the user has specify the targeted directory.
-If the user does not specify the target directory:
-The method `findNextDirectory("CS2113T")` in DirectoryTraverse class will be called, to examine the validity of the userInput directory name `CS2113T`.
-If the userInput directory name is valid, then the `traverseDown()` or `traverseUp()` method in the DirectoryTraverse class will be called.
-If the userInput directory name is invalid, a `DataNotFoundException` will be thrown.
-However, there is another boundary case, where the user tries to traverse beyond the boundary levels, such as the root level and task levels.
-Then another exception `DirectoryTraversalOutOfBoundsException` will be thrown.
-If the user like the example, has specified the directory CS2113T:
-The `traverseTo(CS2113T)` method in the `DirectoryTraverse` class will be called to set the `currentDirectoryLevel` attribute to the specified the directory.
-
-
-#### Week Command Feature
-This feature works with the GUI components to create a upcoming week table for users. A window will pop out and the task number on the each day of the upcoming week will be listed.
-It extends from the abstract `Command` class.  
-
-#### Directory Command Feature
-This feature works with the GUI components to create a module-list table for users. A window will pop out and all module with related tasks will be listed.
-It extends from the abstract `Command` class.  
-
-
-
-    
-
-
-
