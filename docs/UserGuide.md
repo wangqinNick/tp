@@ -36,6 +36,7 @@ Welcome to the ra.VI User Guide! Choose a section or sub-section from the table 
 &nbsp;&nbsp;[3.12 Exit](#312-exiting-the-program-bye) <br>
 [4. **FAQ**](#4-faq) <br>
 [5. **Command Summary**](#5-command-summary) <br>
+[6. **v3.0 Graphical User Interface**](#6-graphical_user_interface) <br>
 
 ### 1 Introduction
 
@@ -666,3 +667,68 @@ Goodbye, hope to see you soon!
 | Get list of commands | `help` |
 | Get detailed help message for each command | `help <command_word>` |
 | Exit ra.VI | `bye` |
+
+## 6 Graphical_user_interface
+
+### 6.1 Change Directory Command `cd`
+Traverse to the target directory.
+
+**Note:** <br>
+All the modules and tasks are treated as directories, like the folders in the Window OS.
+To create a task related to Module CS2101, the user need to go into the Directory CS2101, to create the task.
+Format: `cd <module code>` <br> 
+        `cd ..` <br> 
+        
+Example of usage: <br>
+* `cd CS2101` <br>
+* `cd ..` <br>
+
+Example of output:
+* `CS2101` <br>
+* `Root` <br>
+
+### 6.2 General Add `add`
+The generic way to add a module or a task to the system.
+
+**Note:** <br>
+There are two types of add commands in the system: add a module and add a task.
+The general add command combines and simplifies the above two command.
+The ra.VI system could parse the general add command to different add commands according to the user current directory level.
+Format: `add <module code or task description>` <br> 
+Example of usage: <br>
+* `add CS2101` <br>
+* `add read a book` <br>
+
+Example of output:
+* Module has been added <br>
+* Task has been added <br>
+
+### 6.3 Undo  `undo`
+Recover the data from the previous "Data-changed" operations.
+
+**Note:** <br>
+"Data-changed" operations refer to Add, Edit, Delete operations only.
+
+Example of usage: 
+1. `add -m CS2113T`
+2. `undo`
+
+Example of output:
+* Undo Successfully <br>
+
+### 6.3 Week Command  `week`
+A window will pop out and the task number on the each day of the upcoming week will be listed.
+
+Example of usage: 
+* `week`
+
+### 6.4 Directory Command  `dir`
+A window will pop out and all module with related tasks will be listed.
+
+Example of usage: 
+* `dir`
+
+
+
+
+
