@@ -1,19 +1,78 @@
 # Developer Guide for ra.VI
 
 ## Table of Contents
-Work in progress
+[1 **Setting up**](#1-setting-up) <br>
+&nbsp;&nbsp;[1.1 Software Prerequisites](#11-software-prerequisites) <br>
+&nbsp;&nbsp;[1.2 Setting up the work environment](#12-setting-up-the-work-environment) <br>
+&nbsp;&nbsp;[1.3 Verifying the setup](#13-verifying-the-setup)<br>
+&nbsp;&nbsp;[1.4 Configure coding style](#14-configure-coding-style)<br>
+[2 **Design**](#2-design)<br>
+&nbsp;&nbsp;[2.1 Architecture](#21-architecture)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[2.1.1 Main Classes and Main Command Loop](#211-main-classes-and-main-command-loop)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[2.1.2 Command Family](#212-command-family)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[2.1.3 Data Family](#213-data-family)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[2.1.4 Parser Family](#214-parser-family)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[2.1.5 Timetable Family](#215-timetable-family)<br>
+&nbsp;&nbsp;[2.2 Implementation](#22-implementation) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[2.2.1 Add/Delete Feature](#221-adddelete-feature) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[2.2.2 List Feature](#222-list-feature) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[2.2.3 Cap Feature](#223-cap-feature) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[2.2.4 Grade Feature](#224-grade-feature) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[2.2.5 Undo the Previous Command](#225-undo-feature) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[2.2.6 Timetable Feature](#226-timetable-feature) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2.2.6.1 Add lesson/s to timetable](#2261-add-lessons-to-timetable) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2.2.6.2 Delete lesson/s from timetable](#2262-delete-lessons-from-timetable) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2.2.6.3 View the timetable](#2263-view-the-timetable) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2.2.6.4 Filter the timetable](#2264-filter-the-timetable) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2.2.6.5 Reset the timetable](#2265-reset-the-timetable) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[2.2.7 [Proposed] Notes Feature](#227-proposed-notes-feature) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2.2.7.1 Add notes](#2271-add-notes) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2.2.7.2 Viewing list of notes](#2272-viewing-list-of-notes) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2.2.7.3 Delete a note](#2273-delete-a-note) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2.2.7.4 View notes](#2274-view-notes) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[2.2.8 Colored Output](#228-colored-output) <br>
+[3 Appendix A: Product Scope](#3-appendix-a-product-scope) <br>
+&nbsp;&nbsp;[3.1 Target user profile](#31-target-user-profile) <br>
+&nbsp;&nbsp;[3.2 Value proposition](#32-value-proposition) <br>
+[4 Appendix B: User Stories](#4-appendix-b-user-stories) <br>
+[5 Appendix C: Non-Functional Requirements](#5-appendix-c-non-functional-requirements) <br>
+[6 Appendix D: Glossary](#6-appendix-d-glossary) <br>
+[7 Appendix E: Instructions for manual testing](#7-appendix-e-instructions-for-manual-testing) <br>
+&nbsp;&nbsp;[7.1 Task](#71-task) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[7.1.1 Adding a task](#711-adding-a-task) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[7.1.2 Deleting a task](#712-deleting-a-task) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[7.1.3 Editing a task](#713-editing-a-task) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[7.1.4 Marking a task as done](#714-marking-a-task-as-done) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[7.1.5 Viewing the task list](#715-viewing-the-task-list) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[7.1.6 Viewing task summary](#716-viewing-task-summary) <br>
+&nbsp;&nbsp;[7.2 Module](#72-module) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[7.2.1 Adding a module](#721-adding-a-module) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[7.2.2 Deleting a module](#722-deleting-a-module) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[7.2.3 Editing a module](#723-editing-a-module) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[7.2.4 Viewing the module list](#724-viewing-the-module-list) <br>
+&nbsp;&nbsp;[7.3 Viewing help messages and prompts](#73-viewing-help-messages-and-prompts) <br>
+&nbsp;&nbsp;[7.4 Timetable](#74-timetable) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[7.4.1 Amending the timetable](#741-amending-the-timetable) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[7.4.2 Viewing the timetable](#742-viewing-the-timetable) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[7.4.3 Filtering the timetable](#743-filtering-the-timetable) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[7.4.4 Resetting the timetable](#744-resetting-the-timetable) <br>
+&nbsp;&nbsp;[7.5 Calculating the Accumulated Cap after the current semester](#75-calculating-the-accumulated-cap-after-the-current-semester) <br>
+&nbsp;&nbsp;[7.6 Grading an existing module in module list](#76-grading-an-existing-module-in-module-list) <br>
+&nbsp;&nbsp;[7.7 Undo the previous command](#77-undo-the-previous-command) <br>
+&nbsp;&nbsp;[7.8 Saving data](#78-saving-data) <br>
+
 
 ----
 
-## Setting up
+## 1 Setting up
 The following section describes how to set up ra.VI on your own computer.
 
-### Software Prerequisites
+### 1.1 Software Prerequisites
 
 1. **JDK** 11
 2. **IntelliJ** IDEA
 
-### Setting up the work environment
+### 1.2 Setting up the work environment
 
 1. **Fork** this repo onto your GitHub account. **Clone** it onto your computer.
 2. Open IntelliJ. Close any existing projects if you are not at the welcome page.
@@ -22,13 +81,13 @@ The following section describes how to set up ra.VI on your own computer.
 4. Click `Open or Import` to open the cloned repo.
 5. If necessary, locate the `build.gradle` file and select it. Click OK.
 
-### Verifying the setup
+### 1.3 Verifying the setup
 
 1. Run the program by selecting the `run` Gradle task at the top right and running it.
 2. Test the program by trying to run commands.
 3. Additionally, select the `test` Gradle task and run it. Check that all the tests pass.
 
-### Configure coding style
+### 1.4 Configure coding style
 
 ra.VI's code uses the Gradle Checkstyle plugin.
 It is advised to change [IntelliJ's built-in code style
@@ -39,9 +98,11 @@ Checkstyle plugin with IntelliJ IDEA](https://se-education.org/guides/tutorials/
 
 ----
 
-## Design
+## 2 Design
 
-### Top level classes and main flow
+### 2.1 Architecture
+
+#### 2.1.1 Main Classes and Main Command Loop
 
 This is a class diagram of the top-level of ra.Vi.  
 The classes depicted here are those which are direct dependencies of the main class `Ravi`.  
@@ -114,8 +175,7 @@ The main loop follows the following steps:
 
 > :exclamation: Note that the `Executor` class wraps the `InputOutputManager` class
 
-
-#### Command Family
+#### 2.1.2 Command Family
 
 The Command family of classes are nearly all derived from the abstract `Command` class, except for
 `CommandResult` and `PromptType`. All `Command` classes belong to the `Command` package. This is shown in the diagram
@@ -132,7 +192,7 @@ shown in the diagram below.
 
 ![UML sequence diagram for Command Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/CommandSequenceDiagram.png?raw=true)
 
-#### Data Family
+#### 2.1.3 Data Family
 
 The Data family of classes consists of all the abstracted data types required for our features, such as
 `Task`, `Module`, and their respective Managers. All Data classes exist in the `data` package, and the classes
@@ -187,7 +247,7 @@ best option available.
 a message prompting the user to re-download the JAR release if they can do so, as it is likely that the JAR file is 
 corrupted in some way.
 
-#### Parser Family
+#### 2.1.4 Parser Family
 
 The Parser family of classes consists of the main `Parser` class and the `xCommandParser` subclasses. The main `Parser` class
 first determines the main `Command` in the user `Command` string. If it is one of the 10 commands with a `xCommandParser`
@@ -202,8 +262,7 @@ be placed in the `Parser` class.
 
 ![UML class diagram for Parser Family Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/ParserClassDiagram.png?raw=true)
 
-
-#### Timetable Family 
+#### 2.1.5 Timetable Family 
 
 The Timetable Family of classes is an example of a _cross-family_ family of classes from the `Data` and `Command`
 families, and consists of the `TimeTableCommand` and `TimeTableCommandParser` classes, as well as `TimeTableManager` and
@@ -226,12 +285,12 @@ to return through `parseTimeTableCommand()`. If the `TimeTableCommand` is return
 
 ----
 
-### Implementation
+### 2.2 Implementation
 
 This section serves to **provide an overview of how certain features are implemented**, not provide a comprehensive
 explanation of all features in ra.VI.
 
-#### Add/Delete Feature
+#### 2.2.1 Add/Delete Feature
 This feature is facilitated by the `TaskManager`, `ModuleManager` classes.
 Extending from the abstract `Command` class are the `AddModuleCommand` and `AddTaskCommand` classes. This feature implements
 the following operations:
@@ -268,7 +327,7 @@ e.g. `add -t task -by 2nd Jan`
 * Module already exists in module list\
 e.g. `add -m CS1010` but the module list already contains `CS1010`
 
-#### List Feature
+#### 2.2.2 List Feature
 This feature is facilitated by the `TaskManager` and `ModuleManager` classes.  
 It extends from the abstract `Command` class.  
 This feature implements the following operations:
@@ -291,39 +350,42 @@ Else, `ListCommand` calls `CommandResult(MESSAGE_LIST_PRINTED + output)`, creati
 
 Given below is an example usage scenario and how the cap feature behaves at each step.  
 1. The user launches the application for the first time.  
-2. The user inputs `add -t Read book` into ra.VI, adding the task to the task list in TaskManager. The user keys in multiple other tasks of the following:
+2. The user inputs `add -t Read book` into ra.VI, adding the task to the task list in TaskManager. The user keys in
+multiple other tasks of the following:
 * `add -t Return book -by 2-10-2020 1400`
 * `add -t Meeting`  
 
-3. The user inputs `add -m CS2113T` into ra.VI, adding the module to the module map in ModuleManager. The user keys in multiple other modules of the following:
+3. The user inputs `add -m CS2113T` into ra.VI, adding the module to the module map in ModuleManager. The user keys in
+multiple other modules of the following:
 * `add -m CS2101`
 * `add -m CG2271`
 
 4. The user inputs `list -t`. The `CommandResult` returns  
 ```
-1. Read book [x]
-2. Return book [x], by 02:00PM, Friday, 02 Oct 20 
-3. Meeting [x]
+Here's your list:
+
+1. return a book [x]
+2. read a book [x], by 07:00PM, Sunday, 02 Feb 2020
 ```
-Step 5. The user inputs `list -m`. The `CommandResult` returns  
+5. The user inputs `list -m`. The `CommandResult` returns  
 ```
-1. CS2113T: Software Engineering & Object-Oriented Programming: No grade yet
-2. CG2271: Real-Time Operating Systems: No grade yet
-3. CS2101: Effective Communication for Computing Professionals: No grade yet
+Here's your list:
+
+1. CS1010: Programming Methodology (0.0MC) (Grade: No grade yet)
+2. CS3235: Computer Security (0.0MC) (Grade: No grade yet)
 ```
 
-#### CAP Feature 
-This feature is faciliatated by `ModuleManager` and `Module` classes.
+#### 2.2.3 CAP Feature 
+This feature is facilitated by `ModuleManager` and `Module` classes.
 It extends `Command` and runs through the `ModuleManager`, checking every `Module`'s grade and module credit.
-* Calculate user's CAP - Uses a formula to calculate the user's current cap, with the user's total Module Credits taken
-and latest CAP.
+* Calculate user's CAP - Uses a formula to calculate the user's current cap.
 
 ![Sequence diagram for Cap Feature in Command class](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/CapCommandSequenceDiagram.png?raw=true)
 
 As seen from the sequence diagram above, this is the flow of a CAP command.
 The `CapCommandParser` parses the user's input and calls the `CapCommand` constructor.
 When `CapCommand` executes, a `CommandResult` object is created that calculates the user's current cap after taking into 
-account the current modules and the past semester's total MC taken and latest CAP.
+account the user's current modules and the users's total MC taken based on the modules graded.
 
 Given below is an example usage scenario and how the CAP feature behaves at each step. 
 
@@ -332,15 +394,15 @@ Given below is an example usage scenario and how the CAP feature behaves at each
 2. The user inputs `add -m CS2101` into ra.VI, as the user adds a module they are taking into the `ModuleManager`.
 The user keys in as many modules into ra.VI as they are taking. 
 
-3. Once the user attains a grade for the modules keyed in, they inputs `grade CS2101 4 A-` (4 MCs, A grade) to record the
+3. Once the user attains a grade for the modules keyed in, they input `grade CS2101 4 A-` (4 MCs, A grade) to record the
 grade for their module. They does this for all the other modules they have taken.
 
-4. Once every module in the `ModuleManager` has been graded, they inputs `cap 46 4.24` to calculate their accumulative 
+4. Once every module in the `ModuleManager` has been graded, they inputs `cap` to calculate their accumulative 
 CAP after attaining their new grades.
 
 5. The `CommandResult` returns the success message to show the user their current CAP after attaining their grades.
 
-#### Grade Feature 
+#### 2.2.4 Grade Feature 
 This feature is facilitated by `ModuleManager` and `Module` classes. 
 It extends `Command` and is stored internally inside `Module` as a `grade` and `moduleCredit`.
 * Grading a module - assigns a grade and MC number to a specific module present in the module list.
@@ -365,7 +427,39 @@ with the grade and module credits.
 3. The `CommandResult` returns the success message to show the user that their module has successfully been graded. 
 Otherwise, an exception message will be shown regarding the exception caught.
 
-#### Timetable Feature
+<!-- @@author wangqinNick-->
+
+#### 2.2.5 Undo Feature
+This feature is facilitated by `State` and `StateManager` classes. 
+
+* `GradeCommand.testgrade(stringGrade)` - checks if the input grade is valid according to NUS grading schematic 
+* `GradeCommand.grade(moduleModule)` - assigns the specific module present in the module list, the grade and moduleCredit attributes.
+
+![Sequence diagram for Undo Feature](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/UndoCommandSequenceDiagram.png?raw=true)
+
+As seen from the sequence diagram above, this is the flow of an Undo command.
+The Parser parses the user's input, and construct the default UndoCommand.
+When the Undo Command object executes, the `undo()` method in the StateManager class will be called.
+In the StateManager, the previous copies of the data are encoded as Json and stored in a stack.
+When the `undo()` is called, the StateManager will pops the top copy in the stack. 
+After that, the StateManager class will notify TaskManager and Module Manager to load from the encoded saved copies. To do that, it will facilitate the load methods, `loadMods()` `loadTasks()` from TaskManager and ModuleManager to set the data.
+
+Given below is an example usage scenario and how the undo feature behaves at each step.
+
+1. The user launches the application. The user inputs `add -m CS2101` into ra.VI, as the user wants to note down 
+a module named ‘CS2101’ and add it to their module list. This input is received by the Ui ,which processes it into 
+a string. The parser parses the string and allocates it to the AddCommand where it is added to the list of modules. 
+
+2. The user finds the module just added is wrong. Thus, he wants to undo the previous `add -m CS2101` command.
+
+3. The user inputs `undo` into ra.VI. The input is received by the Ui, which then passes the input to Parser and parsed to an Undo command.
+
+4. Then the execution process of the Undo command will makes the method calls demonstrate above in the diagram. 
+
+5. More importantly, the Undo command only works for those 'data-changed' operations. Those operations refer to 'add', 'delete', 'edit' commands.
+
+<!-- @@wangqinNick -->
+#### 2.2.6 Timetable Feature
 This feature is facilitated by the `TimeTableManager` class and `TimeTableCommand` class.
 Extending from the abstract `TimeTableCommand` class are the `TimeTableAddCommand`, `TimeTableDeleteCommand`,
 `TimeTableViewCommand` and `TimeTableResetCommand` classes.
@@ -375,7 +469,7 @@ Extending from the abstract `TimeTableCommand` class are the `TimeTableAddComman
 * View this week's timetable - List all lessons in this week through `TimeTableManager.getSpecifiedWeekLessons()`
 * Reset timetable - Reset the whole timetable through `TimeTableManager.initialiseTimetable()` 
 
-##### Add lesson/s to timetable
+##### 2.2.6.1 Add lesson/s to timetable
 Given below is an example scenario to add a lesson to the timetable and how the timetable feature behaves at each step.
 
 1. The user launches the application for the first time. ra.VI asks for the current NUS week. This input is parsed and 
@@ -399,7 +493,7 @@ e.g. `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 5`
 e.g. `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 1` but the module list does not contain `CS2101`. Available modules can be found by entering `list -m`
 e.g. `timetable -add BAD TUESDAY 0800 1000 LECTURE 1` but the module list does not contain `BAD` and `BAD` is not a valid NUS module.
 
-##### Delete lesson/s from timetable
+##### 2.2.6.2 Delete lesson/s from timetable
 Given below is an example scenario to delete a lesson from the timetable and how the timetable feature behaves at each step.
 
 1. The user launches the application for the first time. ra.VI asks for the current NUS week. This input is parsed 
@@ -425,7 +519,7 @@ e.g. `timetable -del TUE 1`.
 e.g. `timetable -del TUESDAY 5` but the timetable does not contain a lesson/s on `TUESDAY` at index `5`. Current 
 lessons can be found by entering `timetable -day` or `timetable -week`.
 
-##### View the timetable
+##### 2.2.6.3 View the timetable
 Given below is an example scenario to view the timetable for the day.
 
 1. The user adds a lesson to the timetable for today, for e.g. `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 1`.
@@ -435,7 +529,7 @@ Given below is an example scenario to view the timetable for the day.
 3. The timetable for the day is shown to the user. The user is able to see the Tuesday CS2101 lecture that was 
 previously added in step 1.
 
-##### Filter the timetable
+##### 2.2.6.4 Filter the timetable
 Given below is an example scenario to filter the timetable for CS2101 LECTURE.
 
 1. The user adds a lesson to the timetable for today, for e.g. `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 1`.
@@ -447,14 +541,14 @@ Given below is an example scenario to filter the timetable for CS2101 LECTURE.
 * Wrong Command format\
 e.g. `timetable -filter`
 
-##### Reset the timetable
+##### 2.2.6.5 Reset the timetable
 Given below is an example scenario to reset the timetable. 
 
 1. The user inputs `timetable -reset`.  
 
 2. ra.VI will ask for the current NUS week. This input is parsed and re-initialises the `TimeTableManager` with a new `Timetable`. 
 
-### [Proposed] Notes Feature
+#### 2.2.7 [Proposed] Notes Feature
 ![Class diagram for Notes Feature in Command class](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/NotesClassDiagram.png?raw=true)
 
 The proposed notes feature is facilitated by the `NotesManager` class and abstract `NotesCommand` class
@@ -467,7 +561,7 @@ It implements the following operations:
 * `NoteManager.deleteNote()` - Delete a note
 * `NoteManager.viewNote()` - View a particular note
 
-#### Add notes
+##### 2.2.7.1 Add notes
 Given below is an example scenario to add a note and how the notes feature behave at each step
 
 Step 1. The user inputs `note -add Orbital Mechanics: Application of ballistics and celestial mechanics`, as the user wants to add a note.
@@ -475,7 +569,7 @@ Step 2. This input is parsed by `NotesCommandParser` and it returns `NotesAddCom
 Step 3. `NotesAddCommand` is executed, returning a `CommandResult` containing a success message if the note has been
 added successfully. Otherwise, an error message will be shown explaining the error to the user.
 
-#### Viewing list of notes
+##### 2.2.7.2 Viewing list of notes
 Given below is an example scenario to view the list of notes and how the notes feature behaves at each step.
 
 Step 1. The user inputs `note -list` as the user wants to view the list of notes.
@@ -483,7 +577,7 @@ Step 2. This input is parsed by `NotesCommandParser` and it returns `NotesListCo
 Step 3. `NotesListCommand` is executed, returning a `CommandResult` containing the list of notes and their indexes.
 Otherwise, an error message will be shown explaining the error to the user. 
 
-#### Delete a note
+##### 2.2.7.3 Delete a note
 Given below is an example scenario to delete a note and how the notes feature behaves at each step.
 
 Step 1. The user inputs `note -del 1` as the user wants to delete the note with index 1.
@@ -493,25 +587,42 @@ deleted successfully. Otherwise, an error message will be shown explaining the e
 
 * Currently available notes and their indexes can be found by entering `notes -list`
 
-#### View the timetable
+##### 2.2.7.4 View notes
 Given below is an example scenario to view a particular note in the list
 Step 1. The user inputs `note -view 1` as the user wants to view the note with index 1.
 Step 2. This input is parsed by NotesCommandParser and it returns `NotesDeleteCommand`.
 Step 3. `NotesViewCommand` is executed, returning a `CommandResult` containing the note if the note has been shown
 successfully. Otherwise, an error message will be shown explaining the error to the user. 
 
-## Appendix A: Product scope
-### Target user profile
+#### 2.2.8 Colored Output
+The output of ra.VI is colored to improve readability and draw attention to important parts of messages. To color
+ra.VI's output, we used the [JANSI library](https://github.com/fusesource/jansi) which uses ANSI escape codes to color
+printed messages on the terminal. As ANSI escape codes are universally supported on most terminals, we do not foresee
+major compatibility issues with the mainstream OSes.
+
+We use JANSI's `ansi().render()` to wrap ra.VI's output in `TextUi`'s `outputToUser` function. So, we gain the ability
+to color (and otherwise decorate) ra.VI's text using JANSI's formatting standards.
+
+An example: To make `"Hello"` red, we change it to `"@|red Hello|@"`.
+
+> :exclamation: The extra characters cause some difficulties in centering text, so `centerString(String s)` in
+> `TextHelper` is designed to remove these formatting artifacts and center the text properly. However,
+> `centerString(int width, String s)` does not remove the JANSI artifacts and hence should not be used with JANSI.
+
+----
+
+## 3 Appendix A: Product scope
+### 3.1 Target user profile
 
 The target user profile for ra.VI is described by the following:
-* A student of NUS (a freshman in particular)
-* Has a need to manage their school related tasks, classes and notes
-* Prefers desktop apps over other types
-* Types fast
-* Prefers typing to mouse interactions
-* Reasonably comfortable using CLI apps
+* A student of NUS (a freshman in particular).
+* Has a need to manage their school related tasks, classes and notes.
+* Prefers desktop apps over other types.
+* Types fast.
+* Prefers typing to mouse interactions.
+* Reasonably comfortable using CLI apps.
 
-### Appendix A: Value proposition
+### 3.2 Value proposition
 
 A common problem amongst freshmen is the inability to organise all the incoming information.  
 NUS places a focus on taking responsibility for your own learning, so it might be a tough transition from tertiary education.  
@@ -529,8 +640,9 @@ ra.VI is even integrated with NUSMods, bringing its comprehensive library of inf
 All the above features are wrapped in a compact, no-frills command-line interface. No confusing menus and dropdowns
 to distract you; only simple commands to give you what you want.
 
+----
 
-## Appendix B: User Stories
+## 4 Appendix B: User Stories
 
 |Version| As a ... | I want to ... | So that I can ...|
 |--------|----------|---------------|------------------|
@@ -557,20 +669,27 @@ to distract you; only simple commands to give you what you want.
 |v2.0|user|undo unintended commands|make amends quickly|
 |v2.1|user|reset my timetable|prepare for another semester|
 
+----
 
-## Appendix C: Non-Functional Requirements
+## 5 Appendix C: Non-Functional Requirements
 
-* Should work on any mainstream OS as long as it has Java 11 or above installed.
+* Should work on any mainstream OS with Java 11 or above installed.
 * A user with above average typing speed for regular English text (i.e. not code, not system admin commands)
 should be able to accomplish most of the tasks faster using commands than using the mouse.
 
+----
 
-## Appendix D: Glossary
+## 6 Appendix D: Glossary
 
-* *Mainstream OS* - Windows, Linux, OSX
+* IntelliJ - An Integrated Development Environment (IDE) designed for Java software development.
+* CLI - Command Line Interface
+* UML - Unified Modeling Language
+* Terminal - Any operating system shell with a command-line interface.
+* Mainstream OS - Windows, mainstream distributions of Linux, and macOS.
 
+----
 
-## Appendix E: Instructions for manual testing
+## 7 Appendix E: Instructions for manual testing
 
 Given below are instructions to test the app manually.
 
@@ -581,7 +700,8 @@ Given below are instructions to test the app manually.
 5. For a detailed list on available features, refer to the [user guide](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/UserGuide.md).
 6. Simply enter `bye` to terminate and exit the application.
 
-### Adding a task
+### 7.1 Task
+#### 7.1.1 Adding a task
 1. Adding a task without deadline
     1. Test case: `add -t read a book`\
     Expected: Task `read a book` will be added to the task list. Details of the success of the added task will be shown.
@@ -595,16 +715,7 @@ Given below are instructions to test the app manually.
     Expected: Invalid deadline `20/20/2020` will not allow the task to be added to the task list. Details of the 
     associated error message will be shown.
 
-### Adding a module
-1. Adding a module
-    1. Test case: `add -m CS2113T`\
-    Expected: Module `CS2113T` will be checked against the NUS module list.  
-    Since `CS2113T` is a valid module, it will be added to the module list. Details of the success of the added module will be shown.
-    2. Test case: `add -m Fake Mod`\
-    Expected: As there is no such module `Fake Mod` in the NUS module list, it will not be added to the module list. 
-    Details of the associated error message will be shown.
-
-### Deleting a task
+#### 7.1.2 Deleting a task
 1. Deleting a task
     1. Test case: `del -t 1` where `task` is index `0` in the task list.\
     Expected: The DeleteCommandParser parses `1` and converts it to index `0` in the task list. 
@@ -613,17 +724,8 @@ Given below are instructions to test the app manually.
     Expected: The DeleteCommandParser parses `10` and converts it to index `9` in the task list. 
     As there is no task of index `9` in the task list, the deletion will give an error. 
     Details of the associated error message will be shown.
-
-### Deleting a module
-1. Deleting a module
-    1. Test case: `del -m CS2113T` where `CS2113T` has been previously added to the module list.\
-    Expected: As module `CS2113T` is in the module list, `CS2113T` will be deleted from the module list. 
-    Details of the success of the deleted module will be shown.
-    2. Test case: `del -m 0` where there is no module `0` in the module list.\
-    Expected: As there is no such module in the module list, the deletion will give an error. 
-    Details of the associated error message will be shown.
-
-### Editing a task
+    
+#### 7.1.3 Editing a task
 1. Editing a task 
     1. Test case: `edit -t 3 read a book`, where task index `3` has already been added previously into the task list.\
     Expected: As the task at index `3` is in the task list, the task description will be edited and changed to `read a book`. 
@@ -631,17 +733,8 @@ Given below are instructions to test the app manually.
     2. Test case: `edit -t 10 meet girlfriend`, where there is no task `10` in the task list.\
     Expected: As there is no such task in the task list, an error will be given to the user. Details of the associated error 
     message will be shown.
-
-### Editing a module
-1. Editing a module 
-    1. Test case: `edit -m CG2271 GER1000`, where module `CG2271` has already been added previously into the module list.\
-    Expected: As `CG2271` is in the module list, the module will be edited and changed to `GER1000`. Details of the success 
-    of the edit module will be shown.
-    2. Test case: `edit -m ACC1101 GER1000`, where there is no module `ACC1101` in the module list.\
-    Expected: As there is no such module in the module list, an error will be given to the user. Details of the associated 
-    error message will be shown. 
     
-### Marking a task as done / undone
+#### 7.1.4 Marking a task as done
 1. Marking a task as done
     1. Test case: `done 1`, where `task` is index `0` in the task list.\
     Expected: The DoneCommandParser parses `1` and converts it to index `0` in the task list. 
@@ -649,29 +742,15 @@ Given below are instructions to test the app manually.
     2. Test case: `done 10`, where there is no task of index `9` in the task list.\
     Expected: The DoneCommandParser parses `10` and converts it to index `9` in the task list. 
     As there is no task of index `9` in the task list, an error is thrown. Details of the associated error message will be shown.
-  
-### Viewing the task list
+
+#### 7.1.5 Viewing the task list
 1. Viewing the task list
     1. Test case: `list -t`, with the tasks "read book" and "buy stuff" in the task list.\
     Expected: A list containing the two tasks will be shown.
     2. Test case: `list -t` when no tasks have been added.\
     Expected: As there are no tasks in the list, a message signifying the empty list is shown.
-    
-### Viewing the module list
-1. Viewing the module list
-    1. Test case: `list -m`, with the modules "CS2113T" and "CS2101" in the module list.\
-    Expected: A list containing the two module codes, MCs, and grades associated will be shown.
-    2. Test case: `list -m` when no modules have been added.\
-    Expected: As there are no modules in the list, a message signifying the empty list is shown. 
 
-### Viewing help messages and prompts
-1. Viewing the help message for a specific command
-    1. Test case: `help add`\
-    Expected: A help message containing the `add` command format and examples of its usage is shown.
-    2. Test case: `add CS2101`\
-    Expected: As this is an incorrect command format, a help message containing the correct format is shown. A prompt message suggesting the use of `help` is also shown. 
-    
-### Viewing task summary
+### 7.1.6 Viewing task summary
 1. Viewing the task summary 
     1. Test case: 
     `summary`, when the list contains
@@ -682,7 +761,50 @@ Given below are instructions to test the app manually.
     ```
     Expected: The task summary will be shown, each task belonging to their respective categories. 
 
-### Amending the timetable
+### 7.2 Module
+#### 7.2.1 Adding a module
+1. Adding a module
+    1. Test case: `add -m CS2113T`\
+    Expected: Module `CS2113T` will be checked against the NUS module list.  
+    Since `CS2113T` is a valid module, it will be added to the module list. Details of the success of the added module will be shown.
+    2. Test case: `add -m Fake Mod`\
+    Expected: As there is no such module `Fake Mod` in the NUS module list, it will not be added to the module list. 
+    Details of the associated error message will be shown.
+
+#### 7.2.2 Deleting a module
+1. Deleting a module
+    1. Test case: `del -m CS2113T` where `CS2113T` has been previously added to the module list.\
+    Expected: As module `CS2113T` is in the module list, `CS2113T` will be deleted from the module list. 
+    Details of the success of the deleted module will be shown.
+    2. Test case: `del -m 0` where there is no module `0` in the module list.\
+    Expected: As there is no such module in the module list, the deletion will give an error. 
+    Details of the associated error message will be shown.
+
+#### 7.2.3 Editing a module
+1. Editing a module 
+    1. Test case: `edit -m CG2271 GER1000`, where module `CG2271` has already been added previously into the module list.\
+    Expected: As `CG2271` is in the module list, the module will be edited and changed to `GER1000`. Details of the success 
+    of the edit module will be shown.
+    2. Test case: `edit -m ACC1101 GER1000`, where there is no module `ACC1101` in the module list.\
+    Expected: As there is no such module in the module list, an error will be given to the user. Details of the associated 
+    error message will be shown. 
+          
+#### 7.2.4 Viewing the module list
+1. Viewing the module list
+    1. Test case: `list -m`, with the modules "CS2113T" and "CS2101" in the module list.\
+    Expected: A list containing the two module codes, MCs, and grades associated will be shown.
+    2. Test case: `list -m` when no modules have been added.\
+    Expected: As there are no modules in the list, a message signifying the empty list is shown. 
+
+### 7.3 Viewing help messages and prompts
+1. Viewing the help message for a specific command
+    1. Test case: `help add`\
+    Expected: A help message containing the `add` command format and examples of its usage is shown.
+    2. Test case: `add CS2101`\
+    Expected: As this is an incorrect command format, a help message containing the correct format is shown. A prompt message suggesting the use of `help` is also shown. 
+
+### 7.4 Timetable
+#### 7.4.1 Amending the timetable
 1. Adding a lesson
     1. Test case: `timetable -add CS2113T MONDAY 1200 1400 LECTURE 0` where `CS2113T` is a module in module list.\
     Expected: The TimeTableCommandParser parses the lesson parameters, `CS2113T` is the associated module, 
@@ -694,7 +816,7 @@ Given below are instructions to test the app manually.
     Expected: The TimeTableCommandParser parses the lesson parameters, and searches for a lesson/s of index `0` on 
     `MONDAY`. However, the timetable does not contain such lesson/s. Details of the associated error message will be shown.
 
-### Viewing the timetable
+#### 7.4.2 Viewing the timetable
 1. Timetable for the day
     1. Test case: `timetable -day`\
     Expected: If there are no lessons for today, this information is shown to the user. Otherwise, the lessons for today 
@@ -703,7 +825,7 @@ Given below are instructions to test the app manually.
     1. Test case: `timetable -week`\
     Expected: The lessons for Monday to Sunday of this week are shown to the user.
 
-### Filtering the timetable
+#### 7.4.3 Filtering the timetable
 1. Filter all lessons
     1. Test case: `timetable -filter CS2113T - - - -`, which filters CS2113T lessons only.\
     Expected: All CS2113T lessons are shown to the user.
@@ -713,32 +835,33 @@ Given below are instructions to test the app manually.
     between 1200 and 2000** only.\
     Expected: All CS2113T lectures on Monday between 1200 and 2000 are shown to the user.
 
-### Resetting the timetable
+#### 7.4.4 Resetting the timetable
 1. Reset the timetable
     1. Test case: `timetable -reset`\
     Expected: TimeTableManager clears and reinitialises the timetable. The user is prompted to input the current week for reinitialisation.
 
-### Calculating the Accumulated Cap after the current semester
+### 7.5 Calculating the Accumulated Cap after the current semester
 1. Calculate the Cap:
-    1. Test case: `cap 46 4.24`, where the modules in Module List has already been graded individually.\
+    1. Test case: `cap`, where the modules in module list has already been graded individually.\
     Excepted: Each module in `ModuleManager` will be checked for its `moduleCredit` and `grade`.
-    Using the accumulative CAP formula, the user's most updated CAP will be calculated and shown to user.
+    Using the CAP formula, the user's most updated CAP will be calculated and shown to user.
 
-### Grading an existing module in module list
+### 7.6 Grading an existing module in module list
 1. Grade the module:
     1. Test case: `grade CS2101 4 A+`, where the module `CS2101` has been previously added to the module list.\
     Expected: Module `CS2101` will be checked if its inside ModuleManager.
     Since `CS2101` exists then the attributes of `4` and `A+` which are module credit and grade,
     will be added to the Module.  
 
-### Undo the previous command
-1. Undo previous action:
-    1. Test case: `undo`, after the user has input in an initial command.\
-    Expected: The previous Command that was input will be undone. Details of the success of the undone will be shown.
-    2. Test case: `undo`, without any initial input by the user.\
-    Expected: Due to the fact that there is nothing to undo as there was no user input, details of the associated error message will be shown.
+### 7.7 Undo the previous command
+**Do note that `undo` will only undo the last command that edited the data files, namely commands with a `PromptType` of `EDIT`.**
+1. Undo:
+    1. Test case: `undo`, after the user has input `add -t finish work`.\
+    Expected: The task `finish work` is added to the task list. As the AddTaskCommand has a `PromptType` of `EDIT`, the addition of the task: `finish work` to the task list will be undone. Details of the successful undo will be shown.
+    2. Test case: `undo`, without any prior commands with a `PromptType` of `EDIT` since the program launch.\
+    Expected: Due to the fact that there have been no commands with a `PromptType` of `EDIT`, nothing will be undone and details of the associated error message will be shown.
 
-### Saving data
+### 7.8 Saving data
 **Do note that if you exit the application without entering `bye`, ra.VI will still be able to retrieve data that was 
 amended during that session. However, this is not a recommended way to use ra.VI.**\
 **Tampering with the files created by ra.VI, through any other application, may also cause ra.VI to malfunction and is 
@@ -750,3 +873,71 @@ strongly discouraged.**
 2. Loading tasks and modules
     1. Test case: Run ra.VI again after the first test case, then run `list -t` and `list -m`.\
     Expected: `task 1` should be shown in the task list, and `CS1010` should be shown in the module list.
+
+----    
+
+## The Graphical User Interface V3.0
+**The graphical user interface and its related features are supposed to released in the next iteration v3.0**
+**Thus, the GUI is currently still a separate branch. The professor asks me to attach the GUI features here to fulfill my contribution to the DG**
+**The following are some features implemented in the GUI branch**
+
+### Top level classes
+
+This is a class diagram of the top-level of ra.Vi GUI version.  
+The classes depicted here are those which are direct dependencies of the main class `Ravi`.  
+The various dependencies of the classes depicted here are not shown to avoid cluttering, and are described in later
+sections.  
+
+![UML class diagram for Main Class](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/MainClassDiagramGUI.png?raw=true)
+
+
+#### Command Family
+
+The Command family of classes in GUI branch are regarded as the supplement for the master branch (CLI).
+The Command family of classes are nearly all derived from the abstract `Command` class, except for
+`CommandResult` and `PromptType`. All `Command` classes belong to the `Command` package. This is shown in the diagram
+below.
+![UML class diagram for Command Family Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/CommandClassDiagramGUI.png?raw=true)
+
+
+#### Graphical User Interface Features
+The graphical user interface is designed to help user to have a more intuitive concept of the modules and tasks.
+The `MainStage` class implements the `Initializable` class. 
+The DirectoryTree object is created when the `showDirectoryTree()` method is called in the `MainStage` class. 
+The DailyTaskWindow object is created when the `showDailyTask()` method is called in the `MainStage` class.
+
+### Feature explanation
+#### General Add Feature
+This feature is facilitated by the ModuleManager and TaskManager classes.
+This is the general version of add feature. 
+The Parser class will parse the general AddCommand to AddModuleCommand or AddTaskCommand  according to the user current level.
+If the user is at the root level, the general AddCommand will be parsed to AddModuleCommand.
+If the user is at the Module level, the general AddCommand will be parsed to AddTaskCommand.
+
+#### Change directory Feature
+This feature is facilitated by the `DirectoryTraverser` classes.  
+It extends from the abstract `Command` class.  
+This feature implements the following operations:
+* Change to a specific directory (module/task) 
+* Jump out of the the current directory (module/task)
+
+Given below is an example scenario to show how the change directory feature behaves at each step.
+Suppose the user is currently at the `root` level.
+The user inputs cd `CS2113T`, to move to the module CS2113T directory.
+The ChangeDirectoryCommand object will first examine if the user has specify the targeted directory.
+If the user does not specify the target directory:
+The method `findNextDirectory("CS2113T")` in DirectoryTraverse class will be called, to examine the validity of the userInput directory name `CS2113T`.
+If the userInput directory name is valid, then the `traverseDown()` or `traverseUp()` method in the DirectoryTraverse class will be called.
+If the userInput directory name is invalid, a `DataNotFoundException` will be thrown.
+However, there is another boundary case, where the user tries to traverse beyond the boundary levels, such as the root level and task levels.
+Then another exception `DirectoryTraversalOutOfBoundsException` will be thrown.
+If the user like the example, has specified the directory CS2113T:
+The `traverseTo(CS2113T)` method in the `DirectoryTraverse` class will be called to set the `currentDirectoryLevel` attribute to the specified the directory.
+
+#### Week Command Feature
+This feature works with the GUI components to create a upcoming week table for users. A window will pop out and the task number on the each day of the upcoming week will be listed.
+It extends from the abstract `Command` class.  
+
+#### Directory Command Feature
+This feature works with the GUI components to create a module-list table for users. A window will pop out and all module with related tasks will be listed.
+It extends from the abstract `Command` class.
