@@ -1,5 +1,6 @@
 # Developer Guide for ra.VI
 
+<!-- @@author aseanseen -->
 ## Table of Contents
 [1 **Setting up**](#1-setting-up) <br>
 &nbsp;&nbsp;[1.1 Software Prerequisites](#11-software-prerequisites) <br>
@@ -60,10 +61,11 @@
 &nbsp;&nbsp;[7.6 Grading an existing module in module list](#76-grading-an-existing-module-in-module-list) <br>
 &nbsp;&nbsp;[7.7 Undo the previous command](#77-undo-the-previous-command) <br>
 &nbsp;&nbsp;[7.8 Saving data](#78-saving-data) <br>
-
+<!-- @@author -->
 
 ----
 
+<!-- @@author f0fz -->
 ## 1 Setting up
 The following section describes how to set up ra.VI on your own computer.
 
@@ -159,7 +161,6 @@ the starting state) to the stack.
 recess week).
 There is a validation loop to catch invalid user input.
 
-
 ![Sequence diagram 3 for Main loop](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/MainSequenceDiagramLoopSd.png?raw=true)
 
 The main loop is contained in the `runCommandLoopUntilExitCommand()` method.
@@ -203,7 +204,7 @@ in charge of saving and loading like `InputOutputManager` are in the storage sub
 `Lesson`, `Task`, and `Module` are the base level abstractions, with their respective Managers containing the logic
 to store and manipulate instances of these objects in a meaningful way. `InputOutputManager` reads and writes
 information from the various Managers in order to save and load. `State` and `StateManager` are specifically for undo
-and redo functionality. They do not interact directly with the rest of the Data family.
+functionality. They do not interact directly with the rest of the Data family.
 
 `LessonFilter` is the only interface in the data package. It allows for flexible creation of filters for powerful user
 filtering of lessons via lambda functions. For example, the user can choose to filter only lectures on Mondays before
@@ -282,15 +283,18 @@ The `TimeTable` is created based on the user's initial input, with an appropriat
 The point of entry for this feature will be at `TimeTableCommandParser`, which will decide which of the commands 
 to return through `parseTimeTableCommand()`. If the `TimeTableCommand` is returned and executed, the 
 `TimeTableManager` will carry out the associated commands, adding, deleting or viewing the lessons in the timetable.
+<!-- @@author -->
 
 ----
 
+<!-- @@author aseanseen -->
 ### 2.2 Implementation
 
 This section serves to **provide an overview of how certain features are implemented**, not provide a comprehensive
 explanation of all features in ra.VI.
 
 #### 2.2.1 Add/Delete Feature
+
 This feature is facilitated by the `TaskManager`, `ModuleManager` classes.
 Extending from the abstract `Command` class are the `AddModuleCommand` and `AddTaskCommand` classes. This feature implements
 the following operations:
@@ -301,7 +305,7 @@ the following operations:
 
 ![Sequence diagram for AddCommand](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/AddCommandSequenceDiagram.png?raw=true)
 
-As seen from the sequence diagram above, this is the flow of an add command.\
+As seen from the sequence diagram above, this is the flow of an add command. This flow is similar to that of a delete command with the naming being the only difference.\
 `AddCommand` is an abstract class, inheriting from it are `AddTaskCommand` and `AddModuleCommand`.\
 The `AddCommandParser` decides to create either `AddModuleCommand`, `AddTaskCommand` or `IncorrectCommand` objects
 based on the user input.\
@@ -327,7 +331,11 @@ e.g. `add -t task -by 2nd Jan`
 * Module already exists in module list\
 e.g. `add -m CS1010` but the module list already contains `CS1010`
 
+<!-- @@author -->
+<!-- @@author amalinasani -->
+
 #### 2.2.2 List Feature
+
 This feature is facilitated by the `TaskManager` and `ModuleManager` classes.  
 It extends from the abstract `Command` class.  
 This feature implements the following operations:
@@ -348,7 +356,7 @@ Else, `ListCommand` calls `CommandResult(MESSAGE_LIST_PRINTED + output)`, creati
 
 `ListCommand` returns `CommandResult`. 
 
-Given below is an example usage scenario and how the cap feature behaves at each step.  
+Given below is an example usage scenario and how the list feature behaves at each step.  
 1. The user launches the application for the first time.  
 2. The user inputs `add -t Read book` into ra.VI, adding the task to the task list in TaskManager. The user keys in
 multiple other tasks of the following:
@@ -375,8 +383,11 @@ Here's your list:
 2. CS3235: Computer Security (0.0MC) (Grade: No grade yet)
 ```
 
+<!-- @@author -->
+<!-- @@author tobiasceg -->
+
 #### 2.2.3 CAP Feature 
-This feature is facilitated by `ModuleManager` and `Module` classes.
+This feature is facilitated by `ModuleManager` and `Module` class
 It extends `Command` and runs through the `ModuleManager`, checking every `Module`'s grade and module credit.
 * Calculate user's CAP - Uses a formula to calculate the user's current cap.
 
@@ -427,8 +438,8 @@ with the grade and module credits.
 3. The `CommandResult` returns the success message to show the user that their module has successfully been graded. 
 Otherwise, an exception message will be shown regarding the exception caught.
 
+<!-- @@author -->
 <!-- @@author wangqinNick-->
-
 #### 2.2.5 Undo Feature
 This feature is facilitated by `State` and `StateManager` classes. 
 
@@ -458,8 +469,11 @@ a string. The parser parses the string and allocates it to the AddCommand where 
 
 5. More importantly, the Undo command only works for those 'data-changed' operations. Those operations refer to 'add', 'delete', 'edit' commands.
 
-<!-- @@wangqinNick -->
+<!-- @@author -->
+<!-- @@author aseanseen -->
+
 #### 2.2.6 Timetable Feature
+
 This feature is facilitated by the `TimeTableManager` class and `TimeTableCommand` class.
 Extending from the abstract `TimeTableCommand` class are the `TimeTableAddCommand`, `TimeTableDeleteCommand`,
 `TimeTableViewCommand` and `TimeTableResetCommand` classes.
@@ -470,6 +484,7 @@ Extending from the abstract `TimeTableCommand` class are the `TimeTableAddComman
 * Reset timetable - Reset the whole timetable through `TimeTableManager.initialiseTimetable()` 
 
 ##### 2.2.6.1 Add lesson/s to timetable
+
 Given below is an example scenario to add a lesson to the timetable and how the timetable feature behaves at each step.
 
 1. The user launches the application for the first time. ra.VI asks for the current NUS week. This input is parsed and 
@@ -494,6 +509,7 @@ e.g. `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 1` but the module list doe
 e.g. `timetable -add BAD TUESDAY 0800 1000 LECTURE 1` but the module list does not contain `BAD` and `BAD` is not a valid NUS module.
 
 ##### 2.2.6.2 Delete lesson/s from timetable
+
 Given below is an example scenario to delete a lesson from the timetable and how the timetable feature behaves at each step.
 
 1. The user launches the application for the first time. ra.VI asks for the current NUS week. This input is parsed 
@@ -520,6 +536,7 @@ e.g. `timetable -del TUESDAY 5` but the timetable does not contain a lesson/s on
 lessons can be found by entering `timetable -day` or `timetable -week`.
 
 ##### 2.2.6.3 View the timetable
+
 Given below is an example scenario to view the timetable for the day.
 
 1. The user adds a lesson to the timetable for today, for e.g. `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 1`.
@@ -530,6 +547,7 @@ Given below is an example scenario to view the timetable for the day.
 previously added in step 1.
 
 ##### 2.2.6.4 Filter the timetable
+
 Given below is an example scenario to filter the timetable for CS2101 LECTURE.
 
 1. The user adds a lesson to the timetable for today, for e.g. `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 1`.
@@ -542,13 +560,18 @@ Given below is an example scenario to filter the timetable for CS2101 LECTURE.
 e.g. `timetable -filter`
 
 ##### 2.2.6.5 Reset the timetable
+
 Given below is an example scenario to reset the timetable. 
 
 1. The user inputs `timetable -reset`.  
 
 2. ra.VI will ask for the current NUS week. This input is parsed and re-initialises the `TimeTableManager` with a new `Timetable`. 
 
+<!-- @@author -->
+<!-- @@author amalinasani -->
+
 #### 2.2.7 [Proposed] Notes Feature
+
 ![Class diagram for Notes Feature in Command class](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/NotesClassDiagram.png?raw=true)
 
 The proposed notes feature is facilitated by the `NotesManager` class and abstract `NotesCommand` class
@@ -562,6 +585,7 @@ It implements the following operations:
 * `NoteManager.viewNote()` - View a particular note
 
 ##### 2.2.7.1 Add notes
+
 Given below is an example scenario to add a note and how the notes feature behave at each step
 
 Step 1. The user inputs `note -add Orbital Mechanics: Application of ballistics and celestial mechanics`, as the user wants to add a note.
@@ -570,6 +594,7 @@ Step 3. `NotesAddCommand` is executed, returning a `CommandResult` containing a 
 added successfully. Otherwise, an error message will be shown explaining the error to the user.
 
 ##### 2.2.7.2 Viewing list of notes
+
 Given below is an example scenario to view the list of notes and how the notes feature behaves at each step.
 
 Step 1. The user inputs `note -list` as the user wants to view the list of notes.
@@ -578,6 +603,7 @@ Step 3. `NotesListCommand` is executed, returning a `CommandResult` containing t
 Otherwise, an error message will be shown explaining the error to the user. 
 
 ##### 2.2.7.3 Delete a note
+
 Given below is an example scenario to delete a note and how the notes feature behaves at each step.
 
 Step 1. The user inputs `note -del 1` as the user wants to delete the note with index 1.
@@ -588,11 +614,15 @@ deleted successfully. Otherwise, an error message will be shown explaining the e
 * Currently available notes and their indexes can be found by entering `notes -list`
 
 ##### 2.2.7.4 View notes
+
 Given below is an example scenario to view a particular note in the list
 Step 1. The user inputs `note -view 1` as the user wants to view the note with index 1.
 Step 2. This input is parsed by NotesCommandParser and it returns `NotesDeleteCommand`.
 Step 3. `NotesViewCommand` is executed, returning a `CommandResult` containing the note if the note has been shown
 successfully. Otherwise, an error message will be shown explaining the error to the user. 
+
+<!-- @@author -->
+<!-- @@author f0fz -->
 
 #### 2.2.8 Colored Output
 The output of ra.VI is colored to improve readability and draw attention to important parts of messages. To color
@@ -640,7 +670,11 @@ ra.VI is even integrated with NUSMods, bringing its comprehensive library of inf
 All the above features are wrapped in a compact, no-frills command-line interface. No confusing menus and dropdowns
 to distract you; only simple commands to give you what you want.
 
+<!-- @@author -->
+
 ----
+
+<!-- @@author amalinasani -->
 
 ## 4 Appendix B: User Stories
 
@@ -687,6 +721,8 @@ should be able to accomplish most of the tasks faster using commands than using 
 * Terminal - Any operating system shell with a command-line interface.
 * Mainstream OS - Windows, mainstream distributions of Linux, and macOS.
 
+<!-- @@author -->
+
 ----
 
 ## 7 Appendix E: Instructions for manual testing
@@ -724,7 +760,7 @@ Given below are instructions to test the app manually.
     Expected: The DeleteCommandParser parses `10` and converts it to index `9` in the task list. 
     As there is no task of index `9` in the task list, the deletion will give an error. 
     Details of the associated error message will be shown.
-    
+
 #### 7.1.3 Editing a task
 1. Editing a task 
     1. Test case: `edit -t 3 read a book`, where task index `3` has already been added previously into the task list.\
@@ -874,7 +910,9 @@ strongly discouraged.**
     1. Test case: Run ra.VI again after the first test case, then run `list -t` and `list -m`.\
     Expected: `task 1` should be shown in the task list, and `CS1010` should be shown in the module list.
 
-----    
+----
+
+<!-- @@author wangqinNick -->
 
 ## The Graphical User Interface V3.0
 **The graphical user interface and its related features are supposed to released in the next iteration v3.0**
@@ -940,4 +978,6 @@ It extends from the abstract `Command` class.
 
 #### Directory Command Feature
 This feature works with the GUI components to create a module-list table for users. A window will pop out and all module with related tasks will be listed.
-It extends from the abstract `Command` class.
+It extends from the abstract `Command` class.  
+
+<!-- @@author -->

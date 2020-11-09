@@ -340,7 +340,7 @@ public class TimeTableManager {
             TextUi.showTimeTableInitialisationMessage();
             int currWeekNum = TextUi.getCurrentWeekNum();
             TimeTableManager.initialise(currWeekNum);
-        } catch (TimeTableInitialiseException e) {
+        } catch (TimeTableInitialiseException | NumberFormatException e) {
             TextUi.outputToUser(TIMETABLE_NOT_INITIALISED);
         }
     }
@@ -364,6 +364,7 @@ public class TimeTableManager {
 
     public static void clearTimeTable() {
         timetable = new TimeTable();
+        isInitialised = false;
     }
 
     /*
