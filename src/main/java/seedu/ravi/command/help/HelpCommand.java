@@ -2,6 +2,7 @@ package seedu.ravi.command.help;
 
 import seedu.ravi.command.Command;
 import seedu.ravi.command.CommandResult;
+import seedu.ravi.command.ExitCommand;
 import seedu.ravi.command.add.AddCommand;
 import seedu.ravi.command.cap.CapCommand;
 import seedu.ravi.command.delete.DeleteCommand;
@@ -69,6 +70,9 @@ public class HelpCommand extends Command {
             break;
         case SummaryCommand.COMMAND_WORD:
             output = SummaryCommand.HELP;
+            break;
+        case ExitCommand.COMMAND_WORD:
+            output = ExitCommand.HELP;
             break;
         default:
             output = TextUi.getCommandList();
