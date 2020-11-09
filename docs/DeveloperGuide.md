@@ -792,3 +792,78 @@ strongly discouraged.**
 2. Loading tasks and modules
     1. Test case: Run ra.VI again after the first test case, then run `list -t` and `list -m`.\
     Expected: `task 1` should be shown in the task list, and `CS1010` should be shown in the module list.
+
+
+## The Graphical User Interface V3.0
+**The graphical user interface and its related features are supposed to released in the next iteration v3.0**
+**Thus, the GUI is currently still a separate branch. The professor asks me to attach the GUI features here to fulfill my contribution to the DG**
+**The following are some features implemented in the GUI branch**
+
+### Top level classes
+
+This is a class diagram of the top-level of ra.Vi GUI version.  
+The classes depicted here are those which are direct dependencies of the main class `Ravi`.  
+The various dependencies of the classes depicted here are not shown to avoid cluttering, and are described in later
+sections.  
+
+![UML class diagram for Main Class](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/MainClassDiagramGUI.png?raw=true)
+
+
+#### Command Family
+
+The Command family of classes in GUI branch are regarded as the supplement for the master branch (CLI).
+The Command family of classes are nearly all derived from the abstract `Command` class, except for
+`CommandResult` and `PromptType`. All `Command` classes belong to the `Command` package. This is shown in the diagram
+below.
+![UML class diagram for Command Family Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/CommandClassDiagramGUI.png?raw=true)
+
+
+#### Graphical User Interface Features
+The graphical user interface is designed to help user to have a more intuitive concept of the modules and tasks.
+The `MainStage` class implements the `Initializable` class. 
+The DirectoryTree object is created when the `showDirectoryTree()` method is called in the `MainStage` class. 
+The DailyTaskWindow object is created when the `showDailyTask()` method is called in the `MainStage` class.
+
+### Feature explanation
+#### General Add Feature
+This feature is facilitated by the ModuleManager and TaskManager classes.
+This is the general version of add feature. 
+The Parser class will parse the general AddCommand to AddModuleCommand or AddTaskCommand  according to the user current level.
+If the user is at the root level, the general AddCommand will be parsed to AddModuleCommand.
+If the user is at the Module level, the general AddCommand will be parsed to AddTaskCommand.
+
+#### Change directory Feature
+This feature is facilitated by the `DirectoryTraverser` classes.  
+It extends from the abstract `Command` class.  
+This feature implements the following operations:
+* Change to a specific directory (module/task) 
+* Jump out of the the current directory (module/task)
+
+Given below is an example scenario to show how the change directory feature behaves at each step.
+Suppose the user is currently at the `root` level.
+The user inputs cd `CS2113T`, to move to the module CS2113T directory.
+The ChangeDirectoryCommand object will first examine if the user has specify the targeted directory.
+If the user does not specify the target directory:
+The method `findNextDirectory("CS2113T")` in DirectoryTraverse class will be called, to examine the validity of the userInput directory name `CS2113T`.
+If the userInput directory name is valid, then the `traverseDown()` or `traverseUp()` method in the DirectoryTraverse class will be called.
+If the userInput directory name is invalid, a `DataNotFoundException` will be thrown.
+However, there is another boundary case, where the user tries to traverse beyond the boundary levels, such as the root level and task levels.
+Then another exception `DirectoryTraversalOutOfBoundsException` will be thrown.
+If the user like the example, has specified the directory CS2113T:
+The `traverseTo(CS2113T)` method in the `DirectoryTraverse` class will be called to set the `currentDirectoryLevel` attribute to the specified the directory.
+
+
+#### Week Command Feature
+This feature works with the GUI components to create a upcoming week table for users. A window will pop out and the task number on the each day of the upcoming week will be listed.
+It extends from the abstract `Command` class.  
+
+#### Directory Command Feature
+This feature works with the GUI components to create a module-list table for users. A window will pop out and all module with related tasks will be listed.
+It extends from the abstract `Command` class.  
+
+
+
+    
+
+
+
