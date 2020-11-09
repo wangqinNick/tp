@@ -36,7 +36,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;[8.1.1 Adding a task](#811-adding-a-task) <br>
 &nbsp;&nbsp;&nbsp;&nbsp;[8.1.2 Deleting a task](#812-deleting-a-task) <br>
 &nbsp;&nbsp;&nbsp;&nbsp;[8.1.3 Editing a task](#813-editing-a-task) <br>
-&nbsp;&nbsp;&nbsp;&nbsp;[8.1.4 Marking a task as done / undone](#814-marking-a-task-as-done--undone) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[8.1.4 Marking a task as done](#814-marking-a-task-as-done) <br>
 &nbsp;&nbsp;&nbsp;&nbsp;[8.1.5 Viewing the task list](#815-viewing-the-task-list) <br>
 &nbsp;&nbsp;&nbsp;&nbsp;[8.1.6 Viewing task summary](#816-viewing-task-summary) <br>
 &nbsp;&nbsp;[8.2 Module](#82-module) <br>
@@ -132,7 +132,7 @@ in charge of saving and loading like `InputOutputManager` are in the storage sub
 `Lesson`, `Task`, and `Module` are the base level abstractions, with their respective Managers containing the logic
 to store and manipulate instances of these objects in a meaningful way. `InputOutputManager` reads and writes
 information from the various Managers in order to save and load. `State` and `StateManager` are specifically for undo
-and redo functionality. They do not interact directly with the rest of the Data family.
+functionality. They do not interact directly with the rest of the Data family.
 
 `LessonFilter` is the only interface in the data package. It allows for flexible creation of filters for powerful user
 filtering of lessons via lambda functions. For example, the user can choose to filter only lectures on Mondays before
@@ -614,7 +614,7 @@ Given below are instructions to test the app manually.
     Expected: As there is no such task in the task list, an error will be given to the user. Details of the associated error 
     message will be shown.
     
-#### 8.1.4 Marking a task as done / undone
+#### 8.1.4 Marking a task as done
 1. Marking a task as done
     1. Test case: `done 1`, where `task` is index `0` in the task list.\
     Expected: The DoneCommandParser parses `1` and converts it to index `0` in the task list. 
@@ -734,11 +734,12 @@ Given below are instructions to test the app manually.
     will be added to the Module.  
 
 ### 8.7 Undo the previous command
-1. Undo previous action:
-    1. Test case: `undo`, after the user has input in an initial command.\
-    Expected: The previous Command that was input will be undone. Details of the success of the undone will be shown.
-    2. Test case: `undo`, without any initial input by the user.\
-    Expected: Due to the fact that there is nothing to undo as there was no user input, details of the associated error message will be shown.
+**Do note that `undo` will only undo the last command that edited the data files, namely commands with a `PromptType` of `EDIT`. Hence, this refers to the addition and deletion of Tasks, Modules and Lessons while excluding `timetable -reset`**
+1. Undo:
+    1. Test case: `undo`, after the user has input `add -t finish work`.\
+    Expected: The task `finish work` is added to the task list. As the AddTaskCommand has a `PromptType` of `EDIT`, the addition of the task: `finish work` to the task list will be undone. Details of the successful undo will be shown.
+    2. Test case: `undo`, without any prior commands with a `PromptType` of `EDIT` since the program launch.\
+    Expected: Due to the fact that there have been no commands with a `PromptType` of `EDIT`, nothing will be undone and details of the associated error message will be shown.
 
 ### 8.8 Saving data
 **Do note that if you exit the application without entering `bye`, ra.VI will still be able to retrieve data that was 
