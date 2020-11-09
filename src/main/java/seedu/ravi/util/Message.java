@@ -78,6 +78,7 @@ public class Message {
             + "\t» edit      - Edit a task or module\n"
             + "\t» done      - Mark a task as complete\n"
             + "\t» grade     - Grades and allocates MCs to a Module\n"
+            + "\t» cap       - Calculates your CAP\n"
             + "\t» undo      - Undo the previous action (if you made changes)\n"
             + "\t» timetable - Manage your timetable\n"
             + "@|bold,blue,BG_BLACK,underline Viewing commands:|@\n"
