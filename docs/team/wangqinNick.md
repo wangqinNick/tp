@@ -99,7 +99,7 @@ into the main codebase for seamless saving and loading when ra.VI starts/exits.
         
 ### Contributions to team-based tasks
 * **Project Management**:
-    * Managed individual releases `v2.1` (1 releases) on Github
+    * Managed individual releases `v3.0` (1 releases) on Github
 
 ##### Review/mentoring contributions
 * **Review/mentoring contributions**:
