@@ -83,7 +83,7 @@ public class HelpCommand extends Command {
             break;
         default:
             output = MESSAGE_INVALID_HELP_COMMAND;
-            return new CommandResult(output,true);
+            return new CommandResult(output, true);
         }
         return new CommandResult(output);
     }
