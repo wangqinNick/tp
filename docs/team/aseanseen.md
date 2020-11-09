@@ -1,12 +1,12 @@
-# Sean Lim Zhi Xiang - Project Portfolio Page
+#### Sean Lim Zhi Xiang - Project Portfolio Page
 
-# CS2113T Project: ra.VI
+#### CS2113T Project: ra.VI
 
 Repository Assistant with a Versatile Interface (ra.VI) is a desktop app for NUS freshmen, helping them manage tasks, deadlines, and their timetable. It is optimized for use via a Command Line Interface (CLI), written in Java and is built to run on Java 11 on Linux, Mac and Windows machines.
 
-## My contributions
+#### My contributions
 
-### Features implemented:
+#### Features implemented:
 
 * **New Feature**: Added the timetable feature [#101](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/101) [#118](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/118)
     * What it does: Allows the user to manage their lessons in their timetable. This includes adding, deleting, viewing and filtering.
@@ -48,7 +48,7 @@ Repository Assistant with a Versatile Interface (ra.VI) is a desktop app for NUS
         * Did cosmetic tweaks to add some colors to the application.
         * Credits: Implemented in collaboration with [Jun You](https://ay2021s1-cs2113t-t09-2.github.io/tp/team/f0fz.html)
 
-### Contributions to team-based tasks
+#### Contributions to team-based tasks
 
 * **Project Management**:
 
@@ -66,7 +66,7 @@ Repository Assistant with a Versatile Interface (ra.VI) is a desktop app for NUS
         * Added documentation for the FAQ. [#235](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/235)
         * Added documentation for the `timetable` feature. [#116](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/116)
 
-* **Review/mentoring contributions**:
+* **Review / mentoring contributions**:
 
     * PRs reviewed (with non-trivial review comments): [#242](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/242) [#29](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/29) [#106](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/106) [#44](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/44) [#226](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/226) [#238](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/238)
     * Reported bugs and suggestions for other teams' tp (examples: [1](https://github.com/Aseanseen/ped/issues), [2](https://github.com/AY2021S1-CS2113T-T09-4/tp/issues/282), [3](https://github.com/AY2021S1-CS2113T-T09-4/tp/issues/289), [4](https://github.com/AY2021S1-CS2113T-T09-4/tp/issues/288))
