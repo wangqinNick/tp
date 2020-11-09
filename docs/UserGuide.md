@@ -37,6 +37,11 @@ Welcome to the ra.VI User Guide! Choose a section or sub-section from the table 
 [4. **FAQ**](#4-faq) <br>
 [5. **Command Summary**](#5-command-summary) <br>
 [6. **v3.0 Graphical User Interface**](#6-graphical_user_interface) <br>
+&nbsp;&nbsp;[6.1 Change Directory Command](#61-change-directory-command-cd) <br>
+&nbsp;&nbsp;[6.2 General Add `add`](#62-general-add-add) <br>
+&nbsp;&nbsp;[6.3 Undo `undo`](#63-undo--undo) <br>
+&nbsp;&nbsp;[6.4 Week Command `week`](#64-week-command--week) <br>
+&nbsp;&nbsp;[6.5 Directory Command](#65-directory-command--dir) <br>
 
 ### 1 Introduction
 
@@ -668,7 +673,7 @@ Goodbye, hope to see you soon!
 | Get detailed help message for each command | `help <command_word>` |
 | Exit ra.VI | `bye` |
 
-## 6 Graphical_user_interface
+## 6 v3.0 Graphical User Interface
 
 ### 6.1 Change Directory Command `cd`
 Traverse to the target directory.
@@ -703,7 +708,7 @@ Example of output:
 * Module has been added <br>
 * Task has been added <br>
 
-### 6.3 Undo  `undo`
+### 6.3 Undo `undo`
 Recover the data from the previous "Data-changed" operations.
 
 **Note:** <br>
@@ -716,19 +721,14 @@ Example of usage:
 Example of output:
 * Undo Successfully <br>
 
-### 6.3 Week Command  `week`
+### 6.4 Week Command  `week`
 A window will pop out and the task number on the each day of the upcoming week will be listed.
 
 Example of usage: 
 * `week`
 
-### 6.4 Directory Command  `dir`
+### 6.5 Directory Command  `dir`
 A window will pop out and all module with related tasks will be listed.
 
 Example of usage: 
 * `dir`
-
-
-
-
-
