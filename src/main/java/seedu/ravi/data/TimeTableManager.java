@@ -364,6 +364,7 @@ public class TimeTableManager {
 
     public static void clearTimeTable() {
         timetable = new TimeTable();
+        isInitialised = false;
     }
 
     /*

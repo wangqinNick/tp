@@ -23,7 +23,7 @@ public class DeleteCommandParser {
     protected static final String INVALID_GROUP = "invalid";
     protected static final Pattern DELETE_FORMAT =
             Pattern.compile("((?<commandFlag>.*-\\S+)?)"
-                    + "(?<taskModule>\\s\\S+)" + "((?<invalid>.*)?)");
+                    + "(?<taskModule>\\s*\\S+)" + "((?<invalid>.*)?)");
 
     /**
      * Takes the user's input and parses it into the respective arguments for Delete Command.
