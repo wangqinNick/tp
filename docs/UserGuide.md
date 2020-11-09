@@ -139,6 +139,7 @@ Action commands:
 	» edit      - Edit a task or module
 	» done      - Mark a task as complete
 	» grade     - Grades and allocates MCs to a Module
+	» cap       - Calculates your CAP
 	» undo      - Undo the previous action (if you made changes)
 	» timetable - Manage your timetable
 Viewing commands:
