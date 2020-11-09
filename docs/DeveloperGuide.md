@@ -335,7 +335,7 @@ It extends the abstract Command class and override the execute command.
 
 As seen from the sequence diagram above, this is the flow of an Undo command.
 The Parser parses the user's input, and construct the default UndoCommand.
-When an Undo Command object executes, the `undo()` method in the StateManager class will be called.
+When the Undo Command object executes, the `undo()` method in the StateManager class will be called.
 In the StateManager, the previous copies of the data are encoded as Json and stored in a stack.
 When the `undo()` is called, the StateManager will pops the top copy in the stack. 
 After that, the StateManager class will notify TaskManager and Module Manager to load from the encoded saved copies. To do that, it will facilitate the load methods, `loadMods()` `loadTasks()` from TaskManager and ModuleManager to set the data.
