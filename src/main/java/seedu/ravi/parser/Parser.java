@@ -17,14 +17,13 @@ import seedu.ravi.command.list.ListCommand;
 import seedu.ravi.command.misc.UndoCommand;
 import seedu.ravi.command.summary.SummaryCommand;
 import seedu.ravi.command.timetable.TimeTableCommand;
-import seedu.ravi.exception.InvalidCapException;
+import seedu.ravi.exception.InvalidCommandException;
 import seedu.ravi.exception.InvalidMatchException;
 import seedu.ravi.exception.InvalidModuleCreditException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static seedu.ravi.util.ExceptionMessage.MESSAGE_INVALID_CAP;
 import static seedu.ravi.util.ExceptionMessage.MESSAGE_INVALID_COMMAND_WORD;
 import static seedu.ravi.util.ExceptionMessage.MESSAGE_INVALID_MC;
 import static seedu.ravi.util.ExceptionMessage.MESSAGE_INVALID_PARAMETERS;
@@ -85,7 +84,7 @@ public class Parser {
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
             case CapCommand.COMMAND_WORD:
-                return CapCommandParser.prepareCapCommand(parameters);
+                return new CapCommand();
             case GradeCommand.COMMAND_WORD:
                 return GradeCommandParser.prepareGradeCommand(parameters);
             case UndoCommand.COMMAND_WORD:
@@ -105,9 +104,10 @@ public class Parser {
             case TimeTableCommand.COMMAND_WORD:
                 return TimeTableCommandParser.parseTimeTableCommand(parameters);
             case HelpCommand.COMMAND_WORD:
-            default:
                 logger.getLogger().info("Unrecognised or help command");
                 return HelpCommandParser.prepareHelpCommand(parameters);
+            default:
+                throw new InvalidCommandException();
             }
         } catch (NumberFormatException e) {
             logger.getLogger().warning("Found a string where a number should be");
@@ -124,9 +124,9 @@ public class Parser {
         } catch (InvalidModuleCreditException e) {
             logger.getLogger().warning("Invalid Module Credit input");
             return new IncorrectCommand(MESSAGE_INVALID_MC);
-        } catch (InvalidCapException e) {
-            logger.getLogger().warning("Invalid Cap detected");
-            return new IncorrectCommand(MESSAGE_INVALID_CAP);
+        } catch (InvalidCommandException e) {
+            logger.getLogger().warning("Invalid Command Word input detected");
+            return new IncorrectCommand(MESSAGE_INVALID_COMMAND_WORD);
         }
     }
 
