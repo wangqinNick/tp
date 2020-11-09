@@ -773,7 +773,7 @@ Given below are instructions to test the app manually.
     will be added to the Module.  
 
 ### 8.7 Undo the previous command
-**Do note that `undo` will only undo the last command that edited the data files, namely commands with a `PromptType` of `EDIT`. Hence, this refers to the addition and deletion of Tasks, Modules and Lessons while excluding `timetable -reset`**
+**Do note that `undo` will only undo the last command that edited the data files, namely commands with a `PromptType` of `EDIT`.**
 1. Undo:
     1. Test case: `undo`, after the user has input `add -t finish work`.\
     Expected: The task `finish work` is added to the task list. As the AddTaskCommand has a `PromptType` of `EDIT`, the addition of the task: `finish work` to the task list will be undone. Details of the successful undo will be shown.
