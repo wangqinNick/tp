@@ -50,6 +50,8 @@ application {
     mainClassName = "seedu.duke.Pac"
 }
 
+
+
 java {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
@@ -70,10 +72,12 @@ run{
 
 classDiagram { // (1)
     packageName = "com.seedu.duke" // (2)
-    outputFile = project.file('diagrams/class_diagram.plantuml') // (3)
+    outputFile = project.file('s/diagrams/class_diagram.plantuml') // (3)
     // outputFile = new File("${projectDir}/diagrams/class_diagram.plantuml") // (4)
     ignoredClasses = [ // (5)
-
     ]
 }
+
+
+
 
