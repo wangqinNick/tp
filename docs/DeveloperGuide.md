@@ -241,7 +241,7 @@ Else, `ListCommand` calls `CommandResult(MESSAGE_LIST_PRINTED + output)`, creati
 
 `ListCommand` returns `CommandResult`. 
 
-Given below is an example usage scenario and how the cap feature behaves at each step.  
+Given below is an example usage scenario and how the list feature behaves at each step.  
 1. The user launches the application for the first time.  
 2. The user inputs `add -t Read book` into ra.VI, adding the task to the task list in TaskManager. The user keys in multiple other tasks of the following:
 * `add -t Return book -by 2-10-2020 1400`
@@ -267,15 +267,14 @@ Step 5. The user inputs `list -m`. The `CommandResult` returns
 #### CAP Feature 
 This feature is faciliatated by `ModuleManager` and `Module` classes.
 It extends `Command` and runs through the `ModuleManager`, checking every `Module`'s grade and module credit.
-* Calculate user's CAP - Uses a formula to calculate the user's current cap, with the user's total Module Credits taken
-and latest CAP.
+* Calculate user's CAP - Uses a formula to calculate the user's current cap.
 
 ![Sequence diagram for Cap Feature in Command class](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/CapCommandSequenceDiagram.png?raw=true)
 
 As seen from the sequence diagram above, this is the flow of a CAP command.
 The `CapCommandParser` parses the user's input and calls the `CapCommand` constructor.
 When `CapCommand` executes, a `CommandResult` object is created that calculates the user's current cap after taking into 
-account the current modules and the past semester's total MC taken and latest CAP.
+account the current modules and the users's total MC taken based on the modules graded.
 
 Given below is an example usage scenario and how the CAP feature behaves at each step. 
 
@@ -287,7 +286,7 @@ The user keys in as many modules into ra.VI as they are taking.
 3. Once the user attains a grade for the modules keyed in, they inputs `grade CS2101 4 A-` (4 MCs, A grade) to record the
 grade for their module. They does this for all the other modules they have taken.
 
-4. Once every module in the `ModuleManager` has been graded, they inputs `cap 46 4.24` to calculate their accumulative 
+4. Once every module in the `ModuleManager` has been graded, they inputs `cap` to calculate their accumulative 
 CAP after attaining their new grades.
 
 5. The `CommandResult` returns the success message to show the user their current CAP after attaining their grades.

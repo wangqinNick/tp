@@ -24,7 +24,7 @@ Welcome to the ra.VI User Guide! Choose a section or sub-section from the table 
 &nbsp;&nbsp;&nbsp;&nbsp;[3.5.1 List tasks](#351-listing-all-tasks-list--t) <br>
 &nbsp;&nbsp;&nbsp;&nbsp;[3.5.2 List modules](#352-listing-all-modules-list--m)  <br>
 &nbsp;&nbsp;[3.6 Grade a module](#36-grade-a-existing-module-grade) <br>
-&nbsp;&nbsp;[3.7 Calculate CAP](#37-calculate-your-cap-after-the-semester-cap) <br>
+&nbsp;&nbsp;[3.7 Calculate CAP](#37-calculate-your-cap-cap) <br>
 &nbsp;&nbsp;[3.8 Mark task as done](#38-mark-as-done-done-task_index) <br>
 &nbsp;&nbsp;[3.9 Undo previous command](#39-undo-a-command-undo) <br>
 &nbsp;&nbsp;[3.10 Summary](#310-summary-summary) <br>
@@ -372,10 +372,10 @@ The module - 'CS2101: Effective Communication for Computing Professionals (4.0MC
 ════════════════════════════════════════════════════════════════════════════════
 ```
 
-#### 3.7 Calculate your cap after the semester: `cap`
+#### 3.7 Calculate your cap: `cap`
 
 Calculate your new updated cap, accumulated from past semesters.
-Format: `cap <total module credit taken> <current cap>`
+Format: `cap`
 
 Example of usage:
 * `cap`
