@@ -14,8 +14,8 @@ public class DeleteTaskCommand extends DeleteCommand {
     private final int taskId;
     public static final String FORMAT = DeleteCommand.COMMAND_WORD + " -t" + " <task_index>";
     public static final String HELP =   "Delete a task from the scheduler."
-                                       + "\n\tFormat: " + FORMAT 
-                                       + "\n\tExample usage: del -t 1\n\n";
+                                       + "\n\t@|bold,blue,BG_BLACK Format:|@ " + FORMAT
+                                       + "\n\t@|bold,blue,BG_BLACK Example usage:|@ del -t 1\n\n";
 
     /**
      * Constructor to delete task from task list.

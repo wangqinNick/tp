@@ -24,8 +24,8 @@ public class GradeCommand extends Command {
     public static final String FORMAT = COMMAND_WORD + " <module_code> <modular_credit> <grade>";
     public static final String PROMPT_HELP = TextUi.getCommandHelpMessage(COMMAND_WORD);
     public static final String HELP =   "Grades and allocates the Module Credit to the Module."
-                                        + "\n\tFormat: " + FORMAT
-                                        + "\n\tExample usage: grade CS2113T 4 A+";
+                                        + "\n\t@|bold,blue,BG_BLACK Format:|@ " + FORMAT
+                                        + "\n\t@|bold,blue,BG_BLACK Example usage:|@ grade CS2113T 4 A+";
 
     /**
      * Constructs GradeCommand.

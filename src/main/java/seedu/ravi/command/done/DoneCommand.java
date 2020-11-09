@@ -10,13 +10,14 @@ import seedu.ravi.ui.TextUi;
 import static seedu.ravi.util.ExceptionMessage.MESSAGE_TASK_NOT_FOUND;
 import static seedu.ravi.util.Message.MESSAGE_DONE_TASK_SUCCESS;
 
+//@@author amalinasani
 public class DoneCommand extends Command {
     private final int taskId;
     public static final String COMMAND_WORD = "done";
     public static final String FORMAT = COMMAND_WORD + " <task_index>";
     public static final String HELP =   "Mark a task as done."
-                                        + "\n\tFormat: " + FORMAT
-                                        + "\n\tExample usage: done 1";
+                                        + "\n\t@|bold,blue,BG_BLACK Format:|@ " + FORMAT
+                                        + "\n\t@|bold,blue,BG_BLACK Example usage:|@ done 1";
     public static final String PROMPT_HELP = TextUi.getCommandHelpMessage(COMMAND_WORD);
 
     public DoneCommand(int taskId) {

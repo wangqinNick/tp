@@ -11,6 +11,7 @@ import seedu.ravi.ui.TextUi;
 import static seedu.ravi.util.ExceptionMessage.MESSAGE_LIST_EMPTY;
 import static seedu.ravi.util.Message.MESSAGE_LIST_PRINTED;
 
+//@@author amalinasani
 public class ListCommand extends Command {
     private final Parser.TypeOfEntries typeOfEntry;
     public static final String COMMAND_WORD = "list";
@@ -18,9 +19,9 @@ public class ListCommand extends Command {
     public static final String FORMAT_MODULE = COMMAND_WORD + " -m";
     public static final String FORMAT = FORMAT_TASK + "\n" + FORMAT_MODULE;
     public static final String HELP =   "List all tasks in the task list."
-                                        + "\n\tFormat: " + FORMAT_TASK
+                                        + "\n\t@|bold,blue,BG_BLACK Format:|@ " + FORMAT_TASK
                                         + "\n\nList all modules in the module list."
-                                        + "\n\tFormat: " + FORMAT_MODULE;
+                                        + "\n\t@|bold,blue,BG_BLACK Format:|@ " + FORMAT_MODULE;
     public static final String PROMPT_HELP = TextUi.getCommandHelpMessage(COMMAND_WORD);
 
     public ListCommand(Parser.TypeOfEntries typeOfEntry) {
@@ -46,10 +47,10 @@ public class ListCommand extends Command {
         default:
             break;
         }
-        if (output == null) {
-            return new CommandResult(MESSAGE_LIST_EMPTY);
-        } else {
+        if (output != null) {
             return new CommandResult(MESSAGE_LIST_PRINTED + output);
+        } else {
+            return new CommandResult(MESSAGE_LIST_EMPTY);
         }
     }
 }

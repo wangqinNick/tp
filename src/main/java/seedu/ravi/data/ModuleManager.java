@@ -171,6 +171,7 @@ public class ModuleManager {
         return nusModsMap.keySet().toArray(new String[0]);
     }
 
+    //@@author amalinasani
     /**
      * List modules in the module map.
      *
@@ -185,6 +186,7 @@ public class ModuleManager {
         }
     }
 
+    //@@author
     /**
      * Loads the file loaded module map into ModuleManager's own module map.
      *

@@ -39,8 +39,7 @@ Welcome to the ra.VI User Guide! Choose a section or sub-section from the table 
 
 ### 1 Introduction
 
-Repository Assistant with a Versatile Interface (ra.VI) is a desktop app for managing tasks, deadlines, and notes, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ra.VI can manage your tasks faster than traditional GUI apps.\
-ra.VI helps you to manage your tasks, and their corresponding deadlines with ease. It can also help you plan your timetable and being organised keeps you ahead of the curve.
+Repository Assistant with a Versatile Interface (ra.VI) is a desktop app for managing tasks, deadlines, and timetable, optimized for use via a Command Line Interface (CLI). If you can type fast, ra.VI can manage your tasks and timetable faster than traditional GUI apps.
 
 ### 1.1 About
 
@@ -97,7 +96,7 @@ Must be in the 24h format e.g. `0900`, `1415`
 ### 2 Quick Start
 
 1. Ensure that you have Java 11 or above installed.
-2. Download the latest version of `ra.VI` from [here](https://github.com/AY2021S1-CS2113T-T09-2/tp/releases/tag/v2.0).
+2. Download the latest version of `ra.VI` from [here](https://github.com/AY2021S1-CS2113T-T09-2/tp/releases/tag/v2.1).
 3. Copy the file to the folder you want to use as the home folder for `ra.VI`.
 4. Open a command prompt in the folder from step 3 and enter `java -jar ravi.jar`.
 5. Enter the current NUS week number as prompted.
@@ -210,10 +209,10 @@ Example of usage:
 Example of output:
 ```
 Command: 
-⋗	add -m CG1111
+⋗	add -m CS1010s
 ════════════════════════════════════════════════════════════════════════════════
 Your module has been added successfully.
-Your new module - 'CG1111: Engineering Principles and Practice I: No grade yet'
+Your new module - 'CS1010S: Programming Methodology (0.0MC) (Grade: No grade yet)'
 
 ════════════════════════════════════════════════════════════════════════════════
 ```
@@ -347,7 +346,7 @@ Assign a grade to a module in the Scheduler.
 Format: `grade <module Code> <module credit> <grade>`
 
 **Note:** <br>
-&nbsp;&nbsp;&nbsp;&nbsp;CS & CU are covered in the cap calculator
+&nbsp;&nbsp;&nbsp;&nbsp;CS & CU are covered in the cap calculator <br>
 &nbsp;&nbsp;&nbsp;&nbsp;All grades input must be in Caps. ie `A+`
 
 Example of usage:
@@ -359,7 +358,7 @@ Command:
 ⋗	grade CS2101 4 A-
 ════════════════════════════════════════════════════════════════════════════════
 Your module has been graded successfully.
-The module - 'CG1111: Engineering Principles and Practice I (4.0MC) (Grade: C+)'. 
+The module - 'CS2101: Effective Communication for Computing Professionals (4.0MC) (Grade: A-)'. 
 
 ════════════════════════════════════════════════════════════════════════════════
 ```
@@ -522,12 +521,12 @@ No lessons on SUNDAY, 08-11-20.
 #### 3.11.2 Add a lesson: `timetable -add`
 
 Adds a lesson to the timetable.\
-Format: `timetable -add <module> <day> <start time> <end time> <lesson type> <repeat>`  
-`<module>` : Must be added to the module list. See module list with `list -m`.\
-`<day>` : Must be one of the following : `MONDAY`, `TUESDAY`, `WEDNESDAY`, `THURSDAY`, `FRIDAY`, `SATURDAY`, `SUNDAY`
-`<start time>` : Must be in 24h format
-`<end time>` : Must be in 24h format and is after `<start time>`
-`<lesson type>` : Must be one of the following : `TUTORIAL`, `LECTURE`, `SEMINAR`, `LAB`, `RECITATION`, `SESSION`
+Format: `timetable -add <module> <day> <start time> <end time> <lesson type> <repeat>` <br>
+`<module>` : Must be added to the module list. See module list with `list -m`. <br>
+`<day>` : Must be one of the following : `MONDAY`, `TUESDAY`, `WEDNESDAY`, `THURSDAY`, `FRIDAY`, `SATURDAY`, `SUNDAY` <br>
+`<start time>` : Must be in 24h format <br>
+`<end time>` : Must be in 24h format and is after `<start time>` <br>
+`<lesson type>` : Must be one of the following : `TUTORIAL`, `LECTURE`, `SEMINAR`, `LAB`, `RECITATION`, `SESSION` <br>
 `<repeat>` : 0 : One time lesson ; 1 : Once a week ; 2 : Every even week ; 3 : Every odd week
 
 Example of usage: 
@@ -548,10 +547,10 @@ Added to: every week.
 
 #### 3.11.3 Delete a lesson: `timetable -del`
 
-Deletes a lesson from the timetable.\
-Format: `timetable -del <day> <lesson index>`  
-`<day>` : Must be one of the following : `MONDAY`, `TUESDAY`, `WEDNESDAY`, `THURSDAY`, `FRIDAY`, `SATURDAY`, `SUNDAY`
-`<lesson index>` : Index of the lesson to be deleted. See timetable and the indexes with `timetable -day` or `timetable -week`
+Deletes a lesson from the timetable.<br> 
+Format: `timetable -del <day> <lesson index>` <br> 
+`<day>` : Must be one of the following : `MONDAY`, `TUESDAY`, `WEDNESDAY`, `THURSDAY`, `FRIDAY`, `SATURDAY`, `SUNDAY` <br>
+`<lesson index>` : Index of the lesson to be deleted. See timetable and the indexes with `timetable -day` or `timetable -week` <br>
 
 Example of usage: 
 * `timetable -del MONDAY 1`
@@ -575,9 +574,9 @@ Format: `timetable -reset`
 **Note:** <br>
 After reset, it is mandatory to key in the current academic week
 
-Example of usage:
-1.`timetable -reset`
-2. `3`
+Example of usage: <br>
+* `timetable -reset` <br>
+* `3`
 
 Example of ouput:
 ```

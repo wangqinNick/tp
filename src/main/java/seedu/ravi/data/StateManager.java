@@ -28,10 +28,7 @@ public class StateManager {
         undoStack = new Stack<>();
         redoStack = new Stack<>();
 
-        var gson = new GsonBuilder().create();
-        var encodedSavedList = gson.toJson(TaskManager.getTaskList());
-        var encodedSavedMap = gson.toJson(ModuleManager.getModulesMap());
-        var screenShot = new State(encodedSavedList, encodedSavedMap, editTypeCommandArrayList);
+        State screenShot = toJson();
         assert undoStack.isEmpty() : "Undo stack should be empty!";
         assert redoStack.isEmpty() : "Redo stack should be empty!";
         undoStack.push(screenShot);
@@ -75,12 +72,16 @@ public class StateManager {
 
         var encodedSavedList = previousState.getEncodedSavedList();
         var encodedSavedMap = previousState.getEncodedSavedMap();
+        var encodedTimeTable = previousState.getEncodedTimeTable();
 
         var stream1 = new ByteArrayInputStream(encodedSavedList.getBytes());
         var bufferedReader1 = new BufferedReader(new InputStreamReader(stream1));
 
         var stream2 = new ByteArrayInputStream(encodedSavedMap.getBytes());
         var bufferedReader2 = new BufferedReader(new InputStreamReader(stream2));
+
+        var stream3 = new ByteArrayInputStream(encodedTimeTable.getBytes());
+        var bufferedReader3 = new BufferedReader(new InputStreamReader(stream3));
 
         Task[] readList1 = new Gson().fromJson(bufferedReader1, Task[].class);
         TaskManager.loadTasks(getDecodedTaskList(readList1));
@@ -89,11 +90,25 @@ public class StateManager {
         HashMap<String, Module> map = new Gson().fromJson(bufferedReader2, type);
         ModuleManager.loadMods(map);
 
+        Type type2 = new TypeToken<HashMap<Integer, LessonManager>>(){}.getType();
+        HashMap<Integer, LessonManager> map2 = new Gson().fromJson(bufferedReader3, type2);
+        TimeTableManager.getTimeTable().setSemesterMap(map2);
+
         bufferedReader1.close();
         bufferedReader2.close();
 
         String lastCommand = editTypeCommandArrayList.remove(editTypeCommandArrayList.size() - 1);
-        return lastCommand;
+        String[] arrOfLastCommand = lastCommand.split("\\s+");
+        String out;
+        // Special case to find tasks
+        if (arrOfLastCommand[1].equals("-t")) {
+            out = String.join(" ", arrOfLastCommand[0], arrOfLastCommand[1]);
+            String substring = lastCommand.substring(lastCommand.indexOf(arrOfLastCommand[2]));
+            out += " " + substring;
+        } else {
+            out = String.join(" ", arrOfLastCommand);
+        }
+        return out;
     }
 
     /**
@@ -103,10 +118,7 @@ public class StateManager {
      */
     public static void saveState(String editTypeCommand) {
         editTypeCommandArrayList.add(editTypeCommand);
-        var gson = new GsonBuilder().create();
-        var encodedSavedList = gson.toJson(TaskManager.getTaskList());
-        var encodedSavedMap = gson.toJson(ModuleManager.getModulesMap());
-        var screenShot = new State(encodedSavedList, encodedSavedMap, editTypeCommandArrayList);
+        State screenShot = toJson();
         undoStack.push(screenShot);
         /*
         if (getUndoStackSize() == 0) {
@@ -123,6 +135,14 @@ public class StateManager {
         }
 
          */
+    }
+
+    private static State toJson() {
+        var gson = new GsonBuilder().create();
+        var encodedSavedList = gson.toJson(TaskManager.getTaskList());
+        var encodedSavedMap = gson.toJson(ModuleManager.getModulesMap());
+        var encodedSavedTimeTable = gson.toJson(TimeTableManager.getTimeTable().getSemesterMap());
+        return new State(encodedSavedList, encodedSavedMap, editTypeCommandArrayList, encodedSavedTimeTable);
     }
 
     /**

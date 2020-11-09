@@ -14,6 +14,7 @@ import static seedu.ravi.data.TimeTableManager.getCurrNusWeekStr;
 import static seedu.ravi.data.TimeTableManager.getSpecificDayLessons;
 import static seedu.ravi.data.TimeTableManager.getSpecifiedWeekLessons;
 
+//@@author amalinasani
 public class TimeTableViewCommand extends TimeTableCommand {
     private final int numOfDays;
     private final LocalDate now = LocalDate.now();
