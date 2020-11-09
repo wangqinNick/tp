@@ -24,7 +24,7 @@ Welcome to the ra.VI User Guide! Choose a section or sub-section from the table 
 &nbsp;&nbsp;&nbsp;&nbsp;[3.5.1 List tasks](#351-listing-all-tasks-list--t) <br>
 &nbsp;&nbsp;&nbsp;&nbsp;[3.5.2 List modules](#352-listing-all-modules-list--m)  <br>
 &nbsp;&nbsp;[3.6 Grade a module](#36-grade-a-existing-module-grade) <br>
-&nbsp;&nbsp;[3.7 Calculate CAP](#37-calculate-your-cap-after-the-semester-cap) <br>
+&nbsp;&nbsp;[3.7 Calculate CAP](#37-calculate-your-cap-cap) <br>
 &nbsp;&nbsp;[3.8 Mark task as done](#38-mark-as-done-done-task_index) <br>
 &nbsp;&nbsp;[3.9 Undo previous command](#39-undo-a-command-undo) <br>
 &nbsp;&nbsp;[3.10 Summary](#310-summary-summary) <br>
@@ -143,21 +143,22 @@ This help message appears when you type 'help', or an unrecognised command.
 To find out more about any of my commands, type 'help <command>'.
 Here's a list of my commands to help you out:
 
-🏃 Action commands:
-	▻ add       → Add a task or module
-	▻ del       → Delete a task or module
-	▻ edit      → Edit a task or module
-	▻ done      → Mark a task as complete
-	▻ grade     → Grades and allocates MCs to a Module
-	▻ undo      → Undo the previous action (if you made changes)
-	▻ timetable → Manage your timetable
-📖 Viewing commands:
-	▻ list      → Lists all tasks or modules
-	▻ summary   → See a neat summary of your tasks
-	▻ timetable → View your timetable, by day or by week
-🛠 Utility commands:
-	▻ help      → Get detailed help for each command
-	▻ bye       → Exit ra.VI (saves all changes!)
+Action commands:
+	» add       - Add a task or module
+	» del       - Delete a task or module
+	» edit      - Edit a task or module
+	» done      - Mark a task as complete
+	» grade     - Grades and allocates MCs to a Module
+	» cap       - Calculates your CAP
+	» undo      - Undo the previous action (if you made changes)
+	» timetable - Manage your timetable
+Viewing commands:
+	» list      - Lists all tasks or modules
+	» summary   - See a neat summary of your tasks
+	» timetable - View your timetable, by day or by week
+Utility commands:
+	» help      - Get detailed help for each command
+	» bye       - Exit ra.VI (saves all changes!)
 ════════════════════════════════════════════════════════════════════════════════
 ```
 
@@ -193,7 +194,8 @@ Command:
 ⋗	add -t read a book
 ════════════════════════════════════════════════════════════════════════════════
 Your task has been added successfully.
-Your new task - 'read a book [x]'
+Your new task:
+'read a book [x]'
 
 ════════════════════════════════════════════════════════════════════════════════
 ```
@@ -203,7 +205,8 @@ Command:
 ⋗	add -t read a book -by 02-02-2020 1900
 ════════════════════════════════════════════════════════════════════════════════
 Your task has been added successfully.
-Your new task - 'read a book [x], by 07:00PM, Sunday, 02 Feb 20'
+Your new task:
+'read a book [x], by 07:00PM, Sunday, 02 Feb 2020'
 
 ════════════════════════════════════════════════════════════════════════════════
 ```
@@ -222,7 +225,8 @@ Command:
 ⋗	add -m CS1010s
 ════════════════════════════════════════════════════════════════════════════════
 Your module has been added successfully.
-Your new module - 'CS1010S: Programming Methodology (0.0MC) (Grade: No grade yet)'
+Your new module:
+'CS1010S: Programming Methodology (0.0MC) (Grade: No grade yet)'
 
 ════════════════════════════════════════════════════════════════════════════════
 ```
@@ -263,11 +267,11 @@ Example of usage:
 Example of output:
 ```
 Command: 
-⋗	edit -m CG1112 CG2271
+»	edit -m CG1112 ACC1002
 ════════════════════════════════════════════════════════════════════════════════
 Your module has been edited successfully.
-Your module before editing - 'CG1112: Engineering Principles and Practice II (4.0MC) (Grade: CS)'
-Your module after editing  - 'CG2271: Real-Time Operating Systems (4.0MC) (Grade: CS)'
+Your module before editing - 'CG1112: Engineering Principles and Practice II (0.0MC) (Grade: No grade yet)'
+Your module after editing  - 'ACC1002: Financial Accounting (0.0MC) (Grade: No grade yet)'
 
 ════════════════════════════════════════════════════════════════════════════════
 ```
@@ -328,7 +332,7 @@ Command:
 Here's your list:
 
 1. go running [x]
-2. buy something [x], by 07:00PM, Sunday, 02 Feb 20
+2. buy something [x], by 07:00PM, Sunday, 02 Feb 2020
 
 ════════════════════════════════════════════════════════════════════════════════
 ```
@@ -345,8 +349,14 @@ Command:
 ════════════════════════════════════════════════════════════════════════════════
 Here's your list:
 
-1. CG1111: Engineering Principles and Practice I: A+
-2. CS2101: Effective Communication for Computing Professionals: No grade yet
+1. CG1111: Engineering Principles and Practice I (4.0MC) (Grade: A+)
+2. CS1231: Discrete Structures (0.0MC) (Grade: No grade yet)
+3. CS1010: Programming Methodology (0.0MC) (Grade: No grade yet)
+4. CS1010X: Programming Methodology (0.0MC) (Grade: No grade yet)
+5. ACC1701: Accounting for Decision Makers (0.0MC) (Grade: No grade yet)
+6. CG2271: Real-Time Operating Systems (0.0MC) (Grade: No grade yet)
+7. CS2101: Effective Communication for Computing Professionals (4.0MC) (Grade: B+)
+8. GEH1032: Modern Technology in Medicine and Health (0.0MC) (Grade: No grade yet)
 ════════════════════════════════════════════════════════════════════════════════
 ```
 
@@ -373,23 +383,18 @@ The module - 'CS2101: Effective Communication for Computing Professionals (4.0MC
 ════════════════════════════════════════════════════════════════════════════════
 ```
 
-#### 3.7 Calculate your cap after the semester: `cap`
+#### 3.7 Calculate your cap: `cap`
 
 Calculate your new updated cap, accumulated from past semesters.
-Format: `cap <total module credit taken> <current cap>`
-
-**Note:** For first semester, key in <br>
-&nbsp;&nbsp;&nbsp;&nbsp;`<total module credit taken>` = 0 <br>
-&nbsp;&nbsp;&nbsp;&nbsp;`<current cap>` = 0 <br>
-To get the current semester's CAP.
+Format: `cap`
 
 Example of usage:
-* `cap 46 4.24`
+* `cap`
 
 Example of output:
 ```
 Command: 
-⋗	cap 20 4.24
+⋗	cap
 ════════════════════════════════════════════════════════════════════════════════
 Your current CAP is 
 4.31
@@ -455,13 +460,13 @@ Command:
 ════════════════════════════════════════════════════════════════════════════════
 Here's a summary of your latest tasks...
 
-⏰ Incomplete tasks with deadlines:
+Incomplete tasks with deadlines:
 1. buy something [x], by 07:00PM, Sunday, 02 Feb 20
 
-❗ Incomplete tasks with no deadline:
+Incomplete tasks with no deadline:
 1. go running [x]
 
-👌 Completed tasks:
+Completed tasks:
 Your list is empty.
 
 ════════════════════════════════════════════════════════════════════════════════
@@ -588,7 +593,7 @@ Example of usage: <br>
 * `timetable -reset` <br>
 * `3`
 
-Example of ouput:
+Example of output:
 ```
 Command: 
 ⋗	timetable -reset
