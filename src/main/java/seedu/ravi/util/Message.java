@@ -46,7 +46,7 @@ public class Message {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT =
             "The command entered contains some @|bold,blue,BG_BLACK unrecognised parameters|@ starting from here:\n";
     public static final String MESSAGE_CHECK_COMMAND_FORMAT =
-            "@|bold,red,BG_BLACK,underline Please check to make sure to follow the command format:|@\n";
+            "@|bold,red,BG_BLACK,NEGATIVE_ON Please check to make sure to follow the command format:|@\n";
     public static final String ICON_DONE = "\u221A";
     public static final String ICON_NOT_DONE = "\u0078";
     public static final String MESSAGE_LIST_PRINTED = "Here's your list:\n";
@@ -60,11 +60,11 @@ public class Message {
 
     public static final String MESSAGE_SUMMARY_PRINTED = "Here's a summary of your latest tasks...\n";
     public static final String MESSAGE_COMPLETED_TASKLIST =
-            "\n@|bold,green,BG_BLACK,underline Completed tasks:|@";
+            "\n@|bold,green,BG_BLACK,NEGATIVE_ON Completed tasks:|@";
     public static final String MESSAGE_INCOMPLETE_UNDATED_TASKLIST =
-            "\n@|bold,blue,BG_BLACK,underline Incomplete tasks with no deadline:|@";
+            "\n@|bold,blue,BG_BLACK,NEGATIVE_ON Incomplete tasks with no deadline:|@";
     public static final String MESSAGE_INCOMPLETE_DATED_TASKLIST =
-            "\n@|bold,red,BG_BLACK,underline Incomplete tasks with deadlines:|@";
+            "\n@|bold,red,BG_BLACK,NEGATIVE_ON Incomplete tasks with deadlines:|@";
 
     public static final String MESSAGE_GENERAL_HELP =
             "Hello! I'm @|bold,magenta,BG_BLACK ra.VI|@, your personal NUS assistant.\n"
@@ -72,7 +72,7 @@ public class Message {
             + "This help message appears when you type @|bold,green,BG_BLACK 'help'|@, or an unrecognised command.\n"
             + "To find out more about any of my commands, type @|bold,green,BG_BLACK 'help <command>'|@.\n"
             + "Here's a list of my commands to help you out:\n\n"
-            + "@|bold,red,BG_BLACK,underline Action commands:|@\n"
+            + "@|bold,red,BG_BLACK,NEGATIVE_ON Action commands:|@\n"
             + "\t» add       - Add a task or module\n"
             + "\t» del       - Delete a task or module\n"
             + "\t» edit      - Edit a task or module\n"
@@ -81,11 +81,11 @@ public class Message {
             + "\t» cap       - Calculates your CAP\n"
             + "\t» undo      - Undo the previous action (if you made changes)\n"
             + "\t» timetable - Manage your timetable\n"
-            + "@|bold,blue,BG_BLACK,underline Viewing commands:|@\n"
+            + "@|bold,blue,BG_BLACK,NEGATIVE_ON Viewing commands:|@\n"
             + "\t» list      - Lists all tasks or modules\n"
             + "\t» summary   - See a neat summary of your tasks\n"
             + "\t» timetable - View your timetable, by day or by week\n"
-            + "@|bold,yellow,BG_BLACK,underline Utility commands:|@\n"
+            + "@|bold,yellow,BG_BLACK,NEGATIVE_ON Utility commands:|@\n"
             + "\t» help      - Get detailed help for each command\n"
             + "\t» bye       - Exit ra.VI (saves all changes!)";
     public static final String MESSAGE_TIMETABLE_INIT =
