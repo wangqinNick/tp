@@ -1,6 +1,6 @@
 ### Sean Lim Zhi Xiang - Project Portfolio Page
 #### CS2113T Project: ra.VI
-Repository Assistant with a Versatile Interface (ra.VI) is a desktop app for NUS freshmen, helping them manage tasks, deadlines, and their timetable. It is optimized for use via a Command Line Interface (CLI), written in Java and is built to run on Java 11 on Linux, Mac and Windows machines.
+Repository Assistant with a Versatile Interface (ra.VI) is a desktop app for NUS freshmen, helping them manage tasks, deadlines, and their timetable. It is optimized for use via a Command Line Interface (CLI).
 #### My contributions
 #### Features implemented:
 * **New Feature**: Added the timetable feature [#101](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/101) [#118](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/118)
@@ -14,16 +14,14 @@ Repository Assistant with a Versatile Interface (ra.VI) is a desktop app for NUS
     * Credits: [Jun You](https://ay2021s1-cs2113t-t09-2.github.io/tp/team/f0fz.html)
 * **New Feature**: Added add/delete tasks and modules feature [#17](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/17) [#35](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/35) [#54](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/54)
     * What it does: Allows the user to manage their tasks and modules. This includes adding, deleting and handling of deadlines.
-    * Justification: This feature allows students to manage their tasks, deadlines and modules. This allows the student be on top of their tasks and deadlines, while keeping track of the modules they are taking / have taken.
+    * Justification: This allows the student be on top of their tasks and deadlines, while keeping track of the modules they are taking / have taken.
     * Credits: Implemented with adaptations from my [iP](https://github.com/Aseanseen/ip)
 * **New Feature**: Added main class and exit command [#40](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/40) [#53](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/53)
-    * What it does: Main entry and exit points for the app.
     * Credits: Implemented with adaptations from my [iP](https://github.com/Aseanseen/ip) and [AddressBook (Level 2)](https://se-education.org/addressbook-level2/).
 * **Code contributed**: [RepoSense Link](https://nus-cs2113-ay2021s1.github.io/tp-dashboard/#breakdown=true&search=aseanseen)
 * **Enhancements**:
     * After a successful undo command, show the user the command that was undone. [#241](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/241)
-    * Fix checkstyle for many classes. [#145](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/145)
-
+    
 #### Contributions to team-based tasks
 * **Project Management**:
     * Managed releases `v1.0` - `v2.1` (3 releases) on Github
