@@ -22,23 +22,23 @@ public abstract class TimeTableCommand extends Command {
             + "\n" + TIMETABLE_WEEK_VIEW_FORMAT;
     public static final String HELP =
             "View day's timetable"
-            + "\n\tFormat: " + TIMETABLE_DAY_VIEW_FORMAT
+            + "\n\t@|bold,blue,BG_BLACK Format:|@ " + TIMETABLE_DAY_VIEW_FORMAT
             + "\n\nView week's timetable"
-            + "\n\tFormat: " + TIMETABLE_WEEK_VIEW_FORMAT
+            + "\n\t@|bold,blue,BG_BLACK Format:|@ " + TIMETABLE_WEEK_VIEW_FORMAT
             + "\n\nAdd a lesson to the timetable."
-            + "\n\tFormat: " + TIMETABLE_LESSON_ADD_USER_FORMAT
+            + "\n\t@|bold,blue,BG_BLACK Format:|@ " + TIMETABLE_LESSON_ADD_USER_FORMAT
             + "\n\t<repeat> 0: Once"
             + "\n\t         1: Once a week"
             + "\n\t         2: Even weeks"
             + "\n\t         3: Odd weeks"
-            + "\n\tExample usage: timetable -add CS2101 TUESDAY 0800 1000 LECTURE 1"
+            + "\n\t@|bold,blue,BG_BLACK Example usage:|@ timetable -add CS2101 TUESDAY 0800 1000 LECTURE 1"
             + "\n\nRemove a lesson from the timetable."
-            + "\n\tFormat: " + TIMETABLE_LESSON_DELETE_USER_FORMAT
-            + "\n\tExample usage: timetable -del MONDAY 2"
+            + "\n\t@|bold,blue,BG_BLACK Format:|@ " + TIMETABLE_LESSON_DELETE_USER_FORMAT
+            + "\n\t@|bold,blue,BG_BLACK Example usage:|@ timetable -del MONDAY 2"
             + "\n\nFilter out lessons from the timetable based on certain criteria."
             + "\n\tUse '-' to signify no criteria for that property."
-            + "\n\tFormat: " + TIMETABLE_LESSON_FILTER_USER_FORMAT
-            + "\n\tExample usage:"
+            + "\n\t@|bold,blue,BG_BLACK Format:|@ " + TIMETABLE_LESSON_FILTER_USER_FORMAT
+            + "\n\t@|bold,blue,BG_BLACK Example usage:|@"
             + "\n\t\t- Any CS1010 lesson after 1000 on any day:"
             + "\n\t\t- timetable -filter CS1010 - 1000 - -"
             + "\n\t\t- Any lecture on Monday before 1200:"

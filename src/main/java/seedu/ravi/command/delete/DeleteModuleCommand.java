@@ -15,8 +15,8 @@ public class DeleteModuleCommand extends DeleteCommand {
     private final String moduleCode;
     public static final String FORMAT = DeleteCommand.COMMAND_WORD + " -m" + " <module_code>";
     public static final String HELP =   "Delete a module from the scheduler."
-                                        + "\n\tFormat: " + FORMAT
-                                        + "\n\tExample usage: del -m CS2113T";
+                                        + "\n\t@|bold,blue,BG_BLACK Format:|@ " + FORMAT
+                                        + "\n\t@|bold,blue,BG_BLACK Example usage:|@ del -m CS2113T";
 
     /**
      * Constructor to delete module from module list.

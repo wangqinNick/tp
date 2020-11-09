@@ -1,95 +1,96 @@
 package seedu.ravi.util;
 
 public class ExceptionMessage {
-    public static final String EXCEPTION_HEADER = "\uD83D\uDEAB Error! \uD83D\uDEAB"; // 'No entry sign' emoji
+    public static final String EXCEPTION_HEADER = "@|bold,white,BG_RED Error!|@";
 
     public static final String MESSAGE_NUS_MODS_NOT_LOADED =
-            "NUSMods data could not be loaded!\n"
+            "@|bold,red,BG_BLACK,NEGATIVE_ON NUSMods data could not be loaded!|@\n"
             + "ra.VI is meant to be able to work offline, and so is packaged with a \n"
             + "copy of NUSMods data. If you're reading this, the ra.VI jar file you are \n"
             + "using may be corrupted. Please try to download again when you have an \n"
             + "Internet connection. Sorry for the inconvenience.\n";
 
     public static final String MESSAGE_MODULE_NOT_FOUND =
-            "Sorry, the module is not in your module list.\n"
+            "Sorry, the module is @|bold,red,BG_BLACK not in your module list|@.\n"
             + "Try checking the spelling of your module code?\n";
     public static final String MESSAGE_MODULE_NOT_PROVIDED =
-            "Sorry, the module is not provided by NUS currently.\n"
+            "Sorry, the module is @|bold,red,BG_BLACK not provided by NUS currently|@.\n"
             + "Try checking the spelling of your module code?\n";
     public static final String MESSAGE_DUPLICATE_MODULE =
-            "Sorry, the module already exists in your list, so I can't add it again.\n"
+            "Sorry, the module @|bold,red,BG_BLACK already exists in your list|@, so I can't add it again.\n"
             + "Perhaps you meant a different module?\n";
     public static final String MESSAGE_TASK_NOT_FOUND =
-            "Sorry, that task index is not valid.\n"
-            + "Use 'list -t' to look at your tasks, and their index.\n"
+            "Sorry, that @|bold,red,BG_BLACK task index is not valid|@.\n"
+            + "Use @|bold,green,BG_BLACK 'list -t'|@ to look at your tasks, and their index.\n"
             + "You can't use the task index from the summary command!\n";
     public static final String MESSAGE_NO_EDIT_MODULE =
-            "Please enter a proper module code to edit.\n"
+            "Sorry, @|bold,red,BG_BLACK please enter a proper module code|@ to edit.\n"
             + "It should be a module code of an actual NUS mod. E.g. CS1010.\n";
     public static final String MESSAGE_NO_EDIT_TASK =
-            "Please enter a proper task index to edit.\n"
-            + "Use 'list -t' to look at your tasks, and their index.\n"
+            "Sorry, @|bold,red,BG_BLACK please enter a proper task index|@ to edit.\n"
+            + "Use @|bold,green,BG_BLACK 'list -t'|@ to look at your tasks, and their index.\n"
             + "You can't use the task index from the summary command!\n";
     public static final String MESSAGE_NO_ADD_MODULE =
-            "Please enter a new module code to add.\n"
+            "Sorry, @|bold,red,BG_BLACK please enter a new module code|@ to add.\n"
             + "It should be a module code of an actual NUS mod. E.g. CS1010.\n";
     public static final String MESSAGE_NO_ADD_TASK =
-            "Please enter a new task to add.\n"
-            + "Use 'list -t' to look at your tasks, and their index.\n"
+            "Sorry, @|bold,red,BG_BLACK please enter a new task|@ to add.\n"
+            + "Use @|bold,green,BG_BLACK 'list -t'|@ to look at your tasks, and their index.\n"
             + "You can't use the task index from the summary command!\n";
     public static final String MESSAGE_INVALID_PARAMETERS =
-            "Some invalid or missing parameters were found!\n"
-            + "Use 'help' to find out about the parameters required: 'help %s'\n";
+            "Some @|bold,red,BG_BLACK invalid or missing parameters|@ were found!\n"
+            + "Use @|bold,green,BG_BLACK 'help'|@ to find out about the parameters required: "
+            + "@|bold,green,BG_BLACK 'help %s'|@\n";
     public static final String MESSAGE_LIST_EMPTY =
             "\nYour list is empty.\n";
     public static final String MESSAGE_STRING_IN_NUMBER =
-            "The task index you have entered is either not an integer or is too long!\n"
-            + "Use 'list -t' to look at your tasks, and their index.\n"
-            + "Please check your command! Use 'help %s' for assistance.\n";
+            "The task index you have entered is @|bold,red,BG_BLACK either not an integer or is too long|@!\n"
+            + "Use @|bold,green,BG_BLACK 'list -t'|@ to look at your tasks, and their index.\n"
+            + "Please check your command! Use @|bold,green,BG_BLACK 'help %s'|@ for assistance.\n";
     public static final String MESSAGE_INVALID_COMMAND_WORD =
-            "ra.VI does not recognise that command.\n"
-            + "Please use 'help' to see our list of commands.\n";
+            "ra.VI @|bold,red,BG_BLACK does not recognise|@ that command.\n"
+            + "Please use @|bold,green,BG_BLACK 'help'|@ to see our list of commands.\n";
     public static final String MESSAGE_INVALID_GRADE =
-            "Your grade input isn't part of the NUS grading scheme. \n"
-            + "For your reference: A+, A, A-, B+, B, B-, C+, C, C-, D+, F, CS, CU. \n"
-            + "Grades have to be in uppercase not lower case. \n";
+            "Your grade input @|bold,red,BG_BLACK isn't part of the NUS grading scheme|@. \n"
+            + "For your reference: A+, A, A-, B+, B, B-, C+, C, C-, D+, F, CS, CU.\n";
     public static final String MESSAGE_LESSON_INVALID_TIME =
-            "Sorry, the lesson you have attempted to add has an invalid start time.\n"
-            + "Try using 'timetable -day' or 'timetable -week' to look at your\n"
+            "Sorry, the lesson you have attempted to add has an @|bold,red,BG_BLACK invalid start/end time|@.\n"
+            + "Try using @|bold,green,BG_BLACK 'timetable -day'|@ or "
+            + "@|bold,green,BG_BLACK 'timetable -week'|@ to look at your\n"
             + "current lessons first, or review your new lesson's start/end time.\n";
     public static final String MESSAGE_LESSON_NOT_FOUND =
-            "Sorry, the lesson you have attempted to delete does not exist.\n"
-            + "Use 'timetable (-week/-day)' to look at your lessons and their index (ID).\n";
+            "Sorry, the lesson you have attempted to delete @|bold,red,BG_BLACK does not exist|@.\n"
+            + "Use @|bold,green,BG_BLACK 'timetable (-week/-day)'|@ to look at your lessons and their index (ID).\n";
     public static final String MESSAGE_LESSON_OVERLAP =
-            "Sorry, the lesson you have attempted to add overlaps with other lessons.\n"
+            "Sorry, the lesson you have attempted to add @|bold,red,BG_BLACK overlaps with other lessons|@.\n"
             + "This is the lesson you're overlapping with: %s\n";
     public static final String MESSAGE_REPEAT_FREQUENCY_UNKNOWN =
-            "Sorry, the lesson you have attempted to add does "
-            + "not have the correct repeatability.\n"
+            "Sorry, the lesson you have attempted to add @|bold,red,BG_BLACK does "
+            + "not have the correct repeatability|@.\n"
             + "For your reference:\n"
             + "0 - This week only\n"
             + "1 - Every week\n"
             + "2 - Every even week\n"
             + "3 - Every odd week\n";
     public static final String TIMETABLE_NOT_INITIALISED =
-            "Please enter a proper week number as instructed.\n";
+            "Sorry, please enter a @|bold,red,BG_BLACK proper week number|@ as instructed.\n";
     public static final String MESSAGE_ADD_TASK_DATE_TIME_UNKNOWN =
-            "Please enter a valid date and time.\n"
+            "Sorry, please enter a @|bold,red,BG_BLACK valid date and time|@.\n"
             + "\tRequired date time format: dd-MM-yyyy HHmm\n"
             + "\tExample: 30-12-2020 1600";
     public static final String MESSAGE_ADD_LESSON_DATE_TIME_UNKNOWN =
-            "Please enter a valid start time and end time.\n"
+            "Sorry, please enter a @|bold,red,BG_BLACK valid start time and end time|@.\n"
             + "\tRequired date time format: HHmm HHmm (start, end)\n"
             + "\tExample: 1800 2000";
     public static final String MESSAGE_INVALID_CAP =
-            "The CAP you entered is invalid.\n";
+            "The CAP you entered is @|bold,red,BG_BLACK invalid|@.\n";
     public static final String MESSAGE_INVALID_CAP_ATTAINED =
-            "The CAP calculated from your input is invalid.\n"
+            "The CAP calculated from your input is @|bold,red,BG_BLACK invalid|@.\n"
             + "Please check if every module has been graded. \n"
-            + "For more information, use 'help cap'.\n";
+            + "For more information, use @|bold,green,BG_BLACK 'help cap'|@.\n";
     public static final String MESSAGE_INVALID_MC =
-            "The number of MCs you entered is invalid.\n"
-            + "For more information, use 'help grade'.\n";
+            "The number of MCs you entered is @|bold,red,BG_BLACK invalid|@.\n"
+            + "For more information, use @|bold,green,BG_BLACK 'help grade'|@.\n";
 
     /*
     

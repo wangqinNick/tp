@@ -2,6 +2,7 @@ package seedu.ravi.command.help;
 
 import seedu.ravi.command.Command;
 import seedu.ravi.command.CommandResult;
+import seedu.ravi.command.ExitCommand;
 import seedu.ravi.command.add.AddCommand;
 import seedu.ravi.command.cap.CapCommand;
 import seedu.ravi.command.delete.DeleteCommand;
@@ -20,8 +21,8 @@ public class HelpCommand extends Command {
     public static final String COMMAND_WORD = "help";
     public static final String FORMAT = COMMAND_WORD + " [<command_word>]";
     public static final String HELP =   "View command information."
-                                        + "\n\tFormat: " + FORMAT
-                                        + "\n\tExample usage: help"
+                                        + "\n\t@|bold,blue,BG_BLACK Format:|@ " + FORMAT
+                                        + "\n\t@|bold,blue,BG_BLACK Example usage:|@ help"
                                         + "\n\t               help add";
 
     public HelpCommand(String commandType) {
@@ -69,6 +70,9 @@ public class HelpCommand extends Command {
             break;
         case SummaryCommand.COMMAND_WORD:
             output = SummaryCommand.HELP;
+            break;
+        case ExitCommand.COMMAND_WORD:
+            output = ExitCommand.HELP;
             break;
         default:
             output = TextUi.getCommandList();

@@ -130,14 +130,6 @@ to return through `parseTimeTableCommand()`. If the `TimeTableCommand` is return
 ### Feature explanation with sequence diagrams
 
 #### Main loop sequence
-When ra.VI runs, there are 3 phases to its lifecycle.
-
-1. Initialisation
-2. Main command loop
-3. Saving and exiting
-
-The main sequence diagram can be broken into three parts representing each of these phases.
-
 ![Sequence diagram 1 for Main loop](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/MainSequenceDiagram.png?raw=true)
 This sequence diagram shows the activity of the main class, `Ravi`. When it starts, it first adds the shutdown hook to
 handle both unexpected and normal shutdowns.
@@ -174,7 +166,6 @@ the starting state) to the stack.
 * If it's currently recess week, the user should input "7".
 * If it's currently after recess week, the user should input the current week number plus one (to account for
 recess week).
-* If it's currently reading week, the user should input "15".
 There is a validation loop to catch invalid user input.
 
 
@@ -694,9 +685,9 @@ Given below are instructions to test the app manually.
     Expected: Due to the fact that there is nothing to undo as there was no user input, details of the associated error message will be shown.
 
 ### Saving data
-**Do note that if you exit the application without entering `bye`, ra.VI will not be able to retrieve any data that was 
-amended during that session.**\
-**Tampering with the files created by ra.VI, through any other application, will also cause it to malfunction and is 
+**Do note that if you exit the application without entering `bye`, ra.VI will still be able to retrieve data that was 
+amended during that session. However, this is not a recommended way to use ra.VI.**\
+**Tampering with the files created by ra.VI, through any other application, may also cause ra.VI to malfunction and is 
 strongly discouraged.**
 1. Add tasks and modules, then exit
     1. Test case: `add -t task 1`, `add -m CS1010`, `bye`\
