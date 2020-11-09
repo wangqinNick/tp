@@ -18,13 +18,14 @@
 &nbsp;&nbsp;[3.3 List Feature](#33-list-feature) <br>
 &nbsp;&nbsp;[3.4 Cap Feature](#34-cap-feature) <br>
 &nbsp;&nbsp;[3.5 Grade Feature](#35-grade-feature) <br>
-&nbsp;&nbsp;[3.6 Timetable Feature](#36-timetable-feature) <br>
-&nbsp;&nbsp;&nbsp;&nbsp;[3.6.1 Add lesson/s to timetable](#361-add-lessons-to-timetable) <br>
-&nbsp;&nbsp;&nbsp;&nbsp;[3.6.2 Delete lesson/s from timetable](#362-delete-lessons-from-timetable) <br>
-&nbsp;&nbsp;&nbsp;&nbsp;[3.6.3 View the timetable](#363-view-the-timetable) <br>
-&nbsp;&nbsp;&nbsp;&nbsp;[3.6.4 Filter the timetable](#364-filter-the-timetable) <br>
-&nbsp;&nbsp;&nbsp;&nbsp;[3.6.5 Reset the timetable](#365-reset-the-timetable) <br>
-&nbsp;&nbsp;&nbsp;&nbsp;[3.7 [Proposed] Notes Feature](#37-proposed-notes-feature) <br>
+&nbsp;&nbsp;[3.6 Undo the Previous Command](#36-undo-feature) <br>
+&nbsp;&nbsp;[3.7 Timetable Feature](#37-timetable-feature) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[3.7.1 Add lesson/s to timetable](#371-add-lessons-to-timetable) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[3.7.2 Delete lesson/s from timetable](#372-delete-lessons-from-timetable) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[3.7.3 View the timetable](#373-view-the-timetable) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[3.7.4 Filter the timetable](#374-filter-the-timetable) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[3.7.5 Reset the timetable](#375-reset-the-timetable) <br>
+&nbsp;&nbsp;[3.8 [Proposed] Notes Feature](#38-proposed-notes-feature) <br>
 [4 Appendix A: Product Scope](#4-appendix-a-product-scope) <br>
 &nbsp;&nbsp;[4.1 Target user profile](#41-target-user-profile) <br>
 &nbsp;&nbsp;[4.2 Value proposition](#42-value-proposition) <br>
@@ -306,15 +307,22 @@ Given below is an example usage scenario and how the list feature behaves at eac
 
 4. The user inputs `list -t`. The `CommandResult` returns  
 ```
-1. Read book [x]
-2. Return book [x], by 02:00PM, Friday, 02 Oct 20 
-3. Meeting [x]
+════════════════════════════════════════════════════════════════════════════════
+Here's your list:
+
+1. return a book [x]
+2. read a book [x], by 07:00PM, Sunday, 02 Feb 2020
+
+════════════════════════════════════════════════════════════════════════════════
 ```
-Step 5. The user inputs `list -m`. The `CommandResult` returns  
+5. The user inputs `list -m`. The `CommandResult` returns  
 ```
-1. CS2113T: Software Engineering & Object-Oriented Programming: No grade yet
-2. CG2271: Real-Time Operating Systems: No grade yet
-3. CS2101: Effective Communication for Computing Professionals: No grade yet
+════════════════════════════════════════════════════════════════════════════════
+Here's your list:
+
+1. CS1010: Programming Methodology (0.0MC) (Grade: No grade yet)
+2. CS3235: Computer Security (0.0MC) (Grade: No grade yet)
+════════════════════════════════════════════════════════════════════════════════
 ```
 
 #### 3.4 CAP Feature 
@@ -369,7 +377,39 @@ with the grade and module credits.
 3. The `CommandResult` returns the success message to show the user that their module has successfully been graded. 
 Otherwise, an exception message will be shown regarding the exception caught.
 
-#### 3.6 Timetable Feature
+<!-- @@author wangqinNick-->
+#### 3.6 Undo Feature
+This feature is facilitated by State and StateManager classes. 
+It extends the abstract Command class and override the execute command.
+
+* `GradeCommand.testgrade(stringGrade)` - checks if the input grade is valid according to NUS grading schematic 
+* `GradeCommand.grade(moduleModule)` - assigns the specific module present in the module list, the grade and moduleCredit attributes.
+
+![Sequence diagram for Undo Feature](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/UndoCommandSequenceDiagram.png?raw=true)
+
+As seen from the sequence diagram above, this is the flow of an Undo command.
+The Parser parses the user's input, and construct the default UndoCommand.
+When the Undo Command object executes, the `undo()` method in the StateManager class will be called.
+In the StateManager, the previous copies of the data are encoded as Json and stored in a stack.
+When the `undo()` is called, the StateManager will pops the top copy in the stack. 
+After that, the StateManager class will notify TaskManager and Module Manager to load from the encoded saved copies. To do that, it will facilitate the load methods, `loadMods()` `loadTasks()` from TaskManager and ModuleManager to set the data.
+
+Given below is an example usage scenario and how the undo feature behaves at each step.
+
+1. The user launches the application. The user inputs `add -m CS2101` into ra.VI, as the user wants to note down 
+a module named ‘CS2101’ and add it to their module list. This input is received by the Ui ,which processes it into 
+a string. The parser parses the string and allocates it to the AddCommand where it is added to the list of modules. 
+
+2. The user finds the module just added is wrong. Thus, he wants to undo the previous `add -m CS2101` command.
+
+3. The user inputs `undo` into ra.VI. The input is received by the Ui, which then passes the input to Parser and parsed to an Undo command.
+
+4. Then the execution process of the Undo command will makes the method calls demonstrate above in the diagram. 
+
+5. More importantly, the Undo command only works for those 'data-changed' operations. Those operations refer to 'add', 'delete', 'edit' commands.
+<!-- @@wangqinNick -->
+
+#### 3.7 Timetable Feature
 This feature is facilitated by the `TimeTableManager` class and `TimeTableCommand` class.
 Extending from the abstract `TimeTableCommand` class are the `TimeTableAddCommand`, `TimeTableDeleteCommand`,
 `TimeTableViewCommand` and `TimeTableResetCommand` classes.
@@ -379,7 +419,7 @@ Extending from the abstract `TimeTableCommand` class are the `TimeTableAddComman
 * View this week's timetable - List all lessons in this week through `TimeTableManager.getSpecifiedWeekLessons()`
 * Reset timetable - Reset the whole timetable through `TimeTableManager.initialiseTimetable()` 
 
-##### 3.61 Add lesson/s to timetable
+##### 3.7.1 Add lesson/s to timetable
 Given below is an example scenario to add a lesson to the timetable and how the timetable feature behaves at each step.
 
 1. The user launches the application for the first time. ra.VI asks for the current NUS week. This input is parsed and 
@@ -403,7 +443,7 @@ e.g. `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 5`
 e.g. `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 1` but the module list does not contain `CS2101`. Available modules can be found by entering `list -m`
 e.g. `timetable -add BAD TUESDAY 0800 1000 LECTURE 1` but the module list does not contain `BAD` and `BAD` is not a valid NUS module.
 
-##### 3.62 Delete lesson/s from timetable
+##### 3.7.2 Delete lesson/s from timetable
 Given below is an example scenario to delete a lesson from the timetable and how the timetable feature behaves at each step.
 
 1. The user launches the application for the first time. ra.VI asks for the current NUS week. This input is parsed 
@@ -429,7 +469,7 @@ e.g. `timetable -del TUE 1`.
 e.g. `timetable -del TUESDAY 5` but the timetable does not contain a lesson/s on `TUESDAY` at index `5`. Current 
 lessons can be found by entering `timetable -day` or `timetable -week`.
 
-##### 3.63 View the timetable
+##### 3.7.3 View the timetable
 Given below is an example scenario to view the timetable for the day.
 
 1. The user adds a lesson to the timetable for today, for e.g. `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 1`.
@@ -439,7 +479,7 @@ Given below is an example scenario to view the timetable for the day.
 3. The timetable for the day is shown to the user. The user is able to see the Tuesday CS2101 lecture that was 
 previously added in step 1.
 
-##### 3.64 Filter the timetable
+##### 3.7.4 Filter the timetable
 Given below is an example scenario to filter the timetable for CS2101 LECTURE.
 
 1. The user adds a lesson to the timetable for today, for e.g. `timetable -add CS2101 TUESDAY 0800 1000 LECTURE 1`.
@@ -451,14 +491,14 @@ Given below is an example scenario to filter the timetable for CS2101 LECTURE.
 * Wrong Command format\
 e.g. `timetable -filter`
 
-##### 3.65 Reset the timetable
+##### 3.7.5 Reset the timetable
 Given below is an example scenario to reset the timetable. 
 
 1. The user inputs `timetable -reset`.  
 
 2. ra.VI will ask for the current NUS week. This input is parsed and re-initialises the `TimeTableManager` with a new `Timetable`. 
 
-### 3.7 [Proposed] Notes Feature
+### 3.8 [Proposed] Notes Feature
 ![Class diagram for Notes Feature in Command class](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/NotesClassDiagram.png?raw=true)
 
 The proposed notes feature is facililated by the NotesManager class and NotesCommand class
@@ -470,21 +510,21 @@ It implements the following operations:
 * `NoteManager.deleteNote()` - Delete a note
 * `NoteManager.viewNote()` - View a particular note
 
-#### 3.7.1 Add notes
+#### 3.8.1 Add notes
 Given below is an example scenario to add a note and how the notes feature behave at each step
 
 Step 1. The user inputs `note -add Orbital Mechanics: Application of ballistics and celestial mechanics`, as the user wants to add a note.
 Step 2. This input is parsed by NotesCommandParser and it returns NotesAddCommand. 
 Step 3. NotesAddCommand is executed, returning a `CommandResult` containing a success message if the note has been added successfully. Otherwise, an exception message will be shown explaining the exception to the user.
 
-#### 3.7.2 Viewing list of notes
+#### 3.8.2 Viewing list of notes
 Given below is an example scenario to view the list of notes and how the notes feature behaves at each step.
 
 Step 1. The user inputs `note -list` as the user wants to view the list of notes.
 Step 2. This input is parsed by NotesCommandParser and it returns NotesListCommand.
 Step 3. NotesListCommand is executed, returning a `CommandResult` containing the list of notes and their indexes. Otherwise, an exception message will be shown explaining the exception to the user. 
 
-#### 3.7.3 Delete a note
+#### 3.8.3 Delete a note
 Given below is an example scenario to delete a note and how the notes feature behaves at each step.
 
 Step 1. The user inputs `note -del 1` as the user wants to delete the note with index 1.
@@ -493,7 +533,7 @@ Step 3. NotesDeleteCommand is executed, returning a `CommandResult` containing a
 
 * Currently available notes and their indexes can be found by entering `notes -list`
 
-#### 3.7.4 View the timetable
+#### 3.8.4 View the timetable
 Given below is an example scenario to view a particular note in the list
 Step 1. The user inputs `note -view 1` as the user wants to view the note with index 1.
 Step 2. This input is parsed by NotesCommandParser and it returns NotesDeleteCommand.
@@ -733,7 +773,7 @@ Given below are instructions to test the app manually.
     will be added to the Module.  
 
 ### 8.7 Undo the previous command
-**Do note that `undo` will only undo the last command that edited the data files, namely commands with a `PromptType` of `EDIT`. Hence, this refers to the addition and deletion of Tasks, Modules and Lessons while excluding `timetable -reset`**
+**Do note that `undo` will only undo the last command that edited the data files, namely commands with a `PromptType` of `EDIT`.**
 1. Undo:
     1. Test case: `undo`, after the user has input `add -t finish work`.\
     Expected: The task `finish work` is added to the task list. As the AddTaskCommand has a `PromptType` of `EDIT`, the addition of the task: `finish work` to the task list will be undone. Details of the successful undo will be shown.
