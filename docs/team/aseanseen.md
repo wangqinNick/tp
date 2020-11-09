@@ -1,12 +1,12 @@
-# Sean Lim Zhi Xiang - Project Portfolio Page
+#### Sean Lim Zhi Xiang - Project Portfolio Page
 
-# CS2113T Project: ra.VI
+#### CS2113T Project: ra.VI
 
 Repository Assistant with a Versatile Interface (ra.VI) is a desktop app for NUS freshmen, helping them manage tasks, deadlines, and their timetable. It is optimized for use via a Command Line Interface (CLI), written in Java and is built to run on Java 11 on Linux, Mac and Windows machines.
 
-## My contributions
+#### My contributions
 
-### Features implemented:
+#### Features implemented:
 
 * **New Feature**: Added the timetable feature [#101](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/101) [#118](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/118)
     * What it does: Allows the user to manage their lessons in their timetable. This includes adding, deleting, viewing and filtering.
@@ -16,19 +16,16 @@ Repository Assistant with a Versatile Interface (ra.VI) is a desktop app for NUS
         * Implemented the parsing of the timetable commands.
             * Used Regex to ensure that only timetable commands with the appropriate format create `TimeTableCommand` objects.
         * Implemented the `TimeTableManager` to handle the lessons from the timetable.
-            * Implemented `TimeTableManager` to contain a hashmap of week number of the year to `LessonManager` objects where each `LessonManager` contained the lessons for a week.\
+            * Implemented `TimeTableManager` to contain `LessonManager` objects where each `LessonManager` contained the lessons for a week.
             `TimeTableManager` creates the number of `LessonManager`(s) based on the number of weeks left in one semester.
-            * Amended by [Jun You](https://ay2021s1-cs2113t-t09-2.github.io/tp/team/f0fz.html) to include a `TimeTable` object instead due to the difficulty faced during saving.
+            * Amended by [Jun You](https://ay2021s1-cs2113t-t09-2.github.io/tp/team/f0fz.html) to include a `TimeTable` object instead.
         * Implemented the commands to add and delete lessons from the timetable.
-            * Created `TimeTableCommand`, `TimeTableAddCommand`, `TimeTableDeleteCommand`.
     * Credits: [Jun You](https://ay2021s1-cs2113t-t09-2.github.io/tp/team/f0fz.html)
 
 * **New Feature**: Added add/delete tasks and modules feature [#17](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/17) [#35](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/35) [#54](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/54)
     * What it does: Allows the user to manage their tasks and modules. This includes adding, deleting and handling of deadlines.
     * Justification: This feature allows students to manage their tasks, deadlines and modules. This allows the student be on top of their tasks and deadlines, while keeping track of the modules they are taking / have taken.
     * Highlights: Implemented with adaptations from my [iP](https://github.com/Aseanseen/ip).
-    * In-depth contribution:
-        * Created `AddTaskCommand`, `AddModuleCommand`, `DeleteTaskCommand`, `DeleteModuleCommand`.
     * Credits: Implemented with adaptations from my [iP](https://github.com/Aseanseen/ip)
 
 * **New Feature**: Added main class and exit command [#40](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/40) [#53](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/53)
@@ -43,12 +40,12 @@ Repository Assistant with a Versatile Interface (ra.VI) is a desktop app for NUS
     * After a successful undo command, show the user the command that was undone. [#241](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/241)
         * Added an ArrayList to the `State` to save the successful command input.
     * Fix checkstyle for many classes. [#145](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/145)
-        * Based on the Java coding standard, I amended `checkstyle.xml` to make it more comprehensive.
+        * Amended `checkstyle.xml` to make it more comprehensive.
     * Added Jansi library
         * Did cosmetic tweaks to add some colors to the application.
         * Credits: Implemented in collaboration with [Jun You](https://ay2021s1-cs2113t-t09-2.github.io/tp/team/f0fz.html)
 
-### Contributions to team-based tasks
+#### Contributions to team-based tasks
 
 * **Project Management**:
 
@@ -66,7 +63,7 @@ Repository Assistant with a Versatile Interface (ra.VI) is a desktop app for NUS
         * Added documentation for the FAQ. [#235](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/235)
         * Added documentation for the `timetable` feature. [#116](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/116)
 
-* **Review/mentoring contributions**:
+* **Review / mentoring contributions**:
 
     * PRs reviewed (with non-trivial review comments): [#242](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/242) [#29](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/29) [#106](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/106) [#44](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/44) [#226](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/226) [#238](https://github.com/AY2021S1-CS2113T-T09-2/tp/pull/238)
     * Reported bugs and suggestions for other teams' tp (examples: [1](https://github.com/Aseanseen/ped/issues), [2](https://github.com/AY2021S1-CS2113T-T09-4/tp/issues/282), [3](https://github.com/AY2021S1-CS2113T-T09-4/tp/issues/289), [4](https://github.com/AY2021S1-CS2113T-T09-4/tp/issues/288))
