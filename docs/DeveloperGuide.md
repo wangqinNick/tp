@@ -737,12 +737,31 @@ strongly discouraged.**
 **Thus, the GUI is currently still a separate branch. The professor asks me to attach the GUI features here to fulfill my contribution to the DG**
 **The following are some features implemented in the GUI branch**
 
+### Top level classes
+
+This is a class diagram of the top-level of ra.Vi GUI version.  
+The classes depicted here are those which are direct dependencies of the main class `Ravi`.  
+The various dependencies of the classes depicted here are not shown to avoid cluttering, and are described in later
+sections.  
+
+![UML class diagram for Main Class](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/MainClassDiagramGUI.png?raw=true)
+
+
 #### Command Family
 
 The Command family of classes in GUI branch are regarded as the supplement for the master branch (CLI).
 The Command family of classes are nearly all derived from the abstract `Command` class, except for
 `CommandResult` and `PromptType`. All `Command` classes belong to the `Command` package. This is shown in the diagram
 below.
+![UML class diagram for Command Family Classes](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/CommandClassDiagramGUI.png?raw=true)
+
+#### Graphical User Interface Features
+The graphical user interface is designed to help user to have a more intuitive concept of the modules and tasks.
+The `MainStage` class implements the `Initializable` class. 
+The DirectoryTree object is created when the `showDirectoryTree()` method is called in the `MainStage` class. 
+The DailyTaskWindow object is created when the `showDailyTask()` method is called in the `MainStage` class.
+
+
     
 
 
