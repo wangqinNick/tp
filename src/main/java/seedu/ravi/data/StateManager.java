@@ -90,12 +90,13 @@ public class StateManager {
         HashMap<String, Module> map = new Gson().fromJson(bufferedReader2, type);
         ModuleManager.loadMods(map);
 
-        Type type2 = new TypeToken<HashMap<Integer, LessonManager>>(){}.getType();
-        HashMap<Integer, LessonManager> map2 = new Gson().fromJson(bufferedReader3, type2);
-        TimeTableManager.getTimeTable().setSemesterMap(map2);
+        Type type2 = new TypeToken<TimeTable>(){}.getType();
+        TimeTable map2 = new Gson().fromJson(bufferedReader3, type2);
+        TimeTableManager.loadTimeTable(map2);
 
         bufferedReader1.close();
         bufferedReader2.close();
+        bufferedReader3.close();
 
         String lastCommand = editTypeCommandArrayList.remove(editTypeCommandArrayList.size() - 1);
         String[] arrOfLastCommand = lastCommand.split("\\s+");
@@ -141,7 +142,7 @@ public class StateManager {
         var gson = new GsonBuilder().create();
         var encodedSavedList = gson.toJson(TaskManager.getTaskList());
         var encodedSavedMap = gson.toJson(ModuleManager.getModulesMap());
-        var encodedSavedTimeTable = gson.toJson(TimeTableManager.getTimeTable().getSemesterMap());
+        var encodedSavedTimeTable = gson.toJson(TimeTableManager.getTimeTable());
         return new State(encodedSavedList, encodedSavedMap, editTypeCommandArrayList, encodedSavedTimeTable);
     }
 
