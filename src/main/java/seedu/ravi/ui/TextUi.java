@@ -10,8 +10,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+import static org.fusesource.jansi.Ansi.ansi;
 import static seedu.ravi.util.ExceptionMessage.EXCEPTION_HEADER;
 import static seedu.ravi.util.ExceptionMessage.MESSAGE_LIST_EMPTY;
 import static seedu.ravi.util.Message.MESSAGE_COMPLETED_TASKLIST;
@@ -69,7 +71,7 @@ public class TextUi {
     public static void outputToUser(String... output) {
         System.out.println(TextHelper.DIV_LINE);
         for (String o : output) {
-            System.out.println(o);
+            System.out.println(ansi().render(o));
         }
         System.out.println(TextHelper.DIV_LINE);
     }
@@ -197,17 +199,15 @@ public class TextUi {
      * Gets the User's input command.
      *
      * @return
-     *  The trimmed user input command
+     *  The trimmed user input command.
+     * @throws NoSuchElementException
+     *  When the user input is ctrl-c.
      */
-    public static String getUserCommand() {
+    public static String getUserCommand() throws NoSuchElementException {
         System.out.println("\n\nCommand: ");
-        System.out.print("⋗\t");
+        System.out.print("»\t");
+
         String userInput = in.nextLine();
-
-        while (TextHelper.isEmptyCheck(userInput)) {
-            userInput = in.nextLine();
-        }
-
         return userInput;
     }
 
@@ -216,8 +216,10 @@ public class TextUi {
      *
      * @return
      *  The current week of year.
+     * @throws NoSuchElementException
+     *  When the user input is ctrl-c.
      */
-    public static int getCurrentWeekNum() {
+    public static int getCurrentWeekNum() throws NoSuchElementException {
         String userInput = in.nextLine().trim();
         return Integer.parseInt(userInput);
     }
@@ -241,7 +243,7 @@ public class TextUi {
      *  The list of available commands
      */
     public static String getCommandHelpMessage(String commandWord) {
-        return String.format("For more information on %s, type `help %s`", commandWord, commandWord);
+        return String.format("For more information on %s, type `help %s`.", commandWord, commandWord);
     }
 }
 

@@ -56,9 +56,9 @@ UndoCommand -|> "{abstract} \n Command"
 IncorrectCommand -|> "{abstract} \n Command"
 "{abstract} \n TimeTableCommand" ---|> "{abstract} \n Command"
 
-"<<Enumeration>> \n PromptType" -* "{abstract} \n Command"
+"<<Enumeration>> \n PromptType" ---* "1" "{abstract} \n Command"
 
-"{abstract} \n Command" -- "0..1" CommandResult
+"{abstract} \n Command" -- CommandResult : returns
 
 "{abstract} \n AddCommand" <|-- AddModuleCommand
 "{abstract} \n AddCommand" <|-- AddTaskCommand

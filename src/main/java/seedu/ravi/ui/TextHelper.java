@@ -33,18 +33,6 @@ public class TextHelper {
     }
 
     /**
-     * Trims spacing and checks if input is empty.
-     *
-     * @param rawInputLine
-     *  The full input from the user
-     * @return
-     *  True if rawInputLine is not empty
-     */
-    public static boolean isEmptyCheck(String rawInputLine) {
-        return rawInputLine.trim().isEmpty();
-    }
-
-    /**
      * Returns a string of the loading status based on the status code.
      * Status parameter is a 4 digit number. First 3 digits are Hundreds: Timetable, Tens: Tasks, Ones: Modules.
      * 0 - Files do not exist, skipping
@@ -72,46 +60,45 @@ public class TextHelper {
             status /= 10; // remove ones digit
             switch (latestCode) {
             case 0:
-                statusMsg = "Skipped (file not found!)";
+                statusMsg = "@|bold,blue,BG_BLACK Skipped (file not found!)|@";
                 break;
             case 1:
-                statusMsg = "Success!";
+                statusMsg = "@|bold,green,BG_BLACK Success!|@";
                 break;
             case 2:
-                statusMsg = "Failed (corrupted file auto-renamed)";
+                statusMsg = "@|bold,red,BG_BLACK Failed (corrupted file auto-renamed)|@";
                 break;
             default:
                 statusMsg = "You shouldn't be here";
                 break;
             }
-            loadingOutcomes += centerString(MAX_WIDTH,
-                    String.format(MESSAGE_LOADING_TEMPLATE, eachItem, statusMsg)) + "\n";
+            loadingOutcomes += centerString(String.format(MESSAGE_LOADING_TEMPLATE, eachItem, statusMsg)) + "\n";
         }
 
         // Now find the NUSMods status, the remaining digit in the status code
         String nusModsStatus;
         switch (status) {
         case 0:
-            nusModsStatus = "Loaded from data directory!";
+            nusModsStatus = "@|bold,green,BG_BLACK Loaded from data directory!|@";
             break;
         case 1:
-            nusModsStatus = "Downloaded latest version!";
+            nusModsStatus = "@|bold,blue,BG_BLACK Downloaded latest version!|@";
             break;
         case 2:
-            nusModsStatus = "No internet - using packaged backup";
+            nusModsStatus = "@|bold,red,BG_BLACK No internet - using packaged backup|@";
             break;
         default:
             nusModsStatus = "You shouldn't be here";
             break;
         }
-        loadingOutcomes += centerString(MAX_WIDTH,
-                String.format(MESSAGE_LOADING_TEMPLATE, "NUSMods", nusModsStatus)) + "\n";
+        loadingOutcomes += centerString(String.format(MESSAGE_LOADING_TEMPLATE, "NUSMods", nusModsStatus)) + "\n";
         return loadingOutcomes;
     }
 
     /**
      * Simple function that returns a string centered in 'width' number of characters.
      * Empty characters (i.e. left/right padding) are spaces.
+     * DOES NOT ACCOUNT for the formatting required by JANSI!
      *
      * @param width
      *  The number of characters for width
@@ -127,6 +114,7 @@ public class TextHelper {
 
     /**
      * Overloaded centerString that defaults width to MAX_WIDTH.
+     * Accounts for the formatting required by JANSI.
      *
      * @param s
      *  The string to be centered
@@ -134,7 +122,16 @@ public class TextHelper {
      *  The centered string
      */
     public static String centerString(String s) {
-        return String.format("%-" + MAX_WIDTH  + "s",
-                String.format("%" + (s.length() + (MAX_WIDTH - s.length()) / 2) + "s", s));
+        String temp = s;
+        if (s.contains("@|")) {
+            // If the string is "a@|...b|@c",
+            String[] splitFrontFormat = s.split("@\\S*\\s+", 0); // this is [a, b|@c]
+            String[] splitBackFormat = splitFrontFormat[1].split("\\|@", 0); // this is [b, c]
+            temp = splitFrontFormat[0] + splitBackFormat[0]
+                    + (splitBackFormat.length == 2 ? splitBackFormat[1] : ""); // Get a + b + c (c might be null)
+        }
+        int numSpaces = (MAX_WIDTH - temp.length()) / 2;
+        String spaces = String.format("%" + numSpaces + "s", "");
+        return spaces + s;
     }
 }
