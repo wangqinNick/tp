@@ -100,6 +100,7 @@ Commands that can be undone:\
 * Done tasks
 * Add / Delete modules
 * Add / Delete lessons to / from the timetable
+* Reset the timetable
 * Edit tasks / modules
 * Grade a module
 
@@ -427,7 +428,7 @@ Your completed task - 'buy new stuff [√]'
 ### 3.9 Undo a command: `undo`
 
 Takes the latest command that affects the data files and revert its changes. See [keywords](#13-keywords) for more details.\
-Requirement: The previous command to be undone must be a command that affects the data files. e.g. [add](#32-adding-an-item-add-opt-args), [del](#34-deleting-an-item-del-opt-args), [edit](#33-editing-an-item-edit-opt-args), [done](#38-mark-as-done-done-task_index), [grade](#36-grade-a-existing-module-grade), [timetable -add](#3112-add-a-lesson-timetable--add), [timetable -del](#3113-delete-a-lesson-timetable--del)
+Requirement: The previous command to be undone must be a command that affects the data files. e.g. [add](#32-adding-an-item-add-opt-args), [del](#34-deleting-an-item-del-opt-args), [edit](#33-editing-an-item-edit-opt-args), [done](#38-mark-as-done-done-task_index), [grade](#36-grade-a-existing-module-grade), [timetable -add](#3112-add-a-lesson-timetable--add), [timetable -del](#3113-delete-a-lesson-timetable--del), [timetable -reset](#3114-reset-the-timetable-timetable--reset)
 Format: `undo`
 
 Example of usage: 
