@@ -26,14 +26,13 @@ package ui {
     }
 }
 
-Ravi .> ui
+Ravi ..> ui
 Ravi ..> Executor
-Ravi ...> data
-Ravi ..> command
 
-Executor ..> parser
-parser ..> command
+Executor ...> data
 Executor ..> command
+Executor .> parser
+parser ...> command
 
 TextUi "1" *-- Scanner
 

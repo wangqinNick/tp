@@ -8,9 +8,6 @@ Work in progress
 ## Setting up
 The following section describes how to set up ra.VI on your own computer.
 
-Testing! I hope this works.
-{: .alert .alert-danger}
-
 ### Software Prerequisites
 
 1. **JDK** 11
@@ -56,9 +53,10 @@ sections.
 The main class holds the main loop. 
 Most classes used by the main class are static in nature and do not need to be instantiated. 
 
-The `Command` and `CommandResult` objects are dependencies of Executor in addition to `Ravi`. `Executor` can be
-viewed as a simple layer of abstraction on top of `Command` and `CommandResult` to facilitate the execution of user
-commands. `Command` is a dependency of `Parser` as `Parser` creates `Command` objects to return to the main loop.
+`Executor` can be viewed as a simple layer of abstraction on top of `Command`, `CommandResult`, `StateManager`,
+`TimeTableManager`, `InputOutputManager` to facilitate the execution of user commands, while reducing the dependencies
+of the main class. `Command` is a dependency of `Parser` as `Parser` creates `Command` objects to return to the main
+loop.
 
 ![Sequence diagram 1 for Main loop](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/MainSequenceDiagram.png?raw=true)
 
@@ -106,14 +104,16 @@ There is a validation loop to catch invalid user input.
 The main loop is contained in the `runCommandLoopUntilExitCommand()` method.
 The main loop follows the following steps:
 1. Get the user input as a string.
-2. Parse the input using `Parser`. `Parser` will return a `Command` object.
-3. Execute the `Command` object with the `execute()` method. This will do the necessary work and return a
+2. Send the user input to `Executor`.
+2. `Executor` parses the input using `Parser` and gets a `Command` object.
+3. It then executes the `Command` object with the `execute()` method. This will do the necessary work and return a
 `CommandResult` object.
-4. If any data was changed, `StateManager` will run `saveState()` to facilitate undo commands, and `InputOutputManager`
-will run `save()` to save all user data as a measure against unexpected shutdowns.
+4. If any data was changed, `Executor` runs `StateManager`'s `saveState()` to facilitate undo commands, and
+`InputOutputManager`'s `save()` to save all user data as a measure against unexpected shutdowns.
 5. Finally, use the `CommandResult` object to show the result of the `Command` to the user using `TextUi`.
 
-Note that the `Command` and `CommandResult` objects are destroyed after use.
+> :exclamation: Note that the `Executor` class wraps the `InputOutputManager` class
+
 
 #### Command Family
 
@@ -226,7 +226,10 @@ to return through `parseTimeTableCommand()`. If the `TimeTableCommand` is return
 
 ----
 
-### Feature explanation
+### Implementation
+
+This section serves to **provide an overview of how certain features are implemented**, not provide a comprehensive
+explanation of all features in ra.VI.
 
 #### Add/Delete Feature
 This feature is facilitated by the `TaskManager`, `ModuleManager` classes.
@@ -454,8 +457,9 @@ Given below is an example scenario to reset the timetable.
 ### [Proposed] Notes Feature
 ![Class diagram for Notes Feature in Command class](https://github.com/AY2021S1-CS2113T-T09-2/tp/blob/master/docs/diagrams/NotesClassDiagram.png?raw=true)
 
-The proposed notes feature is facililated by the NotesManager class and NotesCommand class
-Extending from the abstract NotesCommand class are the NotesAddCommand, NotesListCommand, NotesDeleteCommand, and NotesViewCommand classes. 
+The proposed notes feature is facilitated by the `NotesManager` class and abstract `NotesCommand` class
+Extending from the abstract `NotesCommand` class are the `NotesAddCommand`, `NotesListCommand`, `NotesDeleteCommand`,
+and `NotesViewCommand` classes. 
 
 It implements the following operations:
 * `NotesManager.addNote()` - Add a note
@@ -467,30 +471,34 @@ It implements the following operations:
 Given below is an example scenario to add a note and how the notes feature behave at each step
 
 Step 1. The user inputs `note -add Orbital Mechanics: Application of ballistics and celestial mechanics`, as the user wants to add a note.
-Step 2. This input is parsed by NotesCommandParser and it returns NotesAddCommand. 
-Step 3. NotesAddCommand is executed, returning a `CommandResult` containing a success message if the note has been added successfully. Otherwise, an exception message will be shown explaining the exception to the user.
+Step 2. This input is parsed by `NotesCommandParser` and it returns `NotesAddCommand`. 
+Step 3. `NotesAddCommand` is executed, returning a `CommandResult` containing a success message if the note has been
+added successfully. Otherwise, an error message will be shown explaining the error to the user.
 
 #### Viewing list of notes
 Given below is an example scenario to view the list of notes and how the notes feature behaves at each step.
 
 Step 1. The user inputs `note -list` as the user wants to view the list of notes.
-Step 2. This input is parsed by NotesCommandParser and it returns NotesListCommand.
-Step 3. NotesListCommand is executed, returning a `CommandResult` containing the list of notes and their indexes. Otherwise, an exception message will be shown explaining the exception to the user. 
+Step 2. This input is parsed by `NotesCommandParser` and it returns `NotesListCommand`.
+Step 3. `NotesListCommand` is executed, returning a `CommandResult` containing the list of notes and their indexes.
+Otherwise, an error message will be shown explaining the error to the user. 
 
 #### Delete a note
 Given below is an example scenario to delete a note and how the notes feature behaves at each step.
 
 Step 1. The user inputs `note -del 1` as the user wants to delete the note with index 1.
-Step 2. This input is parsed by NotesCommandParser and it returns NotesDeleteCommand.
-Step 3. NotesDeleteCommand is executed, returning a `CommandResult` containing a success message if the note has been deleted successfully. Otherwise, an exception message will be shown explaining the exception to the user. 
+Step 2. This input is parsed by `NotesCommandParser` and it returns `NotesDeleteCommand`.
+Step 3. `NotesDeleteCommand` is executed, returning a `CommandResult` containing a success message if the note has been
+deleted successfully. Otherwise, an error message will be shown explaining the error to the user. 
 
 * Currently available notes and their indexes can be found by entering `notes -list`
 
 #### View the timetable
 Given below is an example scenario to view a particular note in the list
 Step 1. The user inputs `note -view 1` as the user wants to view the note with index 1.
-Step 2. This input is parsed by NotesCommandParser and it returns NotesDeleteCommand.
-Step 3. NotesViewCommand is executed, returning a `CommandResult` containing a the note if the note has been shown successfully. Otherwise, an exception message will be shown explaining the exception to the user. 
+Step 2. This input is parsed by NotesCommandParser and it returns `NotesDeleteCommand`.
+Step 3. `NotesViewCommand` is executed, returning a `CommandResult` containing the note if the note has been shown
+successfully. Otherwise, an error message will be shown explaining the error to the user. 
 
 ## Appendix A: Product scope
 ### Target user profile
@@ -503,14 +511,15 @@ The target user profile for ra.VI is described by the following:
 * Prefers typing to mouse interactions
 * Reasonably comfortable using CLI apps
 
-### Value proposition
+### Appendix A: Value proposition
 
 A common problem amongst freshmen is the inability to organise all the incoming information.  
 NUS places a focus on taking responsibility for your own learning, so it might be a tough transition from tertiary education.  
 A lot of students miss lessons, assignments, and even exams, just because they're struggling to adapt to the new
 environment.
 
-ra.VI helps students to manage their school-related information in a compact, stripped-down interface that does not bombard them with too much information.  
+ra.VI helps students to manage their school-related information in a compact, stripped-down interface that does not
+bombard them with too much information.  
 When you receive your modules and lessons, simply enter them into ra.VI as they arrive. ra.VI will keep track of all of it
 for you.  
 You can create tasks, give them deadlines, and tag them to certain modules. You can see all of your tasks and deadlines at a glance.  
