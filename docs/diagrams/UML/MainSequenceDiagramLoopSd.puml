@@ -1,22 +1,21 @@
 @startuml
-mainframe sd runCommandLoopUntilExitCommand()
+mainframe sd startCommandLoop()
 
-participant ":Ravi" as Ravi << Class >>
-participant ":TextUi" as Ui << Class >>
 participant ":Executor" as Ex << Class >>
+participant ":TextUi" as Ui << Class >>
 participant ":Parser" as P << Class >>
 participant ":InputOutputManager" as IO << Class >>
 participant ":StateManager" as State << Class >>
 
--> Ravi ++ : runCommandLoopUntilExitCommand()
+-> Ex ++ : startCommandLoop()
 
 loop do while Exit command not received
 
-    Ravi -> Ui ++ : Get user input
+    Ex -> Ui ++ : Get user input
     |||
     return User input string
 
-    Ravi -> Ex ++ : Send user input to be parsed and executed
+    Ex -> Ex ++ : executeCommand()
         Ex -> P ++ : Parse user input
             P -> ":Command" ** : Construct relevant\nCommand
             activate ":Command"
@@ -40,7 +39,7 @@ loop do while Exit command not received
         end opt
     return CommandResult object
 
-    Ravi -> Ui ++ : Show CommandResult to user
+    Ex -> Ui ++ : Show CommandResult to user
     |||
     return
 

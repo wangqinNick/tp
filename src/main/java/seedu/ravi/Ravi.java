@@ -1,17 +1,13 @@
 package seedu.ravi;
 
 import org.fusesource.jansi.AnsiConsole;
-import seedu.ravi.command.CommandResult;
-import seedu.ravi.command.IncorrectCommand;
-import seedu.ravi.data.StateManager;
-import seedu.ravi.data.TimeTableManager;
-import seedu.ravi.data.storage.InputOutputManager;
-import seedu.ravi.exception.NusModsNotLoadedException;
-import seedu.ravi.ui.TextUi;
-
 import java.io.FileNotFoundException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+
+import seedu.ravi.command.IncorrectCommand;
+import seedu.ravi.exception.NusModsNotLoadedException;
+import seedu.ravi.ui.TextUi;
 
 import static seedu.ravi.util.ExceptionMessage.MESSAGE_NUS_MODS_NOT_LOADED;
 import static seedu.ravi.util.Message.MESSAGE_SHUTDOWN;
@@ -47,13 +43,7 @@ public class Ravi {
      */
     private static void start(String[] args) throws NusModsNotLoadedException {
         TextUi.initialiseTextUi(new Scanner(System.in));
-        int loadStatus = InputOutputManager.start();
-        StateManager.initialise();
-        TextUi.showWelcomeMessage(loadStatus);
-        InputOutputManager.saveNusMods();
-        while (!TimeTableManager.isInitialised()) {
-            TimeTableManager.initialiseTimetable();
-        }
+        Executor.initialise();
         logger.getLogger().info("Initialised scanner, UI, and IO");
     }
 
@@ -66,29 +56,13 @@ public class Ravi {
         logger.getLogger().info("STARTING PROGRAM...");
         try {
             start(args);
-            runCommandLoopUntilExitCommand();
+            logger.getLogger().info("ENTERING COMMAND LOOP");
+            Executor.startCommandLoop();
         } catch (NusModsNotLoadedException e) {
             // Show NUSMods not loaded error message if NUSMods not loaded and crash!
             TextUi.showResultToUser(new IncorrectCommand(MESSAGE_NUS_MODS_NOT_LOADED).execute());
         } catch (NoSuchElementException ignored) {
             // User has entered ctrl-c
         }
-    }
-
-    /**
-     * Reads the user command and executes it, until the user issues the exit command.
-     *
-     * @throws NoSuchElementException
-     *  When the user input is ctrl-c.
-     */
-    private static void runCommandLoopUntilExitCommand() throws NoSuchElementException {
-        logger.getLogger().info("ENTERING COMMAND LOOP");
-        CommandResult result;
-        String userInput;
-        do {
-            userInput = TextUi.getUserCommand();
-            result = Executor.executeCommand(userInput); // Saves state too
-            TextUi.showResultToUser(result);
-        } while (!result.isExit);
     }
 }
