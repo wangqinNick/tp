@@ -34,7 +34,7 @@ public class HelpCommandParser {
         Parser.matcherMatches(matcher, parameters, HelpCommand.FORMAT, HelpCommand.HELP);
 
         String helpCommandWord = Parser.isMatcherNull(matcher.group(HCW_GROUP))
-                ? "genericHelp" : matcher.group(HCW_GROUP).trim();
+                ? null : matcher.group(HCW_GROUP).trim();
 
         return new HelpCommand(helpCommandWord);
     }
