@@ -665,7 +665,7 @@ Given below are instructions to test the app manually.
 
 ### Calculating the Accumulated Cap after the current semester
 1. Calculate the Cap:
-    1. Test case: `cap`, where the modules in Module List has already been graded individually.\
+    1. Test case: `cap`, where the modules in module list has already been graded individually.\
     Excepted: Each module in `ModuleManager` will be checked for its `moduleCredit` and `grade`.
     Using the CAP formula, the user's most updated CAP will be calculated and shown to user.
 

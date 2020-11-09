@@ -113,7 +113,7 @@ public class CapCommand extends Command {
             sumMc = SUMMC;
         }
 
-        cap =  sumMcGrade / sumMc;
+        cap = sumMcGrade / sumMc;
 
         if (cap < 0 || cap > 5.0 || isNan(cap)) {
             throw new InvalidCapCalculatedException();
