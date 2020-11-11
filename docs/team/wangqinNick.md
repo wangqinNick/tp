@@ -72,23 +72,6 @@ Repository Assistant with a Versatile Interface (ra.VI) is a desktop app for man
 * **Code contributed**: [RepoSense Link](https://nus-cs2113-ay2021s1.github.io/tp-dashboard/#breakdown=true&search=wangqinNick)
 * **Code contributed For Individual Team Project**: The Graphical User Interface branch. [GUI Branch link](https://github.com/wangqinNick/tp/tree/branch-iptp)
 
-#### Features implemented
-* **For Individual Team Project**:
-* Built the entire `data` package, excluding State and StateManager.
-    * Built the user-based data classes such as `Lesson`, `Module`, `Task`, and their respective "Managers". Also,
-    maintained and made tests for them to ensure reliability.
-    * Created a modular system where each atomic data item (like `Lesson`, `Task`, etc.) are stored in progressively 
-    larger "Managers" (`LessonManager`, etc.) which can be held in even larger "Managers"
-    (i.e. `TimeTableManager` > `TimeTable` > `LessonManager` > `Lesson`).
-* Built the entire `storage` package that allows ra.VI to save and load. Integrated `InputOutputManager`
-into the main codebase for seamless saving and loading when ra.VI starts/exits.
-    * Created a granular and robust system for saving and loading, with multiple fallbacks and comprehensive error
-    handling.
-    * Maintained the package, and was in charge of fixing all bugs for saving and loading.
-    * Was not the one who first implemented FastJSON usage, but took over its implementation and maintenance. Also,
-    did not write the HTTP functions that call the NUSMods API.
-* Implemented the logging feature, which improved our ability to debug ra.VI during the development process.
-
 
 #### Contributions to documentation
 #### Contributions to the DG
