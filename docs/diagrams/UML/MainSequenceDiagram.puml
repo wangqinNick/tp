@@ -1,6 +1,7 @@
 @startuml
 
 participant ":Ravi" as Ravi << Class >>
+participant ":Executor" as Ex << Class >>
 
 create Ravi
 activate Ravi
@@ -10,13 +11,17 @@ return
 |||
 Ravi -> Ravi  ++ : run()
     |||
-        ref over Ravi: start()
+        Ravi -> Ex ++ : Initialise Executor
+            ref over Ex: initialise()
+        Ravi <-- Ex --
         opt Could not load NUSMods
             |||
             <- Ravi : Terminate program here
         end opt
         |||
-        ref over Ravi: runCommandLoopUntilExitCommand()
+        Ravi -> Ex ++ : Start command loop
+            ref over Ex: startCommandLoop()
+        Ravi <-- Ex --
     |||
 return
 

@@ -1,0 +1,42 @@
+@startuml
+mainframe sd <b>Try to load data</b>
+
+participant ":InputOutputManager" as IO << Class >>
+participant ":java.io.File" as File << Class >>
+participant ":Decoder" as Dec << Class >>
+participant ":Manager" as Man << Class >>
+
+-> IO ++ : tryLoad()
+|||
+group try
+    IO -> File ++ : Check file exists
+    IO <-- File -- : Boolean: file exists
+    |||
+    alt if file exists
+        |||
+        IO -> IO ++ : Enter if block
+            IO -> File ++ : Read file
+            IO <-- File -- : File contents as string
+            IO -> Dec ++ : Decode file string
+            IO <-- Dec -- : Instances of X
+            IO -> Man ++ : Save X objects into xManager
+            IO <-- Man --
+        IO <-- IO -- : 'Success' status code
+        |||
+    else if file doesn't exist
+        |||
+        IO -> IO ++ : Enter else block
+        IO <-- IO -- : 'Skipped' status code
+        |||
+    end alt
+    |||
+else catch if file is corrupted
+    |||
+    IO -> IO ++ : Enter catch block
+        IO -> File ++ : Rename the file
+        IO <-- File --
+    IO <-- IO -- : 'Corrupted' status code
+    |||
+end group
+<-- IO -- : Return status code
+@enduml

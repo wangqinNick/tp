@@ -1,0 +1,38 @@
+@startuml
+
+participant ":InputOutputManager" as IO << Class >>
+participant ":java.io.File" as File << Class >>
+
+-> IO ++ : tryLoadX()
+note right : tryLoadMods(),\ntryLoadTasks(),\ntryLoadTimetable()
+|||
+opt if save folder does not exist
+    IO -> File ++ : Make folder
+    |||
+    IO <-- File --
+
+    IO -> IO ++ : tryLoadNusMods()
+    IO <-- IO -- : Status code
+
+    |||
+else if save folder exists
+    IO -> IO ++ : tryLoadMods()
+    ref over IO : Try to load data
+    IO <-- IO -- : Status code
+    |||
+    IO -> IO ++ : tryLoadTasks()
+    ref over IO : Try to load data
+    IO <-- IO -- : Status code
+    |||
+    IO -> IO ++ : tryLoadTimetable()
+    ref over IO : Try to load data
+    IO <-- IO -- : Status code
+    |||
+    IO -> IO ++ : tryLoadNusMods()
+    ref over IO : Try to load NUSMods data
+    IO <-- IO -- : Status code
+end opt
+<-- IO -- : Return status code
+
+
+@enduml
