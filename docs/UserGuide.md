@@ -729,6 +729,7 @@ Example of usage:
 
 ### 6.5 Directory Command  `dir`
 A window will pop out and all module with related tasks will be listed.
+In the new window, user could 
 
 Example of usage: 
 * `dir`
